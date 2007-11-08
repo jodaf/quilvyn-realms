@@ -25,46 +25,47 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 function Realms() {
 
-  if(window.PH35 == null) {
-    alert('The Realms module requires use of the PH35 module');
+  if(window.SRD35 == null) {
+    alert('The Realms module requires use of the SRD35 module');
     return;
   }
 
-  // Define a new rule set w/the same editor and standard viewer as PH35
+  // Define a new rule set w/the same editor and standard viewer as SRD35
   var rules = new ScribeRules('Forgotten Realms');
-  rules.editorElements = PH35.initialEditorElements();
-  PH35.createViewers(rules, PH35.VIEWERS);
-  // Pick up the PH35 rules, w/minor mods for deities and weapons
-  PH35.abilityRules(rules);
-  PH35.raceRules(rules, PH35.LANGUAGES, Realms.RACES);
-  PH35.classRules(rules, PH35.CLASSES);
-  PH35.companionRules(rules, PH35.COMPANIONS);
-  PH35.skillRules(rules, PH35.SKILLS, PH35.SUBSKILLS);
-  PH35.featRules(rules, PH35.FEATS, PH35.SUBFEATS);
-  PH35.descriptionRules(rules, PH35.ALIGNMENTS, Realms.DEITIES, PH35.GENDERS);
-  PH35.equipmentRules
-    (rules, PH35.ARMORS, PH35.GOODIES, PH35.SHIELDS,
-     PH35.WEAPONS.concat(Realms.WEAPONS));
-  PH35.combatRules(rules);
-  PH35.adventuringRules(rules);
-  var saved = PH35.deitiesFavoredWeapons;
-  PH35.deitiesFavoredWeapons = Realms.deitiesFavoredWeapons;
-  PH35.magicRules(rules, PH35.CLASSES, PH35.DOMAINS, PH35.SCHOOLS);
-  PH35.deitiesFavoredWeapons = saved;
+  rules.editorElements = SRD35.initialEditorElements();
+  SRD35.createViewers(rules, SRD35.VIEWERS);
+  // Pick up the SRD35 rules, w/minor mods for deities and weapons
+  SRD35.abilityRules(rules);
+  SRD35.raceRules(rules, SRD35.LANGUAGES, Realms.RACES);
+  SRD35.classRules(rules, SRD35.CLASSES);
+  SRD35.companionRules(rules, SRD35.COMPANIONS);
+  SRD35.skillRules(rules, SRD35.SKILLS, SRD35.SUBSKILLS);
+  SRD35.featRules(rules, SRD35.FEATS, SRD35.SUBFEATS);
+  SRD35.descriptionRules(rules, SRD35.ALIGNMENTS, Realms.DEITIES, SRD35.GENDERS);
+  SRD35.equipmentRules
+    (rules, SRD35.ARMORS, SRD35.GOODIES, SRD35.SHIELDS,
+     SRD35.WEAPONS.concat(Realms.WEAPONS));
+  SRD35.combatRules(rules);
+  SRD35.adventuringRules(rules);
+  var saved = SRD35.deitiesFavoredWeapons;
+  SRD35.deitiesFavoredWeapons = Realms.deitiesFavoredWeapons;
+  SRD35.magicRules(rules, SRD35.CLASSES, SRD35.DOMAINS, SRD35.SCHOOLS);
+  SRD35.deitiesFavoredWeapons = saved;
   // Pick up the DMG rules, if available
-  if(window.DMG35 != null) {
-    DMG35.npcClassRules(rules, DMG35.NPC_CLASSES);
-    DMG35.prestigeClassRules(rules, DMG35.PRESTIGE_CLASSES);
-    DMG35.companionRules(rules, DMG35.COMPANIONS);
+  if(window.SRD35PrestigeNPC != null) {
+    SRD35PrestigeNPC.npcClassRules(rules, SRD35PrestigeNPC.NPC_CLASSES);
+    SRD35PrestigeNPC.prestigeClassRules
+      (rules, SRD35PrestigeNPC.PRESTIGE_CLASSES);
+    SRD35PrestigeNPC.companionRules(rules, SRD35PrestigeNPC.COMPANIONS);
   }
-  // So far, same character creation procedures as PH35
+  // So far, same character creation procedures as SRD35
   rules.defineChoice('preset', 'race', 'experience', 'levels');
-  rules.defineChoice('random', PH35.RANDOMIZABLE_ATTRIBUTES);
-  rules.randomizeOneAttribute = PH35.randomizeOneAttribute;
-  rules.makeValid = PH35.makeValid;
+  rules.defineChoice('random', SRD35.RANDOMIZABLE_ATTRIBUTES);
+  rules.randomizeOneAttribute = SRD35.randomizeOneAttribute;
+  rules.makeValid = SRD35.makeValid;
   // Add Forgotten Realms-specific rules
   Realms.featRules(rules, Realms.FEATS, Realms.SUBFEATS);
-  Realms.magicRules(rules, PH35.CLASSES, Realms.DOMAINS);
+  Realms.magicRules(rules, SRD35.CLASSES, Realms.DOMAINS);
   Realms.prestigeClassRules(rules, Realms.PRESTIGE_CLASSES);
   Realms.raceRules(rules, Realms.RACES);
   // Let Scribe know we're here
@@ -153,7 +154,7 @@ Realms.FEATS = [
   'Mercantile Background:', 'Militia:', 'Mind Over Body:',
   'Pernicious Magic:Metamagic', 'Persistent Spell:Metamagic', 'Resist Poison:',
   'Saddleback:Fighter', 'Shadow Weave Magic:', 'Signature Spell:',
-  'Silver Palm:', 'Smooth Talk:', 'Snake Blook:', 'Spellcasting Prodigy:',
+  'Silver Palm:', 'Smooth Talk:', 'Snake Blood:', 'Spellcasting Prodigy:',
   'Stealthy:', 'Street Smart:', 'Strong Soul:', 'Survivor:', 'Tattoo Focus:',
   'Tenacious Magic:Metamagic', 'Thug:', 'Thunder Twin:', 'Treetopper:',
   'Twin Spell:Metamagic', 'Twin Sword Style:Fighter'
@@ -177,6 +178,7 @@ Realms.RACES = [
   'Tiefling'
 ];
 Realms.SUBFEATS = {
+  'Spellcasting Prodigy':'Cleric/Druid/Sorcerer/Wizard'
 };
 Realms.WEAPONS = [
   'Blade Boot:1d4x2@19', 'Chakram:1d4x3@20r30', 'Claw Bracer:1d4x2@19',
@@ -194,7 +196,7 @@ Realms.spellsSchools = {
   'Cloak Of Dark Power':'Abjuration', 'Create Magic Tatoo':'Conjuration',
   'Darkbolt':'Evocation', 'Elminster\'s Evasion':'Evocation',
   'Fantastic Machine':'Illusion', 'Fire Stride':'Transmutation',
-  'Flashburst':'Evocation', 'Flensing':'Evocation', 'Fate Seal':'Abjuration',
+  'Flashburst':'Evocation', 'Flensing':'Evocation', 'Gate Seal':'Abjuration',
   'Gembomb':'Conjuration', 'Great Shout':'Evocation',
   'Greater Anyspell':'Transmutation', 'Greater Fantastic Machine':'Illusion',
   'Grimwald\'s Graymantle':'Necromancy', 'Lesser Ironguard':'Abjuration',
@@ -231,26 +233,186 @@ Realms.featRules = function(rules, feats, subfeats) {
     var feat = pieces[0];
     var matchInfo;
     var notes;
-
-/*
-  'Arcane Preparation:', 'Arcane Schooling:', 'Artist:', 'Blooded:',
-  'Bloodline Of Fire:', 'Bullheaded:', 'Cosmopolitan:', 'Courteous Magocracy:',
-  'Create Portal:Item Creation', 'Daylight Adaptation:',
-  'Delay Spell:Metamagic', 'Discipline:', 'Education:', 'Ethran:',
-  'Foe Hunter:Fighter', 'Forester:', 'Greater Spell Focus:',
-  'Greater Spell Penetration:', 'Horse Nomad:Fighter:',
-  'Improved Counterspell:', 'Improved Familiar:', 'Innate Spell:',
-  'Inscribe Rune:Item Creation', 'Insidious Magic:Metamagic',
-  'Luck Of Heroes:', 'Magical Artisan:', 'Magical Training:',
-  'Mercantile Background:', 'Militia:', 'Mind Over Body:',
-  'Pernicious Magic:Metamagic', 'Persistent Spell:Metamagic', 'Resist Poison:',
-  'Saddleback:Fighter', 'Shadow Weave Magic:', 'Signature Spell:',
-  'Silver Palm:', 'Smooth Talk:', 'Snake Blook:', 'Spellcasting Prodigy:',
-  'Stealthy:', 'Street Smart:', 'Strong Soul:', 'Survivor:', 'Tattoo Focus:',
-  'Tenacious Magic:Metamagic', 'Thug:', 'Thunder Twin:', 'Treetopper:',
-  'Twin Spell:Metamagic', 'Twin Sword Style:Fighter'
-*/
-
+    if(feat == 'Arcane Preparation') {
+      // TODO
+    } else if(feat == 'Arcane Schooling') {
+      // TODO
+    } else if(feat == 'Artist') {
+      // TODO
+    } else if(feat == 'Blooded') {
+      // TODO
+    } else if(feat == 'Bloodline Of Fire') {
+      // TODO
+    } else if(feat == 'Bullheaded') {
+      // TODO
+    } else if(feat == 'Cosmopolitan') {
+      // TODO
+    } else if(feat == 'Courteous Magocracy') {
+      // TODO
+    } else if(feat == 'Create Portal') {
+      // TODO
+    } else if(feat == 'Daylight Adaptation') {
+      // TODO
+    } else if(feat == 'Delay Spell') {
+      // TODO
+    } else if(feat == 'Discipline') {
+      // TODO
+    } else if(feat == 'Education') {
+      // TODO
+    } else if(feat == 'Ethran') {
+      // TODO
+    } else if(feat == 'Foe Hunter') {
+      // TODO
+    } else if(feat == 'Forester') {
+      // TODO
+    } else if(feat == 'Greater Spell Focus') {
+      // TODO
+    } else if(feat == 'Greater Spell Penetration') {
+      // TODO
+    } else if(feat == 'Horse Nomad') {
+      // TODO
+    } else if(feat == 'Improved Counterspell') {
+      // TODO
+    } else if(feat == 'Improved Familiar') {
+      // TODO
+    } else if(feat == 'Innate Spell') {
+      // TODO
+    } else if(feat == 'Inscribe Rune') {
+      // TODO
+    } else if(feat == 'Insidious Magic') {
+      // TODO
+    } else if(feat == 'Luck Of Heroes') {
+      // TODO
+    } else if(feat == 'Magical Artisan') {
+      // TODO
+    } else if(feat == 'Magical Training') {
+      // TODO
+    } else if(feat == 'Mercantile Background') {
+      // TODO
+    } else if(feat == 'Militia') {
+      // TODO
+    } else if(feat == 'Mind Over Body') {
+      // TODO
+    } else if(feat == 'Pernicious Magic') {
+      // TODO
+    } else if(feat == 'Persistent Spell') {
+      // TODO
+    } else if(feat == 'Resist Poison') {
+      // TODO
+    } else if(feat == 'Saddleback') {
+      // TODO
+    } else if(feat == 'Shadow Weave Magic') {
+      // TODO
+    } else if(feat == 'Signature Spell') {
+      notes = [
+        'magicNotes.signatureSpellFeature:' +
+          'Convert arcane spells into specified mastered spell',
+        'validationNotes.signatureSpellFeatFeatures:Requires Spell Mastery'
+      ];
+    } else if(feat == 'Silver Palm') {
+      notes = [
+        'sanityNotes.silverPalmFeatSkills:Requires Appraisal||Bluff',
+        'skillNotes.silverPalmFeature:+2 Appraisal/Bluff'
+      ];
+    } else if(feat == 'Smooth Talk') {
+      notes = [
+        'sanityNotes.smoothTalkFeatSkills:Requires Diplomacy||Sense Motive',
+        'skillNotes.smoothTalkFeature:+2 Diplomacy/Sense Motive'
+      ];
+    } else if(feat == 'Snake Blood') {
+      notes = [
+        'saveNotes.snakeBloodFeature:+1 Reflex/+2 poison'
+      ];
+      rules.defineRule('save.Reflex', 'saveNotes.snakeBloodFeature', '+', '1');
+      rules.defineRule
+        ('resistance.Poison', 'saveNotes.snakeBloodFeature', '+=', '2');
+    } else if((matchInfo =
+               feat.match(/^Spellcasting Prodigy \((.*)\)$/)) != null) {
+      var klass = matchInfo[1];
+      var klassNoSpace = klass.replace(/ /g, '');
+      var note = 'magicNotes.spellcastingProdigy(' + klassNoSpace + ')Feature';
+      notes = [
+        note + ':+1 spell DC',
+        'sanityNotes.spellcastingProdigy('+klassNoSpace+')FeatCasterLevel:' +
+          'Requires Caster Level >= 1'
+      ];
+      rules.defineRule('spellDifficultyClass.' + klass, note, '+', '1');
+    } else if(feat == 'Stealthy') {
+      notes = [
+        'sanityNotes.stealthyFeatSkills:Requires Hide||Move Silently',
+        'skillNotes.stealthyFeature:+2 Hide/Move Silently Information'
+      ];
+    } else if(feat == 'Street Smart') {
+      notes = [
+        'sanityNotes.stealthyFeatSkills:Requires Bluff|Gather Information',
+        'skillNotes.streetSmartFeature:+2 Bluff/Gather Information'
+      ];
+    } else if(feat == 'Strong Soul') {
+      notes = [
+        'saveNotes.strongSoulFeature:+1 Fortitude/Will and +2 draining/death'
+      ];
+      rules.defineRule
+        ('save.Fortitude', 'saveNotes.strongSoulFeature', '+', '1');
+      rules.defineRule
+        ('save.Will', 'saveNotes.strongSoulFeature', '+', '1');
+    } else if(feat == 'Survivor') {
+      notes = [
+        'saveNotes.survivorFeature:+1 Fortitude',
+        'skillNotes.survivorFeature:+2 Survival'
+      ];
+      rules.defineRule('save.Fortitude', 'saveNotes.survivorFeature', '+', '1');
+    } else if(feat == 'Tattoo Focus') {
+      notes = [
+        'magicNotes.tattooFocusFeature:' +
+          '+1 DC/+1 caster level vs. resistance w/specialization school spells',
+        'validationNotes.tattooFocusMagic:Requires magic school specialization'
+      ];
+      rules.defineRule('validationNotes.tattooFocusMagic',
+        'feats.Tattoo Focus', '=', '-1',
+        /^specialize\./, '+', '1',
+        '', 'v', '0'
+      );
+    } else if(feat == 'Tenacious Magic') {
+      notes = [
+        'magicNotes.tenaciousMagicFeature:' +
+          'Foe requires DC %V to dispel weave magic spell',
+        'sanityNotes.tenaciousMagicFeatCasterLevel:Requires Caster Level >= 1',
+        'validationNotes.tenaciousMagicFeatFeatures:Requires Shadow Weave Magic'
+      ];
+      rules.defineRule
+        ('magicNotes.tenaciousMagicFeature', 'casterLevel', '=', '15 + source');
+    } else if(feat == 'Thug') {
+      notes = [
+        'combatNotes.thugFeature:+2 Initiative',
+        'skillNotes.thugFeature:+2 Intimidate'
+      ];
+      rules.defineRule('initiative', 'combatNotes.thugFeature', '+', '2');
+    } else if(feat == 'Thunder Twin') {
+      notes = [
+        'abilityNotes.thunderTwinFeature:+2 charisma checks',
+        'skillNotes.thunderTwinFeature:' +
+          'DC 15 Intuit Direction to determine direction of twin',
+        'validationNotes.thunderTwinFeatRace:' +
+          'Requires Race =~ Gold Dwarf|Shield Dwarf'
+      ];
+    } else if(feat == 'Treetopper') {
+      notes = [
+        'sanityNotes.treetopperFeatureSkills:Requires Climb',
+        'skillNotes.treetopperFeature:+2 Climb'
+      ];
+    } else if(feat == 'Twin Spell') {
+      notes = [
+        'magicNotes.twinSpellFeature:Spell affect as if two spells cast',
+        'sanityNotes.twinSpellFeatCasterLevel:Requires Caster Level >= 1'
+      ];
+    } else if(feat == 'Twin Sword Style') {
+      notes = [
+        'combatNotes.twinSwordStyleFeature:' +
+          '+2 AC vs. designated foe when using two swords',
+        'validationNotes.twinSwordStyleFeature:Requires Two Weapon Fighting'
+      ];
+    } else
+      continue;
     rules.defineChoice('feats', feat + ':' + pieces[1]);
     rules.defineRule('features.' + feat, 'feats.' + feat, '=', null);
     if(notes != null)
@@ -262,6 +424,55 @@ Realms.featRules = function(rules, feats, subfeats) {
 Realms.magicRules = function(rules, classes, domains) {
 
   var schools = rules.getChoices('schools');
+
+  for(var i = 0; i < classes.length; i++) {
+    var klass = classes[i];
+    var spells;
+    if(klass == 'Bard') {
+      spells = [
+        'B2:Eagle\'s Splendor',
+        'B3:Analyze Portal',
+        'B6:Gate Seal:Great Shout'
+      ];
+    } else if(klass == 'Cleric') {
+      spells = [
+        'C6:Gate Seal'
+      ];
+    } else if(klass == 'Druid') {
+      spells = [
+        'D6:Gate Seal'
+      ];
+    } else if(klass == 'Sorcerer' || klass == 'Wizard') {
+      // Identical spell lists
+      spells = [
+        'W1:Scatterspray',
+        'W2:Aganazzar\'s Scorcher:Claws Of Darkness:Create Magic Tatoo:' +
+        'Eagle\'s Splendor:Shadow Mask:Shadow Spray:Snilloc\'s Snowball Swarm',
+        'W3:Analyze Portal:Blacklight:Flashburst',
+        'W4:Fire Stride:Thunderlance',
+        'W5:Grimwald\'s Graymantle:Lesser Ironguard',
+        'W6:Gate Seal',
+        'W8:Flensing:Great Shout',
+        'W9:Elminster\'s Evasion'
+      ];
+    }
+    if(spells != null) {
+      for(var j = 0; j < spells.length; j++) {
+        var pieces = spells[j].split(':');
+        for(var k = 1; k < pieces.length; k++) {
+          var spell = pieces[k];
+          var school = Realms.spellsSchools[spell];
+          if(school == null && (school = SRD35.spellsSchools[spell]) == null) {
+            alert("Reject unknown spell '" + spell + "'");
+            continue;
+          }
+          spell += '(' + pieces[0] + ' ' +
+                    (school == 'Universal' ? 'None' : schools[school]) + ')';
+          rules.defineChoice('spells', spell);
+        }
+      }
+    }
+  }
 
   for(var i = 0; i < domains.length; i++) {
     var domain = domains[i];
@@ -666,7 +877,7 @@ Realms.magicRules = function(rules, classes, domains) {
         var spell = spells[j];
         var school = Realms.spellsSchools[spell];
         if(school == null) {
-          school = PH35.spellsSchools[spell];
+          school = SRD35.spellsSchools[spell];
         }
         if(school == null) {
           continue;
@@ -720,6 +931,8 @@ Realms.raceRules = function(rules, races) {
 
     var adjustment, features, notes;
     var race = races[i];
+    var raceNoSpace =
+      race.substring(0,1).toLowerCase() + race.substring(1).replace(/ /g, '');
 
     if(race == 'Gold Dwarf') {
       adjustment = '+2 constitution/-2 dexterity';
@@ -760,7 +973,7 @@ Realms.raceRules = function(rules, races) {
         'grayDwarfFeatures.Level Adjustment', '=', '-2'
       );
       rules.defineRule('featureNotes.darkvisionFeature',
-        'grayDwarfFeatures.Darkvision', '^=', '120'
+        'grayDwarfFeatures.Darkvision', '+=', '120'
       );
       rules.defineRule('level',
         'abilityNotes.levelAdjustmentFeature', '+', null,
@@ -801,7 +1014,7 @@ Realms.raceRules = function(rules, races) {
         'drowFeatures.Level Adjustment', '=', '-2'
       );
       rules.defineRule('featureNotes.darkvisionFeature',
-        'drowElfFeatures.Darkvision', '^=', '120'
+        'drowElfFeatures.Darkvision', '+=', '120'
       );
       rules.defineRule('level',
         'abilityNotes.levelAdjustmentFeature', '+', null,
@@ -874,7 +1087,7 @@ Realms.raceRules = function(rules, races) {
       rules.defineRule
         ('armorClass', 'combatNotes.exceptionalDodgeFeature', '+', '4');
       rules.defineRule('featureNotes.darkvisionFeature',
-        'deepGnomeFeatures.Darkvision', '^=', '120'
+        'deepGnomeFeatures.Darkvision', '+=', '120'
       );
       rules.defineRule('level',
         'abilityNotes.levelAdjustmentFeature', '+', null,
@@ -942,7 +1155,7 @@ Realms.raceRules = function(rules, races) {
         'aasimarFeatures.Level Adjustment', '=', '-1'
       );
       rules.defineRule('featureNotes.darkvisionFeature',
-        'aasimarFeatures.Darkvision', '^=', '60'
+        'aasimarFeatures.Darkvision', '+=', '60'
       );
       rules.defineRule('level',
         'abilityNotes.levelAdjustmentFeature', '+', null,
@@ -972,7 +1185,7 @@ Realms.raceRules = function(rules, races) {
         'airGenasiFeatures.Level Adjustment', '=', '-1'
       );
       rules.defineRule('featureNotes.darkvisionFeature',
-        'airGenasiFeatures.Darkvision', '^=', '60'
+        'airGenasiFeatures.Darkvision', '+=', '60'
       );
       rules.defineRule('level',
         'abilityNotes.levelAdjustmentFeature', '+', null,
@@ -1012,7 +1225,7 @@ Realms.raceRules = function(rules, races) {
         'earthGenasiFeatures.Level Adjustment', '=', '-1'
       );
       rules.defineRule('featureNotes.darkvisionFeature',
-        'earthGenasiFeatures.Darkvision', '^=', '60'
+        'earthGenasiFeatures.Darkvision', '+=', '60'
       );
       rules.defineRule('level',
         'abilityNotes.levelAdjustmentFeature', '+', null,
@@ -1052,7 +1265,7 @@ Realms.raceRules = function(rules, races) {
         'fireGenasiFeatures.Level Adjustment', '=', '-1'
       );
       rules.defineRule('featureNotes.darkvisionFeature',
-        'fireGenasiFeatures.Darkvision', '^=', '60'
+        'fireGenasiFeatures.Darkvision', '+=', '60'
       );
       rules.defineRule('level',
         'abilityNotes.levelAdjustmentFeature', '+', null,
@@ -1096,7 +1309,7 @@ Realms.raceRules = function(rules, races) {
         'waterGenasiFeatures.Swim', '=', '30'
       );
       rules.defineRule('featureNotes.darkvisionFeature',
-        'waterGenasiFeatures.Darkvision', '^=', '60'
+        'waterGenasiFeatures.Darkvision', '+=', '60'
       );
       rules.defineRule('level',
         'abilityNotes.levelAdjustmentFeature', '+', null,
@@ -1137,7 +1350,7 @@ Realms.raceRules = function(rules, races) {
         'tieflingFeatures.Level Adjustment', '=', '-1'
       );
       rules.defineRule('featureNotes.darkvisionFeature',
-        'tieflingFeatures.Darkvision', '^=', '60'
+        'tieflingFeatures.Darkvision', '+=', '60'
       );
       rules.defineRule('level',
         'abilityNotes.levelAdjustmentFeature', '+', null,
@@ -1151,7 +1364,7 @@ Realms.raceRules = function(rules, races) {
     } else
       continue;
 
-    PH35.defineRace(rules, race, adjustment, features);
+    SRD35.defineRace(rules, race, adjustment, features);
     if(notes != null) {
       rules.defineNote(notes);
     }
