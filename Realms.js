@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.4 2007/11/08 14:22:32 Jim Exp $ */
+/* $Id: Realms.js,v 1.5 2007/11/27 00:10:59 Jim Exp $ */
 
 /*
 Copyright 2005, James J. Hayes
@@ -43,17 +43,14 @@ function Realms() {
   SRD35.companionRules(rules, SRD35.COMPANIONS);
   SRD35.skillRules(rules, SRD35.SKILLS, SRD35.SUBSKILLS);
   SRD35.featRules(rules, SRD35.FEATS, SRD35.SUBFEATS);
-  SRD35.descriptionRules(rules, SRD35.ALIGNMENTS, Realms.DEITIES, SRD35.GENDERS);
+  SRD35.descriptionRules
+    (rules, SRD35.ALIGNMENTS, Realms.DEITIES, SRD35.GENDERS);
   SRD35.equipmentRules
     (rules, SRD35.ARMORS, SRD35.GOODIES, SRD35.SHIELDS,
      SRD35.WEAPONS.concat(Realms.WEAPONS));
   SRD35.combatRules(rules);
   SRD35.adventuringRules(rules);
-  var saved = SRD35.deitiesFavoredWeapons;
-  SRD35.deitiesFavoredWeapons = Realms.deitiesFavoredWeapons;
   SRD35.magicRules(rules, SRD35.CLASSES, SRD35.DOMAINS, SRD35.SCHOOLS);
-  SRD35.deitiesFavoredWeapons = saved;
-  // Pick up the DMG rules, if available
   if(window.SRD35PrestigeNPC != null) {
     SRD35PrestigeNPC.npcClassRules(rules, SRD35PrestigeNPC.NPC_CLASSES);
     SRD35PrestigeNPC.prestigeClassRules
@@ -144,22 +141,23 @@ Realms.DOMAINS = [
   'Suffering', 'Time', 'Trade', 'Tyranny', 'Undeath'
 ];
 Realms.FEATS = [
+  // Identical to SRD: Greater Spell Penetration, Improved Counterspell
   'Arcane Preparation:', 'Arcane Schooling:', 'Artist:', 'Blooded:',
   'Bloodline Of Fire:', 'Bullheaded:', 'Cosmopolitan:', 'Courteous Magocracy:',
   'Create Portal:Item Creation', 'Daylight Adaptation:',
   'Delay Spell:Metamagic', 'Discipline:', 'Education:', 'Ethran:',
   'Foe Hunter:Fighter', 'Forester:', 'Greater Spell Focus:',
-  'Greater Spell Penetration:', 'Horse Nomad:Fighter:',
-  'Improved Counterspell:', 'Improved Familiar:', 'Innate Spell:',
-  'Inscribe Rune:Item Creation', 'Insidious Magic:Metamagic',
-  'Luck Of Heroes:', 'Magical Artisan:', 'Magical Training:',
-  'Mercantile Background:', 'Militia:', 'Mind Over Body:',
-  'Pernicious Magic:Metamagic', 'Persistent Spell:Metamagic', 'Resist Poison:',
-  'Saddleback:Fighter', 'Shadow Weave Magic:', 'Signature Spell:',
-  'Silver Palm:', 'Smooth Talk:', 'Snake Blood:', 'Spellcasting Prodigy:',
-  'Stealthy:', 'Street Smart:', 'Strong Soul:', 'Survivor:', 'Tattoo Focus:',
-  'Tenacious Magic:Metamagic', 'Thug:', 'Thunder Twin:', 'Treetopper:',
-  'Twin Spell:Metamagic', 'Twin Sword Style:Fighter'
+  'Horse Nomad:Fighter:', 'Improved Familiar:', 'Innate Spell:',
+  'Inscribe Rune:Item Creation',
+  'Insidious Magic:Metamagic', 'Luck Of Heroes:', 'Magical Artisan:',
+  'Magical Training:', 'Mercantile Background:', 'Militia:', 'Mind Over Body:',
+  'Pernicious Magic:Metamagic', 'Persistent Spell:Metamagic',
+  'Resist Poison Feat:', 'Saddleback:Fighter', 'Shadow Weave Magic:',
+  'Signature Spell:', 'Silver Palm:', 'Smooth Talk:', 'Snake Blood:',
+  'Spellcasting Prodigy:', 'Stealthy:', 'Street Smart:', 'Strong Soul:',
+  'Survivor:', 'Tattoo Focus:', 'Tenacious Magic:Metamagic', 'Thug:',
+  'Thunder Twin:', 'Treetopper:', 'Twin Spell:Metamagic',
+  'Twin Sword Style:Fighter'
 ];
 Realms.LANGUAGES = [
   'Aglarondan', 'Alzhedo', 'Chessentan', 'Chondathan', 'Chultan', 'Damaran',
@@ -236,75 +234,262 @@ Realms.featRules = function(rules, feats, subfeats) {
     var matchInfo;
     var notes;
     if(feat == 'Arcane Preparation') {
-      // TODO
+      notes = [
+        'magicNotes.arcanePreparationFeature:' +
+          'Prepare arcane spell ahead of time',
+        'validationNotes.arcanePreparationFeatClass:Requires Bard||Sorcerer'
+      ];
     } else if(feat == 'Arcane Schooling') {
-      // TODO
+      notes = [
+        'magicNotes.arcaneSchoolingFeature:Designated arcane class is favored'
+      ];
     } else if(feat == 'Artist') {
-      // TODO
+      notes = [
+        'sanityNotes.artistFeatSkills:Requires Perform||Craft',
+        'skillNotes.artistFeature:+2 all Perform/designated Craft'
+      ];
+      rules.defineRule('sanityNotes.artistFeatSkills',
+        'feats.Artist', '=', '-1',
+        /^skills.Craft \(/, '+', '1',
+        /^skills.Perform/, '+', '1',
+        '', 'v', 0
+      );
+      rules.defineRule(/^skills.Perform/, 'skillNotes.artistFeature', '+', '2');
     } else if(feat == 'Blooded') {
-      // TODO
+      notes = [
+        'combatNotes.bloodedFeature:+2 Initiative',
+        'skillNotes.bloodedFeature:+2 Spot'
+      ];
+      rules.defineRule('initiative', 'combatNotes.bloodedFeature', '+', '2');
     } else if(feat == 'Bloodline Of Fire') {
-      // TODO
+      notes = [
+        'magicNotes.bloodlineOfFireFeature:+2 DC Sorcerer fire spells',
+        'saveNotes.bloodlineOfFileFeature:+4 fire spells'
+      ];
+      rules.defineRule
+        ('magicNotes.bloodlineOfFireFeature', 'levels.Sorcerer', '?', null);
+      rules.defineRule
+        ('resistance.Fire', 'saveNotes.bloodlineOfFireFeature', '+=', '4');
     } else if(feat == 'Bullheaded') {
-      // TODO
+      notes = [
+        'saveNotes.bullheadedFeature:+1 Will',
+        'skillNotes.bullheadedFeature:+2 Intimidate'
+      ];
+      rules.defineRule('save.Will', 'skillNotes.bullheadedFeature', '+', '2');
     } else if(feat == 'Cosmopolitan') {
-      // TODO
+      notes = [
+        'skillNotes.cosmopolitanFeature:' +
+          'Designated skill is class skill/+2 checks'
+      ];
     } else if(feat == 'Courteous Magocracy') {
-      // TODO
+      notes = [
+        'sanityNotes.courteousMagocracyFeatSkills:' +
+          'Requires Diplomacy||Spellcraft',
+        'skillNotes.courteousMagocracyFeature:+2 Diplomacy/Spellcraft'
+      ];
     } else if(feat == 'Create Portal') {
-      // TODO
+      notes = [
+        'magicNotes.createPortalFeature:Create magical portal',
+        'validationNotes.createPortalFeatFeatures:Requires Craft Wondrous Item'
+      ];
     } else if(feat == 'Daylight Adaptation') {
-      // TODO
+      notes = [
+        'featureNotes.daylightAdaptationFeature:No daylight penalties',
+        'validationNotes.daylightAdaptationFeatRace:' +
+          'Requires Race =~ Drow|Gray Dwarf|Orc'
+      ];
     } else if(feat == 'Delay Spell') {
-      // TODO
+      notes = [
+        'magicNotes.delaySpellFeature:Delay effect of spell 1-5 rounds',
+        'sanityNotes.delaySpellFeatCasterLevel:Requires Caster Level >= 1',
+        'validationNotes.delaySpellFeatFeatures:Requires any Metamagic'
+      ];
+      rules.defineRule('validationNotes.delaySpellFeatFeatures',
+        // NOTE: Metamagic feat names all end in 'Spell|Magic'
+        /^features\..*(Spell|Magic)$/, '+', '1',
+        '', 'v', '0'
+      );
     } else if(feat == 'Discipline') {
-      // TODO
+      notes = [
+        'saveNotes.disciplineFeature:+1 Will',
+        'skillNotes.disciplineFeature:+2 Concentration'
+      ];
+      rules.defineRule('saves.Will', 'saveNotes.disciplineFeature', '+', '1');
     } else if(feat == 'Education') {
-      // TODO
+      notes = [
+        'skillNotes.educationFeature:' +
+          'All Knowledge skills class skills/+1 any 2 Knowledge skills'
+      ];
+      rules.defineRule
+        (/^classSkills\.Knowledge/, 'skillNotes.educationFeature', '=', '1');
     } else if(feat == 'Ethran') {
-      // TODO
+      notes = [
+        'abilityNotes.ethranFeature:+2 charisma w/Rashemi',
+        // TODO +2 Animal Empathy/Intuit Direction (SRD3.0 skills)
+        'validationNotes.ethranFeatAbility:Requires Charisma >= 11',
+        'validationNotes.ethranFeatCasterLevel:Requires Caster Level >= 1',
+        'validationNotes.ethranFeatGender:Requires Gender == Female'
+      ];
     } else if(feat == 'Foe Hunter') {
-      // TODO
+      notes = [
+        'combatNotes.foeHunterFeature:' +
+          '+1 damage/double critical range w/regional foe'
+      ];
     } else if(feat == 'Forester') {
-      // TODO
-    } else if(feat == 'Greater Spell Focus') {
-      // TODO
-    } else if(feat == 'Greater Spell Penetration') {
-      // TODO
+      // Identical to SRD Self-Sufficient
+      notes = [
+        'sanityNotes.foresterFeatSkills:Requires Heal||Survival',
+        'skillNotes.foresterFeature:+2 Heal/Survival'
+      ];
+    } else if((matchInfo = feat.match(/^Spell Focus \((.*)\)$/)) != null) {
+      // Identical to SRD, but +3 DC instead of +1
+      var school = matchInfo[1];
+      var schoolNoSpace = school.replace(/ /g, '');
+      var note = 'magicNotes.spellFocus(' + schoolNoSpace + ')Feature';
+      notes = [
+        note + ':+3 DC on ' + school + ' spells',
+        'sanityNotes.spellFocus(' + schoolNoSpace + ')FeatCasterLevel:' +
+          'Requires Caster Level >= 1'
+      ];
     } else if(feat == 'Horse Nomad') {
-      // TODO
-    } else if(feat == 'Improved Counterspell') {
-      // TODO
+      notes = [
+        'combatNotes.horseNomadFeature:' +
+          'Martial Weapon Proficiency (Composite Shortbow)',
+        'sanityNotes.horseNomadFeatSkills:Requires Ride',
+        'skillNotes.horseNomadFeature:+2 Ride'
+      ];
+      rules.defineRule(
+        'features.Martial Weapon Proficiency (Composite Shortbow)',
+        'combatNotes.horseNomadFeature', '=', '1'
+      );
     } else if(feat == 'Improved Familiar') {
-      // TODO
+      notes = [
+        'featureNotes.improvedFamiliarFeature:Expanded Familiar choices',
+        'validationNotes.improvedFamiliarFeatFeatures:Requires Summon Familiar'
+      ];
     } else if(feat == 'Innate Spell') {
-      // TODO
+      notes = [
+        'magicNotes.innateSpellFeature:' +
+          'Use designated spells as spell-like ability 1/round',
+        'validationNotes.innateSpellFeatFeatures:' +
+          'Requires Quicken Spell/Silent Spell/Still Spell'
+      ];
     } else if(feat == 'Inscribe Rune') {
-      // TODO
+      notes = [
+        'magicNotes.inscribeRuneFeature:Cast divine spell via rune',
+        'validationNotes.inscribeRuneFeatAbility:Requires Intelligence >= 13',
+        'validationNotes.inscribeRuneFeatCasterLevel:' +
+          'Requires Caster Level Divine >= 3',
+        'validationNotes.inscribeRuneFeatSkills:' +
+          'Requires appropriate Craft skill'
+      ];
+      rules.defineRule('validationNotes.incribeRuneFeatSkills',
+        'feats.Inscribe Rune', '=', '-1',
+        /^skills.Craft \(/, '+', '1',
+        '', 'v', '0'
+      );
     } else if(feat == 'Insidious Magic') {
-      // TODO
+      notes = [
+        'magicNotes.insidiousMagicFeature:' +
+          'DC 9+foe level check to detect Weave magic/Foe DC %V check to ' +
+          'detect Shadow Weave spell',
+        'validationNotes.insidiousMagicFeatFeatures:Requires Shadow Weave Magic'
+      ];
     } else if(feat == 'Luck Of Heroes') {
-      // TODO
+      notes = ['saveNotes.luckOfHeroesFeature:+1 all saves'];
+      rules.defineRule
+        ('save.Fortitude', 'saveNotes.luckOfHeroesFeature', '+', '1');
+      rules.defineRule
+        ('save.Reflex', 'saveNotes.luckOfHeroesFeature', '+', '1');
+      rules.defineRule('save.Will', 'saveNotes.luckOfHeroesFeature', '+', '1');
     } else if(feat == 'Magical Artisan') {
-      // TODO
+      notes = [
+        'magicNotes.magicalArtisanFeature:' +
+          'Reduce item creation base price by 25%',
+        'sanityNotes.magicalArtisanFeatCasterLevel:Requires Caster Level >= 1',
+        'validationNotes.magicalArtisanFeatFeatures:Requires any Item Creation'
+      ];
+      rules.defineRule('validationNotes.magicalArtisanFeatFeats',
+        'feats.Magical Artisan', '=', '0', // TODO any Item Creation
+        '', 'v', '0'
+      );
     } else if(feat == 'Magical Training') {
-      // TODO
+      notes = [
+        'magicNotes.magicalTrainingFeature:' +
+          '<i>Dancing Lights</i>/<i>Daze</i>/<i>Mage Hand</i> 1/day',
+        'validationNotes.magicalTrainingFeatAbility:Requires Intelligence >= 10'
+      ];
     } else if(feat == 'Mercantile Background') {
-      // TODO
+      notes = [
+        'sanityNotes.mercantileBackgroundFeatSkills:' +
+          'Requires Appraise||Craft||Profession',
+        'skillNotes.mercantileBackgroundFeature:+2 Appraise/Craft/Profession'
+      ];
     } else if(feat == 'Militia') {
-      // TODO
+      notes = [
+        'combatNotes.militiaFeature:Additional martial weapon proficiencies'
+      ];
     } else if(feat == 'Mind Over Body') {
-      // TODO
+      notes = [
+        'combatNotes.mindOverBodyFeature:' +
+          'Intelligence modifier adds %V HP/+%1 HP from Metamagic feats',
+        'sanityNotes.mindOverBodyFeatFeatures:Requires any Metamagic'
+      ];
+      rules.defineRule('combatNotes.mindOverBodyFeature',
+        'intelligenceModifier', '+', null,
+        'constitutionModifier', '+', '-source'
+      );
+      rules.defineRule('combatNotes.mindOverBodyFeature.1',
+        // NOTE: Metamagic feat names all end in 'Spell|Magic'
+        /^features\..*(Spell|Magic)$/, '+', '1'
+      );
+      rules.defineRule('hitPoints',
+        'combatNotes.mindOverBodyFeature', '+', null,
+        'combatNotes.mindOverBodyFeature.1', '+', null
+      );
     } else if(feat == 'Pernicious Magic') {
-      // TODO
+      notes = [
+        'magicNotes.perniciousMagicFeature:' +
+          'Weave foes %V DC level check to counterspell/DC 9+foe level to ' +
+          'counterspell Weave foes',
+        'validationNotes.perniciousMagicFeatFeatures:' +
+          'Requires Shadow Weave Magic'
+      ];
+      rules.defineRule
+        ('magicNotes.perniciousMagicFeature', 'casterLevel', '=', null);
     } else if(feat == 'Persistent Spell') {
-      // TODO
-    } else if(feat == 'Resist Poison') {
-      // TODO
+      notes = [
+        'magicNotes.persistentSpellFeature:' +
+          '24 hour duration on designated spell',
+        'validationNotes.persistentSpellFeatFeatures:Requires Extend Spell'
+      ]
+    } else if(feat == 'Resist Poison Feat') {
+      notes = [
+        'saveNotes.resistPoisonFeatFeature:+4 poison',
+        'validationNotes.resistPoisonFeatFeatRace:' +
+          'Requires Race =~ Gray Dwarf|Orc'
+      ];
+      rules.defineRule
+        ('resistance.Poison', 'saveNotes.resistPoisonFeatFeature', '+=', '4');
     } else if(feat == 'Saddleback') {
-      // TODO
+      notes = [
+        'sanityNotes.saddlebackFeature:Requires Ride',
+        'skillNotes.saddlebackFeature:+3 Ride'
+      ];
     } else if(feat == 'Shadow Weave Magic') {
-      // TODO
+      notes = [
+        'abilityNotes.shadowWeaveMagicFeature:-2 Wisdom',
+        'magicNotes.shadowWeaveMagicFeature:' +
+          '+1 DC/resistance checks on enchantment/illusion/necromancy/' +
+          'darkness descriptor spells; -1 caster level on evocation/' +
+          'transmutation; no light descriptor spells',
+        'sanityNotes.shadowWeaveMagicFeatCasterLevel:' +
+          'Requires Caster Level >= 1',
+        'validationNotes.shadowWeaveMagicFeatAbility:' +
+          'Requires Wisdom >= 13 || Deity == Shar'
+      ];
+      rules.defineRule
+        ('wisdom', 'abilityNotes.shadowWeaveMagicFeature', '+', '-2');
     } else if(feat == 'Signature Spell') {
       notes = [
         'magicNotes.signatureSpellFeature:' +
@@ -346,7 +531,7 @@ Realms.featRules = function(rules, feats, subfeats) {
       ];
     } else if(feat == 'Street Smart') {
       notes = [
-        'sanityNotes.stealthyFeatSkills:Requires Bluff|Gather Information',
+        'sanityNotes.stealthyFeatSkills:Requires Bluff||Gather Information',
         'skillNotes.streetSmartFeature:+2 Bluff/Gather Information'
       ];
     } else if(feat == 'Strong Soul') {
