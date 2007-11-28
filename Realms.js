@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.5 2007/11/27 00:10:59 Jim Exp $ */
+/* $Id: Realms.js,v 1.6 2007/11/28 06:08:14 Jim Exp $ */
 
 /*
 Copyright 2005, James J. Hayes
@@ -58,7 +58,7 @@ function Realms() {
     SRD35PrestigeNPC.companionRules(rules, SRD35PrestigeNPC.COMPANIONS);
   }
   // So far, same character creation procedures as SRD35
-  rules.defineChoice('preset', 'race', 'experience', 'levels');
+  rules.defineChoice('preset', 'race', 'level', 'levels');
   rules.defineChoice('random', SRD35.RANDOMIZABLE_ATTRIBUTES);
   rules.randomizeOneAttribute = SRD35.randomizeOneAttribute;
   rules.makeValid = SRD35.makeValid;
@@ -67,6 +67,7 @@ function Realms() {
   Realms.magicRules(rules, SRD35.CLASSES, Realms.DOMAINS);
   Realms.prestigeClassRules(rules, Realms.PRESTIGE_CLASSES);
   Realms.raceRules(rules, Realms.RACES);
+  Realms.regionRules(rules, Realms.REGIONS);
   // Let Scribe know we're here
   Scribe.addRuleSet(rules);
   Realms.rules = rules;
@@ -172,10 +173,22 @@ Realms.PRESTIGE_CLASSES = [
 ];
 Realms.RACES = [
   'Gold Dwarf', 'Gray Dwarf', 'Shield Dwarf', 'Drow Elf', 'Moon Elf',
-  'Sun Elf', 'Wild Elf', 'Wood Elf', 'Deep Gnome', 'Rock Gnome',
-  'Ghostwise Halfling', 'Lightfoot Halfling', 'Strongheart Halfling',
-  'Aasimar', 'Air Genasi', 'Earth Genasi', 'Fire Genasi', 'Water Genasi',
-  'Tiefling'
+  'Sun Elf', 'Wild Elf', 'Wood Elf', 'Deep Gnome', 'Rock Gnome', 'Half Elf',
+  'Half Orc', 'Ghostwise Halfling', 'Lightfoot Halfling',
+  'Strongheart Halfling', 'Human', 'Aasimar', 'Air Genasi', 'Earth Genasi',
+  'Fire Genasi', 'Water Genasi', 'Tiefling'
+];
+Realms.REGIONS = [
+  'Aglarond', 'Amn', 'Anauroch', 'Calimshan', 'Chessenta', 'Chondalwood',
+  'Chult', 'Cormyr', 'Dalelands', 'Damara', 'Deep Gnome', 'Dragon Coast',
+  'Drow Elf', 'Evermeet', 'Ghostwise Halfling', 'Gold Dwarf', 'Gray Dwarf',
+  'Great Dale', 'Half Elf', 'Half Orc', 'Halruaa', 'High Forest', 'Hordelands',
+  'Human', 'Impiltur', 'Lake Of Steam', 'Lantan', 'Lightfoot Halfling',
+  'Luiren', 'Moon Elf', 'Moonsea', 'Moonshae Isles', 'Mulhorand', 'Narfell',
+  'Nelanther Isles', 'Orc', 'Rashemen', 'Rock Gnome', 'Sembia', 'Shield Dwarf',
+  'Silverymoon', 'Strongheart Halfling', 'Sun Elf', 'Tashalar', 'Tehtyr',
+  'Thay', 'The North', 'The Shaar', 'The Vast', 'Thesk', 'Unther', 'Vaasa',
+  'Vilhon Reach', 'Waterdeep', 'Western Heartlands', 'Wild Elf', 'Wood Elf'
 ];
 Realms.SUBFEATS = {
   'Spellcasting Prodigy':'Cleric/Druid/Sorcerer/Wizard'
@@ -241,12 +254,16 @@ Realms.featRules = function(rules, feats, subfeats) {
       ];
     } else if(feat == 'Arcane Schooling') {
       notes = [
-        'magicNotes.arcaneSchoolingFeature:Designated arcane class is favored'
+        'magicNotes.arcaneSchoolingFeature:Designated arcane class is favored',
+        'validationNotes.arcaneSchoolingFeatRegion:' +
+          'Requires Region =~ Chessenta|Halruaa|Lantan|Mulhorand|Unther'
       ];
     } else if(feat == 'Artist') {
       notes = [
         'sanityNotes.artistFeatSkills:Requires Perform||Craft',
-        'skillNotes.artistFeature:+2 all Perform/designated Craft'
+        'skillNotes.artistFeature:+2 all Perform/designated Craft',
+        'validationNotes.artistFeatRegion:' +
+          'Requires Region =~ Chessenta|Evermeet|Waterdeep|Rock Gnome'
       ];
       rules.defineRule('sanityNotes.artistFeatSkills',
         'feats.Artist', '=', '-1',
@@ -258,13 +275,17 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Blooded') {
       notes = [
         'combatNotes.bloodedFeature:+2 Initiative',
-        'skillNotes.bloodedFeature:+2 Spot'
+        'skillNotes.bloodedFeature:+2 Spot',
+        'validationNotes.bloodedFeatRegion:' +
+          'Requires Region =~ ' +
+          'Dalelands|Nelanther Isles|Sembia|Silverymoon|Tethyr|Vaasa'
       ];
       rules.defineRule('initiative', 'combatNotes.bloodedFeature', '+', '2');
     } else if(feat == 'Bloodline Of Fire') {
       notes = [
         'magicNotes.bloodlineOfFireFeature:+2 DC Sorcerer fire spells',
-        'saveNotes.bloodlineOfFileFeature:+4 fire spells'
+        'saveNotes.bloodlineOfFileFeature:+4 fire spells',
+        'validationNotes.bloodlineOfFireFeatRegion:Requires Region == Calimshan'
       ];
       rules.defineRule
         ('magicNotes.bloodlineOfFireFeature', 'levels.Sorcerer', '?', null);
@@ -273,19 +294,27 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Bullheaded') {
       notes = [
         'saveNotes.bullheadedFeature:+1 Will',
-        'skillNotes.bullheadedFeature:+2 Intimidate'
+        'skillNotes.bullheadedFeature:+2 Intimidate',
+        'validationNotes.bullheadedFeatRegion:' +
+          'Requires Region =~ Damara|Dragon Coast|Great Dale|Moonshaes|' +
+          'Narfell|Nelanther Isles|Rashemen|Vaasa|Western Heartlands|' +
+          'Gold Dwarf|Gray Dwarf|Shield Dwarf'
       ];
       rules.defineRule('save.Will', 'skillNotes.bullheadedFeature', '+', '2');
     } else if(feat == 'Cosmopolitan') {
       notes = [
         'skillNotes.cosmopolitanFeature:' +
-          'Designated skill is class skill/+2 checks'
+          'Designated skill is class skill/+2 checks',
+        'validationNotes.cosmopolitanFeatRegion:' +
+          'Requires Region =~ Amn|Waterdeep'
       ];
     } else if(feat == 'Courteous Magocracy') {
       notes = [
         'sanityNotes.courteousMagocracyFeatSkills:' +
           'Requires Diplomacy||Spellcraft',
-        'skillNotes.courteousMagocracyFeature:+2 Diplomacy/Spellcraft'
+        'skillNotes.courteousMagocracyFeature:+2 Diplomacy/Spellcraft',
+        'validationNotes.courteousMagocracyFeatRegion:' +
+          'Requires Region =~ Evermeet|Halruaa'
       ];
     } else if(feat == 'Create Portal') {
       notes = [
@@ -295,8 +324,8 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Daylight Adaptation') {
       notes = [
         'featureNotes.daylightAdaptationFeature:No daylight penalties',
-        'validationNotes.daylightAdaptationFeatRace:' +
-          'Requires Race =~ Drow|Gray Dwarf|Orc'
+        'validationNotes.daylightAdaptationFeatRegion:' +
+          'Requires Region =~ Drow|Gray Dwarf|Orc'
       ];
     } else if(feat == 'Delay Spell') {
       notes = [
@@ -312,13 +341,19 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Discipline') {
       notes = [
         'saveNotes.disciplineFeature:+1 Will',
-        'skillNotes.disciplineFeature:+2 Concentration'
+        'skillNotes.disciplineFeature:+2 Concentration',
+        'validationNotes.disciplineFeatRegion:' +
+          'Requires Region =~ Aglarond|Anauroch|Cormyr|Impitur|Thay|' +
+          'Strongheart Halfling|Sun Elf|Rock Gnome'
       ];
       rules.defineRule('saves.Will', 'saveNotes.disciplineFeature', '+', '1');
     } else if(feat == 'Education') {
       notes = [
         'skillNotes.educationFeature:' +
-          'All Knowledge skills class skills/+1 any 2 Knowledge skills'
+          'All Knowledge skills class skills/+1 any 2 Knowledge skills',
+        'validationNotes.educationFeatRegion:' +
+          'Requires Region =~ Amn|Chessenta|Cormyr|Evermeet|Lantan|Mulhorand|' +
+          'Sembia|Silverymoon|Waterdeep|Moon Elf|Sun Elf'
       ];
       rules.defineRule
         (/^classSkills\.Knowledge/, 'skillNotes.educationFeature', '=', '1');
@@ -328,24 +363,31 @@ Realms.featRules = function(rules, feats, subfeats) {
         // TODO +2 Animal Empathy/Intuit Direction (SRD3.0 skills)
         'validationNotes.ethranFeatAbility:Requires Charisma >= 11',
         'validationNotes.ethranFeatCasterLevel:Requires Caster Level >= 1',
-        'validationNotes.ethranFeatGender:Requires Gender == Female'
+        'validationNotes.ethranFeatGender:Requires Gender == Female',
+        'validationNotes.ethranFeatRegion:Requires Region == Rasheman'
       ];
     } else if(feat == 'Foe Hunter') {
       notes = [
         'combatNotes.foeHunterFeature:' +
-          '+1 damage/double critical range w/regional foe'
+          '+1 damage/double critical range w/regional foe',
+        'validationNotes.foeHunterFeatRegion:' +
+          'Requires Region =~ Chult|Cormyr|Damara|Lake Of Steam|The North|'+
+          'Moonsea|Tashalar|Thethyr|Vaasa|Shield Dwarf|Wood Elf'
       ];
     } else if(feat == 'Forester') {
       // Identical to SRD Self-Sufficient
       notes = [
         'sanityNotes.foresterFeatSkills:Requires Heal||Survival',
-        'skillNotes.foresterFeature:+2 Heal/Survival'
+        'skillNotes.foresterFeature:+2 Heal/Survival',
+        'validationNotes.foresterFeatRegion:' +
+          'Requires Region =~ Chondalwood|Dalelands|Great Dale|High Forest|' +
+          'Ghostwise Halfling|Moon Elf|Wild Elf|Moon Elf'
       ];
-    } else if((matchInfo = feat.match(/^Spell Focus \((.*)\)$/)) != null) {
+    } else if((matchInfo = feat.match(/^Greater Spell Focus \((.*)\)$/)) != null) {
       // Identical to SRD, but +3 DC instead of +1
       var school = matchInfo[1];
       var schoolNoSpace = school.replace(/ /g, '');
-      var note = 'magicNotes.spellFocus(' + schoolNoSpace + ')Feature';
+      var note = 'magicNotes.greaterSpellFocus(' + schoolNoSpace + ')Feature';
       notes = [
         note + ':+3 DC on ' + school + ' spells',
         'sanityNotes.spellFocus(' + schoolNoSpace + ')FeatCasterLevel:' +
@@ -356,7 +398,9 @@ Realms.featRules = function(rules, feats, subfeats) {
         'combatNotes.horseNomadFeature:' +
           'Martial Weapon Proficiency (Composite Shortbow)',
         'sanityNotes.horseNomadFeatSkills:Requires Ride',
-        'skillNotes.horseNomadFeature:+2 Ride'
+        'skillNotes.horseNomadFeature:+2 Ride',
+        'validationNotes.horseNomadFeatRegion:' +
+          'Requires Region =~ Hordelands|The Shaar|Vaasa'
       ];
       rules.defineRule(
         'features.Martial Weapon Proficiency (Composite Shortbow)',
@@ -396,7 +440,11 @@ Realms.featRules = function(rules, feats, subfeats) {
         'validationNotes.insidiousMagicFeatFeatures:Requires Shadow Weave Magic'
       ];
     } else if(feat == 'Luck Of Heroes') {
-      notes = ['saveNotes.luckOfHeroesFeature:+1 all saves'];
+      notes = [
+        'saveNotes.luckOfHeroesFeature:+1 all saves',
+        'validationNotes.luckOfHeroesFeatRegion:' +
+          'Requires Region =~ Aglarond|Dalelands|Tethyr|The Vast'
+      ];
       rules.defineRule
         ('save.Fortitude', 'saveNotes.luckOfHeroesFeature', '+', '1');
       rules.defineRule
@@ -417,23 +465,32 @@ Realms.featRules = function(rules, feats, subfeats) {
       notes = [
         'magicNotes.magicalTrainingFeature:' +
           '<i>Dancing Lights</i>/<i>Daze</i>/<i>Mage Hand</i> 1/day',
-        'validationNotes.magicalTrainingFeatAbility:Requires Intelligence >= 10'
+        'validationNotes.magicalTrainingFeatAbility:' +
+          'Requires Intelligence >= 10',
+        'validationNotes.magicalTrainingFeatRegion:Requires Region == Halruaa'
       ];
     } else if(feat == 'Mercantile Background') {
       notes = [
         'sanityNotes.mercantileBackgroundFeatSkills:' +
           'Requires Appraise||Craft||Profession',
-        'skillNotes.mercantileBackgroundFeature:+2 Appraise/Craft/Profession'
+        'skillNotes.mercantileBackgroundFeature:+2 Appraise/Craft/Profession',
+        'validationNotes.mercantileBackgroundFeatRegion:' +
+          'Requires Region =~ Impiltur|Lake Of Steam|Lantan|Sembia|Tashalar|' +
+          'Tethyr|Thesk|The Vast|Deep Gnome|Gray Dwarf'
       ];
     } else if(feat == 'Militia') {
       notes = [
-        'combatNotes.militiaFeature:Additional martial weapon proficiencies'
+        'combatNotes.militiaFeature:Additional martial weapon proficiencies',
+        'validationNotes.militiaFeatRegion:' +
+          'Requires Region =~ Dalelands|Impiltur|Luiren|Strongheart Halfling'
       ];
     } else if(feat == 'Mind Over Body') {
       notes = [
         'combatNotes.mindOverBodyFeature:' +
           'Intelligence modifier adds %V HP/+%1 HP from Metamagic feats',
-        'sanityNotes.mindOverBodyFeatFeatures:Requires any Metamagic'
+        'sanityNotes.mindOverBodyFeatFeatures:Requires any Metamagic',
+        'validationNotes.mindOverBodyFeatRegion:' +
+          'Requires Region =~ Calimshan|Thay|Moon Elf|Sun Elf'
       ];
       rules.defineRule('combatNotes.mindOverBodyFeature',
         'intelligenceModifier', '+', null,
@@ -466,15 +523,18 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Resist Poison Feat') {
       notes = [
         'saveNotes.resistPoisonFeatFeature:+4 poison',
-        'validationNotes.resistPoisonFeatFeatRace:' +
-          'Requires Race =~ Gray Dwarf|Orc'
+        'validationNotes.resistPoisonFeatFeatRegion:' +
+          'Requires Region =~ Gray Dwarf|Half Orc|Orc'
       ];
       rules.defineRule
         ('resistance.Poison', 'saveNotes.resistPoisonFeatFeature', '+=', '4');
     } else if(feat == 'Saddleback') {
       notes = [
         'sanityNotes.saddlebackFeature:Requires Ride',
-        'skillNotes.saddlebackFeature:+3 Ride'
+        'skillNotes.saddlebackFeature:+3 Ride',
+        'validationNotes.saddlebackFeatRegion:' +
+          'Requires Region =~ Cormyr|Hordelands|Narfell|The North|' +
+          'Western Heartlands'
       ];
     } else if(feat == 'Shadow Weave Magic') {
       notes = [
@@ -499,16 +559,24 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Silver Palm') {
       notes = [
         'sanityNotes.silverPalmFeatSkills:Requires Appraisal||Bluff',
-        'skillNotes.silverPalmFeature:+2 Appraisal/Bluff'
+        'skillNotes.silverPalmFeature:+2 Appraisal/Bluff',
+        'validationNotes.silverPalmFeatRegion:' +
+          'Requires Region =~ Amn|Dragon Coast|Great Dale|Impiltur|Moonsea|' +
+          'Sembia|The Shaar|Thesk|Vilhon Reach|Gold Dwarf|Gray Dwarf'
       ];
     } else if(feat == 'Smooth Talk') {
       notes = [
         'sanityNotes.smoothTalkFeatSkills:Requires Diplomacy||Sense Motive',
-        'skillNotes.smoothTalkFeature:+2 Diplomacy/Sense Motive'
+        'skillNotes.smoothTalkFeature:+2 Diplomacy/Sense Motive',
+        'validationNotes.smoothTalkFeatRegion:' +
+          'Requires Region =~ Luiren|Silverymoon|Thesk|Waterdeep|Gold Dwarf|' +
+          'Lightfoot Halfling'
       ];
     } else if(feat == 'Snake Blood') {
       notes = [
-        'saveNotes.snakeBloodFeature:+1 Reflex/+2 poison'
+        'saveNotes.snakeBloodFeature:+1 Reflex/+2 poison',
+        'validationNotes.snakeBloodFeatRegion:' +
+          'Requires Region =~ Chult|Tashalar|Vilhon Reach'
       ];
       rules.defineRule('save.Reflex', 'saveNotes.snakeBloodFeature', '+', '1');
       rules.defineRule
@@ -527,16 +595,25 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Stealthy') {
       notes = [
         'sanityNotes.stealthyFeatSkills:Requires Hide||Move Silently',
-        'skillNotes.stealthyFeature:+2 Hide/Move Silently Information'
+        'skillNotes.stealthyFeature:+2 Hide/Move Silently Information',
+        'validationNotes.stealthyFeatRegion:' +
+          'Requires Region =~ Drow Elf|Half Orc|Ghostwise Halfling|' +
+          'Lightfoot Halfling|Strongheart Halfling'
       ];
     } else if(feat == 'Street Smart') {
       notes = [
         'sanityNotes.stealthyFeatSkills:Requires Bluff||Gather Information',
-        'skillNotes.streetSmartFeature:+2 Bluff/Gather Information'
+        'skillNotes.streetSmartFeature:+2 Bluff/Gather Information',
+        'validationNotes.streetSmartFeatRegion:' +
+          'Requires Region =~ Amn|Calimshan|Chessenta|Moonsea|Unther'
       ];
     } else if(feat == 'Strong Soul') {
       notes = [
-        'saveNotes.strongSoulFeature:+1 Fortitude/Will and +2 draining/death'
+        'saveNotes.strongSoulFeature:+1 Fortitude/Will and +2 draining/death',
+        'validationNotes.strongSoulFeatRegion:' +
+          'Requires Region =~ Dalelands|Moonshaes|Deep Gnome|' +
+          'Ghostwise Halfling|Lightfoot Halfling|Moon Elf|Rock Gnome|' +
+          'Strongheart Halfling|Sun Elf|Wild Elf|Wood Elf'
       ];
       rules.defineRule
         ('save.Fortitude', 'saveNotes.strongSoulFeature', '+', '1');
@@ -545,14 +622,20 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Survivor') {
       notes = [
         'saveNotes.survivorFeature:+1 Fortitude',
-        'skillNotes.survivorFeature:+2 Survival'
+        'skillNotes.survivorFeature:+2 Survival',
+        'validationNotes.survivorFeatRegion:' +
+          'Requires Region =~ Anauroch|Chondalwood|Chult|Damara|Hordelands|' +
+          'Moonshaes|Narfell|The North|The Shaar|Rashemen|Silverymoon|Vaasa|' +
+          'Vilhon Reach|Western Heartlands|Deep Gnome|Drow Elf|' +
+          'Lightfoot Halfling|Ghostwise Halfling|Shield Dwarf|Wild Elf'
       ];
       rules.defineRule('save.Fortitude', 'saveNotes.survivorFeature', '+', '1');
     } else if(feat == 'Tattoo Focus') {
       notes = [
         'magicNotes.tattooFocusFeature:' +
           '+1 DC/+1 caster level vs. resistance w/specialization school spells',
-        'validationNotes.tattooFocusMagic:Requires magic school specialization'
+        'validationNotes.tattooFocusMagic:Requires magic school specialization',
+        'validationNotes.tattooFocusFeatRegion:Requires Region == Thay'
       ];
       rules.defineRule('validationNotes.tattooFocusMagic',
         'feats.Tattoo Focus', '=', '-1',
@@ -571,7 +654,10 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Thug') {
       notes = [
         'combatNotes.thugFeature:+2 Initiative',
-        'skillNotes.thugFeature:+2 Intimidate'
+        'skillNotes.thugFeature:+2 Intimidate',
+        'validationNotes.thugFeatRegion:' +
+          'Requires Region =~ Calimshan|Dragon Coast|Moonsea|' +
+          'Nelanther Isles|Unther|The Vast|Vilhon Reach|Waterdeep'
       ];
       rules.defineRule('initiative', 'combatNotes.thugFeature', '+', '2');
     } else if(feat == 'Thunder Twin') {
@@ -579,13 +665,16 @@ Realms.featRules = function(rules, feats, subfeats) {
         'abilityNotes.thunderTwinFeature:+2 charisma checks',
         'skillNotes.thunderTwinFeature:' +
           'DC 15 Intuit Direction to determine direction of twin',
-        'validationNotes.thunderTwinFeatRace:' +
-          'Requires Race =~ Gold Dwarf|Shield Dwarf'
+        'validationNotes.thunderTwinFeatRegion:' +
+          'Requires Region =~ Gold Dwarf|Shield Dwarf'
       ];
     } else if(feat == 'Treetopper') {
       notes = [
         'sanityNotes.treetopperFeatureSkills:Requires Climb',
-        'skillNotes.treetopperFeature:+2 Climb'
+        'skillNotes.treetopperFeature:+2 Climb',
+        'validationNotes.treetopperFeatRegion:' +
+          'Requires Region =~ Aglarond|Chondalwood|High Forest|' +
+          'Ghostwise Halfling|Wild Elf|Wood Elf'
       ];
     } else if(feat == 'Twin Spell') {
       notes = [
@@ -596,7 +685,9 @@ Realms.featRules = function(rules, feats, subfeats) {
       notes = [
         'combatNotes.twinSwordStyleFeature:' +
           '+2 AC vs. designated foe when using two swords',
-        'validationNotes.twinSwordStyleFeature:Requires Two Weapon Fighting'
+        'validationNotes.twinSwordStyleFeature:Requires Two Weapon Fighting',
+        'validationNotes.twinSwordStyleFeatRegion:' +
+          'Requires Region =~ Sembia|Waterdeep|Drow Elf'
       ];
     } else
       continue;
@@ -1558,4 +1649,19 @@ Realms.raceRules = function(rules, races) {
 
   }
 
+};
+
+Realms.regionRules = function(rules, regions) {
+  rules.defineChoice('random', 'region');
+  rules.defineChoice('regions', regions);
+  rules.defineEditorElement
+    ('region', 'Region', 'select-one', 'regions', 'experience');
+  rules.defineSheetElement('Region', 'Alignment');
+  rules.defineNote
+    ('validationNotes.regionRace:Racial region requires equivalent race');
+  rules.defineRule('validationNotes.regionRace',
+    'region', '=', 'ScribeUtils.findElement(Realms.RACES, source) < 0 ? ' +
+                   'null : -ScribeUtils.findElement(Realms.RACES, source)',
+    'race', '+', 'ScribeUtils.findElement(Realms.RACES, source)'
+  );
 };
