@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.6 2007/11/28 06:08:14 Jim Exp $ */
+/* $Id: Realms.js,v 1.7 2007/11/29 02:57:42 Jim Exp $ */
 
 /*
 Copyright 2005, James J. Hayes
@@ -45,29 +45,32 @@ function Realms() {
   SRD35.featRules(rules, SRD35.FEATS, SRD35.SUBFEATS);
   SRD35.descriptionRules
     (rules, SRD35.ALIGNMENTS, Realms.DEITIES, SRD35.GENDERS);
-  SRD35.equipmentRules
-    (rules, SRD35.ARMORS, SRD35.GOODIES, SRD35.SHIELDS,
-     SRD35.WEAPONS.concat(Realms.WEAPONS));
+  SRD35.equipmentRules(rules, SRD35.ARMORS, SRD35.GOODIES, SRD35.SHIELDS,
+                       SRD35.WEAPONS.concat(Realms.WEAPONS));
   SRD35.combatRules(rules);
   SRD35.adventuringRules(rules);
   SRD35.magicRules(rules, SRD35.CLASSES, SRD35.DOMAINS, SRD35.SCHOOLS);
+  // Pick up the Prestige/NPC rules, if available
   if(window.SRD35PrestigeNPC != null) {
     SRD35PrestigeNPC.npcClassRules(rules, SRD35PrestigeNPC.NPC_CLASSES);
     SRD35PrestigeNPC.prestigeClassRules
       (rules, SRD35PrestigeNPC.PRESTIGE_CLASSES);
     SRD35PrestigeNPC.companionRules(rules, SRD35PrestigeNPC.COMPANIONS);
   }
-  // So far, same character creation procedures as SRD35
-  rules.defineChoice('preset', 'race', 'level', 'levels');
-  rules.defineChoice('random', SRD35.RANDOMIZABLE_ATTRIBUTES);
-  rules.randomizeOneAttribute = SRD35.randomizeOneAttribute;
-  rules.makeValid = SRD35.makeValid;
   // Add Forgotten Realms-specific rules
+  Realms.raceRules(rules, Realms.RACES);
+  Realms.regionRules(rules, Realms.REGIONS);
   Realms.featRules(rules, Realms.FEATS, Realms.SUBFEATS);
   Realms.magicRules(rules, SRD35.CLASSES, Realms.DOMAINS);
   Realms.prestigeClassRules(rules, Realms.PRESTIGE_CLASSES);
-  Realms.raceRules(rules, Realms.RACES);
-  Realms.regionRules(rules, Realms.REGIONS);
+  // So far, same character creation procedures as SRD35
+  rules.defineChoice('preset', 'race', 'level', 'levels');
+  rules.defineChoice('random', SRD35.RANDOMIZABLE_ATTRIBUTES);
+  rules.randomizeOneAttribute = Realms.randomizeOneAttribute;
+  rules.makeValid = SRD35.makeValid;
+  if(window.Experience != null) {
+    Experience.experienceRules(rules);
+  }
   // Let Scribe know we're here
   Scribe.addRuleSet(rules);
   Realms.rules = rules;
@@ -1652,10 +1655,10 @@ Realms.raceRules = function(rules, races) {
 };
 
 Realms.regionRules = function(rules, regions) {
-  rules.defineChoice('random', 'region');
   rules.defineChoice('regions', regions);
+  rules.defineChoice('random', 'region');
   rules.defineEditorElement
-    ('region', 'Region', 'select-one', 'regions', 'experience');
+    ('region', 'Region', 'select-one', 'regions', 'levels');
   rules.defineSheetElement('Region', 'Alignment');
   rules.defineNote
     ('validationNotes.regionRace:Racial region requires equivalent race');
@@ -1664,4 +1667,21 @@ Realms.regionRules = function(rules, regions) {
                    'null : -ScribeUtils.findElement(Realms.RACES, source)',
     'race', '+', 'ScribeUtils.findElement(Realms.RACES, source)'
   );
+};
+
+/* Sets #attributes#'s #attribute# attribute to a random value. */
+Realms.randomizeOneAttribute = function(attributes, attribute) {
+  if(attribute == 'region') {
+    var choices = [];
+    var races = this.getChoices('races');
+    var regions = this.getChoices('regions');
+    for(var region in regions) {
+      if(races[region] == null || region == attributes.race) {
+        choices[choices.length] = region;
+      }
+    }
+    attributes[attribute] = choices[ScribeUtils.random(0, choices.length - 1)];
+  } else {
+    SRD35.randomizeOneAttribute.apply(this, [attributes, attribute]);
+  }
 };
