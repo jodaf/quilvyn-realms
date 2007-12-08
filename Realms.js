@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.8 2007/12/01 07:27:51 Jim Exp $ */
+/* $Id: Realms.js,v 1.9 2007/12/08 01:26:43 Jim Exp $ */
 
 /*
 Copyright 2005, James J. Hayes
@@ -172,9 +172,10 @@ Realms.LANGUAGES = [
   'Turmic', 'Uluik', 'Undercommon', 'Untheric'
 ];
 Realms.PRESTIGE_CLASSES = [
-  'Arcane Devotee', 'Archmage', 'Divine Champion', 'Divine Disciple',
-  'Divine Seeker', 'Guild Thief', 'Harper Scout', 'Hathran',
-  'Purple Dragon Knight', 'Red Wizard', 'Runecaster', 'Shadow Adept'
+  // Identical to SRD: Archmage
+  'Arcane Devotee', 'Divine Champion', 'Divine Disciple', 'Divine Seeker',
+  'Guild Thief', 'Harper Scout', 'Hathran', 'Purple Dragon Knight',
+  'Red Wizard', 'Runecaster', 'Shadow Adept'
 ];
 Realms.RACES = [
   'Gold Dwarf', 'Gray Dwarf', 'Shield Dwarf', 'Drow Elf', 'Moon Elf',
@@ -1200,12 +1201,232 @@ Realms.magicRules = function(rules, classes, domains) {
 };
 
 Realms.prestigeClassRules = function(rules, classes) {
-  // TODO
-  /*
-  'Arcane Devotee', 'Archmage', 'Divine Champion', 'Divine Disciple',
-  'Divine Seeker', 'Guild Thief', 'Harper Scout', 'Hathran',
-  'Purple Dragon Knight', 'Red Wizard', 'Runecaster', 'Shadow Adept'
-  */
+
+  var schools = rules.getChoices('schools');
+
+  for(var i = 0; i < classes.length; i++) {
+
+    var baseAttack, features, hitDie, notes, profArmor, profShield, profWeapon,
+        saveFortitude, saveReflex, saveWill, selectableFeatures, skillPoints,
+        skills, spellAbility, spells, spellsKnown, spellsPerDay;
+    var klass = classes[i];
+
+    if(klass == 'Arcane Devotee') {
+
+      baseAttack = SRD35.ATTACK_BONUS_POOR;
+      features = [
+        '1:Caster Level Bonus', '1:Freely Enlarge Spell', '2:Alignment Focus',
+        '2:Sacred Defense', '5:Divine Shroud'
+      ];
+      hitDie = 4;
+      notes = [
+        'magicNotes.alignmentFocusFeature:' +
+          '+1 caster level on spells from designated alignment component',
+        'magicNotes.casterLevelBonusFeature:' +
+          'Add %V to base class level for spells known/per day',
+        'magicNotes.freelyEnlargeSpellFeature:Cast enlarged spell %V/day',
+        'saveNotes.divineShroudFeature:' +
+          'Aura provides DC %V spell reistance for %1 rounds 1/day',
+        'saveNotes.sacredDefenseFeature:+%V vs. divine spells',
+        'validationNotes.arcaneDevoteeClassFeatures:Requires Enlarge Spell',
+        'validationNotes.archmageClassSkills:' +
+          'Requires Knowledge (Religion) >= 8/Spellcraft >= 8',
+        'validationNotes.archmageClassSpells:Requires arcane level 4'
+      ];
+      profArmor = SRD35.PROFICIENCY_NONE;
+      profShield = SRD35.PROFICIENCY_NONE;
+      profWeapon = SRD35.PROFICIENCY_NONE;
+      saveFortitude = SRD35.SAVE_BONUS_POOR;
+      saveReflex = SRD35.SAVE_BONUS_POOR;
+      saveWill = SRD35.SAVE_BONUS_GOOD;
+      selectableFeatures = null;
+      skillPoints = 2;
+      skills = [
+        'Concentration', 'Craft', 'Knowledge', 'Profession', 'Spellcraft'
+      ];
+      spellAbility = null;
+      spells = null;
+      spellsKnown = null;
+      spellsPerDay = null;
+      // TODO: Not quite the same feat choices as Wizards
+      rules.defineRule('featCount.Wizard',
+        'levels.Arcane Devotee', '+=', 'source >= 3 ? 1 : null'
+      );
+      rules.defineRule('magicNotes.casterLevelBonusFeature',
+        'levels.Arcane Devotee', '+=', null
+      );
+      rules.defineRule('magicNotes.freelyEnlargeSpellFeature',
+        'charismaModifier', '+=', 'source > 0 ? source + 1 : 1'
+      );
+      rules.defineRule('saveNotes.divineShroudFeature',
+        'casterLevelArcane', '+=', '12 + source'
+      );
+      rules.defineRule('saveNotes.divineShroudFeature.1',
+        'charismaModifier', '+=', '5 + source'
+      );
+      rules.defineRule('saveNotes.sacredDefenseFeature',
+        'levels.Arcane Devotee', '+=', 'Math.floor(source / 2)'
+      );
+      rules.defineRule('validationNotes.archmageClassSpells',
+        'levels.Archmage', '=', '-1',
+        /^spellsKnown\.(AS|B|S|W)4/, '+', '1',
+        '', 'v', '0'
+      );
+
+    } else if(klass == 'Divine Champion') {
+
+      continue; // TODO
+
+    } else if(klass == 'Divine Disciple') {
+
+      continue; // TODO
+
+    } else if(klass == 'Divine Seeker') {
+
+      continue; // TODO
+
+    } else if(klass == 'Guild Thief') {
+
+      continue; // TODO
+
+    } else if(klass == 'Harper Scout') {
+
+      continue; // TODO
+
+    } else if(klass == 'Hathran') {
+
+      continue; // TODO
+
+    } else if(klass == 'Purple Dragon Knight') {
+
+      continue; // TODO
+
+    } else if(klass == 'Red Wizard') {
+
+      baseAttack = SRD35.ATTACK_BONUS_AVERAGE;
+      features = [
+        '1:Caster Level Bonus', '1:Enhanced Specialization',
+        '1:Specialist Defense', '2:Spell Power', '5:Circle Leader',
+        '7:Scribe Tattoo', '10:Great Circle Leader'
+      ];
+      hitDie = 4;
+      notes = [
+        'magicNotes.casterLevelBonusFeature:' +
+          'Add %V to base class level for spells known/per day',
+        'magicNotes.enhancedSpecializationFeature:Additional prohibited school',
+        'magicNotes.circleLeaderFeature:' +
+          '1 hour ritual w/2-5 other members raises caster level, ' +
+          'gives metamagic feats',
+        'magicNotes.greatCircleLeaderFeature:' +
+          'Lead magic circle w/9 other members',
+        'magicNotes.specialistDefenseFeature:' +
+          '+%V bonus on saves vs. specialist school spells',
+        'magicNotes.scribeTattooFeature:Induct novices into circle',
+        'magicNotes.spellPowerFeature:+%V caster level for spell effects',
+        'magicNotes.tattooFocusFeature:' +
+          '+1 DC/+1 caster level vs. resistance w/specialization school spells',
+        'validationNotes.redWizardClassAlignment:Requires Alignment !~ Good',
+        'validationNotes.redWizardClassFeats:' +
+          'Requires Tattoo Focus/any 3 metamagic or item creation',
+        'validationNotes.redWizardClassRace:Requires Race == Human',
+        'validationNotes.redWizardClassSkills:Requires Spellcraft >= 8',
+        'validationNotes.redWizardClassSpells:Requires arcane level 3',
+        'validationNotes.tattooFocusMagic:Requires magic school specialization'
+      ];
+      profArmor = SRD35.PROFICIENCY_NONE;
+      profShield = SRD35.PROFICIENCY_NONE;
+      profWeapon = SRD35.PROFICIENCY_NONE;
+      saveFortitude = SRD35.SAVE_BONUS_POOR;
+      saveReflex = SRD35.SAVE_BONUS_POOR;
+      saveWill = SRD35.SAVE_BONUS_GOOD;
+      selectableFeatures = null;
+      skillPoints = 2;
+      skills = [
+        'Bluff', 'Concentration', 'Craft', 'Intimidate', 'Knowledge',
+        'Profession', 'Spellcraft'
+      ];
+      spellAbility = null;
+      spells = null;
+      spellsKnown = null;
+      spellsPerDay = null;
+      rules.defineChoice('feats', 'Tattoo Focus:General');
+      rules.defineRule
+        ('featCount.Wizard', 'levels.Red Wizard', '+=', 'source>=5 ? 1 : null');
+      rules.defineRule
+        ('features.Tattoo Focus', 'feats.Tattoo Focus', '=', null);
+      rules.defineRule
+        ('magicNotes.casterLevelBonusFeature', 'levels.Red Wizard', '+=', null);
+      rules.defineRule('magicNotes.specialistDefenseFeature',
+        'levels.Red Wizard', '+=',
+        'Math.floor((source + 1) / 2) - (source >= 5 ? 1 : 0)'
+      );
+      rules.defineRule('magicNotes.spellPowerFeature',
+        'levels.Red Wizard', '+=', 'Math.floor(source / 2)'
+      );
+      rules.defineRule('validationNotes.redWizardClassFeats',
+        'levels.Red Wizard', '=', '-13',
+        'features.Tattoo Focus', '+', '10',
+        'features.Spell Mastery', '+', '1',
+        /^features\.(Brew|Craft|Forge|Scribe)/, '+', '1',
+        // NOTE: False valid w/Natural Spell
+        /^features\..*Spell$/, '+', '1',
+        '', 'v', '0'
+      );
+      rules.defineRule('validationNotes.redWizardClassSpells',
+        'levels.Red Wizard', '=', '-1',
+        /^spellsKnown\.(AS|B|W)3/, '+', '1',
+        '', 'v', '0'
+      );
+      rules.defineRule('validationNotes.tattooFocusMagic',
+        'feats.Tattoo Focus', '=', '-1',
+        /^specialize\./, '+', '1',
+        '', 'v', '0'
+      );
+
+    } else if(klass == 'Runecaster') {
+
+      continue; // TODO
+
+    } else if(klass == 'Shadow Adept') {
+
+      continue; // TODO
+
+    } else
+      continue;
+
+    SRD35.defineClass
+      (rules, klass, hitDie, skillPoints, baseAttack, saveFortitude, saveReflex,
+       saveWill, profArmor, profShield, profWeapon, skills, features,
+       spellsKnown, spellsPerDay, spellAbility);
+    if(notes != null)
+      rules.defineNote(notes);
+    if(selectableFeatures != null) {
+      for(var j = 0; j < selectableFeatures.length; j++) {
+        var selectable = selectableFeatures[j];
+        rules.defineChoice('selectableFeatures', selectable + ':' + klass);
+        rules.defineRule('features.' + selectable,
+          'selectableFeatures.' + selectable, '+=', null
+        );
+      }
+    }
+    if(spells != null) {
+      for(var j = 0; j < spells.length; j++) {
+        var pieces = spells[j].split(':');
+        for(var k = 1; k < pieces.length; k++) {
+          var spell = pieces[k];
+          var school = SRD35.spellsSchools[spell];
+          if(school == null) {
+            continue;
+          }
+          spell += '(' + pieces[0] + ' ' +
+                    (school == 'Universal' ? 'Univ' : schools[school]) + ')';
+          rules.defineChoice('spells', spell);
+        }
+      }
+    }
+
+  }
+
 };
 
 Realms.raceRules = function(rules, races) {
