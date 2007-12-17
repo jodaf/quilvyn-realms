@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.9 2007/12/08 01:26:43 Jim Exp $ */
+/* $Id: Realms.js,v 1.10 2007/12/17 14:39:44 Jim Exp $ */
 
 /*
 Copyright 2005, James J. Hayes
@@ -147,14 +147,13 @@ Realms.DOMAINS = [
   'Suffering', 'Time', 'Trade', 'Tyranny', 'Undeath'
 ];
 Realms.FEATS = [
-  // Identical to SRD: Greater Spell Penetration, Improved Counterspell
+  // SRD: Greater Spell Penetration, Improved Counterspell, Improved Familiar
   'Arcane Preparation:', 'Arcane Schooling:', 'Artist:', 'Blooded:',
   'Bloodline Of Fire:', 'Bullheaded:', 'Cosmopolitan:', 'Courteous Magocracy:',
   'Create Portal:Item Creation', 'Daylight Adaptation:',
   'Delay Spell:Metamagic', 'Discipline:', 'Education:', 'Ethran:',
   'Foe Hunter:Fighter', 'Forester:', 'Greater Spell Focus:',
-  'Horse Nomad:Fighter:', 'Improved Familiar:', 'Innate Spell:',
-  'Inscribe Rune:Item Creation',
+  'Horse Nomad:Fighter:', 'Innate Spell:', 'Inscribe Rune:Item Creation',
   'Insidious Magic:Metamagic', 'Luck Of Heroes:', 'Magical Artisan:',
   'Magical Training:', 'Mercantile Background:', 'Militia:', 'Mind Over Body:',
   'Pernicious Magic:Metamagic', 'Persistent Spell:Metamagic',
@@ -412,11 +411,6 @@ Realms.featRules = function(rules, feats, subfeats) {
         'features.Martial Weapon Proficiency (Composite Shortbow)',
         'combatNotes.horseNomadFeature', '=', '1'
       );
-    } else if(feat == 'Improved Familiar') {
-      notes = [
-        'featureNotes.improvedFamiliarFeature:Expanded Familiar choices',
-        'validationNotes.improvedFamiliarFeatFeatures:Requires Summon Familiar'
-      ];
     } else if(feat == 'Innate Spell') {
       notes = [
         'magicNotes.innateSpellFeature:' +
