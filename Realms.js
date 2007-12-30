@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.11 2007/12/29 03:08:38 Jim Exp $ */
+/* $Id: Realms.js,v 1.12 2007/12/30 06:18:25 Jim Exp $ */
 
 /*
 Copyright 2005, James J. Hayes
@@ -196,6 +196,7 @@ Realms.REGIONS = [
   'Vilhon Reach', 'Waterdeep', 'Western Heartlands', 'Wild Elf', 'Wood Elf'
 ];
 Realms.SUBFEATS = {
+  'Greater Spell Focus':SRD35.SCHOOLS.join('/').replace(/:[^\/]+/g, ''),
   'Spellcasting Prodigy':'Cleric/Druid/Sorcerer/Wizard'
 };
 Realms.WEAPONS = [
@@ -255,7 +256,7 @@ Realms.featRules = function(rules, feats, subfeats) {
       notes = [
         'magicNotes.arcanePreparationFeature:' +
           'Prepare arcane spell ahead of time',
-        'validationNotes.arcanePreparationFeatClass:Requires Bard||Sorcerer'
+        'validationNotes.arcanePreparationFeatLevels:Requires Bard||Sorcerer'
       ];
     } else if(feat == 'Arcane Schooling') {
       notes = [
@@ -276,7 +277,8 @@ Realms.featRules = function(rules, feats, subfeats) {
         /^skills.Perform/, '+', '1',
         '', 'v', 0
       );
-      rules.defineRule(/^skills.Perform/, 'skillNotes.artistFeature', '+', '2');
+      rules.defineRule
+        (/^skillModifier.Perform/, 'skillNotes.artistFeature', '+', '2');
     } else if(feat == 'Blooded') {
       notes = [
         'combatNotes.bloodedFeature:+2 Initiative',
@@ -289,7 +291,7 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Bloodline Of Fire') {
       notes = [
         'magicNotes.bloodlineOfFireFeature:+2 DC Sorcerer fire spells',
-        'saveNotes.bloodlineOfFileFeature:+4 fire spells',
+        'saveNotes.bloodlineOfFireFeature:+4 fire spells',
         'validationNotes.bloodlineOfFireFeatRegion:Requires Region == Calimshan'
       ];
       rules.defineRule
@@ -305,7 +307,7 @@ Realms.featRules = function(rules, feats, subfeats) {
           'Narfell|Nelanther Isles|Rashemen|Vaasa|Western Heartlands|' +
           'Gold Dwarf|Gray Dwarf|Shield Dwarf'
       ];
-      rules.defineRule('save.Will', 'skillNotes.bullheadedFeature', '+', '2');
+      rules.defineRule('save.Will', 'saveNotes.bullheadedFeature', '+', '2');
     } else if(feat == 'Cosmopolitan') {
       notes = [
         'skillNotes.cosmopolitanFeature:' +
@@ -328,7 +330,7 @@ Realms.featRules = function(rules, feats, subfeats) {
       ];
     } else if(feat == 'Daylight Adaptation') {
       notes = [
-        'featureNotes.daylightAdaptationFeature:No daylight penalties',
+        'featureNotes.daylightAdaptationFeature:No bright light penalties',
         'validationNotes.daylightAdaptationFeatRegion:' +
           'Requires Region =~ Drow|Gray Dwarf|Orc'
       ];
@@ -339,7 +341,9 @@ Realms.featRules = function(rules, feats, subfeats) {
         'validationNotes.delaySpellFeatFeatures:Requires any Metamagic'
       ];
       rules.defineRule('validationNotes.delaySpellFeatFeatures',
+        'feats.Delay Spell', '=', '-2',
         // NOTE: Metamagic feat names all end in 'Spell|Magic'
+        // Delay Spell itself will match, so we require two matches
         /^features\..*(Spell|Magic)$/, '+', '1',
         '', 'v', '0'
       );
@@ -388,14 +392,14 @@ Realms.featRules = function(rules, feats, subfeats) {
           'Requires Region =~ Chondalwood|Dalelands|Great Dale|High Forest|' +
           'Ghostwise Halfling|Moon Elf|Wild Elf|Moon Elf'
       ];
-    } else if((matchInfo = feat.match(/^Greater Spell Focus \((.*)\)$/)) != null) {
+    } else if((matchInfo=feat.match(/^Greater Spell Focus \((.*)\)$/))!=null) {
       // Identical to SRD, but +3 DC instead of +1
       var school = matchInfo[1];
       var schoolNoSpace = school.replace(/ /g, '');
-      var note = 'magicNotes.greaterSpellFocus(' + schoolNoSpace + ')Feature';
       notes = [
-        note + ':+3 DC on ' + school + ' spells',
-        'sanityNotes.spellFocus(' + schoolNoSpace + ')FeatCasterLevel:' +
+        'magicNotes.greaterSpellFocus(' + schoolNoSpace + ')Feature:' +
+          '+3 DC on ' + school + ' spells',
+        'sanityNotes.greaterSpellFocus(' + schoolNoSpace + ')FeatCasterLevel:' +
           'Requires Caster Level >= 1'
       ];
     } else if(feat == 'Horse Nomad') {
@@ -1990,16 +1994,16 @@ Realms.raceRules = function(rules, races) {
       ];
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
-        'combatNotes.lightSensitivityFeature:-2 attack in daylight',
+        'combatNotes.lightSensitivityFeature:-2 attack in bright light',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
         'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
         'saveNotes.magicPoisonImmunityFeature:' +
           'Immune to magical/alchemaic poisions',
-        'saveNotes.lightSensitivityFeature:-2 saving throws in daylight',
+        'saveNotes.lightSensitivityFeature:-2 saves in bright light',
         'saveNotes.paralysisImmunityFeature:Immune to paralysis',
         'saveNotes.phantasmImmunityFeature:Immune to phantasms',
         'skillNotes.awareFeature:+1 Listen/Spot',
-        'skillNotes.lightSensitivityFeature:-2 checks in daylight',
+        'skillNotes.lightSensitivityFeature:-2 checks in bright light',
         'skillNotes.noiselessFeature:+4 Move Silently'
       ];
       delete
@@ -2020,6 +2024,7 @@ Realms.raceRules = function(rules, races) {
       );
       rules.defineRule('magicNotes.naturalSpellsFeature.1',
         'level', '=', null,
+        // TODO minimum 3rd level
         'grayDwarfFeatures.Natural Spells', '*', '2'
       );
 
@@ -2033,20 +2038,23 @@ Realms.raceRules = function(rules, races) {
       delete rules.getChoices('notes')['abilityNotes.drowElfAbilityAdjustment'];
       features = [
         'Darkvision', 'Drow Spell Resistance', 'Level Adjustment',
-        'Light Blindness', 'Natural Spells', 'Strong Will'
+        'Light Blindness', 'Light Sensitivity', 'Natural Spells', 'Strong Will'
       ];
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
+        'combatNotes.lightSensitivityFeature:-2 attack in bright light',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
         'featureNotes.lightBlindnessFeature:Blind 1 round from sudden daylight',
         'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
         'saveNotes.drowSpellResistanceFeature:DC %V',
-        'saveNotes.strongWillFeature:+2 Will vs. spells'
+        'saveNotes.lightSensitivityFeature:-2 saves in bright light',
+        'saveNotes.strongWillFeature:+2 Will vs. spells',
+        'skillNotes.lightSensitivityFeature:-2 checks in bright light'
       ];
       rules.deleteRule('drowElfFeatures.Low Light Vision', 'level');
       rules.deleteRule('drowElfFeatures.Low Light Vision', 'race');
       rules.defineRule('abilityNotes.levelAdjustmentFeature',
-        'drowFeatures.Level Adjustment', '=', '-2'
+        'drowElfFeatures.Level Adjustment', '=', '-2'
       );
       rules.defineRule('featureNotes.darkvisionFeature',
         'drowElfFeatures.Darkvision', '+=', '120'
@@ -2082,7 +2090,7 @@ Realms.raceRules = function(rules, races) {
       notes = null;
       delete
         rules.getChoices('notes')['abilityNotes.wildElfAbilityAdjustment'];
-      rules.deleteRule('constitution', 'abilityNotes.sunElfAbilityAdjustment');
+      rules.deleteRule('constitution', 'abilityNotes.wildElfAbilityAdjustment');
 
     } else if(race == 'Wood Elf') {
       adjustment =
@@ -2114,8 +2122,12 @@ Realms.raceRules = function(rules, races) {
       ];
       delete
         rules.getChoices('notes')['abilityNotes.deepGnomeAbilityAdjustment'];
+      rules.deleteRule
+        ('constitution', 'abilityNotes.deepGnomeAbilityAdjustment');
       rules.deleteRule('deepGnomeFeatures.Dodge Giants', 'level');
       rules.deleteRule('deepGnomeFeatures.Dodge Giants', 'race');
+      rules.deleteRule('deepGnomeFeatures.Low Light Vision', 'level');
+      rules.deleteRule('deepGnomeFeatures.Low Light Vision', 'race');
       rules.defineRule('abilityNotes.levelAdjustmentFeature',
         'deepGnomeFeatures.Level Adjustment', '=', '-3'
       );
@@ -2130,7 +2142,7 @@ Realms.raceRules = function(rules, races) {
       );
       rules.defineRule('magicNotes.naturalSpellsFeature',
         'deepGnomeFeatures.Natural Spells', '=', 
-        '"<i>Dancing Lights</i>/<i>Darkness</i>/<i>Faerie Fire</i>"'
+        '"<i>Blindness</i>/<i>Blur</i>/<i>Change Self</i>"'
       );
       rules.defineRule('magicNotes.naturalSpellsFeature.1', 'level', '=', null);
       rules.defineRule
@@ -2177,18 +2189,18 @@ Realms.raceRules = function(rules, races) {
     } else if(race == 'Aasimar') {
       adjustment = '+2 wisdom/+2 charisma';
       features = [
-        'Alert', 'Darkvision', 'Level Adjustment', 'Native Outsider',
-        'Natural Spells'
+        'Alert', 'Aasimar Resistance', 'Darkvision', 'Level Adjustment',
+        'Native Outsider', 'Natural Spells'
       ];
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
         'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
+        'saveNotes.aasimarResistanceFeature:Acid/cold/electricity 5',
         'saveNotes.nativeOutsiderFeature:' +
-          'Immune to spells that affect only humanoids',
+          'Affected by outsider target spells, not humanoid',
         'skillNotes.alertFeature:+2 Listen/Spot'
       ];
-      // TODO acid, cold, electricty resistance 5
       rules.defineRule('abilityNotes.levelAdjustmentFeature',
         'aasimarFeatures.Level Adjustment', '=', '-1'
       );
@@ -2203,6 +2215,13 @@ Realms.raceRules = function(rules, races) {
         'aasimarFeatures.Natural Spells', '=', '"<i>Light</i>"'
       );
       rules.defineRule('magicNotes.naturalSpellsFeature.1', 'level', '=', null);
+      rules.defineRule
+        ('resistance.Acid', 'saveNotes.aasimarResistanceFeature', '+=', '5');
+      rules.defineRule
+        ('resistance.Cold', 'saveNotes.aasimarResistanceFeature', '+=', '5');
+      rules.defineRule('resistance.Electricity',
+        'saveNotes.aasimarResistanceFeature', '+=', '5'
+      );
 
     } else if(race == 'Air Genasi') {
       adjustment = '+2 dexterity/+2 intelligence/-2 wisdom/-2 charisma';
@@ -2217,7 +2236,7 @@ Realms.raceRules = function(rules, races) {
         'saveNotes.breathlessFeature:' +
           'Immune drowning/suffocation/inhalation effects',
         'saveNotes.nativeOutsiderFeature:' +
-          'Immune to spells that affect only humanoids',
+          'Affected by outsider target spells, not humanoid',
         'saveNotes.resistAirFeature:+%V vs. air spells',
         'validationNotes.airGenasiRaceDomains:Requires Air'
       ];
@@ -2235,12 +2254,16 @@ Realms.raceRules = function(rules, races) {
         'airGenasiFeatures.Natural Spells', '=', '"<i>Levitate</i>"'
       );
       rules.defineRule('magicNotes.naturalSpellsFeature.1',
-        'airGenasiFeatures.Natural Spells', '=', '5'
+        // Small hack to override the level-based value used by other races
+        'level', '=', null,
+        'airGenasiFeatures.Natural Spells', 'v', '5',
+        'abilityNotes.airGenasiAbilityAdjustment', '^', '5'
       );
       rules.defineRule
         ('resistance.Air', 'saveNotes.resistAirFeature', '+=', null);
       rules.defineRule('saveNotes.resistAirFeature',
-        'level', '*', 'Math.floor((source + 4) / 5)'
+        'level', '=', 'Math.floor(source / 5)',
+        '', '^', '1'
       );
       rules.defineRule('validationNotes.airGenasiRaceDomains',
         'race', '=', 'source == "Air Genasi" ? -1 : null',
@@ -2259,7 +2282,7 @@ Realms.raceRules = function(rules, races) {
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
         'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
         'saveNotes.nativeOutsiderFeature:' +
-          'Immune to spells that affect only humanoids',
+          'Affected by outsider target spells, not humanoid',
         'saveNotes.resistEarthFeature:+%V vs. earth spells',
         'validationNotes.earthGenasiRaceDomains:Requires Earth'
       ];
@@ -2277,12 +2300,16 @@ Realms.raceRules = function(rules, races) {
         'earthGenasiFeatures.Natural Spells', '=', '"<i>Pass Without Trace</i>"'
       );
       rules.defineRule('magicNotes.naturalSpellsFeature.1',
-        'earthGenasiFeatures.Natural Spells', '=', '5'
+        // Small hack to override the level-based value used by other races
+        'level', '=', null,
+        'earthGenasiFeatures.Natural Spells', 'v', '5',
+        'abilityNotes.earthGenasiAbilityAdjustment', '^', '5'
       );
       rules.defineRule
         ('resistance.Earth', 'saveNotes.resistEarthFeature', '+=', null);
       rules.defineRule('saveNotes.resistEarthFeature',
-        'level', '*', 'Math.floor((source + 4) / 5)'
+        'level', '=', 'Math.floor(source / 5)',
+        '', '^', '1'
       );
       rules.defineRule('validationNotes.earthGenasiRaceDomains',
         'race', '=', 'source == "Earth Genasi" ? -1 : null',
@@ -2301,7 +2328,7 @@ Realms.raceRules = function(rules, races) {
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
         'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
         'saveNotes.nativeOutsiderFeature:' +
-          'Immune to spells that affect only humanoids',
+          'Affected by outsider target spells, not humanoid',
         'saveNotes.resistFireFeature:+%V vs. fire spells',
         'validationNotes.fireGenasiRaceDomains:Requires Fire'
       ];
@@ -2319,12 +2346,16 @@ Realms.raceRules = function(rules, races) {
         'fireGenasiFeatures.Natural Spells', '=', '"<i>Control Flame</i>"'
       );
       rules.defineRule('magicNotes.naturalSpellsFeature.1',
-        'fireGenasiFeatures.Natural Spells', '=', '5'
+        // Small hack to override the level-based value used by other races
+        'level', '=', null,
+        'fireGenasiFeatures.Natural Spells', 'v', '5',
+        'abilityNotes.fireGenasiAbilityAdjustment', '^', '5'
       );
       rules.defineRule
         ('resistance.Fire', 'saveNotes.resistFireFeature', '+=', null);
       rules.defineRule('saveNotes.resistFireFeature',
-        'level', '*', 'Math.floor((source + 4) / 5)'
+        'level', '=', 'Math.floor(source / 5)',
+        '', '^', '1'
       );
       rules.defineRule('validationNotes.fireGenasiRaceDomains',
         'race', '=', 'source == "Fire Genasi" ? -1 : null',
@@ -2336,7 +2367,7 @@ Realms.raceRules = function(rules, races) {
       adjustment = '+2 constitution/-2 charisma';
       features = [
         'Darkvision', 'Level Adjustment', 'Native Outsider', 'Natural Spells',
-        'Resist Water', 'Swim'
+        'Resist Water', 'Swim', 'Water Breathing'
       ];
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
@@ -2344,7 +2375,7 @@ Realms.raceRules = function(rules, races) {
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
         'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
         'saveNotes.nativeOutsiderFeature:' +
-          'Immune to spells that affect only humanoids',
+          'Affected by outsider target spells, not humanoid',
         'saveNotes.resistWaterFeature:+%V vs. water spells',
         'validationNotes.waterGenasiRaceDomains:Requires Water'
       ];
@@ -2365,12 +2396,16 @@ Realms.raceRules = function(rules, races) {
         'waterGenasiFeatures.Natural Spells', '=', '"<i>Create Water</i>"'
       );
       rules.defineRule('magicNotes.naturalSpellsFeature.1',
-        'waterGenasiFeatures.Natural Spells', '=', '5'
+        // Small hack to override the level-based value used by other races
+        'level', '=', null,
+        'waterGenasiFeatures.Natural Spells', 'v', '5',
+        'abilityNotes.waterGenasiAbilityAdjustment', '^', '5'
       );
       rules.defineRule
         ('resistance.Water', 'saveNotes.resistWaterFeature', '+=', null);
       rules.defineRule('saveNotes.resistWaterFeature',
-        'level', '*', 'Math.floor((source + 4) / 5)'
+        'level', '=', 'Math.floor(source / 5)',
+        '', '^', '1'
       );
       rules.defineRule('validationNotes.waterGenasiRaceDomains',
         'race', '=', 'source == "Water Genasi" ? -1 : null',
@@ -2382,18 +2417,18 @@ Realms.raceRules = function(rules, races) {
       adjustment = '+2 dexterity/+2 intelligence/-2 charisma';
       features = [
         'Darkvision', 'Level Adjustment', 'Native Outsider', 'Natural Spells',
-        'Sly', 'Sneaky'
+        'Sly', 'Sneaky', 'Tiefling Resistance'
       ];
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
         'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
         'saveNotes.nativeOutsiderFeature:' +
-          'Immune to spells that affect only humanoids',
+          'Affected by outsider target spells, not humanoid',
+        'saveNotes.tieflingResistanceFeature:Cold/electricity/fire 5',
         'skillNotes.concealedFeature:+2 Hide',
         'skillNotes.slyFeature:+2 Bluff'
       ];
-      // TODO cold, fire, electricty resistance 5
       rules.defineRule('abilityNotes.levelAdjustmentFeature',
         'tieflingFeatures.Level Adjustment', '=', '-1'
       );
@@ -2408,6 +2443,13 @@ Realms.raceRules = function(rules, races) {
         'tieflingFeatures.Natural Spells', '=', '"<i>Darkness</i>"'
       );
       rules.defineRule('magicNotes.naturalSpellsFeature.1', 'level', '=', null);
+      rules.defineRule
+        ('resistance.Cold', 'saveNotes.tieflingResistanceFeature', '+=', '5');
+      rules.defineRule('resistance.Electricity',
+        'saveNotes.tieflingResistanceFeature', '+=', '5'
+      );
+      rules.defineRule
+        ('resistance.Fire', 'saveNotes.tieflingResistanceFeature', '+=', '5');
 
     } else
       continue;
