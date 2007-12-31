@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.12 2007/12/30 06:18:25 Jim Exp $ */
+/* $Id: Realms.js,v 1.13 2007/12/31 06:55:41 Jim Exp $ */
 
 /*
 Copyright 2005, James J. Hayes
@@ -157,7 +157,7 @@ Realms.FEATS = [
   'Insidious Magic:Metamagic', 'Luck Of Heroes:', 'Magical Artisan:',
   'Magical Training:', 'Mercantile Background:', 'Militia:', 'Mind Over Body:',
   'Pernicious Magic:Metamagic', 'Persistent Spell:Metamagic',
-  'Resist Poison Feat:', 'Saddleback:Fighter', 'Shadow Weave Magic:',
+  'Resist Poison Training:', 'Saddleback:Fighter', 'Shadow Weave Magic:',
   'Signature Spell:', 'Silver Palm:', 'Smooth Talk:', 'Snake Blood:',
   'Spellcasting Prodigy:', 'Stealthy:', 'Street Smart:', 'Strong Soul:',
   'Survivor:', 'Tattoo Focus:', 'Tenacious Magic:Metamagic', 'Thug:',
@@ -418,7 +418,7 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Innate Spell') {
       notes = [
         'magicNotes.innateSpellFeature:' +
-          'Use designated spells as spell-like ability 1/round',
+          'Designated spells as spell-like ability 1/round uses +8 spell slot',
         'validationNotes.innateSpellFeatFeatures:' +
           'Requires Quicken Spell/Silent Spell/Still Spell'
       ];
@@ -431,7 +431,7 @@ Realms.featRules = function(rules, feats, subfeats) {
         'validationNotes.inscribeRuneFeatSkills:' +
           'Requires appropriate Craft skill'
       ];
-      rules.defineRule('validationNotes.incribeRuneFeatSkills',
+      rules.defineRule('validationNotes.inscribeRuneFeatSkills',
         'feats.Inscribe Rune', '=', '-1',
         /^skills.Craft \(/, '+', '1',
         '', 'v', '0'
@@ -479,11 +479,19 @@ Realms.featRules = function(rules, feats, subfeats) {
       notes = [
         'sanityNotes.mercantileBackgroundFeatSkills:' +
           'Requires Appraise||Craft||Profession',
-        'skillNotes.mercantileBackgroundFeature:+2 Appraise/Craft/Profession',
+        'skillNotes.mercantileBackgroundFeature:' +
+          '+2 Appraise/designated Craft/designated Profession',
         'validationNotes.mercantileBackgroundFeatRegion:' +
           'Requires Region =~ Impiltur|Lake Of Steam|Lantan|Sembia|Tashalar|' +
           'Tethyr|Thesk|The Vast|Deep Gnome|Gray Dwarf'
       ];
+      rules.defineRule('sanityNotes.mercantileBackgroundFeatSkills',
+        'feats.Mercantile Background', '=', '-1',
+        'skillModifiers.Appraise', '+', '1',
+        /^skillModifier.Craft/, '+', '1',
+        /^skillModifier.Profession/, '+', '1',
+        '', 'v', '0'
+      );
     } else if(feat == 'Militia') {
       notes = [
         'combatNotes.militiaFeature:Additional martial weapon proficiencies',
@@ -494,15 +502,17 @@ Realms.featRules = function(rules, feats, subfeats) {
       notes = [
         'combatNotes.mindOverBodyFeature:' +
           'Intelligence modifier adds %V HP/+%1 HP from Metamagic feats',
-        'sanityNotes.mindOverBodyFeatFeatures:Requires any Metamagic',
+        'sanityNotes.mindOverBodyFeatAbility:' +
+          'Requires Intelligence Modifier exceed Constitution Modifier',
         'validationNotes.mindOverBodyFeatRegion:' +
           'Requires Region =~ Calimshan|Thay|Moon Elf|Sun Elf'
       ];
       rules.defineRule('combatNotes.mindOverBodyFeature',
-        'intelligenceModifier', '+', null,
+        'intelligenceModifier', '=', null,
         'constitutionModifier', '+', '-source'
       );
       rules.defineRule('combatNotes.mindOverBodyFeature.1',
+        '', '=', '0',
         // NOTE: Metamagic feat names all end in 'Spell|Magic'
         /^features\..*(Spell|Magic)$/, '+', '1'
       );
@@ -510,33 +520,41 @@ Realms.featRules = function(rules, feats, subfeats) {
         'combatNotes.mindOverBodyFeature', '+', null,
         'combatNotes.mindOverBodyFeature.1', '+', null
       );
+      rules.defineRule('sanityNotes.mindOverBodyFeatAbility',
+        'feats.Mind Over Body', '=', '-1',
+        'constitutionModifier', '+', '-source',
+        'intelligenceModifier', '+', 'source',
+        '', 'v', '0'
+      );
     } else if(feat == 'Pernicious Magic') {
       notes = [
         'magicNotes.perniciousMagicFeature:' +
-          'Weave foes %V DC level check to counterspell/DC 9+foe level to ' +
+          'Weave foes DC %V check to counterspell/DC 9+foe level to ' +
           'counterspell Weave foes',
         'validationNotes.perniciousMagicFeatFeatures:' +
           'Requires Shadow Weave Magic'
       ];
-      rules.defineRule
-        ('magicNotes.perniciousMagicFeature', 'casterLevel', '=', null);
+      rules.defineRule('magicNotes.perniciousMagicFeature',
+        'casterLevel', '=', 'source + 11'
+      );
     } else if(feat == 'Persistent Spell') {
       notes = [
         'magicNotes.persistentSpellFeature:' +
           '24 hour duration on designated spell',
         'validationNotes.persistentSpellFeatFeatures:Requires Extend Spell'
       ]
-    } else if(feat == 'Resist Poison Feat') {
+    } else if(feat == 'Resist Poison Training') {
       notes = [
-        'saveNotes.resistPoisonFeatFeature:+4 poison',
-        'validationNotes.resistPoisonFeatFeatRegion:' +
+        'saveNotes.resistPoisonTrainingFeature:+4 poison',
+        'validationNotes.resistPoisonTrainingFeatRegion:' +
           'Requires Region =~ Gray Dwarf|Half Orc|Orc'
       ];
-      rules.defineRule
-        ('resistance.Poison', 'saveNotes.resistPoisonFeatFeature', '+=', '4');
+      rules.defineRule('resistance.Poison',
+        'saveNotes.resistPoisonTrainingFeature', '+=', '4'
+      );
     } else if(feat == 'Saddleback') {
       notes = [
-        'sanityNotes.saddlebackFeature:Requires Ride',
+        'sanityNotes.saddlebackFeatSkills:Requires Ride',
         'skillNotes.saddlebackFeature:+3 Ride',
         'validationNotes.saddlebackFeatRegion:' +
           'Requires Region =~ Cormyr|Hordelands|Narfell|The North|' +
@@ -564,8 +582,8 @@ Realms.featRules = function(rules, feats, subfeats) {
       ];
     } else if(feat == 'Silver Palm') {
       notes = [
-        'sanityNotes.silverPalmFeatSkills:Requires Appraisal||Bluff',
-        'skillNotes.silverPalmFeature:+2 Appraisal/Bluff',
+        'sanityNotes.silverPalmFeatSkills:Requires Appraise||Bluff',
+        'skillNotes.silverPalmFeature:+2 Appraise/Bluff',
         'validationNotes.silverPalmFeatRegion:' +
           'Requires Region =~ Amn|Dragon Coast|Great Dale|Impiltur|Moonsea|' +
           'Sembia|The Shaar|Thesk|Vilhon Reach|Gold Dwarf|Gray Dwarf'
@@ -593,29 +611,29 @@ Realms.featRules = function(rules, feats, subfeats) {
       var klassNoSpace = klass.replace(/ /g, '');
       var note = 'magicNotes.spellcastingProdigy(' + klassNoSpace + ')Feature';
       notes = [
-        note + ':+1 spell DC',
-        'sanityNotes.spellcastingProdigy('+klassNoSpace+')FeatCasterLevel:' +
-          'Requires Caster Level >= 1'
+        note + ':+1 spell DC/+2 primary ability for bonus spells',
+        'sanityNotes.spellcastingProdigy('+klassNoSpace+')FeatLevels:' +
+          'Requires ' + klass
       ];
       rules.defineRule('spellDifficultyClass.' + klass, note, '+', '1');
     } else if(feat == 'Stealthy') {
       notes = [
         'sanityNotes.stealthyFeatSkills:Requires Hide||Move Silently',
-        'skillNotes.stealthyFeature:+2 Hide/Move Silently Information',
+        'skillNotes.stealthyFeature:+2 Hide/Move Silently',
         'validationNotes.stealthyFeatRegion:' +
           'Requires Region =~ Drow Elf|Half Orc|Ghostwise Halfling|' +
           'Lightfoot Halfling|Strongheart Halfling'
       ];
     } else if(feat == 'Street Smart') {
       notes = [
-        'sanityNotes.stealthyFeatSkills:Requires Bluff||Gather Information',
+        'sanityNotes.streetSmartFeatSkills:Requires Bluff||Gather Information',
         'skillNotes.streetSmartFeature:+2 Bluff/Gather Information',
         'validationNotes.streetSmartFeatRegion:' +
           'Requires Region =~ Amn|Calimshan|Chessenta|Moonsea|Unther'
       ];
     } else if(feat == 'Strong Soul') {
       notes = [
-        'saveNotes.strongSoulFeature:+1 Fortitude/Will and +2 draining/death',
+        'saveNotes.strongSoulFeature:+1 Fortitude/Will; +1 draining/death',
         'validationNotes.strongSoulFeatRegion:' +
           'Requires Region =~ Dalelands|Moonshaes|Deep Gnome|' +
           'Ghostwise Halfling|Lightfoot Halfling|Moon Elf|Rock Gnome|' +
@@ -623,8 +641,7 @@ Realms.featRules = function(rules, feats, subfeats) {
       ];
       rules.defineRule
         ('save.Fortitude', 'saveNotes.strongSoulFeature', '+', '1');
-      rules.defineRule
-        ('save.Will', 'saveNotes.strongSoulFeature', '+', '1');
+      rules.defineRule('save.Will', 'saveNotes.strongSoulFeature', '+', '1');
     } else if(feat == 'Survivor') {
       notes = [
         'saveNotes.survivorFeature:+1 Fortitude',
@@ -651,7 +668,8 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Tenacious Magic') {
       notes = [
         'magicNotes.tenaciousMagicFeature:' +
-          'Foe requires DC %V to dispel weave magic spell',
+          'Weave foes DC %V check to dispel/DC 13+foe level to ' +
+          'dispel Weave foes',
         'sanityNotes.tenaciousMagicFeatCasterLevel:Requires Caster Level >= 1',
         'validationNotes.tenaciousMagicFeatFeatures:Requires Shadow Weave Magic'
       ];
@@ -670,7 +688,7 @@ Realms.featRules = function(rules, feats, subfeats) {
       notes = [
         'abilityNotes.thunderTwinFeature:+2 charisma checks',
         'skillNotes.thunderTwinFeature:' +
-          'DC 15 Intuit Direction to determine direction of twin',
+          'DC 15 Wisdom check to determine direction of twin',
         'validationNotes.thunderTwinFeatRegion:' +
           'Requires Region =~ Gold Dwarf|Shield Dwarf'
       ];
@@ -684,9 +702,17 @@ Realms.featRules = function(rules, feats, subfeats) {
       ];
     } else if(feat == 'Twin Spell') {
       notes = [
-        'magicNotes.twinSpellFeature:Spell affect as if two spells cast',
-        'sanityNotes.twinSpellFeatCasterLevel:Requires Caster Level >= 1'
+        'magicNotes.twinSpellFeature:Affect as two spells uses +4 spell slot',
+        'sanityNotes.twinSpellFeatCasterLevel:Requires Caster Level >= 1',
+        'validationNotes.twinSpellFeatFeatures:Requires any Metamagic'
       ];
+      rules.defineRule('validationNotes.twinSpellFeatFeatures',
+        'feats.Twin Spell', '=', '-2',
+        // NOTE: Metamagic feat names all end in 'Spell|Magic'
+        // Twin Spell itself will match, so we require two matches
+        /^features\..*(Spell|Magic)$/, '+', '1',
+        '', 'v', '0'
+      );
     } else if(feat == 'Twin Sword Style') {
       notes = [
         'combatNotes.twinSwordStyleFeature:' +
@@ -1849,7 +1875,7 @@ Realms.prestigeClassRules = function(rules, classes) {
           'DC 9+foe level check to detect Weave magic/Foe DC %V check to ' +
           'detect Shadow Weave spell',
         'magicNotes.perniciousMagicFeature:' +
-          'Weave foes %V DC level check to counterspell/DC 9+foe level to ' +
+          'Weave foes DC %V check to counterspell/DC 9+foe level to ' +
           'counterspell Weave foes',
         'magicNotes.shadowWalkFeature:<i>Shadow Walk</i> 1/day',
         'magicNotes.shieldOfShadowsFeature:' +
@@ -1898,8 +1924,9 @@ Realms.prestigeClassRules = function(rules, classes) {
       );
       rules.defineRule
         ('magicNotes.insidiousMagicFeature', 'casterLevel', '=', 'source + 11');
-      rules.defineRule
-        ('magicNotes.perniciousMagicFeature', 'casterLevel', '=', null);
+      rules.defineRule('magicNotes.perniciousMagicFeature',
+        'casterLevel', '=', 'source + 11'
+      );
       rules.defineRule
         ('magicNotes.shieldOfShadowsFeature', 'casterLevel', '=', null);
       rules.defineRule
