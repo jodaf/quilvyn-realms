@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.13 2007/12/31 06:55:41 Jim Exp $ */
+/* $Id: Realms.js,v 1.14 2008/01/01 06:01:13 Jim Exp $ */
 
 /*
 Copyright 2005, James J. Hayes
@@ -802,7 +802,7 @@ Realms.magicRules = function(rules, classes, domains) {
       turn = null;
     } else if(domain == 'Charm') {
       notes = [
-        'abilityNotes.charmDomain:Boost charisma by 4 for 1 minute 1/day'
+        'abilityNotes.charmDomain:+4 charisma for 1 minute 1/day'
       ];
       spells = [
         'Charm Person', 'Calm Emotions', 'Suggestions', 'Emotion',
@@ -812,7 +812,7 @@ Realms.magicRules = function(rules, classes, domains) {
     } else if(domain == 'Craft') {
       notes = [
         'magicNotes.craftDomain:+1 caster level creation spells',
-        'skillNotes.craftDomain:+2 on one Craft skill'
+        'skillNotes.craftDomain:+2 designated Craft'
       ];
       spells = [
         'Animate Rope', 'Wood Shape', 'Stone Shape', 'Minor Creation',
@@ -877,7 +877,7 @@ Realms.magicRules = function(rules, classes, domains) {
     } else if(domain == 'Family') {
       notes = [
         'magicNotes.familyDomain:' +
-          'Add 4 to AC of %V creaters w/in 10 ft for %1 rounds 1/day'
+          'Add 4 to AC of %V creatures w/in 10 ft for %1 rounds 1/day'
       ];
       spells = [
         'Bless', 'Shield Other', 'Helping Hand', 'Imbue With Spell Ability',
@@ -956,8 +956,7 @@ Realms.magicRules = function(rules, classes, domains) {
         ('magicNotes.mentalismDomain', 'level', '=', 'source + 2');
     } else if(domain == 'Metal') {
       notes = [
-        'featureNotes.metalDomain:' +
-          'Weapon Proficiency/Focus with choice of hammer'
+        'featureNotes.metalDomain:Weapon Proficiency/Focus w/designated hammer'
       ];
       spells = [
         'Magic Weapon', 'Heat Metal', 'Keen Edge', 'Rusting Grasp',
@@ -965,9 +964,12 @@ Realms.magicRules = function(rules, classes, domains) {
         'Iron Body', 'Repel Metal Or Stone'
       ];
       turn = null;
-      // TODO add to feat count for additional Weapon Proficiency/Focus?
+      rules.defineRule
+        ('featCount.Fighter', 'featureNotes.metalDomain', '+=', '2');
     } else if(domain == 'Moon') {
-      notes = null;
+      notes = [
+        'combatNotes.moonDomain:Turn lycanthropes'
+      ];
       spells = [
         'Faerie Fire', 'Moonbeam', 'Moon Blade', 'Emotion', 'Moon Path',
         'Permanent Image', 'Insanity', 'Animal Shapes', 'Moonfire'
@@ -1013,7 +1015,8 @@ Realms.magicRules = function(rules, classes, domains) {
     } else if(domain == 'Planning') {
       notes = [
         'featureNotes.planningDomain:Extend Spell bonus feat',
-        'magicNotes.extendSpellFeature:x2 designated spell duration'
+        'magicNotes.extendSpellFeature:' +
+          'x2 designated spell duration uses +1 spell slot'
       ];
       spells = [
         'Deathwatch', 'Augury', 'Clairaudiance/Clairvoyance', 'Status',
@@ -1025,7 +1028,7 @@ Realms.magicRules = function(rules, classes, domains) {
         ('features.Extend Spell', 'featureNotes.planningDomain', '=', '1');
     } else if(domain == 'Portal') {
       notes = [
-        'featureNotes.portalDomain:DC 20 check to detect in/active portals'
+        'skillNotes.portalDomain:DC 20 search to detect in/active portals'
       ];
       spells = [
         'Summon Monster I', 'Analyze Portal', 'Dimensional Anchor',
@@ -1035,7 +1038,7 @@ Realms.magicRules = function(rules, classes, domains) {
       turn = null;
     } else if(domain == 'Renewal') {
       notes = [
-        'combatNotes.renewalDomain:Add d8+%V to negative hit points 1/day'
+        'combatNotes.renewalDomain:Recover d8+%V HP points when negative 1/day'
       ];
       spells = [
         'Charm Person', 'Lesser Restoration', 'Remove Disease', 'Reincarnate',
@@ -1070,7 +1073,9 @@ Realms.magicRules = function(rules, classes, domains) {
       rules.defineRule
         ('features.Scribe Scroll', 'featureNotes.runeDomain', '=', '1');
     } else if(domain == 'Scalykind') {
-      notes = null;
+      notes = [
+        'combatNotes.scalykindDomain:Turn/command reptiles'
+      ];
       spells = [
         'Magic Fang', 'Animal Trance', 'Greater Magic Fang', 'Poison',
         'Animal Growth', 'Eyebite', 'Creeping Doom', 'Animal Shapes',
@@ -1078,7 +1083,9 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       turn = 'Reptiles';
     } else if(domain == 'Slime') {
-      notes = null;
+      notes = [
+        'combatNotes.slimeDomain:Turn/command oozes'
+      ];
       spells = [
         'Grease', 'Melf\'s Acid Arrow', 'Poison', 'Rusting Grasp',
         'Evard\'s Black Tentacles', 'Transmute Rock To Mud', 'Destruction',
@@ -1096,7 +1103,9 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       turn = null;
     } else if(domain == 'Spider') {
-      notes = null;
+      notes = [
+        'combatNotes.spiderDomain:Turn/command spiders'
+      ];
       spells = [
         'Spider Climb', 'Summon Swarm', 'Phantom Steed', 'Giant Vermin',
         'Insect Plague', 'Spider Curse', 'Stone Spiders', 'Creeping Doom',
@@ -1113,10 +1122,12 @@ Realms.magicRules = function(rules, classes, domains) {
         'Storm Of Vengeance'
       ];
       turn = null;
+      rules.defineRule
+        ('resistance.Electricity', 'saveNotes.stormDomain', '+=', '5');
     } else if(domain == 'Suffering') {
       notes = [
         'combatNotes.sufferingDomain:' +
-           'Touch attack causes -2 strength/dexterity 1/day'
+           'Touch attack causes -2 strength/dexterity for 1 minute 1/day'
       ];
       spells = [
         'Bane', 'Endurance', 'Bestow Curse', 'Enervation', 'Feeblemind',
@@ -1153,7 +1164,7 @@ Realms.magicRules = function(rules, classes, domains) {
       );
     } else if(domain == 'Tyranny') {
       notes = [
-        'magicNotes.tyrannyDomain:+2 compulsion spell DC'
+        'magicNotes.tyrannyDomain:+2 DC compulsion spells'
       ];
       spells = [
         'Command', 'Enthrall', 'Discern Lies', 'Fear', 'Greater Command',
@@ -1221,6 +1232,7 @@ Realms.magicRules = function(rules, classes, domains) {
         prefix + '.frequency:%V/day',
         prefix + '.maxHitDice:(d20+%V)/3'
       ]);
+      rules.defineSheetElement('Turn ' + turn, 'Turn Undead', null, ' * ');
     }
   }
 
