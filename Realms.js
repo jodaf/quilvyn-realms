@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.14 2008/01/01 06:01:13 Jim Exp $ */
+/* $Id: Realms.js,v 1.15 2008/01/03 07:58:26 Jim Exp $ */
 
 /*
 Copyright 2005, James J. Hayes
@@ -1252,7 +1252,14 @@ Realms.prestigeClassRules = function(rules, classes) {
     if(klass == 'Arcane Devotee') {
 
       baseAttack = SRD35.ATTACK_BONUS_POOR;
-      feats = null;
+      feats = [
+        'Greater Spell Penetration', 'Improved Counterspell',
+        'Magical Artisan', 'Shadow Weave Magic', 'Spell Penetration'
+      ];
+      for(var school in schools) {
+        feats[feats.length] = 'Greater Spell Focus (' + school + ')';
+        feats[feats.length] = 'Spell Focus (' + school + ')';
+      }
       features = [
         '1:Caster Level Bonus', '1:Freely Enlarge Spell', '2:Alignment Focus',
         '2:Sacred Defense', '5:Divine Shroud'
@@ -1262,7 +1269,7 @@ Realms.prestigeClassRules = function(rules, classes) {
         'magicNotes.alignmentFocusFeature:' +
           '+1 caster level on spells from designated alignment component',
         'magicNotes.casterLevelBonusFeature:' +
-          'Add %V to base class level for spells known/per day',
+          '+%V base class level for spells known/per day',
         'magicNotes.freelyEnlargeSpellFeature:Cast enlarged spell %V/day',
         'saveNotes.divineShroudFeature:' +
           'Aura provides DC %V spell reistance for %1 rounds 1/day',
@@ -1287,8 +1294,7 @@ Realms.prestigeClassRules = function(rules, classes) {
       spells = null;
       spellsKnown = null;
       spellsPerDay = null;
-      // TODO: Not quite the same feat choices as Wizards
-      rules.defineRule('featCount.Wizard',
+      rules.defineRule('featCount.Arcane Devotee',
         'levels.Arcane Devotee', '+=', 'source >= 3 ? 1 : null'
       );
       rules.defineRule('magicNotes.casterLevelBonusFeature',
@@ -1330,7 +1336,11 @@ Realms.prestigeClassRules = function(rules, classes) {
         'saveNotes.divineWrathFeature:+3 saves %V rounds 1/day',
         'saveNotes.sacredDefenseFeature:+%V vs. divine spells',
         'validationNotes.divineChampionClassBaseAttack:' +
-          'Requires Base Attack >= 7'
+          'Requires Base Attack >= 7',
+        'validationNotes.divineChampionClassFeats:' +
+          'Requires Sum Weapon Focus >= 1',
+        'validationNotes.divineChampionClassSkills:' +
+          'Requires Knowledge (Religion) >= 3'
       ];
       profArmor = SRD35.PROFICIENCY_MEDIUM;
       profShield = SRD35.PROFICIENCY_HEAVY;
@@ -1365,7 +1375,7 @@ Realms.prestigeClassRules = function(rules, classes) {
         'charisma', '?', 'source >= 12'
       );
       rules.defineRule
-        ('savetNotes.divineWrathFeature', 'charismaModifier', '=', null);
+        ('saveNotes.divineWrathFeature', 'charismaModifier', '=', null);
       rules.defineRule('saveNotes.sacredDefenseFeature',
         'levels.Divine Champion', '+=', 'Math.floor(source / 2)'
       );
@@ -1376,25 +1386,26 @@ Realms.prestigeClassRules = function(rules, classes) {
       feats = null;
       features = [
         '1:Caster Level Bonus', '1:Divine Emissary', '1:New Domain',
-        '2:Sacred Defense', '3:Imbue With Spell Ability', '5:Transcendence'
+        '2:Sacred Defense', '3:Imbue With Spell Ability', '5:Native Outsider',
+        '5:Transcendence'
       ];
       hitDie = 8;
       notes = [
         'featureNotes.divineEmissaryFeature:' +
           'Telepathy w/same-alignment outsider w/in 60 ft',
         'magicNotes.casterLevelBonusFeature:' +
-          'Add %V to base class level for spells known/per day',
+          '+%V base class level for spells known/per day',
         'magicNotes.imbueWithSpellAbilityFeature:' +
           '<i>Imbue With Spell Ability</i> 1st/2nd level spells at will',
         'magicNotes.transcendenceFeature:' +
           'Designated <i>Protection</i> spell at will',
-        'saveNotes.transcendenceFeature:' +
-          'Immune to spells that affect only humanoids',
+        'saveNotes.nativeOutsiderFeature:' +
+          'Affected by outsider target spells, not humanoid',
         'saveNotes.sacredDefenseFeature:+%V vs. divine spells',
         'skillNotes.transcendenceFeature:+2 charisma checks w/followers of %V',
-        'validationNotes.divineChampionClassSkills:' +
+        'validationNotes.divineDiscipleClassSkills:' +
           'Requires Diplomacy >= 5/Knowledge (Religion) >= 8',
-        'validationNotes.divineChampionClassSpells:Requires divine level 4'
+        'validationNotes.divineDiscipleClassSpells:Requires divine level 4'
       ];
       profArmor = SRD35.PROFICIENCY_NONE;
       profShield = SRD35.PROFICIENCY_NONE;
@@ -1420,7 +1431,9 @@ Realms.prestigeClassRules = function(rules, classes) {
       rules.defineRule('saveNotes.sacredDefenseFeature',
         'levels.Divine Disciple', '+=', 'Math.floor(source / 2)'
       );
-      rules.defineRule('skillNotes.transcendenceFeature', 'deity', '=', null);
+      rules.defineRule('skillNotes.transcendenceFeature',
+        'deity', '=', 'source.replace(/\\s*\\(.*\\)/, "")'
+      );
       rules.defineRule('validationNotes.divineDiscipleClassSpells',
         'levels.Divine Disciple', '=', '-1',
         /^spellsKnown\.(C|D|P|R)4/, '+', '1',
@@ -1473,10 +1486,10 @@ Realms.prestigeClassRules = function(rules, classes) {
       spellsKnown = null;
       spellsPerDay = null;
       rules.defineRule('combatNotes.sneakAttackFeature',
-        'levels.Divine Disciple', '+=', 'Math.floor(source / 2)'
+        'levels.Divine Seeker', '+=', 'Math.floor(source / 2)'
       );
       rules.defineRule('saveNotes.sacredDefenseFeature',
-        'levels.Divine Disciple', '+=', 'Math.floor(source / 2)'
+        'levels.Divine Seeker', '+=', 'Math.floor(source / 2)'
       );
 
     } else if(klass == 'Guild Thief') {
@@ -1499,7 +1512,7 @@ Realms.prestigeClassRules = function(rules, classes) {
         'combatNotes.sneakAttackFeature:' +
           '%Vd6 extra damage when surprising or flanking',
         'combatNotes.uncannyDodgeFeature:Always adds dexterity modifier to AC',
-        'skillNotes.doublespeakFeature:+2 Bluff/Diplomacy/Innuendo',
+        'skillNotes.doublespeakFeature:+2 Bluff/Diplomacy',
         'skillNotes.reputationFeature:+%V Leadership',
         'validationNotes.guildThiefClassSkills:' +
           'Requires Gather Information >= 3/Hide >= 8/Intimidate >= 3/' +
@@ -1540,13 +1553,17 @@ Realms.prestigeClassRules = function(rules, classes) {
       feats = null;
       features = [
         '1:Bardic Knowledge', '1:Favored Enemy', '2:Deneir\'s Eye',
-        '2:Skill Focus', '3:Tymora\'s Smile', '4:Lliira\'s Heart',
+        '2:Harper Skill Focus', '3:Tymora\'s Smile', '4:Lliira\'s Heart',
         '5:Craft Harper Item'
       ];
       hitDie = 6;
       notes = [
         'combatNotes.favoredEnemyFeature:' +
           '+2 or more damage vs. %V type(s) of creatures',
+        'featureNotes.harperSkillFocusFeature:' +
+          'Skill Focus in perform/designated Harper class skill',
+        'magicNotes.craftHarperItemFeature:' +
+          'Create magic instruments/Harper pins/potions',
         'saveNotes.deneir\'sEyeFeature:+2 vs. glyphs',
         'saveNotes.lliira\'sHeartFeature:+2 vs. compulsion/fear',
         'saveNotes.tymora\'sSmileFeature:+2 luck bonus to any save 1/day',
@@ -1600,6 +1617,10 @@ Realms.prestigeClassRules = function(rules, classes) {
       rules.defineRule('combatNotes.favoredEnemyFeature',
         'levels.Harper Scout', '+=', '1 + Math.floor(source / 4)'
       );
+      // TODO: Skill Focus, not really General
+      rules.defineRule('featCount.General',
+        'levels.Harper Scout', '+=', 'source >= 2 ? 2 : null'
+      );
       rules.defineRule('skillModifier.Bardic Knowledge',
         'skills.Bardic Knowledge', '=', null,
         'levels.Harper Scout', '+', null,
@@ -1623,12 +1644,13 @@ Realms.prestigeClassRules = function(rules, classes) {
       notes = [
         'featureNotes.cohortFeature:Gain Hathran or Barbarian follower',
         'magicNotes.casterLevelBonusFeature:' +
-          'Add %V to base class level for spells known/per day',
+          '+%V base class level for spells known/per day',
         'magicNotes.circleLeaderFeature:' +
           '1 hour ritual w/2-5 other members raises caster level, ' +
           'gives metamagic feats',
         'magicNotes.fearFeature:<i>Fear</i> %V/day',
-        'magicNotes.greaterCommandFeature:Quickened <i>Command</i> 1/day',
+        'magicNotes.greaterCommandFeature:' +
+          'Quickened <i>Greater Command</i> 1/day',
         'magicNotes.placeMagicFeature:' +
           'Cast spell w/out prepartion when in Rashemen',
         'validationNotes.hathranClassAlignment:' +
@@ -1735,7 +1757,7 @@ Realms.prestigeClassRules = function(rules, classes) {
 
     } else if(klass == 'Red Wizard') {
 
-      baseAttack = SRD35.ATTACK_BONUS_AVERAGE;
+      baseAttack = SRD35.ATTACK_BONUS_POOR;
       feats = null;
       features = [
         '1:Caster Level Bonus', '1:Enhanced Specialization',
@@ -1745,19 +1767,19 @@ Realms.prestigeClassRules = function(rules, classes) {
       hitDie = 4;
       notes = [
         'magicNotes.casterLevelBonusFeature:' +
-          'Add %V to base class level for spells known/per day',
+          '+%V base class level for spells known/per day',
         'magicNotes.enhancedSpecializationFeature:Additional prohibited school',
         'magicNotes.circleLeaderFeature:' +
           '1 hour ritual w/2-5 other members raises caster level, ' +
           'gives metamagic feats',
         'magicNotes.greatCircleLeaderFeature:' +
           'Lead magic circle w/9 other members',
-        'magicNotes.specialistDefenseFeature:' +
-          '+%V bonus on saves vs. specialist school spells',
         'magicNotes.scribeTattooFeature:Induct novices into circle',
         'magicNotes.spellPowerFeature:+%V specific spell DC/resistance checks',
         'magicNotes.tattooFocusFeature:' +
           '+1 DC/+1 caster level vs. resistance w/specialization school spells',
+        'saveNotes.specialistDefenseFeature:' +
+          '+%V bonus on saves vs. specialist school spells',
         'validationNotes.redWizardClassAlignment:Requires Alignment !~ Good',
         'validationNotes.redWizardClassFeats:' +
           'Requires Tattoo Focus/any 3 metamagic or item creation',
@@ -1789,7 +1811,7 @@ Realms.prestigeClassRules = function(rules, classes) {
         ('features.Tattoo Focus', 'feats.Tattoo Focus', '=', null);
       rules.defineRule
         ('magicNotes.casterLevelBonusFeature', 'levels.Red Wizard', '+=', null);
-      rules.defineRule('magicNotes.specialistDefenseFeature',
+      rules.defineRule('saveNotes.specialistDefenseFeature',
         'levels.Red Wizard', '+=',
         'Math.floor((source + 1) / 2) - (source >= 5 ? 1 : 0)'
       );
@@ -1827,7 +1849,7 @@ Realms.prestigeClassRules = function(rules, classes) {
       hitDie = 8;
       notes = [
         'magicNotes.casterLevelBonusFeature:' +
-          'Add %V to base class level for spells known/per day',
+          '+%V base class level for spells known/per day',
         'magicNotes.improvedRunecastingFeature:Add charges/triggers to runes',
         'magicNotes.runeChantFeature:+3 DC divine spells when tracing rune',
         'magicNotes.maximizeRuneFeature:+5 DC/maximize effects of runes',

@@ -1,4 +1,4 @@
-<!-- $Id: README.txt,v 1.1 2007/12/08 07:02:18 Jim Exp $ -->
+<!-- $Id: README.txt,v 1.2 2008/01/03 07:58:26 Jim Exp $ -->
 
 <html>
 
@@ -13,6 +13,19 @@
 <h3>Usage Notes</h3>
 <p>
 <ul>
+  <li>
+    The 1st-level Arcane Devotee "Enlarge Spell" feature is renamed "Freely
+    Enlarge Spell" to distinguish it from the feat of the same name.
+  </li><li>
+    Harper Scout's "Harper Knowledge" feature is renamed "Bardic Knowledge",
+    since the two are identical and stack.
+  </li><li>
+    Purple Dragon Knight's "Inspire Courage" feature is renamed "Knight's
+    Courage", since it differs in details from the Bard feature.
+  </li><li>
+    Purple Dragon Knight's "Fear" feature is renamed "Knight's Fear", since it
+    differs in details from the Hathran feature.
+  </li>
 </ul>
 </p>
 
