@@ -1,4 +1,4 @@
-<!-- $Id: README.txt,v 1.2 2008/01/03 07:58:26 Jim Exp $ -->
+<!-- $Id: README.txt,v 1.3 2008/04/03 05:17:54 Jim Exp $ -->
 
 <html>
 
@@ -9,6 +9,15 @@
 <body bgcolor='wheat'>
 
 <h2>Forgotton Realms Scribe Module Notes</h2>
+
+<h3>Installation</h3>
+This package contains a plug-in that allows the Scribe Character Editor to
+work with characters from the Forgotten Realms campaign setting from Wizards of
+the Coast.  To install it, copy Realms.js and Realmsdoc.html into your Scribe
+installation directory and add 'Realms.js' to the CUSTOMIZATION_URLS array in
+your installation's scribe.html.  If you also want to use the Forgotten Realms
+prestige classes, copy RealmsPrestige.js into your Scribe installation
+directory and add 'RealmsPrestige.js' to the CUSTOMIZATION_URLS array.
 
 <h3>Usage Notes</h3>
 <p>
