@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.18 2008/04/04 05:33:21 Jim Exp $ */
+/* $Id: Realms.js,v 1.19 2008/04/04 16:19:32 Jim Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License along with
 this program; if not, write to the Free Software Foundation, Inc., 59 Temple
 Place, Suite 330, Boston, MA 02111-1307 USA.
 */
+
+var REALMS_VERSION = '1.0beta-080404';
 
 /*
  * This module loads the rules from the Forgotten Realms campaign setting.  The
@@ -1762,27 +1764,28 @@ Realms.randomizeOneAttribute = function(attributes, attribute) {
 
 /* Returns HTML body content for user notes associated with this rule set. */
 Realms.ruleNotes = function() {
-return '' +
-  '<h2>Forgotton Realms Scribe Module Notes</h2>\n' +
-  '\n' +
-  '<h3>Usage Notes</h3>\n' +
-  '<p>\n' +
-  '<ul>\n' +
-  '  <li>\n' +
-  '    The 1st-level Arcane Devotee "Enlarge Spell" feature is renamed\n' +
-  '    "Freely Enlarge Spell" to distinguish it from the feat of the same\n' +
-  '    name.\n' +
-  '  </li><li>\n' +
-  '    Harper Scout\'s "Harper Knowledge" feature is renamed "Bardic\n' +
-  '    Knowledge", since the two are identical and stack.\n' +
-  '  </li><li>\n' +
-  '    Purple Dragon Knight\'s "Inspire Courage" feature is renamed\n' +
-  '    "Knight\'s Courage", since it differs in details from the Bard\n' +
-  '    feature.\n' +
-  '  </li><li>\n' +
-  '    Purple Dragon Knight\'s "Fear" feature is renamed "Knight\'s Fear",\n' +
-  '    since it differs in details from the Hathran feature.\n' +
-  '  </li>\n' +
-  '</ul>\n' +
-  '</p>';
+  return '' +
+    '<h2>Forgotton Realms Scribe Module Notes</h2>\n' +
+    'Realms Scribe Module Version ' + REALMS_VERSION + '\n' +
+    '\n' +
+    '<h3>Usage Notes</h3>\n' +
+    '<p>\n' +
+    '<ul>\n' +
+    '  <li>\n' +
+    '    The 1st-level Arcane Devotee "Enlarge Spell" feature is renamed\n' +
+    '    "Freely Enlarge Spell" to distinguish it from the feat of the same\n' +
+    '    name.\n' +
+    '  </li><li>\n' +
+    '    Harper Scout\'s "Harper Knowledge" feature is renamed "Bardic\n' +
+    '    Knowledge", since the two are identical and stack.\n' +
+    '  </li><li>\n' +
+    '    Purple Dragon Knight\'s "Inspire Courage" feature is renamed\n' +
+    '    "Knight\'s Courage", since it differs in details from the Bard\n' +
+    '    feature.\n' +
+    '  </li><li>\n' +
+    '    Purple Dragon Knight\'s "Fear" feature is renamed "Knight\'s\n' +
+    '    Fear", since it differs in details from the Hathran feature.\n' +
+    '  </li>\n' +
+    '</ul>\n' +
+    '</p>';
 };

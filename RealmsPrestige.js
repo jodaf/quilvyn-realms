@@ -1,4 +1,4 @@
-/* $Id: RealmsPrestige.js,v 1.2 2008/03/27 05:12:22 Jim Exp $ */
+/* $Id: RealmsPrestige.js,v 1.3 2008/04/04 16:19:32 Jim Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -369,8 +369,8 @@ RealmsPrestige.classRules = function(rules, classes) {
         'saveNotes.lliira\'sHeartFeature:+2 vs. compulsion/fear',
         'saveNotes.tymora\'sSmileFeature:+2 luck bonus to any save 1/day',
         'skillNotes.favoredEnemyFeature:' +
-          '+2 or more vs. %V type(s) of creatures on ' +
-          'Bluff/Listen/Sense Motive/Spot/Survival',
+          '+2 or more Bluff/Listen/Sense Motive/Spot/Survival ' +
+          'vs. %V type(s) of creatures',
         'validationNotes.harperScoutClassAlignment:Requires Alignment !~ Evil',
         'validationNotes.harperScoutClassFeats:Requires Alertness/Iron Will',
         'validationNotes.harperScoutClassSkills:' +
