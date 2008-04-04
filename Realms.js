@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.17 2008/03/27 05:12:22 Jim Exp $ */
+/* $Id: Realms.js,v 1.18 2008/04/04 05:33:21 Jim Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -69,9 +69,7 @@ function Realms() {
   rules.defineChoice('random', SRD35.RANDOMIZABLE_ATTRIBUTES);
   rules.randomizeOneAttribute = Realms.randomizeOneAttribute;
   rules.makeValid = SRD35.makeValid;
-  if(window.Experience != null) {
-    Experience.experienceRules(rules);
-  }
+  rules.ruleNotes = Realms.ruleNotes;
   // Let Scribe know we're here
   Scribe.addRuleSet(rules);
   Realms.rules = rules;
@@ -1760,4 +1758,31 @@ Realms.randomizeOneAttribute = function(attributes, attribute) {
   } else {
     SRD35.randomizeOneAttribute.apply(this, [attributes, attribute]);
   }
+};
+
+/* Returns HTML body content for user notes associated with this rule set. */
+Realms.ruleNotes = function() {
+return '' +
+  '<h2>Forgotton Realms Scribe Module Notes</h2>\n' +
+  '\n' +
+  '<h3>Usage Notes</h3>\n' +
+  '<p>\n' +
+  '<ul>\n' +
+  '  <li>\n' +
+  '    The 1st-level Arcane Devotee "Enlarge Spell" feature is renamed\n' +
+  '    "Freely Enlarge Spell" to distinguish it from the feat of the same\n' +
+  '    name.\n' +
+  '  </li><li>\n' +
+  '    Harper Scout\'s "Harper Knowledge" feature is renamed "Bardic\n' +
+  '    Knowledge", since the two are identical and stack.\n' +
+  '  </li><li>\n' +
+  '    Purple Dragon Knight\'s "Inspire Courage" feature is renamed\n' +
+  '    "Knight\'s Courage", since it differs in details from the Bard\n' +
+  '    feature.\n' +
+  '  </li><li>\n' +
+  '    Purple Dragon Knight\'s "Fear" feature is renamed "Knight\'s Fear",\n' +
+  '    since it differs in details from the Hathran feature.\n' +
+  '  </li>\n' +
+  '</ul>\n' +
+  '</p>';
 };
