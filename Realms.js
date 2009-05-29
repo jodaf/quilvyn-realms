@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.19 2008/04/04 16:19:32 Jim Exp $ */
+/* $Id: Realms.js,v 1.20 2009/05/29 03:52:34 Jim Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -35,7 +35,7 @@ function Realms() {
   }
 
   // Define a new rule set w/the same editor and standard viewer as SRD35
-  var rules = new ScribeRules('Forgotten Realms');
+  var rules = new ScribeRules('Forgotten Realms', REALMS_VERSION);
   rules.editorElements = SRD35.initialEditorElements();
   SRD35.createViewers(rules, SRD35.VIEWERS);
   // Pick up the SRD35 rules, w/minor mods for deities and weapons
