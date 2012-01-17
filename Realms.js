@@ -1,7 +1,7 @@
-/* $Id: Realms.js,v 1.21 2011/03/24 23:04:24 jhayes Exp $ */
+/* $Id: Realms.js,v 1.22 2012/01/17 06:26:01 jhayes Exp $ */
 
 /*
-Copyright 2011, James J. Hayes
+Copyright 2008, James J. Hayes
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -43,7 +43,7 @@ function Realms() {
   SRD35.raceRules(rules, SRD35.LANGUAGES, Realms.RACES);
   SRD35.classRules(rules, SRD35.CLASSES);
   SRD35.companionRules(rules, SRD35.COMPANIONS);
-  SRD35.skillRules(rules, SRD35.SKILLS, SRD35.SUBSKILLS);
+  SRD35.skillRules(rules, SRD35.SKILLS, SRD35.SUBSKILLS, SRD35.SYNERGIES);
   SRD35.featRules(rules, SRD35.FEATS, SRD35.SUBFEATS);
   SRD35.descriptionRules
     (rules, SRD35.ALIGNMENTS, Realms.DEITIES, SRD35.GENDERS);
