@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.22 2012/01/17 06:26:01 jhayes Exp $ */
+/* $Id: Realms.js,v 1.23 2012/03/14 02:32:13 jhayes Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -1263,7 +1263,7 @@ Realms.raceRules = function(rules, races) {
         'abilityNotes.levelAdjustmentFeature:%V',
         'combatNotes.lightSensitivityFeature:-2 attack in bright light',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
         'saveNotes.magicPoisonImmunityFeature:' +
           'Immune to magical/alchemaic poisions',
         'saveNotes.lightSensitivityFeature:-2 saves in bright light',
@@ -1312,7 +1312,7 @@ Realms.raceRules = function(rules, races) {
         'combatNotes.lightSensitivityFeature:-2 attack in bright light',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
         'featureNotes.lightBlindnessFeature:Blind 1 round from sudden daylight',
-        'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
         'saveNotes.drowSpellResistanceFeature:DC %V',
         'saveNotes.lightSensitivityFeature:-2 saves in bright light',
         'saveNotes.strongWillFeature:+2 Will vs. spells',
@@ -1378,7 +1378,7 @@ Realms.raceRules = function(rules, races) {
         'abilityNotes.levelAdjustmentFeature:%V',
         'combatNotes.exceptionalDodgeFeature:+4 AC',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
         'magicNotes.nondetectionFeature:Continuous <i>Nondetection</i>',
         'saveNotes.extraLuckFeature:+2 all saves',
         'saveNotes.svirfneblinSpellResistanceFeature:DC %V',
@@ -1462,7 +1462,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
         'saveNotes.aasimarResistanceFeature:Acid/cold/electricity 5',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
@@ -1499,7 +1499,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
         'saveNotes.breathlessFeature:' +
           'Immune drowning/suffocation/inhalation effects',
         'saveNotes.nativeOutsiderFeature:' +
@@ -1547,7 +1547,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
         'saveNotes.resistEarthFeature:+%V vs. earth spells',
@@ -1593,7 +1593,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
         'saveNotes.resistFireFeature:+%V vs. fire spells',
@@ -1640,7 +1640,7 @@ Realms.raceRules = function(rules, races) {
         'abilityNotes.levelAdjustmentFeature:%V',
         'abilityNotes.swimFeature:Swim speed %V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
         'saveNotes.resistWaterFeature:+%V vs. water spells',
@@ -1689,7 +1689,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day at level %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
         'saveNotes.tieflingResistanceFeature:Cold/electricity/fire 5',
