@@ -1,4 +1,4 @@
-/* $Id: RealmsPrestige.js,v 1.5 2012/01/17 06:26:01 jhayes Exp $ */
+/* $Id: RealmsPrestige.js,v 1.6 2012/03/20 02:50:15 jhayes Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -698,14 +698,14 @@ RealmsPrestige.classRules = function(rules, classes) {
       feats = null;
       features = [
         '1:Insidious Magic', '1:Pernicious Magic', '1:Tenacious Magic',
-        '2:Low Light Vision', '2:Shadow Defense', '3:Spell Power',
+        '2:Low-Light Vision', '2:Shadow Defense', '3:Spell Power',
         '4:Shield Of Shadows', '7:Darkvision', '7:Shadow Walk',
         '8:Greater Shield Of Shadows', '10:Shadow Double'
       ];
       hitDie = 4;
       notes = [
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'featureNotes.lowLightVisionFeature:x%V normal distance in poor light',
+        'featureNotes.low-LightVisionFeature:x%V normal distance in poor light',
         'magicNotes.insidiousMagicFeature:' +
           'DC 9+foe level check to detect Weave magic/Foe DC %V check to ' +
           'detect Shadow Weave spell',
@@ -753,9 +753,9 @@ RealmsPrestige.classRules = function(rules, classes) {
       rules.defineRule('featureNotes.darkvisionFeature',
         'shadowAdeptFeatures.Darkvision', '+=', '60'
       );
-      rules.defineRule('featureNotes.lowLightVisionFeature',
+      rules.defineRule('featureNotes.low-LightVisionFeature',
         '', '=', '1',
-        'shadowAdeptFeatures.Low Light Vision', '+', null
+        'shadowAdeptFeatures.Low-Light Vision', '+', null
       );
       rules.defineRule
         ('magicNotes.insidiousMagicFeature', 'casterLevel', '=', 'source + 11');

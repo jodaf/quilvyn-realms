@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.23 2012/03/14 02:32:13 jhayes Exp $ */
+/* $Id: Realms.js,v 1.24 2012/03/20 02:50:14 jhayes Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -1318,8 +1318,8 @@ Realms.raceRules = function(rules, races) {
         'saveNotes.strongWillFeature:+2 Will vs. spells',
         'skillNotes.lightSensitivityFeature:-2 checks in bright light'
       ];
-      rules.deleteRule('drowElfFeatures.Low Light Vision', 'level');
-      rules.deleteRule('drowElfFeatures.Low Light Vision', 'race');
+      rules.deleteRule('drowElfFeatures.Low-Light Vision', 'level');
+      rules.deleteRule('drowElfFeatures.Low-Light Vision', 'race');
       rules.defineRule('abilityNotes.levelAdjustmentFeature',
         'drowElfFeatures.Level Adjustment', '=', '-2'
       );
@@ -1393,8 +1393,8 @@ Realms.raceRules = function(rules, races) {
         ('constitution', 'abilityNotes.deepGnomeAbilityAdjustment');
       rules.deleteRule('deepGnomeFeatures.Dodge Giants', 'level');
       rules.deleteRule('deepGnomeFeatures.Dodge Giants', 'race');
-      rules.deleteRule('deepGnomeFeatures.Low Light Vision', 'level');
-      rules.deleteRule('deepGnomeFeatures.Low Light Vision', 'race');
+      rules.deleteRule('deepGnomeFeatures.Low-Light Vision', 'level');
+      rules.deleteRule('deepGnomeFeatures.Low-Light Vision', 'race');
       rules.defineRule('abilityNotes.levelAdjustmentFeature',
         'deepGnomeFeatures.Level Adjustment', '=', '-3'
       );
