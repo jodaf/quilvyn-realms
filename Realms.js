@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.24 2012/03/20 02:50:14 jhayes Exp $ */
+/* $Id: Realms.js,v 1.25 2012/03/21 05:52:20 jhayes Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -62,6 +62,8 @@ function Realms() {
     SRD35Prestige.companionRules(rules, SRD35Prestige.COMPANIONS);
   }
   // Add Forgotten Realms-specific rules
+  Realms.SUBFEATS['Greater Spell Focus'] =
+    SRD35.SCHOOLS.join('/').replace(/:[^\/]+/g, '');
   Realms.raceRules(rules, Realms.RACES);
   Realms.regionRules(rules, Realms.REGIONS);
   Realms.featRules(rules, Realms.FEATS, Realms.SUBFEATS);
@@ -189,7 +191,7 @@ Realms.REGIONS = [
   'Vilhon Reach', 'Waterdeep', 'Western Heartlands', 'Wild Elf', 'Wood Elf'
 ];
 Realms.SUBFEATS = {
-  'Greater Spell Focus':SRD35.SCHOOLS.join('/').replace(/:[^\/]+/g, ''),
+  'Greater Spell Focus':'',
   'Spellcasting Prodigy':'Cleric/Druid/Sorcerer/Wizard'
 };
 Realms.WEAPONS = [
@@ -785,7 +787,7 @@ Realms.magicRules = function(rules, classes, domains) {
     if(domain == 'Cavern') {
       notes = [
         'skillNotes.cavernDomain:' +
-          '+2 Search involving stone or metal/automatic check w/in 10 ft'
+          '+2 Search involving stone or metal, automatic check w/in 10 ft'
       ];
       spells = [
         'Detect Secret Doors', 'Darkness', 'Meld Into Stone',
@@ -815,10 +817,10 @@ Realms.magicRules = function(rules, classes, domains) {
       turn = null;
     } else if(domain == 'Darkness') {
       notes = [
-        'combatNotes.blindFightFeature:' +
-          'Reroll concealed miss/no bonus to invisible foe/half penalty for ' +
-          'impaired vision',
-        'featureNotes.darknessDomain:Blind Fight bonus feat'
+        'combatNotes.blind-FightFeature:' +
+          'Reroll concealed miss, no bonus to invisible foe, half penalty ' +
+          'for impaired vision',
+        'featureNotes.darknessDomain:Blind-Fight bonus feat'
       ];
       spells = [
         'Obscuring Mist', 'Blindness/Deafness', 'Blacklight',
@@ -826,7 +828,7 @@ Realms.magicRules = function(rules, classes, domains) {
         'Power Word, Blind', 'Power Word, Kill'
       ];
       turn = null;
-      rules.defineRule('features.Blind Fight', 'domains.Darkness', '=', '1');
+      rules.defineRule('features.Blind-Fight', 'domains.Darkness', '=', '1');
     } else if(domain == 'Drow') {
       notes = [
         'featureNotes.drowDomain:Lightning Reflexes bonus feat',
@@ -1385,7 +1387,7 @@ Realms.raceRules = function(rules, races) {
         'skillNotes.shadowyFeature:+2 Hide in darkened underground areas',
         'skillNotes.sneakyFeature:+2 Hide',
         'skillNotes.stonecunningFeature:' +
-          '+2 Search involving stone or metal/automatic check w/in 10 ft'
+          '+2 Search involving stone or metal, automatic check w/in 10 ft'
       ];
       delete
         rules.getChoices('notes')['abilityNotes.deepGnomeAbilityAdjustment'];

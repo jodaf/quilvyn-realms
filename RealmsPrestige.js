@@ -1,4 +1,4 @@
-/* $Id: RealmsPrestige.js,v 1.6 2012/03/20 02:50:15 jhayes Exp $ */
+/* $Id: RealmsPrestige.js,v 1.7 2012/03/21 05:52:21 jhayes Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -297,7 +297,7 @@ RealmsPrestige.classRules = function(rules, classes) {
 
       baseAttack = SRD35.ATTACK_BONUS_AVERAGE;
       feats = [
-        'Alertness', 'Blind Fight', 'Cosmopolitan', 'Education', 'Leadership',
+        'Alertness', 'Blind-Fight', 'Cosmopolitan', 'Education', 'Leadership',
         'Lightning Reflexes', 'Skill Focus', 'Still Spell', 'Street Smart',
         'Track', 'Weapon Finesse', 'Weapon Focus',
         'Weapon Proficiency (Hand Crossbow)'
@@ -718,7 +718,8 @@ RealmsPrestige.classRules = function(rules, classes) {
         'magicNotes.shadowDoubleFeature:Create clone lasting %V rounds 1/day',
         'magicNotes.spellPowerFeature:+%V specific spell DC/resistance checks',
         'magicNotes.tenaciousMagicFeature:' +
-          'Foe requires DC %V to dispel weave magic spell',
+          'Weave foes DC %V check to dispel/DC 13+foe level to ' +
+          'dispel Weave foes',
         'saveNotes.greaterShieldOfShadowsFeature:' +
           'Shield Of Shadows gives %V spell resistance',
         'saveNotes.shadowDefenseFeature:' +
