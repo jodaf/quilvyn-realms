@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.25 2012/03/21 05:52:20 jhayes Exp $ */
+/* $Id: Realms.js,v 1.26 2014/02/18 01:42:27 jhayes Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -17,7 +17,7 @@ this program; if not, write to the Free Software Foundation, Inc., 59 Temple
 Place, Suite 330, Boston, MA 02111-1307 USA.
 */
 
-var REALMS_VERSION = '1.0beta-080404';
+var REALMS_VERSION = '1.1beta-20140217';
 
 /*
  * This module loads the rules from the Forgotten Realms campaign setting.  The
