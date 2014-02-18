@@ -1,4 +1,4 @@
-/* $Id: RealmsPrestige.js,v 1.7 2012/03/21 05:52:21 jhayes Exp $ */
+/* $Id: RealmsPrestige.js,v 1.8 2014/02/18 01:38:43 jhayes Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -801,9 +801,13 @@ RealmsPrestige.classRules = function(rules, classes) {
     if(selectableFeatures != null) {
       for(var j = 0; j < selectableFeatures.length; j++) {
         var selectable = selectableFeatures[j];
-        rules.defineChoice('selectableFeatures', selectable + ':' + klass);
+        var choice = klass + ' - ' + selectable;
+        rules.defineChoice('selectableFeatures', choice + ':' + klass);
+        rules.defineRule(klass + 'Features.' + selectable,
+          'selectableFeatures.' + choice, '+=', null
+        );
         rules.defineRule('features.' + selectable,
-          'selectableFeatures.' + selectable, '+=', null
+          'selectableFeatures.' + choice, '+=', null
         );
       }
     }
