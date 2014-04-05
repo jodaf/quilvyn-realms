@@ -1,4 +1,4 @@
-/* $Id: Realms.js,v 1.26 2014/02/18 01:42:27 jhayes Exp $ */
+/* $Id: Realms.js,v 1.27 2014/04/05 17:10:29 jhayes Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -1307,7 +1307,8 @@ Realms.raceRules = function(rules, races) {
       delete rules.getChoices('notes')['abilityNotes.drowElfAbilityAdjustment'];
       features = [
         'Darkvision', 'Drow Spell Resistance', 'Level Adjustment',
-        'Light Blindness', 'Light Sensitivity', 'Natural Spells', 'Strong Will'
+        'Light Blindness', 'Light Sensitivity', 'Natural Spells', 'Strong Will',
+        'Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)'
       ];
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
@@ -1339,6 +1340,8 @@ Realms.raceRules = function(rules, races) {
       rules.defineRule('magicNotes.naturalSpellsFeature.1', 'level', '=', null);
       rules.defineRule
         ('saveNotes.drowSpellResistanceFeature', 'level', '=', '11 + source');
+      // Delete standard standard Elf weapon proficiencies
+      rules.defineRule('drowElfFeatures.Weapon Proficiency (Composite Longbow/Composite Shortbow/Longsword/Rapier/Longbow/Shortbow)', 'level', '=', 'null');
 
     } else if(race == 'Moon Elf') {
       adjustment = null;

@@ -1,4 +1,4 @@
-/* $Id: RealmsPrestige.js,v 1.8 2014/02/18 01:38:43 jhayes Exp $ */
+/* $Id: RealmsPrestige.js,v 1.9 2014/04/05 17:10:29 jhayes Exp $ */
 
 /*
 Copyright 2008, James J. Hayes
@@ -438,8 +438,9 @@ RealmsPrestige.classRules = function(rules, classes) {
       baseAttack = SRD35.ATTACK_BONUS_POOR;
       feats = null;
       features = [
-        '1:Caster Level Bonus', '1:Cohort', '1:Place Magic', '3:Fear',
-        '4:Circle Leader', '10:Greater Command'
+        '1:Caster Level Bonus', '1:Cohort', '1:Place Magic',
+        '1:Weapon Proficiency (Whip)', '3:Fear', '4:Circle Leader',
+        '10:Greater Command'
       ];
       hitDie = 4;
       notes = [
