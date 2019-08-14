@@ -364,7 +364,8 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Ethran') {
       notes = [
         'abilityNotes.ethranFeature:+2 charisma w/Rashemi',
-        // TODO +2 Animal Empathy/Intuit Direction (SRD3.0 skills)
+        // Substitute for SRD3.0 skills Animal Empathy/Intuit Direction
+        'skillNotes.ethranFeature:+2 Handle Animal/Survival',
         'validationNotes.ethranFeatAbility:Requires Charisma >= 11',
         'validationNotes.ethranFeatCasterLevel:Requires Caster Level >= 1',
         'validationNotes.ethranFeatGender:Requires Gender == Female',
@@ -458,8 +459,9 @@ Realms.featRules = function(rules, feats, subfeats) {
         'sanityNotes.magicalArtisanFeatCasterLevel:Requires Caster Level >= 1',
         'validationNotes.magicalArtisanFeatFeatures:Requires any Item Creation'
       ];
-      rules.defineRule('validationNotes.magicalArtisanFeatFeats',
-        'feats.Magical Artisan', '=', '0', // TODO any Item Creation
+      rules.defineRule('validationNotes.magicalArtisanFeatFeatures',
+        'feats.Magical Artisan', '=', '-1',
+        /feats.(Brew Potion|Craft (Magic Arms And Armor|Staff|Wand|Wondrous Item)|Forge Ring|Scribe Scroll|Create Portal|Inscribe Rune)/, '+', '1',
         '', 'v', '0'
       );
     } else if(feat == 'Magical Training') {
@@ -1291,10 +1293,13 @@ Realms.raceRules = function(rules, races) {
         'grayDwarfFeatures.Natural Spells', '=', 
         '"<i>Enlarge</i>/<i>Invisibility</i>"'
       );
+      rules.defineRule('grayDwarfNaturalSpellLevelMultiplier',
+        'grayDwarfFeatures.Natural Spells', '=', '2',
+        'level', '+', 'source == 1 ? 1 : null'
+      );
       rules.defineRule('magicNotes.naturalSpellsFeature.1',
         'level', '=', null,
-        // TODO minimum 3rd level
-        'grayDwarfFeatures.Natural Spells', '*', '2'
+        'grayDwarfNaturalSpellLevelMultiplier', '*', null
       );
 
     } else if(race == 'Shield Dwarf') {
