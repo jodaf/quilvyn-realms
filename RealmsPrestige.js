@@ -371,6 +371,7 @@ RealmsPrestige.classRules = function(rules, classes) {
         'skillNotes.favoredEnemyFeature:' +
           '+2 or more Bluff/Listen/Sense Motive/Spot/Survival ' +
           'vs. %V type(s) of creatures',
+        'validationNotes.harperScoutSkillFocus:Requires Skill Focus (Perform)',
         'validationNotes.harperScoutClassAlignment:Requires Alignment !~ Evil',
         'validationNotes.harperScoutClassFeats:Requires Alertness/Iron Will',
         'validationNotes.harperScoutClassSkills:' +
@@ -418,9 +419,13 @@ RealmsPrestige.classRules = function(rules, classes) {
       rules.defineRule('combatNotes.favoredEnemyFeature',
         'levels.Harper Scout', '+=', '1 + Math.floor(source / 4)'
       );
-      // TODO: Skill Focus, not really General
       rules.defineRule('featCount.General',
         'levels.Harper Scout', '+=', 'source >= 2 ? 2 : null'
+      );
+      rules.defineRule('validationNotes.harperScoutSkillFocus',
+        'levels.Harper Scout', '=', 'source >= 2 ? 1 : null',
+        /features.Skill Focus .Perform/, '+', '-1',
+        '^', '', '0'
       );
       rules.defineRule('skillModifier.Bardic Knowledge',
         'skills.Bardic Knowledge', '=', null,
