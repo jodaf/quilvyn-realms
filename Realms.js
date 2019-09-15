@@ -203,6 +203,45 @@ Realms.deitiesFavoredWeapons = {
   'Garagos':'Longsword', 'Red Knight':'Longsword', 'Tempus':'Battleaxe',
   'Tyr':'Longsword', 'Uthgar':'Battleaxe'
 };
+Realms.spellDescriptions = {
+  "Aganazzar's Scorcher":"5'w by $RS'l flame ${Math.min(5,Math.floor(lvl/2))}d8 HP",
+  "Analyze Portal": "R60' cone info on portals for $L rd",
+  "Anyspell":"Self prepare up to 2nd level arcane spell from written source",
+  "Armor Of Darkness":"Touched +${Math.min(8,Math.floor(lvl/4)+3)} AC, darkvision for $L10 min",
+  "Blacklight":"R$RS' Target Will save or center 20' radius darkness only caster can see within for $L rd",
+  "Claws Of Darkness":"Self hands become 6' extendable claws 1d4 HP cold and slow when grappling for $L rd",
+  "Cloak Of Dark Power":"Touched protected from sunlight, +4 save vs. light/dark for $L min",
+  "Create Magic Tatoo":"Touched gains tatoo w/variable effects for 1 day",
+  "Darkbolt":"R$RM' ${Math.min(Math.floor(lvl/2),7)} ranged touch bolts 2d8 HP, Will save or dazed",
+  "Elminster's Evasion":"Self and up to 50 lb teleport to named locale",
+  "Fantastic Machine":"Lg machine (HP 22, AC 14, slam +5 1d8+4, rock +3 2d6+4, load 230) obeys commands for $L min",
+  "Fire Stride":"Self teleport $RL' between fires $L times for $L10 min",
+  "Flashburst":"R$RL' Targets in 20' radius dazzled, all w/in 120' Will save or blinded for 2d8 rd",
+  "Flensing":"R$RS' Target 2d6 HP (Fort half), lose 1d6 Cha/Con (Fort neg) for 4 rd",
+  "Gate Seal":"R$RS' seal target gate/portal",
+  "Gembomb":"Up to 5 gems become R100' ranged touch bombs totalling ${Math.min(5,Math.floor(lvl/2))}d8 HP (Ref half)",
+  "Great Shout":"R$RS' Objects in range 20d6 HP (held Ref neg), creatures in cone 10d6 HP, stunned 1 rd, deaf 4d6 rd (Fort half)",
+  "Greater Anyspell":"Self prepare up to 5th level arcane spell from written source",
+  "Greater Fantastic Machine":"Lg machine (HP 88, AC 20, slam +17/+12 1d8+9, rock +12/+7 2d6+9, load 520) obeys commands for $L min",
+  "Grimwald's Graymantle":"R$RM' Target prevented from heal/restore/regen for $L rd (Fort neg)",
+  "Lesser Ironguard":"Touched unaffected by normal metal for $L rd",
+  "Maelstrom":"R$RL' Targets in whirpool 3d8 HP for 2d4 rd (Ref et al neg) for $L rd",
+  "Maw Of Stone":"Animated opening can attack/grapple",
+  "Moon Blade":"Moonlight blade touch attack 1d8+$Ldiv2 HP (undead 2d8+$L HP) for $L min",
+  "Moon Path":"Glowing pathway 5'-20'w by $L15'l for $L min; <i>Sanctuary</i> on path for $L designed",
+  "Moonbeam":"R$RS' Target lycanthropes Will save or become animal for $L min",
+  "Moonfire":"R$RS' Cone ${Math.min(Math.floor(lvl/2),10)}d8 HP (undead x2, Ref half), changed creatures Will save or revert, marks auras for $L min",
+  "Scatterspray":"R$RS' Little items w/in 1' radius scatter; creatures w/in 10' 1d8 HP (Ref neg)",
+  "Shadow Mask":"Self face hidden, +4 save vs. light/dark, 50% gaze attack for $L10 min",
+  "Shadow Spray":"R$RM' Creatures in 5' radius Fort save or lose 2 Str, dazed 1 rd, -2 fear saves for $L rd",
+  "Snilloc's Snowball Swarm":"R$RM' Creatures in 10' radius ${Math.min(2+Math.floor((lvl-3)/2),5)}d6 HP cold (Ref half)",
+  "Spider Curse":"R$RM' Target Will save or polymorph to dominated drider for $L dy",
+  "Spider Shapes":"R$RS' Willing target polymorph to monstrous spider for $L hr",
+  "Spiderform":"Self polymorph to drider or monstrous spider for $L hr",
+  "Stone Spiders":"R$RS' Transform 1d3 pebbles into controlled monstrous spiders for $L rd",
+  "Thunderlance":"Self wield shimmering staff (+${Math.floor(1+lvl/2)} 2d6+${Math.floor(1+lvl/2)} x3@20) 1'-20' long for $L rd",
+  "Waterspout":"R$RL' 10'w by 80'h spout moves 30'/rd, touched creatures 2d6 HP (Ref neg) for $L rd"
+};
 Realms.spellsSchools = {
   'Aganazzar\'s Scorcher':'Evocation', 'Analyze Portal':'Divination',
   'Anyspell':'Transmutation', 'Armor Of Darkness':'Abjuration',
@@ -216,7 +255,7 @@ Realms.spellsSchools = {
   'Grimwald\'s Graymantle':'Necromancy', 'Lesser Ironguard':'Abjuration',
   'Maelstrom':'Conjuration', 'Maw Of Stone':'Transmutation',
   'Moon Blade':'Evocation', 'Moon Path':'Evocation', 'Moonbeam':'Evocation',
-  'Moon Fire':'Evocation', 'Scatterspray':'Transmutation',
+  'Moonfire':'Evocation', 'Scatterspray':'Transmutation',
   'Shadow Mask':'Illusion', 'Shadow Spray':'Illusion',
   'Snilloc\'s Snowball Swarm':'Evocation', 'Spider Curse':'Transmutation',
   'Spider Shapes':'Transmutation', 'Spiderform':'Transmutation',
@@ -1035,7 +1074,7 @@ Realms.magicRules = function(rules, classes, domains) {
       turn = null;
     } else if(domain == 'Renewal') {
       notes = [
-        'combatNotes.renewalDomain:Recover d8+%V HP points when negative 1/day'
+        'combatNotes.renewalDomain:Recover 1d8+%V HP points when negative 1/day'
       ];
       spells = [
         'Charm Person', 'Lesser Restoration', 'Remove Disease', 'Reincarnate',
