@@ -323,7 +323,8 @@ Realms.featRules = function(rules, feats, subfeats) {
       notes = [
         'magicNotes.bloodlineOfFireFeature:+2 DC Sorcerer fire spells',
         'saveNotes.bloodlineOfFireFeature:+4 fire spells',
-        'validationNotes.bloodlineOfFireFeatRegion:Requires Region == Calimshan'
+        'validationNotes.bloodlineOfFireFeatRegion:' +
+          'Requires Region == "Calimshan"'
       ];
       rules.defineRule
         ('magicNotes.bloodlineOfFireFeature', 'levels.Sorcerer', '?', null);
@@ -404,8 +405,8 @@ Realms.featRules = function(rules, feats, subfeats) {
         'skillNotes.ethranFeature:+2 Handle Animal/Survival',
         'validationNotes.ethranFeatAbility:Requires Charisma >= 11',
         'validationNotes.ethranFeatCasterLevel:Requires Caster Level >= 1',
-        'validationNotes.ethranFeatGender:Requires Gender == Female',
-        'validationNotes.ethranFeatRegion:Requires Region == Rashemen'
+        'validationNotes.ethranFeatGender:Requires Gender == "Female"',
+        'validationNotes.ethranFeatRegion:Requires Region == "Rashemen"'
       ];
     } else if(feat == 'Foe Hunter') {
       notes = [
@@ -506,7 +507,7 @@ Realms.featRules = function(rules, feats, subfeats) {
           '<i>Dancing Lights</i>/<i>Daze</i>/<i>Mage Hand</i> 1/day',
         'validationNotes.magicalTrainingFeatAbility:' +
           'Requires Intelligence >= 10',
-        'validationNotes.magicalTrainingFeatRegion:Requires Region == Halruaa'
+        'validationNotes.magicalTrainingFeatRegion:Requires Region == "Halruaa"'
       ];
     } else if(feat == 'Mercantile Background') {
       notes = [
@@ -603,7 +604,7 @@ Realms.featRules = function(rules, feats, subfeats) {
         'sanityNotes.shadowWeaveMagicFeatCasterLevel:' +
           'Requires Caster Level >= 1',
         'validationNotes.shadowWeaveMagicFeatAbility:' +
-          'Requires Wisdom >= 13 || Deity == Shar'
+          'Requires Wisdom >= 13 || Deity == "Shar"'
       ];
       rules.defineRule
         ('wisdom', 'abilityNotes.shadowWeaveMagicFeature', '+', '-2');
@@ -691,7 +692,7 @@ Realms.featRules = function(rules, feats, subfeats) {
         'magicNotes.tattooFocusFeature:' +
           '+1 DC/+1 caster level vs. resistance w/specialization school spells',
         'validationNotes.tattooFocusMagic:Requires magic school specialization',
-        'validationNotes.tattooFocusFeatRegion:Requires Region == Thay'
+        'validationNotes.tattooFocusFeatRegion:Requires Region == "Thay"'
       ];
       rules.defineRule('validationNotes.tattooFocusMagic',
         'feats.Tattoo Focus', '=', '-1',

@@ -590,7 +590,7 @@ RealmsPrestige.classRules = function(rules, classes) {
         'validationNotes.redWizardClassAlignment:Requires Alignment !~ Good',
         'validationNotes.redWizardClassFeats:' +
           'Requires Tattoo Focus/any 3 metamagic or item creation',
-        'validationNotes.redWizardClassRace:Requires Race == Human',
+        'validationNotes.redWizardClassRace:Requires Race == "Human"',
         'validationNotes.redWizardClassSkills:Requires Spellcraft >= 8',
         'validationNotes.redWizardClassSpells:Requires arcane level 3',
         'validationNotes.tattooFocusMagic:Requires magic school specialization'
