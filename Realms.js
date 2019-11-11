@@ -17,7 +17,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 
 "use strict";
 
-var REALMS_VERSION = '1.2';
+var REALMS_VERSION = '1.4.0.0';
 
 /*
  * This module loads the rules from the Forgotten Realms campaign setting.  The
@@ -200,7 +200,7 @@ Realms.WEAPONS = [
   'Cutlass:1d6x2@19', 'Halfspear:d6x3r20', 'Khopesh:1d8x2@19',
   'Saber:1d8x2@19', 'Maul:1d10x3@20', 'Scourge:1d8x2@20'
 ];
-Realms.spellDescriptions = {
+Realms.spellsDescriptions = {
   "Aganazzar's Scorcher":"5'w by $RS'l flame ${Math.min(5,Math.floor(lvl/2))}d8 HP",
   "Analyze Portal": "R60' cone info on portals for $L rd",
   "Anyspell":"Self prepare up to 2nd level arcane spell from written source",
