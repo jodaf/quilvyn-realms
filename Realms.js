@@ -47,8 +47,9 @@ function Realms() {
   SRD35.featRules(rules, SRD35.FEATS, SRD35.SUBFEATS);
   SRD35.descriptionRules
     (rules, SRD35.ALIGNMENTS, Realms.DEITIES, SRD35.GENDERS);
-  SRD35.equipmentRules(rules, SRD35.ARMORS, SRD35.GOODIES, SRD35.SHIELDS,
+  SRD35.equipmentRules(rules, SRD35.ARMORS, SRD35.SHIELDS,
                        SRD35.WEAPONS.concat(Realms.WEAPONS));
+  SRD35.goodiesRules(rules, SRD35.GOODIES);
   SRD35.combatRules(rules);
   SRD35.movementRules(rules);
   SRD35.magicRules(rules, SRD35.CLASSES, SRD35.DOMAINS, SRD35.SCHOOLS);
@@ -298,7 +299,7 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Artist') {
       notes = [
         'sanityNotes.artistFeatSkills:Requires Perform||Craft',
-        'skillNotes.artistFeature:+2 all Perform/designated Craft',
+        'skillNotes.artistFeature:+2 Perform/chosen Craft',
         'validationNotes.artistFeatRegion:' +
           'Requires Region =~ Chessenta|Evermeet|Waterdeep|Rock Gnome'
       ];
@@ -514,7 +515,7 @@ Realms.featRules = function(rules, feats, subfeats) {
         'sanityNotes.mercantileBackgroundFeatSkills:' +
           'Requires Appraise||Craft||Profession',
         'skillNotes.mercantileBackgroundFeature:' +
-          '+2 Appraise/designated Craft/designated Profession',
+          '+2 Appraise/chosen Craft/chosen Profession',
         'validationNotes.mercantileBackgroundFeatRegion:' +
           'Requires Region =~ Impiltur|Lake Of Steam|Lantan|Sembia|Tashalar|' +
           'Tethyr|Thesk|The Vast|Deep Gnome|Gray Dwarf'
@@ -573,8 +574,7 @@ Realms.featRules = function(rules, feats, subfeats) {
       );
     } else if(feat == 'Persistent Spell') {
       notes = [
-        'magicNotes.persistentSpellFeature:' +
-          '24 hour duration on designated spell',
+        'magicNotes.persistentSpellFeature:24 hour duration on chosen spell',
         'validationNotes.persistentSpellFeatFeatures:Requires Extend Spell'
       ]
     } else if(feat == 'Resist Poison Training') {
@@ -750,7 +750,7 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Twin Sword Style') {
       notes = [
         'combatNotes.twinSwordStyleFeature:' +
-          '+2 AC vs. designated foe when using two swords',
+          '+2 AC vs. chosen foe when using two swords',
         'validationNotes.twinSwordStyleFeature:Requires Two Weapon Fighting',
         'validationNotes.twinSwordStyleFeatRegion:' +
           'Requires Region =~ Sembia|Waterdeep|Drow Elf'
@@ -826,7 +826,7 @@ Realms.magicRules = function(rules, classes, domains) {
     if(domain == 'Cavern') {
       notes = [
         'skillNotes.cavernDomain:' +
-          '+2 Search involving stone or metal, automatic check w/in 10 ft'
+          '+2 Search (stone, metal), automatic check w/in 10 ft'
       ];
       spells = [
         'Detect Secret Doors', 'Darkness', 'Meld Into Stone',
@@ -846,7 +846,7 @@ Realms.magicRules = function(rules, classes, domains) {
     } else if(domain == 'Craft') {
       notes = [
         'magicNotes.craftDomain:+1 caster level creation spells',
-        'skillNotes.craftDomain:+2 designated Craft'
+        'skillNotes.craftDomain:+2 chosen Craft'
       ];
       spells = [
         'Animate Rope', 'Wood Shape', 'Stone Shape', 'Minor Creation',
@@ -945,7 +945,7 @@ Realms.magicRules = function(rules, classes, domains) {
     } else if(domain == 'Halfling') {
       notes = [
         'skillNotes.halflingDomain:' +
-          'Add %V to Climb/Hide/Jump/Move Silently for 10 minutes 1/day'
+          '+%V Climb, Hide, Jump, Move Silently for 10 minutes 1/day'
       ];
       spells = [
         'Magic Stone', 'Cat\'s Grace', 'Magic Vestment', 'Freedom Of Movement',
@@ -990,7 +990,7 @@ Realms.magicRules = function(rules, classes, domains) {
         ('magicNotes.mentalismDomain', 'level', '=', 'source + 2');
     } else if(domain == 'Metal') {
       notes = [
-        'featureNotes.metalDomain:Weapon Proficiency/Focus w/designated hammer'
+        'featureNotes.metalDomain:Weapon Proficiency/Focus w/chosen hammer'
       ];
       spells = [
         'Magic Weapon', 'Heat Metal', 'Keen Edge', 'Rusting Grasp',
@@ -1050,7 +1050,7 @@ Realms.magicRules = function(rules, classes, domains) {
       notes = [
         'featureNotes.planningDomain:Extend Spell bonus feat',
         'magicNotes.extendSpellFeature:' +
-          'x2 designated spell duration uses +1 spell slot'
+          'x2 chosen spell duration uses +1 spell slot'
       ];
       spells = [
         'Deathwatch', 'Augury', 'Clairaudiance/Clairvoyance', 'Status',
@@ -1432,7 +1432,7 @@ Realms.raceRules = function(rules, races) {
         'skillNotes.shadowyFeature:+2 Hide in darkened underground areas',
         'skillNotes.sneakyFeature:+2 Hide',
         'skillNotes.stonecunningFeature:' +
-          '+2 Search involving stone or metal, automatic check w/in 10 ft'
+          '+2 Search (stone, metal), automatic check w/in 10 ft'
       ];
       delete
         rules.getChoices('notes')['abilityNotes.deepGnomeAbilityAdjustment'];

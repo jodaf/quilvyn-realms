@@ -68,7 +68,7 @@ RealmsPrestige.classRules = function(rules, classes) {
       hitDie = 4;
       notes = [
         'magicNotes.alignmentFocusFeature:' +
-          '+1 caster level on spells from designated alignment component',
+          '+1 caster level on spells from chosen alignment component',
         'magicNotes.casterLevelBonusFeature:' +
           '+%V base class level for spells known/per day',
         'magicNotes.freelyEnlargeSpellFeature:Cast enlarged spell %V/day',
@@ -262,7 +262,8 @@ RealmsPrestige.classRules = function(rules, classes) {
           '<i>Obscure Object</i> to prevent tracking 1/day',
         'magicNotes.sanctuaryFeature:<i>Sanctuary</i> 1/day',
         'saveNotes.sacredDefenseFeature:+%V vs. divine spells',
-        'skillNotes.thwartGlyphFeature:+4 Disable Device/Search for glyphs',
+        'skillNotes.thwartGlyphFeature:' +
+          '+4 Disable Device (glyphs)/Search (glyphs)',
         'validationNotes.divineSeekerClassSkills:' +
           'Requires Hide >= 10/Knowledge (Religion) >= 3/Move Silently >= 8/' +
           'Spot >= 5'
@@ -313,8 +314,8 @@ RealmsPrestige.classRules = function(rules, classes) {
         'combatNotes.sneakAttackFeature:' +
           '%Vd6 extra damage when surprising or flanking',
         'combatNotes.uncannyDodgeFeature:Always adds dexterity modifier to AC',
+        'featureNotes.reputationFeature:+%V Leadership',
         'skillNotes.doublespeakFeature:+2 Bluff/Diplomacy',
-        'skillNotes.reputationFeature:+%V Leadership',
         'validationNotes.guildThiefClassSkills:' +
           'Requires Gather Information >= 3/Hide >= 8/Intimidate >= 3/' +
           'Move Silently >= 3'
@@ -344,7 +345,7 @@ RealmsPrestige.classRules = function(rules, classes) {
       rules.defineRule('featCount.Guild Thief',
         'levels.Guild Thief', '=', 'source < 2 ? null : Math.floor(source / 2)'
       );
-      rules.defineRule('skillNotes.reputationFeature',
+      rules.defineRule('featureNotes.reputationFeature',
         'levels.Guild Thief', '=', 'source >= 3 ? source - 2 : null'
       );
 
@@ -362,14 +363,14 @@ RealmsPrestige.classRules = function(rules, classes) {
         'combatNotes.favoredEnemyFeature:' +
           '+2 or more damage vs. %V type(s) of creatures',
         'featureNotes.harperSkillFocusFeature:' +
-          'Skill Focus in perform/designated Harper class skill',
+          'Skill Focus in perform/chosen Harper class skill',
         'magicNotes.craftHarperItemFeature:' +
           'Create magic instruments/Harper pins/potions',
         'saveNotes.deneir\'sEyeFeature:+2 vs. glyphs',
         'saveNotes.lliira\'sHeartFeature:+2 vs. compulsion/fear',
         'saveNotes.tymora\'sSmileFeature:+2 luck bonus to any save 1/day',
         'skillNotes.favoredEnemyFeature:' +
-          '+2 or more Bluff/Listen/Sense Motive/Spot/Survival ' +
+          '+2 or more Bluff, Listen, Sense Motive, Spot, Survival ' +
           'vs. %V type(s) of creatures',
         'validationNotes.harperScoutSkillFocus:Requires Skill Focus (Perform)',
         'validationNotes.harperScoutClassAlignment:Requires Alignment !~ Evil',
@@ -513,15 +514,15 @@ RealmsPrestige.classRules = function(rules, classes) {
           '%V allies w/in 10 ft gain 2d10 HP for %1 rounds 1/day',
         'combatNotes.heroicShieldFeature:Aid Another action gives +4 AC bonus',
         'combatNotes.oathOfWrathFeature:' +
-          '+2 attack/damage vs. designated opponent 1/day',
+          '+2 attack/damage vs. chosen opponent 1/day',
         'combatNotes.rallyingCryFeature:' +
           'Allies w/in 60 ft +1 next attack/+5 speed for 1 turn 3/day',
         'magicNotes.knight\'sCourageFeature:' +
           'Allies +1 attack/damage, +2 charm/fear saves during speech +5 ' +
           'rounds %V/day',
         'magicNotes.knight\'sFearFeature:DC %V <i>Fear</i> at will',
-        'saveNotes.oathOfWrathFeature:+2 save vs. designated opponent 1/day',
-        'skillNotes.oathOfWrathFeature:+2 checks vs. designated opponent 1/day',
+        'saveNotes.oathOfWrathFeature:+2 save vs. chosen opponent 1/day',
+        'skillNotes.oathOfWrathFeature:+2 checks vs. chosen opponent 1/day',
         'validationNotes.purpleDragonKnightClassAlignment:' +
           'Alignment !~ Chaotic|Evil',
         'validationNotes.purpleDragonKnightClassBaseAttack:' +
@@ -661,7 +662,7 @@ RealmsPrestige.classRules = function(rules, classes) {
         'magicNotes.runeChantFeature:+3 DC divine spells when tracing rune',
         'magicNotes.maximizeRuneFeature:+5 DC/maximize effects of runes',
         'magicNotes.runePowerFeature:+%V DC of runes',
-        'skillNotes.runeCraftFeature:+%V Craft for inscribing runes',
+        'skillNotes.runeCraftFeature:+%V Craft (inscribing runes)',
         'validationNotes.runecasterClassFeats:Requires Inscribe Rune',
         'validationNotes.runecasterClassSkills:' +
           'Requires Sum Craft >= 8/Spellcraft >= 8',
