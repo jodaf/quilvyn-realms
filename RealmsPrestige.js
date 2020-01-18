@@ -253,7 +253,7 @@ RealmsPrestige.classRules = function(rules, classes) {
       hitDie = 6;
       notes = [
         'combatNotes.sneakAttackFeature:' +
-          '%Vd6 extra damage when surprising or flanking',
+          '%Vd6 HP extra when surprising or flanking',
         'combatNotes.divinePerseveranceFeature:' +
           'Regain d8+5 HP from negative 1/day',
         'magicNotes.locateCreatureFeature:<i>Locate Creature</i> 1/day',
@@ -312,7 +312,7 @@ RealmsPrestige.classRules = function(rules, classes) {
         'combatNotes.improvedUncannyDodgeFeature:' +
           'Flanked only by rogue four levels higher',
         'combatNotes.sneakAttackFeature:' +
-          '%Vd6 extra damage when surprising or flanking',
+          '%Vd6 HP extra when surprising or flanking',
         'combatNotes.uncannyDodgeFeature:Always adds dexterity modifier to AC',
         'featureNotes.reputationFeature:+%V Leadership',
         'skillNotes.doublespeakFeature:+2 Bluff/Diplomacy',
