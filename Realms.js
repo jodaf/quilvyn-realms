@@ -17,7 +17,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 
 "use strict";
 
-var REALMS_VERSION = '1.4.1.0';
+var REALMS_VERSION = '1.4.1.1';
 
 /*
  * This module loads the rules from the Forgotten Realms campaign setting.  The
@@ -197,9 +197,10 @@ Realms.SUBFEATS = {
   'Spellcasting Prodigy':'Cleric/Druid/Sorcerer/Wizard'
 };
 Realms.WEAPONS = [
-  'Blade Boot:1d4x2@19', 'Chakram:1d4x3@20r30', 'Claw Bracer:1d4x2@19',
-  'Cutlass:1d6x2@19', 'Halfspear:d6x3r20', 'Khopesh:1d8x2@19',
-  'Saber:1d8x2@19', 'Maul:1d10x3@20', 'Scourge:1d8x2@20'
+  'Blade Boot:1d4x2@19 Si Ex', 'Chakram:1d4x3@20r30 Ex',
+  'Claw Bracer:1d4x2@19 1h Ex', 'Cutlass:1d6x2@19 1h Ma',
+  'Halfspear:d6x3r20 Si', 'Khopesh:1d8x2@19 1h Ex', 'Saber:1d8x2@19 1h Ma',
+  'Maul:1d10x3@20 2h Ma', 'Scourge:1d8x2@20 1h Ex'
 ];
 Realms.spellsDescriptions = {
   "Aganazzar's Scorcher":"5'w by $RS'l flame ${Math.min(5,Math.floor(lvl/2))}d8 HP",
