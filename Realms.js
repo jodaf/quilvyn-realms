@@ -197,7 +197,7 @@ Realms.SUBFEATS = {
   'Spellcasting Prodigy':'Cleric/Druid/Sorcerer/Wizard'
 };
 Realms.WEAPONS = [
-  'Blade Boot:1d4x2@19 Si Ex', 'Chakram:1d4x3@20r30 Ex',
+  'Blade Boot:1d4x2@19 Li Ex', 'Chakram:1d4x3@20r30 Ex',
   'Claw Bracer:1d4x2@19 1h Ex', 'Cutlass:1d6x2@19 1h Ma',
   'Halfspear:d6x3r20 Si', 'Khopesh:1d8x2@19 1h Ex', 'Saber:1d8x2@19 1h Ma',
   'Maul:1d10x3@20 2h Ma', 'Scourge:1d8x2@20 1h Ex'
