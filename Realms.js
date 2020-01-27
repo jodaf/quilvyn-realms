@@ -68,6 +68,8 @@ function Realms() {
   Realms.regionRules(rules, Realms.REGIONS);
   Realms.featRules(rules, Realms.FEATS, Realms.SUBFEATS);
   Realms.magicRules(rules, SRD35.CLASSES, Realms.DOMAINS);
+  SRD35.spellRules
+    (rules, null, Object.assign({}, SRD35.spellsDescriptions, Realms.spellsDescriptions));
   // So far, same character creation procedures as SRD35
   rules.defineChoice('preset', 'race', 'level', 'levels');
   rules.defineChoice('random', SRD35.RANDOMIZABLE_ATTRIBUTES);
