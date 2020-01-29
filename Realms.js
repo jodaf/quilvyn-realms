@@ -1,5 +1,5 @@
 /*
-Copyright 2019, James J. Hayes
+Copyright 2020, James J. Hayes
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -1783,7 +1783,7 @@ Realms.regionRules = function(rules, regions) {
   rules.defineChoice('regions', regions);
   rules.defineChoice('random', 'region');
   rules.defineEditorElement
-    ('region', 'Region', 'select-one', 'regions', 'levels');
+    ('region', 'Region', 'select-one', 'regions', 'experience');
   rules.defineSheetElement('Region', 'Alignment');
   rules.defineNote
     ('validationNotes.regionRace:Racial region requires equivalent race');
