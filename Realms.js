@@ -35,7 +35,7 @@ function Realms() {
   }
 
   // Define a new rule set w/the same editor and standard viewer as SRD35
-  var rules = new ScribeRules('Forgotten Realms', REALMS_VERSION);
+  var rules = new QuilvynRules('Forgotten Realms', REALMS_VERSION);
   rules.editorElements = SRD35.initialEditorElements();
   SRD35.createViewers(rules, SRD35.VIEWERS);
   // Pick up the SRD35 rules, w/minor mods for deities and weapons
@@ -76,8 +76,8 @@ function Realms() {
   rules.randomizeOneAttribute = Realms.randomizeOneAttribute;
   rules.makeValid = SRD35.makeValid;
   rules.ruleNotes = Realms.ruleNotes;
-  // Let Scribe know we're here
-  Scribe.addRuleSet(rules);
+  // Let Quilvyn know we're here
+  Quilvyn.addRuleSet(rules);
   Realms.rules = rules;
 
 }
@@ -1788,9 +1788,9 @@ Realms.regionRules = function(rules, regions) {
   rules.defineNote
     ('validationNotes.regionRace:Racial region requires equivalent race');
   rules.defineRule('validationNotes.regionRace',
-    'region', '=', 'ScribeUtils.findElement(Realms.RACES, source) < 0 ? ' +
-                   'null : -ScribeUtils.findElement(Realms.RACES, source)',
-    'race', '+', 'ScribeUtils.findElement(Realms.RACES, source)'
+    'region', '=', 'QuilvynUtils.findElement(Realms.RACES, source) < 0 ? ' +
+                   'null : -QuilvynUtils.findElement(Realms.RACES, source)',
+    'race', '+', 'QuilvynUtils.findElement(Realms.RACES, source)'
   );
 };
 
@@ -1805,7 +1805,7 @@ Realms.randomizeOneAttribute = function(attributes, attribute) {
         choices[choices.length] = region;
       }
     }
-    attributes[attribute] = choices[ScribeUtils.random(0, choices.length - 1)];
+    attributes[attribute] = choices[QuilvynUtils.random(0, choices.length - 1)];
   } else {
     SRD35.randomizeOneAttribute.apply(this, [attributes, attribute]);
   }
@@ -1814,8 +1814,8 @@ Realms.randomizeOneAttribute = function(attributes, attribute) {
 /* Returns HTML body content for user notes associated with this rule set. */
 Realms.ruleNotes = function() {
   return '' +
-    '<h2>Forgotton Realms Scribe Module Notes</h2>\n' +
-    'Realms Scribe Module Version ' + REALMS_VERSION + '\n' +
+    '<h2>Forgotton Realms Quilvyn Module Notes</h2>\n' +
+    'Realms Quilvyn Module Version ' + REALMS_VERSION + '\n' +
     '\n' +
     '<h3>Usage Notes</h3>\n' +
     '<p>\n' +
