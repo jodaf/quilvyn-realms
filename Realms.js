@@ -62,8 +62,6 @@ function Realms() {
     SRD35Prestige.companionRules(rules, SRD35Prestige.COMPANIONS);
   }
   // Add Forgotten Realms-specific rules
-  Realms.SUBFEATS['Greater Spell Focus'] =
-    SRD35.SCHOOLS.join('/').replace(/:[^\/]+/g, '');
   Realms.raceRules(rules, Realms.RACES);
   Realms.regionRules(rules, Realms.REGIONS);
   Realms.featRules(rules, Realms.FEATS, Realms.SUBFEATS);
@@ -194,7 +192,7 @@ Realms.REGIONS = [
   'Vilhon Reach', 'Waterdeep', 'Western Heartlands', 'Wild Elf', 'Wood Elf'
 ];
 Realms.SUBFEATS = {
-  'Greater Spell Focus':'',
+  'Greater Spell Focus':SRD35.SCHOOLS.join('/').replace(/:[^\/]+/g, ''),
   'Spellcasting Prodigy':'Cleric/Druid/Sorcerer/Wizard'
 };
 Realms.WEAPONS = [
@@ -204,23 +202,23 @@ Realms.WEAPONS = [
   'Maul:1d10x3@20 2h Ma', 'Scourge:1d8x2@20 1h Ex'
 ];
 Realms.spellsDescriptions = {
-  "Aganazzar's Scorcher":"5'w by $RS'l flame ${Math.min(5,Math.floor(lvl/2))}d8 HP",
+  "Aganazzar's Scorcher":"5'w by $RS'l flame ${Math.min(5,Math.floor(lvl/2))}d8 HP (Ref half)",
   "Analyze Portal": "R60' cone info on portals for $L rd",
   "Anyspell":"Self prepare up to 2nd level arcane spell from written source",
   "Armor Of Darkness":"Touched +${Math.min(8,Math.floor(lvl/4)+3)} AC, darkvision for $L10 min",
-  "Blacklight":"R$RS' Target Will save or center 20' radius darkness only caster can see within for $L rd",
-  "Claws Of Darkness":"Self hands become 6' extendable claws 1d4 HP cold and slow when grappling for $L rd",
+  "Blacklight":"R$RS' Target center 20' radius darkness only caster can see within for $L rd (Will neg)",
+  "Claws Of Darkness":"Self hands become 6' extendable claws 1d4 HP cold and slow when grappling (Fort neg) for $L rd",
   "Cloak Of Dark Power":"Touched protected from sunlight, +4 save vs. light/dark for $L min",
   "Create Magic Tatoo":"Touched gains tatoo w/variable effects for 1 day",
-  "Darkbolt":"R$RM' ${Math.min(Math.floor(lvl/2),7)} ranged touch bolts 2d8 HP, Will save or dazed",
+  "Darkbolt":"R$RM' ${Math.min(Math.floor(lvl/2),7)} ranged touch bolts 2d8 HP, dazed (Will neg)",
   "Elminster's Evasion":"Self and up to 50 lb teleport to named locale",
   "Fantastic Machine":"Lg machine (HP 22, AC 14, slam +5 1d8+4, rock +3 2d6+4, load 230) obeys commands for $L min",
   "Fire Stride":"Self teleport $RL' between fires $L times for $L10 min",
-  "Flashburst":"R$RL' Targets in 20' radius dazzled, all w/in 120' Will save or blinded for 2d8 rd",
+  "Flashburst":"R$RL' Targets in 20' radius dazzled, all w/in 120' blinded (Will neg) for 2d8 rd",
   "Flensing":"R$RS' Target 2d6 HP (Fort half), lose 1d6 Cha/Con (Fort neg) for 4 rd",
   "Gate Seal":"R$RS' seal target gate/portal",
   "Gembomb":"Up to 5 gems become R100' ranged touch bombs totalling ${Math.min(5,Math.floor(lvl/2))}d8 HP (Ref half)",
-  "Great Shout":"R$RS' Objects in range 20d6 HP (held Ref neg), creatures in cone 10d6 HP, stunned 1 rd, deaf 4d6 rd (Fort half)",
+  "Great Shout":"R$RS' Objects in range 20d6 HP (Ref neg), creatures in cone 10d6 HP, stunned 1 rd, deaf 4d6 rd (Fort half)",
   "Greater Anyspell":"Self prepare up to 5th level arcane spell from written source",
   "Greater Fantastic Machine":"Lg machine (HP 88, AC 20, slam +17/+12 1d8+9, rock +12/+7 2d6+9, load 520) obeys commands for $L min",
   "Grimwald's Graymantle":"R$RM' Target prevented from heal/restore/regen for $L rd (Fort neg)",
@@ -229,13 +227,13 @@ Realms.spellsDescriptions = {
   "Maw Of Stone":"Animated opening can attack/grapple",
   "Moon Blade":"Moonlight blade touch attack 1d8+$Ldiv2 HP (undead 2d8+$L HP) for $L min",
   "Moon Path":"Glowing pathway 5'-20'w by $L15'l for $L min; <i>Sanctuary</i> on path for $L designed",
-  "Moonbeam":"R$RS' Target lycanthropes Will save or become animal for $L min",
-  "Moonfire":"R$RS' Cone ${Math.min(Math.floor(lvl/2),10)}d8 HP (undead x2, Ref half), changed creatures Will save or revert, marks auras for $L min",
+  "Moonbeam":"R$RS' Target lycanthropes become animal for $L min (Will neg)",
+  "Moonfire":"R$RS' Cone ${Math.min(Math.floor(lvl/2),10)}d8 HP (undead x2) (Ref half), changed creatures revert (Will neg), marks auras for $L min",
   "Scatterspray":"R$RS' Little items w/in 1' radius scatter; creatures w/in 10' 1d8 HP (Ref neg)",
   "Shadow Mask":"Self face hidden, +4 save vs. light/dark, 50% gaze attack for $L10 min",
-  "Shadow Spray":"R$RM' Creatures in 5' radius Fort save or lose 2 Str, dazed 1 rd, -2 fear saves for $L rd",
+  "Shadow Spray":"R$RM' Creatures in 5' radius lose 2 Str, dazed 1 rd, -2 fear saves for $L rd (Fort neg)",
   "Snilloc's Snowball Swarm":"R$RM' Creatures in 10' radius ${Math.min(2+Math.floor((lvl-3)/2),5)}d6 HP cold (Ref half)",
-  "Spider Curse":"R$RM' Target Will save or polymorph to dominated drider for $L dy",
+  "Spider Curse":"R$RM' Target polymorph to dominated drider for $L dy (Will neg)",
   "Spider Shapes":"R$RS' Willing target polymorph to monstrous spider for $L hr",
   "Spiderform":"Self polymorph to drider or monstrous spider for $L hr",
   "Stone Spiders":"R$RS' Transform 1d3 pebbles into controlled monstrous spiders for $L rd",
@@ -243,26 +241,27 @@ Realms.spellsDescriptions = {
   "Waterspout":"R$RL' 10'w by 80'h spout moves 30'/rd, touched creatures 2d6 HP (Ref neg) for $L rd"
 };
 Realms.spellsSchools = {
-  'Aganazzar\'s Scorcher':'Evocation', 'Analyze Portal':'Divination',
+  "Aganazzar's Scorcher":'Evocation', 'Analyze Portal':'Divination',
   'Anyspell':'Transmutation', 'Armor Of Darkness':'Abjuration',
   'Blacklight':'Evocation', 'Claws Of Darkness':'Illusion',
   'Cloak Of Dark Power':'Abjuration', 'Create Magic Tatoo':'Conjuration',
-  'Darkbolt':'Evocation', 'Elminster\'s Evasion':'Evocation',
+  'Darkbolt':'Evocation', "Elminster's Evasion":'Evocation',
   'Fantastic Machine':'Illusion', 'Fire Stride':'Transmutation',
   'Flashburst':'Evocation', 'Flensing':'Evocation', 'Gate Seal':'Abjuration',
   'Gembomb':'Conjuration', 'Great Shout':'Evocation',
   'Greater Anyspell':'Transmutation', 'Greater Fantastic Machine':'Illusion',
-  'Grimwald\'s Graymantle':'Necromancy', 'Lesser Ironguard':'Abjuration',
+  "Grimwald's Graymantle":'Necromancy', 'Lesser Ironguard':'Abjuration',
   'Maelstrom':'Conjuration', 'Maw Of Stone':'Transmutation',
   'Moon Blade':'Evocation', 'Moon Path':'Evocation', 'Moonbeam':'Evocation',
   'Moonfire':'Evocation', 'Scatterspray':'Transmutation',
   'Shadow Mask':'Illusion', 'Shadow Spray':'Illusion',
-  'Snilloc\'s Snowball Swarm':'Evocation', 'Spider Curse':'Transmutation',
+  "Snilloc's Snowball Swarm":'Evocation', 'Spider Curse':'Transmutation',
   'Spider Shapes':'Transmutation', 'Spiderform':'Transmutation',
   'Stone Spiders':'Transmutation', 'Thunderlance':'Evocation',
   'Waterspout':'Conjuration'
 };
 
+/* Defines the rules related to feats. */
 Realms.featRules = function(rules, feats, subfeats) {
 
   var allFeats = [];
@@ -432,12 +431,15 @@ Realms.featRules = function(rules, feats, subfeats) {
       // Identical to SRD, but +3 DC instead of +1
       var school = matchInfo[1];
       var schoolNoSpace = school.replace(/ /g, '');
+      var note = 'magicNotes.greaterSpellFocus(' + schoolNoSpace + ')Feature';
       notes = [
-        'magicNotes.greaterSpellFocus(' + schoolNoSpace + ')Feature:' +
-          '+3 DC on ' + school + ' spells',
+        note + ':+%V DC on ' + school + ' spells',
         'sanityNotes.greaterSpellFocus(' + schoolNoSpace + ')FeatCasterLevel:' +
-          'Requires Caster Level >= 1'
+          'Implies Caster Level >= 1',
+        'validationNotes.greaterSpellFocus(' + schoolNoSpace + ')FeatFeatures:'+
+          'Requires Spell Focus (' + school + ')'
       ];
+      rules.defineRule(note, '', '=', '3');
     } else if(feat == 'Horse Nomad') {
       notes = [
         'combatNotes.horseNomadFeature:' +
@@ -507,11 +509,19 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Magical Training') {
       notes = [
         'magicNotes.magicalTrainingFeature:' +
-          '<i>Dancing Lights</i>/<i>Daze</i>/<i>Mage Hand</i> 1/day',
+          '<i>Dancing Lights</i>, <i>Daze</i>, <i>Mage Hand</i> 1/day',
         'validationNotes.magicalTrainingFeatAbility:' +
           'Requires Intelligence >= 10',
         'validationNotes.magicalTrainingFeatRegion:Requires Region == "Halruaa"'
       ];
+      rules.defineRule
+        ('casterLevels.Dancing Lights', 'features.Magical Training', '^=', '1');
+      rules.defineRule
+        ('casterLevels.Daze', 'features.Magical Training', '^=', '1');
+      rules.defineRule
+        ('casterLevels.Mage Hand', 'features.Magical Training', '^=', '1');
+      rules.defineRule
+        ('casterLevels.W', 'features.Magical Training', '^=', '1');
     } else if(feat == 'Mercantile Background') {
       notes = [
         'sanityNotes.mercantileBackgroundFeatSkills:' +
@@ -652,6 +662,21 @@ Realms.featRules = function(rules, feats, subfeats) {
           'Requires ' + klass
       ];
       rules.defineRule('spellDifficultyClass.' + klass, note, '+', '1');
+      var classSpellAbility = {
+        'Bard':'charisma', 'Cleric':'wisdom', 'Druid':'wisdom',
+        'Wizard':'intelligence'
+      };
+      for(var klass in classSpellAbility) {
+        rules.defineRule('classBoostedAbilityModifier.' + klass,
+          'levels.' + klass, '?', null,
+          classSpellAbility[klass] + 'Modifier', '=', 'source + 1'
+        );
+        for(var spellLevel = 1; spellLevel <= 5; spellLevel++) {
+          rules.defineRule('spellsPerDay.' + klass.substring(0, 1) + spellLevel,
+            'classBoostedAbilityModifier.' + klass, '+', 'source == ' + spellLevel + ' ? 1 : null'
+          );
+        }
+      }
     } else if(feat == 'Stealthy') {
       notes = [
         'sanityNotes.stealthyFeatSkills:Requires Hide||Move Silently',
@@ -704,8 +729,7 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Tenacious Magic') {
       notes = [
         'magicNotes.tenaciousMagicFeature:' +
-          'Weave foes DC %V check to dispel/DC 13+foe level to ' +
-          'dispel Weave foes',
+          'Weave foes DC %V to dispel, DC 13+foe level to dispel Weave foes',
         'sanityNotes.tenaciousMagicFeatCasterLevel:Requires Caster Level >= 1',
         'validationNotes.tenaciousMagicFeatFeatures:Requires Shadow Weave Magic'
       ];
@@ -767,6 +791,7 @@ Realms.featRules = function(rules, feats, subfeats) {
 
 };
 
+/* Defines the rules related to spells and domains. */
 Realms.magicRules = function(rules, classes, domains) {
 
   var schools = rules.getChoices('schools');
@@ -776,7 +801,7 @@ Realms.magicRules = function(rules, classes, domains) {
     var spells;
     if(klass == 'Bard') {
       spells = [
-        'B2:Eagle\'s Splendor',
+        "B2:Eagle's Splendor",
         'B3:Analyze Portal',
         'B6:Gate Seal:Great Shout'
       ];
@@ -792,14 +817,14 @@ Realms.magicRules = function(rules, classes, domains) {
       // Identical spell lists
       spells = [
         'W1:Scatterspray',
-        'W2:Aganazzar\'s Scorcher:Claws Of Darkness:Create Magic Tatoo:' +
-        'Eagle\'s Splendor:Shadow Mask:Shadow Spray:Snilloc\'s Snowball Swarm',
+        "W2:Aganazzar's Scorcher:Claws Of Darkness:Create Magic Tatoo:" +
+        "Eagle's Splendor:Shadow Mask:Shadow Spray:Snilloc's Snowball Swarm",
         'W3:Analyze Portal:Blacklight:Flashburst',
         'W4:Fire Stride:Thunderlance',
-        'W5:Grimwald\'s Graymantle:Lesser Ironguard',
+        "W5:Grimwald's Graymantle:Lesser Ironguard",
         'W6:Gate Seal',
         'W8:Flensing:Great Shout',
-        'W9:Elminster\'s Evasion'
+        "W9:Elminster's Evasion"
       ];
     }
     if(spells != null) {
@@ -832,7 +857,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Detect Secret Doors', 'Darkness', 'Meld Into Stone',
-        'Leomund\'s Secret Shelter', 'Passwall', 'Find The Path',
+        "Leomund's Secret Shelter", 'Passwall', 'Find The Path',
         'Maw Of Stone', 'Earthquake', 'Imprisonment'
       ];
       turn = null;
@@ -904,7 +929,7 @@ Realms.magicRules = function(rules, classes, domains) {
         'featureNotes.elfDomain:Point Blank Shot bonus feat'
       ];
       spells = [
-        'True Strike', 'Cat\'s Grace', 'Snare', 'Tree Stride',
+        'True Strike', "Cat's Grace", 'Snare', 'Tree Stride',
         'Commune With Nature', 'Find The Path', 'Liveoak', 'Sunburst',
         'Antipathy'
       ];
@@ -917,7 +942,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Bless', 'Shield Other', 'Helping Hand', 'Imbue With Spell Ability',
-        'Rary\'s Mnemonic Enhancer', 'Heroes\' Feast', 'Refuge',
+        "Rary's Mnemonic Enhancer", "Heroes' Feast", 'Refuge',
         'Protection From Spells', 'Prismatic Sphere'
       ];
       turn = null;
@@ -941,7 +966,7 @@ Realms.magicRules = function(rules, classes, domains) {
       spells = [
         'Silent Image', 'Gembomb', 'Minor Image', 'Minor Creation',
         'Hallucinatory Terrain', 'Fantastic Machine', 'Screen',
-        'Otto\'s Irresistable Dance', 'Summon Nature\'s Ally'
+        "Otto's Irresistable Dance", "Summon Nature's Ally"
       ];
       turn = null;
     } else if(domain == 'Halfling') {
@@ -950,8 +975,8 @@ Realms.magicRules = function(rules, classes, domains) {
           '+%V Climb, Hide, Jump, Move Silently for 10 minutes 1/day'
       ];
       spells = [
-        'Magic Stone', 'Cat\'s Grace', 'Magic Vestment', 'Freedom Of Movement',
-        'Mordenkainen\'s Faithful Houn', 'Move Earth', 'Shadow Walk',
+        'Magic Stone', "Cat's Grace", 'Magic Vestment', 'Freedom Of Movement',
+        "Mordenkainen's Faithful Hound", 'Move Earth', 'Shadow Walk',
         'Word Of Recall', 'Foresight'
       ];
       turn = null;
@@ -984,7 +1009,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Random Action', 'Detect Thoughts', 'Clairaudience/Clairvoyance',
-        'Modify Memory', 'Mind Fog', 'Rary\'s Telepathic Bond', 'Antipathy',
+        'Modify Memory', 'Mind Fog', "Rary's Telepathic Bond", 'Antipathy',
         'Mind Blank', 'Astral Projection'
       ];
       turn = null;
@@ -1014,7 +1039,7 @@ Realms.magicRules = function(rules, classes, domains) {
     } else if(domain == 'Nobility') {
       notes = [
         'magicNotes.nobilityDomain:' +
-          '+2 allies\' attack/damage/skill/ability for %V rounds 1/day'
+          "+2 allies' attack/damage/skill/ability for %V rounds 1/day"
       ];
       spells = [
         'Divine Favor', 'Enthrall', 'Magic Vestment', 'Discern Lies',
@@ -1027,11 +1052,11 @@ Realms.magicRules = function(rules, classes, domains) {
       );
     } else if(domain == 'Ocean') {
       notes = [
-        'magicNotes.oceanDomain:<i>Water Breathing</i> %V rounds/day'
+        'magicNotes.oceanDomain:Breathe water %V rounds/day'
       ];
       spells = [
         'Endure Elements', 'Sound Burst', 'Water Breathing',
-        'Freedom Of Movement', 'Wall Of Ice', 'Otiluke\'s Freezing Sphere',
+        'Freedom Of Movement', 'Wall Of Ice', "Otiluke's Freezing Sphere",
         'Waterspout', 'Maelstrom', 'Elemental Swarm'
       ];
       turn = null;
@@ -1056,7 +1081,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Deathwatch', 'Augury', 'Clairaudiance/Clairvoyance', 'Status',
-        'Detect Scrying', 'Heroes\' Feast', 'Greater Scrying',
+        'Detect Scrying', "Heroes' Feast", 'Greater Scrying',
         'Discern Location', 'Time Stop'
       ];
       turn = null;
@@ -1078,7 +1103,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Charm Person', 'Lesser Restoration', 'Remove Disease', 'Reincarnate',
-        'Atonement', 'Heroes\' Feast', 'Greater Restoration',
+        'Atonement', "Heroes' Feast", 'Greater Restoration',
         'Ploymorph Any Object'
       ];
       turn = null;
@@ -1103,7 +1128,7 @@ Realms.magicRules = function(rules, classes, domains) {
       spells = [
         'Erase', 'Secret Page', 'Glyph Of Warding', 'Explosive Runes',
         'Lesser Planar Binding', 'Greater Glyph Of Warding',
-        'Drawmij\'s Instant Summons', 'Symbol', 'Teleportation Circle'
+        "Drawmij's Instant Summons", 'Symbol', 'Teleportation Circle'
       ];
       turn = null;
       rules.defineRule
@@ -1123,8 +1148,8 @@ Realms.magicRules = function(rules, classes, domains) {
         'combatNotes.slimeDomain:Turn/command oozes'
       ];
       spells = [
-        'Grease', 'Melf\'s Acid Arrow', 'Poison', 'Rusting Grasp',
-        'Evard\'s Black Tentacles', 'Transmute Rock To Mud', 'Destruction',
+        'Grease', "Melf's Acid Arrow", 'Poison', 'Rusting Grasp',
+        "Evard's Black Tentacles", 'Transmute Rock To Mud', 'Destruction',
         'Power Word, Blind', 'Implosion'
       ];
       turn = 'Oozes';
@@ -1133,7 +1158,7 @@ Realms.magicRules = function(rules, classes, domains) {
         'skillNotes.spellDomain:+2 Concentration/Spellcraft'
       ];
       spells = [
-        'Mage Armor', 'Silence', 'Anyspell', 'Rary\'s Mnemonic Enhancer',
+        'Mage Armor', 'Silence', 'Anyspell', "Rary's Mnemonic Enhancer",
         'Break Enchantment', 'Greater Anyspell', 'Limited Wish',
         'Antimagic Field'
       ];
@@ -1187,11 +1212,11 @@ Realms.magicRules = function(rules, classes, domains) {
     } else if(domain == 'Trade') {
       notes = [
         'magicNotes.tradeDomain:' +
-          '<i>Detect Thoughts</i> on 1 target for %V minutes 1/day'
+          '<i>Detect Thoughts</i> on 1 target for %V minutes 1/day (Will neg)'
       ];
       spells = [
-        'Message', 'Gembomb', 'Eagle\'s Splendor', 'Sending', 'Fabricate',
-        'Tree Seeing', 'Mordenkainen\'s Magnificent Mansion', 'Mind Blank',
+        'Message', 'Gembomb', "Eagle's Splendor", 'Sending', 'Fabricate',
+        'Tree Seeing', "Mordenkainen's Magnificent Mansion", 'Mind Blank',
         'Discern Location'
       ];
       turn = null;
@@ -1204,7 +1229,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Command', 'Enthrall', 'Discern Lies', 'Fear', 'Greater Command',
-        'Geas/Quest', 'Bigby\'s Grasping Hand', 'Mass Charm', 'Dominate Monster'
+        'Geas/Quest', "Bigby's Grasping Hand", 'Mass Charm', 'Dominate Monster'
       ];
       turn = null;
     } else if(domain == 'Undeath') {
@@ -1274,7 +1299,20 @@ Realms.magicRules = function(rules, classes, domains) {
 
 };
 
+/* Defines the rules related to character races. */
 Realms.raceRules = function(rules, races) {
+
+  // Adjustments to level for powerful races
+  rules.defineRule('level',
+    'abilityNotes.levelAdjustmentFeature', '+', null,
+    '', '^', '1'
+  );
+  rules.defineRule('offsetLevel',
+    'level', '=', null,
+    'abilityNotes.levelAdjustmentFeature', '+', '-source'
+  );
+  rules.defineRule
+    ('experienceNeeded', 'offsetLevel', '=', '1000 * source * (source+1) / 2');
 
   for(var i = 0; i < races.length; i++) {
 
@@ -1306,7 +1344,7 @@ Realms.raceRules = function(rules, races) {
         'abilityNotes.levelAdjustmentFeature:%V',
         'combatNotes.lightSensitivityFeature:-2 attack in bright light',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.magicPoisonImmunityFeature:' +
           'Immune to magical/alchemaic poisions',
         'saveNotes.lightSensitivityFeature:-2 saves in bright light',
@@ -1324,22 +1362,21 @@ Realms.raceRules = function(rules, races) {
       rules.defineRule('featureNotes.darkvisionFeature',
         'grayDwarfFeatures.Darkvision', '+=', '120'
       );
-      rules.defineRule('level',
-        'abilityNotes.levelAdjustmentFeature', '+', null,
-        '', '^', '1'
-      );
       rules.defineRule('magicNotes.naturalSpellsFeature',
         'grayDwarfFeatures.Natural Spells', '=', 
-        '"<i>Enlarge</i>/<i>Invisibility</i>"'
+        '"<i>Enlarge Person</i>, <i>Invisibility</i>"'
       );
-      rules.defineRule('grayDwarfNaturalSpellLevelMultiplier',
-        'grayDwarfFeatures.Natural Spells', '=', '2',
-        'level', '+', 'source == 1 ? 1 : null'
+      rules.defineRule('casterLevels.Gray Dwarf',
+        'grayDwarfFeatures.Natural Spells', '?', null,
+        'level', '=', 'Math.min(source * 2, 3)'
       );
-      rules.defineRule('magicNotes.naturalSpellsFeature.1',
-        'level', '=', null,
-        'grayDwarfNaturalSpellLevelMultiplier', '*', null
-      );
+      rules.defineRule
+        ('casterLevels.Enlarge Person', 'casterLevels.Gray Dwarf', '^=', null);
+      rules.defineRule
+        ('casterLevels.Invisibility', 'casterLevels.Gray Dwarf', '^=', null);
+      // Set casterLevels.W to a minimal value so that spell DC will be
+      // calcuated even for non-Wizard Gray Dwarves.
+      rules.defineRule('casterLevels.W', 'casterLevels.Gray Dwarf', '^=', '1');
 
     } else if(race == 'Shield Dwarf') {
       adjustment = null;
@@ -1359,7 +1396,7 @@ Realms.raceRules = function(rules, races) {
         'combatNotes.lightSensitivityFeature:-2 attack in bright light',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
         'featureNotes.lightBlindnessFeature:Blind 1 round from sudden daylight',
-        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.drowSpellResistanceFeature:DC %V',
         'saveNotes.lightSensitivityFeature:-2 saves in bright light',
         'saveNotes.strongWillFeature:+2 Will vs. spells',
@@ -1373,15 +1410,23 @@ Realms.raceRules = function(rules, races) {
       rules.defineRule('featureNotes.darkvisionFeature',
         'drowElfFeatures.Darkvision', '+=', '120'
       );
-      rules.defineRule('level',
-        'abilityNotes.levelAdjustmentFeature', '+', null,
-        '', '^', '1'
-      );
       rules.defineRule('magicNotes.naturalSpellsFeature',
         'drowElfFeatures.Natural Spells', '=', 
-        '"<i>Dancing Lights</i>/<i>Darkness</i>/<i>Faerie Fire</i>"'
+        '"<i>Dancing Lights</i>, <i>Darkness</i>, <i>Faerie Fire</i>"'
       );
-      rules.defineRule('magicNotes.naturalSpellsFeature.1', 'level', '=', null);
+      rules.defineRule('casterLevels.Drow Elf',
+        'drowElfFeatures.Natural Spells', '?', null,
+        'level', '=', null
+      );
+      rules.defineRule
+        ('casterLevels.Dancing Lights', 'casterLevels.Drow Elf', '^=', null);
+      rules.defineRule
+        ('casterLevels.Darkness', 'casterLevels.Drow Elf', '^=', null);
+      rules.defineRule
+        ('casterLevels.Faerie Fire', 'casterLevels.Drow Elf', '^=', null);
+      // Set casterLevels.S to a minimal value so that spell DC will be
+      // calcuated even for non-Sorcerer Drow Elves.
+      rules.defineRule('casterLevels.S', 'casterLevels.Drow Elf', '^=', '1');
       rules.defineRule
         ('saveNotes.drowSpellResistanceFeature', 'level', '=', '11 + source');
       // Delete standard standard Elf weapon proficiencies
@@ -1427,7 +1472,7 @@ Realms.raceRules = function(rules, races) {
         'abilityNotes.levelAdjustmentFeature:%V',
         'combatNotes.exceptionalDodgeFeature:+4 AC',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day',
         'magicNotes.nondetectionFeature:Continuous <i>Nondetection</i>',
         'saveNotes.extraLuckFeature:+2 all saves',
         'saveNotes.svirfneblinSpellResistanceFeature:DC %V',
@@ -1452,15 +1497,23 @@ Realms.raceRules = function(rules, races) {
       rules.defineRule('featureNotes.darkvisionFeature',
         'deepGnomeFeatures.Darkvision', '+=', '120'
       );
-      rules.defineRule('level',
-        'abilityNotes.levelAdjustmentFeature', '+', null,
-        '', '^', '1'
-      );
       rules.defineRule('magicNotes.naturalSpellsFeature',
         'deepGnomeFeatures.Natural Spells', '=', 
-        '"<i>Blindness</i>/<i>Blur</i>/<i>Change Self</i>"'
+        '"<i>Alter Self</i>, <i>Blindness</i>, <i>Blur</i></i>"'
       );
-      rules.defineRule('magicNotes.naturalSpellsFeature.1', 'level', '=', null);
+      rules.defineRule('casterLevels.Deep Gnome',
+        'deepGnomeFeatures.Natural Spells', '?', null,
+        'level', '=', null
+      );
+      rules.defineRule
+        ('casterLevels.Blindness', 'casterLevels.Deep Gnome', '^=', null);
+      rules.defineRule
+        ('casterLevels.Blur', 'casterLevels.Deep Gnome', '^=', null);
+      rules.defineRule
+        ('casterLevels.Change Self', 'casterLevels.Deep Gnome', '^=', null);
+      // Set casterLevels.W to a minimal value so that spell DC will be
+      // calcuated even for non-Wizard Deep Gnomes.
+      rules.defineRule('casterLevels.W', 'casterLevels.Deep Gnome', '^=', '1');
       rules.defineRule
         ('save.Fortitude', 'saveNotes.extraLuckFeature', '+', '2');
       rules.defineRule('save.Reflex', 'saveNotes.extraLuckFeature', '+', '2');
@@ -1511,7 +1564,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.aasimarResistanceFeature:Acid/cold/electricity 5',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
@@ -1523,14 +1576,18 @@ Realms.raceRules = function(rules, races) {
       rules.defineRule('featureNotes.darkvisionFeature',
         'aasimarFeatures.Darkvision', '+=', '60'
       );
-      rules.defineRule('level',
-        'abilityNotes.levelAdjustmentFeature', '+', null,
-        '', '^', '1'
-      );
       rules.defineRule('magicNotes.naturalSpellsFeature',
         'aasimarFeatures.Natural Spells', '=', '"<i>Light</i>"'
       );
-      rules.defineRule('magicNotes.naturalSpellsFeature.1', 'level', '=', null);
+      rules.defineRule('casterLevels.Aasimar',
+        'aasimarFeatures.Natural Spells', '?', null,
+        'level', '=', null
+      );
+      rules.defineRule
+        ('casterLevels.Light', 'casterLevels.Aasimar', '^=', null);
+      // Set casterLevels.S to a minimal value so that spell DC will be
+      // calcuated even for non-Sorcerer Aasimars.
+      rules.defineRule('casterLevels.S', 'casterLevels.Aasimar', '^=', '1');
       rules.defineRule
         ('resistance.Acid', 'saveNotes.aasimarResistanceFeature', '+=', '5');
       rules.defineRule
@@ -1548,7 +1605,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.breathlessFeature:' +
           'Immune drowning/suffocation/inhalation effects',
         'saveNotes.nativeOutsiderFeature:' +
@@ -1562,19 +1619,18 @@ Realms.raceRules = function(rules, races) {
       rules.defineRule('featureNotes.darkvisionFeature',
         'airGenasiFeatures.Darkvision', '+=', '60'
       );
-      rules.defineRule('level',
-        'abilityNotes.levelAdjustmentFeature', '+', null,
-        '', '^', '1'
-      );
       rules.defineRule('magicNotes.naturalSpellsFeature',
         'airGenasiFeatures.Natural Spells', '=', '"<i>Levitate</i>"'
       );
-      rules.defineRule('magicNotes.naturalSpellsFeature.1',
-        // Small hack to override the level-based value used by other races
-        'level', '=', null,
-        'airGenasiFeatures.Natural Spells', 'v', '5',
-        'abilityNotes.airGenasiAbilityAdjustment', '^', '5'
+      rules.defineRule('casterLevels.Air Genasi',
+        'airGenasiFeatures.Natural Spells', '?', null,
+        'level', '=', '5'
       );
+      rules.defineRule
+        ('casterLevels.Levitate', 'casterLevels.Air Genasi', '^=', null);
+      // Set casterLevels.S to a minimal value so that spell DC will be
+      // calcuated even for non-Sorcerer Air Genasi.
+      rules.defineRule('casterLevels.S', 'casterLevels.Air Genasi', '^=', '1');
       rules.defineRule
         ('resistance.Air', 'saveNotes.resistAirFeature', '+=', null);
       rules.defineRule('saveNotes.resistAirFeature',
@@ -1596,7 +1652,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
         'saveNotes.resistEarthFeature:+%V vs. earth spells',
@@ -1608,19 +1664,19 @@ Realms.raceRules = function(rules, races) {
       rules.defineRule('featureNotes.darkvisionFeature',
         'earthGenasiFeatures.Darkvision', '+=', '60'
       );
-      rules.defineRule('level',
-        'abilityNotes.levelAdjustmentFeature', '+', null,
-        '', '^', '1'
-      );
       rules.defineRule('magicNotes.naturalSpellsFeature',
         'earthGenasiFeatures.Natural Spells', '=', '"<i>Pass Without Trace</i>"'
       );
-      rules.defineRule('magicNotes.naturalSpellsFeature.1',
-        // Small hack to override the level-based value used by other races
-        'level', '=', null,
-        'earthGenasiFeatures.Natural Spells', 'v', '5',
-        'abilityNotes.earthGenasiAbilityAdjustment', '^', '5'
+      rules.defineRule('casterLevels.Earth Genasi',
+        'earthGenasiFeatures.Natural Spells', '?', null,
+        'level', '=', '5'
       );
+      rules.defineRule('casterLevels.Pass Without Trace',
+        'casterLevels.Earth Genasi', '^=', null
+      );
+      // Set casterLevels.D to a minimal value so that spell DC will be
+      // calcuated even for non-Druid Earth Genasi.
+      rules.defineRule('casterLevels.D', 'casterLevels.Earth Genasi', '^=', '1');
       rules.defineRule
         ('resistance.Earth', 'saveNotes.resistEarthFeature', '+=', null);
       rules.defineRule('saveNotes.resistEarthFeature',
@@ -1636,13 +1692,14 @@ Realms.raceRules = function(rules, races) {
     } else if(race == 'Fire Genasi') {
       adjustment = '+2 intelligence/-2 charisma';
       features = [
-        'Darkvision', 'Level Adjustment', 'Native Outsider', 'Natural Spells',
+        'Control Flame', 'Darkvision', 'Level Adjustment', 'Native Outsider',
         'Resist Fire'
       ];
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
+        'magicNotes.controlFlameFeature:' +
+          'Shrink or expand natural fire for 5 min 1/day',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
         'saveNotes.resistFireFeature:+%V vs. fire spells',
@@ -1653,19 +1710,6 @@ Realms.raceRules = function(rules, races) {
       );
       rules.defineRule('featureNotes.darkvisionFeature',
         'fireGenasiFeatures.Darkvision', '+=', '60'
-      );
-      rules.defineRule('level',
-        'abilityNotes.levelAdjustmentFeature', '+', null,
-        '', '^', '1'
-      );
-      rules.defineRule('magicNotes.naturalSpellsFeature',
-        'fireGenasiFeatures.Natural Spells', '=', '"<i>Control Flame</i>"'
-      );
-      rules.defineRule('magicNotes.naturalSpellsFeature.1',
-        // Small hack to override the level-based value used by other races
-        'level', '=', null,
-        'fireGenasiFeatures.Natural Spells', 'v', '5',
-        'abilityNotes.fireGenasiAbilityAdjustment', '^', '5'
       );
       rules.defineRule
         ('resistance.Fire', 'saveNotes.resistFireFeature', '+=', null);
@@ -1689,7 +1733,7 @@ Realms.raceRules = function(rules, races) {
         'abilityNotes.levelAdjustmentFeature:%V',
         'abilityNotes.swimFeature:Swim speed %V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
         'saveNotes.resistWaterFeature:+%V vs. water spells',
@@ -1704,19 +1748,18 @@ Realms.raceRules = function(rules, races) {
       rules.defineRule('featureNotes.darkvisionFeature',
         'waterGenasiFeatures.Darkvision', '+=', '60'
       );
-      rules.defineRule('level',
-        'abilityNotes.levelAdjustmentFeature', '+', null,
-        '', '^', '1'
-      );
       rules.defineRule('magicNotes.naturalSpellsFeature',
         'waterGenasiFeatures.Natural Spells', '=', '"<i>Create Water</i>"'
       );
-      rules.defineRule('magicNotes.naturalSpellsFeature.1',
-        // Small hack to override the level-based value used by other races
-        'level', '=', null,
-        'waterGenasiFeatures.Natural Spells', 'v', '5',
-        'abilityNotes.waterGenasiAbilityAdjustment', '^', '5'
+      rules.defineRule('casterLevels.Water Genasi',
+        'waterGenasiFeatures.Natural Spells', '?', null,
+        'level', '=', '5'
       );
+      rules.defineRule
+        ('casterLevels.Create Water', 'casterLevels.Water Genasi', '^=', null);
+      // Set casterLevels.D to a minimal value so that spell DC will be
+      // calcuated even for non-Druid Water Genasi.
+      rules.defineRule('casterLevels.D', 'casterLevels.Water Genasi', '^=', '1');
       rules.defineRule
         ('resistance.Water', 'saveNotes.resistWaterFeature', '+=', null);
       rules.defineRule('saveNotes.resistWaterFeature',
@@ -1738,7 +1781,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
-        'magicNotes.naturalSpellsFeature:%V 1/day as caster %1',
+        'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
         'saveNotes.tieflingResistanceFeature:Cold/electricity/fire 5',
@@ -1751,14 +1794,18 @@ Realms.raceRules = function(rules, races) {
       rules.defineRule('featureNotes.darkvisionFeature',
         'tieflingFeatures.Darkvision', '+=', '60'
       );
-      rules.defineRule('level',
-        'abilityNotes.levelAdjustmentFeature', '+', null,
-        '', '^', '1'
-      );
       rules.defineRule('magicNotes.naturalSpellsFeature',
         'tieflingFeatures.Natural Spells', '=', '"<i>Darkness</i>"'
       );
-      rules.defineRule('magicNotes.naturalSpellsFeature.1', 'level', '=', null);
+      rules.defineRule('casterLevels.Tiefling',
+        'tieflingFeatures.Natural Spells', '?', null,
+        'level', '=', null
+      );
+      rules.defineRule
+        ('casterLevels.Darkness', 'casterLevels.Tiefling', '^=', null);
+      // Set casterLevels.S to a minimal value so that spell DC will be
+      // calcuated even for non-Sorcerer Tieflings.
+      rules.defineRule('casterLevels.S', 'casterLevels.Tiefling', '^=', '1');
       rules.defineRule
         ('resistance.Cold', 'saveNotes.tieflingResistanceFeature', '+=', '5');
       rules.defineRule('resistance.Electricity',
@@ -1779,6 +1826,7 @@ Realms.raceRules = function(rules, races) {
 
 };
 
+/* Defines the rules related to character region of origin. */
 Realms.regionRules = function(rules, regions) {
   rules.defineChoice('regions', regions);
   rules.defineChoice('random', 'region');
@@ -1808,6 +1856,18 @@ Realms.randomizeOneAttribute = function(attributes, attribute) {
     attributes[attribute] = choices[QuilvynUtils.random(0, choices.length - 1)];
   } else {
     SRD35.randomizeOneAttribute.apply(this, [attributes, attribute]);
+    if(attribute == 'levels') {
+      // Recompute experience to account for level offset for some races
+      var attrs = this.applyRules(attributes);
+      if(attrs['abilityNotes.levelAdjustmentFeature']) {
+        var level = QuilvynUtils.sumMatching(attrs, /^levels\./) -
+                    attrs['abilityNotes.levelAdjustmentFeature'];
+        var max = level * (level + 1) * 1000 / 2 - 1;
+        var min = level * (level - 1) * 1000 / 2;
+        if(!attributes.experience || attributes.experience < min)
+          attributes.experience = QuilvynUtils.random(min, max);
+      }
+    }
   }
 };
 
