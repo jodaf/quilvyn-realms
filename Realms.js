@@ -857,8 +857,8 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Detect Secret Doors', 'Darkness', 'Meld Into Stone',
-        "Leomund's Secret Shelter", 'Passwall', 'Find The Path',
-        'Maw Of Stone', 'Earthquake', 'Imprisonment'
+        'Secure Shelter', 'Passwall', 'Find The Path', 'Maw Of Stone',
+        'Earthquake', 'Imprisonment'
       ];
       turn = null;
     } else if(domain == 'Charm') {
@@ -866,7 +866,7 @@ Realms.magicRules = function(rules, classes, domains) {
         'abilityNotes.charmDomain:+4 charisma for 1 minute 1/day'
       ];
       spells = [
-        'Charm Person', 'Calm Emotions', 'Suggestions', 'Emotion',
+        'Charm Person', 'Calm Emotions', 'Suggestion', 'Good Hope',
         'Charm Monster', 'Geas/Quest', 'Insanity', 'Demand', 'Dominate Monster'
       ];
       turn = null;
@@ -891,7 +891,7 @@ Realms.magicRules = function(rules, classes, domains) {
       spells = [
         'Obscuring Mist', 'Blindness/Deafness', 'Blacklight',
         'Armor Of Darkness', 'Darkbolt', 'Prying Eyes', 'Nightmare',
-        'Power Word, Blind', 'Power Word, Kill'
+        'Power Word Blind', 'Power Word Kill'
       ];
       turn = null;
       rules.defineRule('features.Blind-Fight', 'domains.Darkness', '=', '1');
@@ -902,7 +902,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Cloak Of Dark Power', 'Clairaudience/Clairvoyance', 'Suggestion',
-        'Discern Lies', 'Spiderform', 'Greater Dispelling', 'Word Of Chaos',
+        'Discern Lies', 'Spiderform', 'Greater Dispel Magic', 'Word Of Chaos',
         'Greater Planar Ally', 'Gate'
       ];
       turn = null;
@@ -915,9 +915,9 @@ Realms.magicRules = function(rules, classes, domains) {
         'saveNotes.greatFortitudeFeature:+2 Fortitude'
       ];
       spells = [
-        'Magic Weapon', 'Endurance', 'Glyph Of Warding', 'Greater Magic Weapon',
-        'Fabricate', 'Stone Tell', 'Dictum', 'Protection From Spells',
-        'Elemental Swarm'
+        'Magic Weapon', "Bear's Endurance", 'Glyph Of Warding',
+        'Greater Magic Weapon', 'Fabricate', 'Stone Tell', 'Dictum',
+        'Protection From Spells', 'Elemental Swarm'
       ];
       turn = null;
       rules.defineRule('features.Great Fortitude', 'domains.Dwarf', '=', '1');
@@ -942,7 +942,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Bless', 'Shield Other', 'Helping Hand', 'Imbue With Spell Ability',
-        "Rary's Mnemonic Enhancer", "Heroes' Feast", 'Refuge',
+        'Mnemonic Enhancer', "Heroes' Feast", 'Refuge',
         'Protection From Spells', 'Prismatic Sphere'
       ];
       turn = null;
@@ -966,7 +966,7 @@ Realms.magicRules = function(rules, classes, domains) {
       spells = [
         'Silent Image', 'Gembomb', 'Minor Image', 'Minor Creation',
         'Hallucinatory Terrain', 'Fantastic Machine', 'Screen',
-        "Otto's Irresistable Dance", "Summon Nature's Ally"
+        'Irresistible Dance', "Summon Nature's Ally IX"
       ];
       turn = null;
     } else if(domain == 'Halfling') {
@@ -976,8 +976,8 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Magic Stone', "Cat's Grace", 'Magic Vestment', 'Freedom Of Movement',
-        "Mordenkainen's Faithful Hound", 'Move Earth', 'Shadow Walk',
-        'Word Of Recall', 'Foresight'
+        "Mage's Faithful Hound", 'Move Earth', 'Shadow Walk', 'Word Of Recall',
+        'Foresight'
       ];
       turn = null;
       rules.defineRule('skillNotes.halflingDomain',
@@ -989,7 +989,7 @@ Realms.magicRules = function(rules, classes, domains) {
         'saveNotes.hatredDomain:+2 saves vs. one foe for 1 minute 1/day'
       ];
       spells = [
-        'Doom', 'Scare', 'Bestow Curse', 'Emotion', 'Righteous Might',
+        'Doom', 'Scare', 'Bestow Curse', 'Crushing Despair', 'Righteous Might',
         'Forbiddance', 'Blasphemy', 'Antipathy', 'Wail Of The Banshee'
       ];
       turn = null;
@@ -1008,8 +1008,8 @@ Realms.magicRules = function(rules, classes, domains) {
           'Touch to allow target +%V on next Will save for 1 hour 1/day'
       ];
       spells = [
-        'Random Action', 'Detect Thoughts', 'Clairaudience/Clairvoyance',
-        'Modify Memory', 'Mind Fog', "Rary's Telepathic Bond", 'Antipathy',
+        'Confusion', 'Detect Thoughts', 'Clairaudience/Clairvoyance',
+        'Modify Memory', 'Mind Fog', 'Telepathic Bond', 'Antipathy',
         'Mind Blank', 'Astral Projection'
       ];
       turn = null;
@@ -1032,7 +1032,7 @@ Realms.magicRules = function(rules, classes, domains) {
         'combatNotes.moonDomain:Turn lycanthropes'
       ];
       spells = [
-        'Faerie Fire', 'Moonbeam', 'Moon Blade', 'Emotion', 'Moon Path',
+        'Faerie Fire', 'Moonbeam', 'Moon Blade', 'Rage', 'Moon Path',
         'Permanent Image', 'Insanity', 'Animal Shapes', 'Moonfire'
       ];
       turn = 'Lycanthropes';
@@ -1056,8 +1056,8 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Endure Elements', 'Sound Burst', 'Water Breathing',
-        'Freedom Of Movement', 'Wall Of Ice', "Otiluke's Freezing Sphere",
-        'Waterspout', 'Maelstrom', 'Elemental Swarm'
+        'Freedom Of Movement', 'Wall Of Ice', 'Freezing Sphere', 'Waterspout',
+        'Maelstrom', 'Elemental Swarm'
       ];
       turn = null;
       rules.defineRule('magicNotes.oceanDomain', 'level', '=', '10 * source');
@@ -1067,7 +1067,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Cause Fear', 'Produce Flame', 'Prayer', 'Divine Power', 'Prying Eyes',
-        'Eyebite', 'Blasphemy', 'Cloak Of Chaos', 'Power Word, Kill'
+        'Eyebite', 'Blasphemy', 'Cloak Of Chaos', 'Power Word Kill'
       ];
       turn = null;
       rules.defineRule('combatNotes.orcDomain', 'levels.Cleric', '=', null);
@@ -1080,7 +1080,7 @@ Realms.magicRules = function(rules, classes, domains) {
           'x2 chosen spell duration uses +1 spell slot'
       ];
       spells = [
-        'Deathwatch', 'Augury', 'Clairaudiance/Clairvoyance', 'Status',
+        'Deathwatch', 'Augury', 'Clairaudience/Clairvoyance', 'Status',
         'Detect Scrying', "Heroes' Feast", 'Greater Scrying',
         'Discern Location', 'Time Stop'
       ];
@@ -1104,7 +1104,7 @@ Realms.magicRules = function(rules, classes, domains) {
       spells = [
         'Charm Person', 'Lesser Restoration', 'Remove Disease', 'Reincarnate',
         'Atonement', "Heroes' Feast", 'Greater Restoration',
-        'Ploymorph Any Object'
+        'Polymorph Any Object', 'Freedom'
       ];
       turn = null;
       rules.defineRule
@@ -1115,7 +1115,7 @@ Realms.magicRules = function(rules, classes, domains) {
           'Successful attack does maximum damage to injuring foe 1/day'
       ];
       spells = [
-        'Shield Of Faith', 'Endurance', 'Speak With Dead', 'Fire Shield',
+        'Shield Of Faith', "Bear's Endurance", 'Speak With Dead', 'Fire Shield',
         'Mark Of Justice', 'Banishment', 'Spell Turning', 'Discern Location',
         'Storm Of Vengeance'
       ];
@@ -1127,8 +1127,8 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Erase', 'Secret Page', 'Glyph Of Warding', 'Explosive Runes',
-        'Lesser Planar Binding', 'Greater Glyph Of Warding',
-        "Drawmij's Instant Summons", 'Symbol', 'Teleportation Circle'
+        'Lesser Planar Binding', 'Greater Glyph Of Warding', 'Instant Summons',
+        'Symbol Of Death', 'Teleportation Circle'
       ];
       turn = null;
       rules.defineRule
@@ -1148,9 +1148,9 @@ Realms.magicRules = function(rules, classes, domains) {
         'combatNotes.slimeDomain:Turn/command oozes'
       ];
       spells = [
-        'Grease', "Melf's Acid Arrow", 'Poison', 'Rusting Grasp',
-        "Evard's Black Tentacles", 'Transmute Rock To Mud', 'Destruction',
-        'Power Word, Blind', 'Implosion'
+        'Grease', 'Acid Arrow', 'Poison', 'Rusting Grasp',
+        'Black Tentacles', 'Transmute Rock To Mud', 'Destruction',
+        'Power Word Blind', 'Implosion'
       ];
       turn = 'Oozes';
     } else if(domain == 'Spell') {
@@ -1158,9 +1158,9 @@ Realms.magicRules = function(rules, classes, domains) {
         'skillNotes.spellDomain:+2 Concentration/Spellcraft'
       ];
       spells = [
-        'Mage Armor', 'Silence', 'Anyspell', "Rary's Mnemonic Enhancer",
+        'Mage Armor', 'Silence', 'Anyspell', 'Mnemonic Enhancer',
         'Break Enchantment', 'Greater Anyspell', 'Limited Wish',
-        'Antimagic Field'
+        'Antimagic Field', "Mage's Disjunction"
       ];
       turn = null;
     } else if(domain == 'Spider') {
@@ -1191,7 +1191,7 @@ Realms.magicRules = function(rules, classes, domains) {
            'Touch attack causes -2 strength/dexterity for 1 minute 1/day'
       ];
       spells = [
-        'Bane', 'Endurance', 'Bestow Curse', 'Enervation', 'Feeblemind',
+        'Bane', "Bear's Endurance", 'Bestow Curse', 'Enervation', 'Feeblemind',
         'Harm', 'Eyebite', 'Symbol Of Pain', 'Horrid Wilting'
       ];
       turn = null;
@@ -1202,7 +1202,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'True Strike', 'Gentle Repose', 'Haste', 'Freedom Of Movement',
-        'Permanency', 'Contingency', 'Mass Haste', 'Foresight', 'Time Stop'
+        'Permanency', 'Contingency', 'Instant Summons', 'Foresight', 'Time Stop'
       ];
       turn = null;
       rules.defineRule
@@ -1216,7 +1216,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Message', 'Gembomb', "Eagle's Splendor", 'Sending', 'Fabricate',
-        'Tree Seeing', "Mordenkainen's Magnificent Mansion", 'Mind Blank',
+        'True Seeing', "Mage's Magnificent Mansion", 'Mind Blank',
         'Discern Location'
       ];
       turn = null;
@@ -1229,7 +1229,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Command', 'Enthrall', 'Discern Lies', 'Fear', 'Greater Command',
-        'Geas/Quest', "Bigby's Grasping Hand", 'Mass Charm', 'Dominate Monster'
+        'Geas/Quest', 'Grasping Hand', 'Mass Charm Monster', 'Dominate Monster'
       ];
       turn = null;
     } else if(domain == 'Undeath') {
@@ -1239,7 +1239,7 @@ Realms.magicRules = function(rules, classes, domains) {
       ];
       spells = [
         'Detect Undead', 'Desecrate', 'Animate Dead', 'Death Ward',
-        'Circle Of Doom', 'Create Undead', 'Control Undead',
+        'Mass Inflict Light Wounds', 'Create Undead', 'Control Undead',
         'Create Greater Undead', 'Energy Drain'
       ];
       turn = null;
@@ -1262,6 +1262,7 @@ Realms.magicRules = function(rules, classes, domains) {
           school = SRD35.spellsSchools[spell];
         }
         if(school == null) {
+          console.log('No school for domain spell "' + spell + '"');
           continue;
         }
         spell += '(' + domain + (j + 1) + ' ' +
