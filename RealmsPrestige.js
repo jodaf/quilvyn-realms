@@ -287,6 +287,22 @@ RealmsPrestige.classRules = function(rules, classes) {
       spells = null;
       spellsKnown = null;
       spellsPerDay = null;
+      rules.defineRule('casterLevels.Divine Seeker',
+        'levels.Divine Seeker', '=', null,
+        'charismaModifier', '+', null
+      );
+      rules.defineRule('casterLevels.Locate Creature',
+        'casterLevels.Divine Seeker', '^=', null
+      );
+      rules.defineRule('casterLevels.Locate Object',
+        'casterLevels.Divine Seeker', '^=', null
+      );
+      rules.defineRule
+        ('casterLevels.Sanctuary', 'casterLevels.Divine Seeker', '^=', null);
+      // Set casterLevels.C to a minimal value so that spell DC will be
+      // calcuated even for non-Cleric Divine Seekers.
+      rules.defineRule
+        ('casterLevels.C', 'casterLevels.Divine Seeker', '^=', '1');
       rules.defineRule('combatNotes.sneakAttackFeature',
         'levels.Divine Seeker', '+=', 'Math.floor(source / 2)'
       );
@@ -354,8 +370,8 @@ RealmsPrestige.classRules = function(rules, classes) {
       baseAttack = SRD35.ATTACK_BONUS_AVERAGE;
       feats = null;
       features = [
-        '1:Bardic Knowledge', '1:Favored Enemy', '2:Deneir\'s Eye',
-        '2:Harper Skill Focus', '3:Tymora\'s Smile', '4:Lliira\'s Heart',
+        '1:Bardic Knowledge', '1:Favored Enemy', "2:Deneir's Eye",
+        '2:Harper Skill Focus', "3:Tymora's Smile", "4:Lliira's Heart",
         '5:Craft Harper Item'
       ];
       hitDie = 6;
@@ -366,9 +382,9 @@ RealmsPrestige.classRules = function(rules, classes) {
           'Skill Focus in perform/chosen Harper class skill',
         'magicNotes.craftHarperItemFeature:' +
           'Create magic instruments/Harper pins/potions',
-        'saveNotes.deneir\'sEyeFeature:+2 vs. glyphs',
-        'saveNotes.lliira\'sHeartFeature:+2 vs. compulsion/fear',
-        'saveNotes.tymora\'sSmileFeature:+2 luck bonus to any save 1/day',
+        "saveNotes.deneir'sEyeFeature:+2 vs. glyphs",
+        "saveNotes.lliira'sHeartFeature:+2 vs. compulsion/fear",
+        "saveNotes.tymora'sSmileFeature:+2 luck bonus to any save 1/day",
         'skillNotes.favoredEnemyFeature:' +
           '+2 or more Bluff, Listen, Sense Motive, Spot, Survival ' +
           'vs. %V type(s) of creatures',
@@ -399,7 +415,7 @@ RealmsPrestige.classRules = function(rules, classes) {
         'HS1:Change Self:Charm Person:Comprehend Languages:Erase:' +
         'Feather Fall:Jump:Light:Message:Mount:Read Magic:Scatterspray:' +
         'Sleep:Spider Climb',
-        'HS2:Cat\'s Grace:Darkvision:Detect Thoughts:Eagle\'s Splendor:' +
+        "HS2:Cat's Grace:Darkvision:Detect Thoughts:Eagle's Splendor:" +
         'Invisibility:Knock:Locate Object:Magic Mouth:Misdirection:' +
         'See Invisibility:Shadow Mask',
         'HS3:Clairaudience/Clairvoyance:Nondetection:Suggestion:Tongues:' +
@@ -505,8 +521,8 @@ RealmsPrestige.classRules = function(rules, classes) {
       baseAttack = SRD35.ATTACK_BONUS_GOOD;
       feats = null;
       features = [
-        '1:Heroic Shield', '1:Rallying Cry', '2:Knight\'s Courage',
-        '3:Knight\'s Fear', '4:Oath Of Wrath', '5:Final Stand'
+        '1:Heroic Shield', '1:Rallying Cry', "2:Knight's Courage",
+        "3:Knight's Fear", '4:Oath Of Wrath', '5:Final Stand'
       ];
       hitDie = 10;
       notes = [
@@ -517,10 +533,10 @@ RealmsPrestige.classRules = function(rules, classes) {
           '+2 attack/damage vs. chosen opponent 1/day',
         'combatNotes.rallyingCryFeature:' +
           'Allies w/in 60 ft +1 next attack/+5 speed for 1 turn 3/day',
-        'magicNotes.knight\'sCourageFeature:' +
+        "magicNotes.knight'sCourageFeature:" +
           'Allies +1 attack/damage, +2 charm/fear saves during speech +5 ' +
           'rounds %V/day',
-        'magicNotes.knight\'sFearFeature:DC %V <i>Fear</i> at will',
+        "magicNotes.knight'sFearFeature:<i>Fear</i> at will",
         'saveNotes.oathOfWrathFeature:+2 save vs. chosen opponent 1/day',
         'skillNotes.oathOfWrathFeature:+2 checks vs. chosen opponent 1/day',
         'validationNotes.purpleDragonKnightClassAlignment:' +
@@ -548,6 +564,16 @@ RealmsPrestige.classRules = function(rules, classes) {
       spells = null;
       spellsKnown = null;
       spellsPerDay = null;
+      rules.defineRule('casterLevels.Purple Dragon Knight',
+        "purpleDragonKnightFeatures.Knight's Fear", '?', null,
+        'level', '=', null
+      );
+      rules.defineRule
+        ('casterLevels.Fear', 'casterLevels.Purple Dragon Knight', '^=', null);
+      // Set casterLevels.B to a minimal value so that spell DC will be
+      // calcuated even for non-Bard Purple Dragon Knights.
+      rules.defineRule
+        ('casterLevels.B', 'casterLevels.Purple Dragon Knight', '^=', '1');
       rules.defineRule('combatNotes.finalStandFeature',
         'levels.Purple Dragon Knight', '=', null,
         'charismaModifier', '+', null
@@ -556,11 +582,8 @@ RealmsPrestige.classRules = function(rules, classes) {
         'levels.Purple Dragon Knight', '=', null,
         'charismaModifier', '+', null
       );
-      rules.defineRule('magicNotes.knight\'sCourageFeature',
+      rules.defineRule("magicNotes.knight'sCourageFeature",
         'levels.Purple Dragon Knight', '=', 'Math.floor(source / 2)'
-      );
-      rules.defineRule('magicNotes.knight\'sFearFeature',
-        'charismaModifier', '=', '13 + source'
       );
 
     } else if(klass == 'Red Wizard') {
