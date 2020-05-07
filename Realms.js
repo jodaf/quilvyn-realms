@@ -17,7 +17,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 
 "use strict";
 
-var REALMS_VERSION = '1.7.1.0';
+var REALMS_VERSION = '1.7.1.1';
 
 /*
  * This module loads the rules from the Forgotten Realms campaign setting.  The
@@ -69,6 +69,7 @@ function Realms() {
   SRD35.spellRules
     (rules, null, Object.assign({}, SRD35.spellsDescriptions, Realms.spellsDescriptions));
   // So far, same character creation procedures as SRD35
+  rules.defineChoice('extras', 'feats', 'featCount', 'selectableFeatureCount');
   rules.defineChoice('preset', 'race', 'level', 'levels');
   rules.defineChoice('random', SRD35.RANDOMIZABLE_ATTRIBUTES);
   rules.randomizeOneAttribute = Realms.randomizeOneAttribute;
