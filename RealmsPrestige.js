@@ -193,7 +193,7 @@ RealmsPrestige.classRules = function(rules, classes) {
       hitDie = 8;
       notes = [
         'featureNotes.divineEmissaryFeature:' +
-          'Telepathy w/same-alignment outsider w/in 60 ft',
+          "Telepathy w/same-alignment outsider w/in 60'",
         'magicNotes.casterLevelBonusFeature:' +
           '+%V base class level for spells known/per day',
         'magicNotes.imbueWithSpellAbilityFeature:' +
@@ -527,12 +527,12 @@ RealmsPrestige.classRules = function(rules, classes) {
       hitDie = 10;
       notes = [
         'combatNotes.finalStandFeature:' +
-          '%V allies w/in 10 ft gain 2d10 HP for %1 rounds 1/day',
+          "%V allies w/in 10' gain 2d10 HP for %1 rounds 1/day",
         'combatNotes.heroicShieldFeature:Aid Another action gives +4 AC bonus',
         'combatNotes.oathOfWrathFeature:' +
           '+2 attack/damage vs. chosen opponent 1/day',
         'combatNotes.rallyingCryFeature:' +
-          'Allies w/in 60 ft +1 next attack/+5 speed for 1 turn 3/day',
+          "Allies w/in 60' +1 next attack/+5 speed for 1 turn 3/day",
         "magicNotes.knight'sCourageFeature:" +
           'Allies +1 attack/damage, +2 charm/fear saves during speech +5 ' +
           'rounds %V/day',
@@ -734,7 +734,7 @@ RealmsPrestige.classRules = function(rules, classes) {
       ];
       hitDie = 4;
       notes = [
-        'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
+        "featureNotes.darkvisionFeature:%V' b/w vision in darkness",
         'featureNotes.low-LightVisionFeature:x%V normal distance in poor light',
         'magicNotes.insidiousMagicFeature:' +
           'DC 9+foe level check to detect Weave magic/Foe DC %V check to ' +
@@ -831,7 +831,7 @@ RealmsPrestige.classRules = function(rules, classes) {
     if(selectableFeatures != null) {
       for(var j = 0; j < selectableFeatures.length; j++) {
         var selectable = selectableFeatures[j];
-        var choice = klass + ' - ' + selectable;
+        var choice = klass + ' ' + selectable;
         rules.defineChoice('selectableFeatures', choice + ':' + klass);
         rules.defineRule(klass + 'Features.' + selectable,
           'selectableFeatures.' + choice, '+=', null

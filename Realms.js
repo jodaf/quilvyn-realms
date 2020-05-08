@@ -17,7 +17,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 
 "use strict";
 
-var REALMS_VERSION = '1.7.1.1';
+var REALMS_VERSION = '1.7.1.2';
 
 /*
  * This module loads the rules from the Forgotten Realms campaign setting.  The
@@ -854,7 +854,7 @@ Realms.magicRules = function(rules, classes, domains) {
     if(domain == 'Cavern') {
       notes = [
         'skillNotes.cavernDomain:' +
-          '+2 Search (stone, metal), automatic check w/in 10 ft'
+          "+2 Search (stone, metal), automatic check w/in 10'"
       ];
       spells = [
         'Detect Secret Doors', 'Darkness', 'Meld Into Stone',
@@ -926,7 +926,7 @@ Realms.magicRules = function(rules, classes, domains) {
         ('save.Fortitude', 'saveNotes.greatFortitudeFeature', '+', '2');
     } else if(domain == 'Elf') {
       notes = [
-        'combatNotes.pointBlankShotFeature:+1 ranged attack/damage w/in 30 ft',
+        "combatNotes.pointBlankShotFeature:+1 ranged attack/damage w/in 30'",
         'featureNotes.elfDomain:Point Blank Shot bonus feat'
       ];
       spells = [
@@ -939,7 +939,7 @@ Realms.magicRules = function(rules, classes, domains) {
     } else if(domain == 'Family') {
       notes = [
         'magicNotes.familyDomain:' +
-          'Add 4 to AC of %V creatures w/in 10 ft for %1 rounds 1/day'
+          "Add 4 to AC of %V creatures w/in 10' for %1 rounds 1/day"
       ];
       spells = [
         'Bless', 'Shield Other', 'Helping Hand', 'Imbue With Spell Ability',
@@ -1345,7 +1345,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'combatNotes.lightSensitivityFeature:-2 attack in bright light',
-        'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
+        "featureNotes.darkvisionFeature:%V' b/w vision in darkness",
         'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.magicPoisonImmunityFeature:' +
           'Immune to magical/alchemaic poisions',
@@ -1396,7 +1396,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'combatNotes.lightSensitivityFeature:-2 attack in bright light',
-        'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
+        "featureNotes.darkvisionFeature:%V' b/w vision in darkness",
         'featureNotes.lightBlindnessFeature:Blind 1 round from sudden daylight',
         'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.drowSpellResistanceFeature:DC %V',
@@ -1473,7 +1473,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'combatNotes.exceptionalDodgeFeature:+4 AC',
-        'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
+        "featureNotes.darkvisionFeature:%V' b/w vision in darkness",
         'magicNotes.naturalSpellsFeature:%V 1/day',
         'magicNotes.nondetectionFeature:Continuous <i>Nondetection</i>',
         'saveNotes.extraLuckFeature:+2 all saves',
@@ -1481,7 +1481,7 @@ Realms.raceRules = function(rules, races) {
         'skillNotes.shadowyFeature:+2 Hide in darkened underground areas',
         'skillNotes.sneakyFeature:+2 Hide',
         'skillNotes.stonecunningFeature:' +
-          '+2 Search (stone, metal), automatic check w/in 10 ft'
+          "+2 Search (stone, metal), automatic check w/in 10'"
       ];
       delete
         rules.getChoices('notes')['abilityNotes.deepGnomeAbilityAdjustment'];
@@ -1534,7 +1534,7 @@ Realms.raceRules = function(rules, races) {
       features = ['Speak Without Sound'];
       notes = [
         'featureNotes.speakWithoutSoundFeature:' +
-          'Telepathic communication w/in 20 ft'
+          "Telepathic communication w/in 20'"
       ];
       rules.deleteRule('ghostwiseHalflingFeatures.Fortunate', 'level');
       rules.deleteRule('ghostwiseHalflingFeatures.Fortunate', 'race');
@@ -1565,7 +1565,7 @@ Realms.raceRules = function(rules, races) {
       ];
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
-        'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
+        "featureNotes.darkvisionFeature:%V' b/w vision in darkness",
         'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.aasimarResistanceFeature:Acid/cold/electricity 5',
         'saveNotes.nativeOutsiderFeature:' +
@@ -1606,7 +1606,7 @@ Realms.raceRules = function(rules, races) {
       ];
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
-        'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
+        "featureNotes.darkvisionFeature:%V' b/w vision in darkness",
         'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.breathlessFeature:' +
           'Immune drowning/suffocation/inhalation effects',
@@ -1653,7 +1653,7 @@ Realms.raceRules = function(rules, races) {
       ];
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
-        'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
+        "featureNotes.darkvisionFeature:%V' b/w vision in darkness",
         'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
@@ -1699,7 +1699,7 @@ Realms.raceRules = function(rules, races) {
       ];
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
-        'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
+        "featureNotes.darkvisionFeature:%V' b/w vision in darkness",
         'magicNotes.controlFlameFeature:' +
           'Shrink or expand natural fire for 5 min 1/day',
         'saveNotes.nativeOutsiderFeature:' +
@@ -1734,7 +1734,7 @@ Realms.raceRules = function(rules, races) {
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
         'abilityNotes.swimFeature:Swim speed %V',
-        'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
+        "featureNotes.darkvisionFeature:%V' b/w vision in darkness",
         'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
@@ -1782,7 +1782,7 @@ Realms.raceRules = function(rules, races) {
       ];
       notes = [
         'abilityNotes.levelAdjustmentFeature:%V',
-        'featureNotes.darkvisionFeature:%V ft b/w vision in darkness',
+        "featureNotes.darkvisionFeature:%V' b/w vision in darkness",
         'magicNotes.naturalSpellsFeature:%V 1/day',
         'saveNotes.nativeOutsiderFeature:' +
           'Affected by outsider target spells, not humanoid',
