@@ -650,14 +650,18 @@ RealmsPrestige.classRules = function(rules, classes) {
         'levels.Red Wizard', '+=', 'Math.floor(source / 2)'
       );
       rules.defineRule('validationNotes.redWizardClassFeats',
-        'levels.Red Wizard', '=', '-13',
-        'features.Tattoo Focus', '+', '10',
-        'features.Spell Mastery', '+', '1',
-        /^features\.(Brew|Craft|Forge|Scribe)/, '+', '1',
-        // NOTE: False valid w/Natural Spell
-        /^features\..*Spell$/, '+', '1',
+        'levels.Red Wizard', '=', '-103',
+        'features.Tattoo Focus', '+', '100',
         '', 'v', '0'
       );
+      var rulesFeats = rules.getChoices('feats');
+      for(var f in rulesFeats) {
+        if(rulesFeats[f].indexOf('Metamagic') >= 0 ||
+           rulesFeats[f].indexOf('Item Creation') >= 0) {
+          rules.defineRule
+            ('validationNotes.redWizardClassFeats', 'feats.' + f, '+', '1');
+        }
+      }
       rules.defineRule('validationNotes.redWizardClassSpells',
         'levels.Red Wizard', '=', '-1',
         /^spellsKnown\.(AS|B|W)3/, '+', '1',
