@@ -17,7 +17,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 
 "use strict";
 
-var REALMS_VERSION = '1.8.1.0';
+var REALMS_VERSION = '1.8.1.1';
 
 /*
  * This module loads the rules from the Forgotten Realms campaign setting.  The
@@ -375,12 +375,22 @@ Realms.featRules = function(rules, feats, subfeats) {
         'sanityNotes.delaySpellFeatCasterLevel:Requires Caster Level >= 1',
         'validationNotes.delaySpellFeatFeatures:Requires any Metamagic'
       ];
+      var rulesFeats = rules.getChoices('feats');
+      for(var f in rulesFeats) {
+        if(rulesFeats[f].indexOf('Metamagic') >= 0) {
+          rules.defineRule('metamagicFeatCount', 'feats.' + f, '+=', '1');
+        }
+      }
+      for(var j = 0; j < allFeats.length; j++) {
+        if(allFeats[j].split(':')[1].indexOf('Metamagic') >= 0) {
+          var f = allFeats[j].split(':')[0];
+          rules.defineRule('metamagicFeatCount', 'feats.' + f, '+=', '1');
+        }
+      }
       rules.defineRule('validationNotes.delaySpellFeatFeatures',
-        'feats.Delay Spell', '=', '-2',
-        // NOTE: Metamagic feat names all end in 'Spell|Magic'
-        // Delay Spell itself will match, so we require two matches
-        /^features\..*(Spell|Magic)$/, '+', '1',
-        '', 'v', '0'
+        'feats.Delay Spell', '=', '-1',
+        // This feat will itself match, so require two Metamagic feats
+        'metamagicFeatCount', '+', 'source >= 2 ? 1 : null'
       );
     } else if(feat == 'Discipline') {
       notes = [
@@ -549,29 +559,41 @@ Realms.featRules = function(rules, feats, subfeats) {
     } else if(feat == 'Mind Over Body') {
       notes = [
         'combatNotes.mindOverBodyFeature:' +
-          'Intelligence modifier adds %V HP/+%1 HP from Metamagic feats',
+          'Intelligence modifier adds %1 HP/+%2 HP from Metamagic feats',
         'sanityNotes.mindOverBodyFeatAbility:' +
-          'Requires Intelligence Modifier exceed Constitution Modifier',
+          'Implies Intelligence Modifier at least equal Constitution Modifier',
         'validationNotes.mindOverBodyFeatRegion:' +
           'Requires Region =~ Calimshan|Thay|Moon Elf|Sun Elf'
       ];
-      rules.defineRule('combatNotes.mindOverBodyFeature',
+      rules.defineRule('combatNotes.mindOverBodyFeature.1',
+        'combatNotes.mindOverBodyFeature', '?', null,
         'intelligenceModifier', '=', null,
         'constitutionModifier', '+', '-source'
       );
-      rules.defineRule('combatNotes.mindOverBodyFeature.1',
-        '', '=', '0',
-        // NOTE: Metamagic feat names all end in 'Spell|Magic'
-        /^features\..*(Spell|Magic)$/, '+', '1'
+      var rulesFeats = rules.getChoices('feats');
+      for(var f in rulesFeats) {
+        if(rulesFeats[f].indexOf('Metamagic') >= 0) {
+          rules.defineRule('metamagicFeatCount', 'feats.' + f, '+=', '1');
+        }
+      }
+      for(var j = 0; j < allFeats.length; j++) {
+        if(allFeats[j].split(':')[1].indexOf('Metamagic') >= 0) {
+          var f = allFeats[j].split(':')[0];
+          rules.defineRule('metamagicFeatCount', 'feats.' + f, '+=', '1');
+        }
+      }
+      rules.defineRule('combatNotes.mindOverBodyFeature.2',
+        'combatNotes.mindOverBodyFeature', '=', '0',
+        'metamagicFeatCount', '+', null
       );
       rules.defineRule('hitPoints',
-        'combatNotes.mindOverBodyFeature', '+', null,
-        'combatNotes.mindOverBodyFeature.1', '+', null
+        'combatNotes.mindOverBodyFeature.1', '+', null,
+        'combatNotes.mindOverBodyFeature.2', '+', null
       );
       rules.defineRule('sanityNotes.mindOverBodyFeatAbility',
-        'feats.Mind Over Body', '=', '-1',
+        'feats.Mind Over Body', '?', null,
+        'intelligenceModifier', '=', 'source',
         'constitutionModifier', '+', '-source',
-        'intelligenceModifier', '+', 'source',
         '', 'v', '0'
       );
     } else if(feat == 'Pernicious Magic') {
@@ -767,12 +789,22 @@ Realms.featRules = function(rules, feats, subfeats) {
         'sanityNotes.twinSpellFeatCasterLevel:Requires Caster Level >= 1',
         'validationNotes.twinSpellFeatFeatures:Requires any Metamagic'
       ];
+      var rulesFeats = rules.getChoices('feats');
+      for(var f in rulesFeats) {
+        if(rulesFeats[f].indexOf('Metamagic') >= 0) {
+          rules.defineRule('metamagicFeatCount', 'feats.' + f, '+=', '1');
+        }
+      }
+      for(var j = 0; j < allFeats.length; j++) {
+        if(allFeats[j].split(':')[1].indexOf('Metamagic') >= 0) {
+          var f = allFeats[j].split(':')[0];
+          rules.defineRule('metamagicFeatCount', 'feats.' + f, '+=', '1');
+        }
+      }
       rules.defineRule('validationNotes.twinSpellFeatFeatures',
-        'feats.Twin Spell', '=', '-2',
-        // NOTE: Metamagic feat names all end in 'Spell|Magic'
-        // Twin Spell itself will match, so we require two matches
-        /^features\..*(Spell|Magic)$/, '+', '1',
-        '', 'v', '0'
+        'feats.Twin Spell', '=', '-1',
+        // This feat will itself match, so require two Metamagic feats
+        'metamagicFeatCount', '+', 'source >= 2 ? 1 : null'
       );
     } else if(feat == 'Twin Sword Style') {
       notes = [
