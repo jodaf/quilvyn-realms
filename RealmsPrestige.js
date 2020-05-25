@@ -442,7 +442,7 @@ RealmsPrestige.classRules = function(rules, classes) {
       rules.defineRule('validationNotes.harperScoutSkillFocus',
         'levels.Harper Scout', '=', 'source >= 2 ? 1 : null',
         /features.Skill Focus .Perform/, '+', '-1',
-        '^', '', '0'
+        '', '^', '0'
       );
       rules.defineRule('skillModifier.Bardic Knowledge',
         'skills.Bardic Knowledge', '=', null,
