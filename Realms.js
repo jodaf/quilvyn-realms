@@ -322,7 +322,6 @@ Realms.FEATURES_ADDED = {
   'Charming':'Section=ability Note="+4 charisma for 1 minute 1/day"',
   'Compelling Magic':'Section=magic Note="+2 DC compulsion spells"',
   'Creator':'Section=magic,skill Note="+1 caster level creation spells","+2 chosen Craft"',
-  'Deep Gnome Adjustment':'Section=ability Note="-3 Level"',
   'Detect Portal':'Section=skill Note="DC 20 Search to detect in/active portals"',
   'Disabling Touch':'Section=combat Note="Touch attack causes -2 Str and Dex for 1 minute 1/day"',
   'Drow Level Adjustment':'Section=ability Note="-2 Level"',
@@ -337,7 +336,7 @@ Realms.FEATURES_ADDED = {
   'Rebound':'Section=combat Note="Recover 1d8+%V HP points when negative 1/day"',
   'Skilled Caster':'Section=skill Note="+2 Concentration/+2 Spellcraft"',
   'Spelunker':'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
-  'Spry':'Section=skill Note="+%V Climb, Hide, Jump, Move Silently for 10 minutes 1/day"',
+  'Spurred':'Section=skill Note="+%V Climb, Hide, Jump, Move Silently for 10 minutes 1/day"',
   'Stormfriend':'Section=save Note="Electricity resistance 5"',
   'Turn Lycanthropes':'Section=combat Note="Turn lycanthropes as undead"',
   'Turn Oozes':'Section=combat Note="Turn oozes as undead"',
@@ -356,29 +355,28 @@ Realms.FEATURES_ADDED = {
   'Air Genasi Ability Adjustment':'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Wisdom/-2 Charisma"',
   'Breathless':'Section=save Note="Immune drowning, suffocation, inhalation effects"',
   'Control Flame':'Section=magic Note="R10\' Shrink or expand natural fire for 5 min 1/day"',
-  'Deep Gnome Ability Adjustement':'Section=ability Note="-2 Strength/+2 Dexterity/+2 Wisdom/-4 Charisma"',
+  'Deep Gnome Ability Adjustment':'Section=ability Note="-2 Strength/+2 Dexterity/+2 Wisdom/-4 Charisma"',
+  'Deep Gnome Level Adjustment':'Section=ability Note="-3 Level"',
   'Drow Elf Ability Adjustment':'Section=ability Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
   'Drow Spell Resistance':'Section=save Note="DC %V"',
   'Earth Genasi Ability Adjustment':'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
   'Elemental Affinity':'Section=save Note="+%V vs. %1 spells"',
   'Exceptional Dodge':'Section=combat Note="+4 AC"',
   'Extended Darkvision':'Section=feature Note="120\' b/w vision in darkness"',
-  'Extra Luck':'Section=skill Note="+2 Fortitude/+2 Reflex/+2 Will"',
+  'Extra Luck':'Section=save Note="+2 Fortitude/+2 Reflex/+2 Will"',
   'Fire Genasi Ability Adjustment':'Section=ability Note="+2 Intelligence/-2 Charisma"',
   'Genasi Level Adjustment':'Section=ability Note="-1 Level"',
   'Gold Dwarf Ability Adjustment':'Section=ability Note="+2 Constitution/-2 Dexterity"',
   'Gold Dwarf Enmity':'Section=combat Note="+1 attack vs. aberrations"',
   'Gray Dwarf Ability Adjustment':'Section=ability Note="+2 Constitution/-4 Charisma"',
+  'Gray Dwarf Immunities':'Section=save Note="Immune to paralysis, phantasms, and magical and alchemaic poisons"',
   'Light Blindness':'Section=feature Note="Blind 1 rd from sudden daylight"',
   'Light Sensitivity':'Section=combat,save,skill Note="-2 attack in bright light","-2 saves in bright light","-2 checks in bright light"',
-  'Magic Poison Immunity':'Section=save Note="Immune to magical and alchemaic poisions"',
   'Native Outsider':'Section=save Note="Affected by outsider target spells, not humanoid"',
   'Natural Swimmer':'Section=ability Note="Swim 30\'"',
   'Noiseless':'Section=skill Note="+4 Move Silently"',
-  'Paralysis Immunity':'Section=save Note="Immune to paralysis"',
-  'Phantasm Immunity':'Section=save Note="Immune to phantasms"',
   'Sly':'Section=skill Note="+2 Hide"',
-  'Shadowy':'Section=skill Note="+2 Hide in darkened underground areas"',
+  'Shadowed':'Section=skill Note="+2 Hide in darkened underground areas"',
   'Sneaky':'Section=skill Note="+2 Hide"',
   'Speak Without Sound':'Section=feature Note="R20\' Telepathic communication"',
   'Strong Will':'Section=save Note="+2 Will vs. spells"',
@@ -584,7 +582,7 @@ Realms.PATHS_ADDED = {
     'Group=Cleric ' +
     'Level=level.Cleric ' +
     'Features=' +
-      '"1:Spry" ' +
+      '"1:Spurred" ' +
     'SpellAbility=wisdom ' +
     'Spells=' +
       '"Halfling1:Magic Stone",' +
@@ -968,30 +966,37 @@ Realms.PATHS_ADDED = {
 Realms.PATHS = Object.assign({}, SRD35.PATHS, Realms.PATHS_ADDED);
 Realms.RACES = {
   'Gold Dwarf':
-    'Features=' +
-      '"1:Gold Dwarf Ability Adjustment","1:Gold Dwarf Enmity"',
+    SRD35.RACES['Dwarf']
+      .replace('Dwarf Ability', 'Gold Dwarf Ability')
+      .replace('Dwarf Enmity', 'Gold Dwarf Enmity'),
   'Gray Dwarf':
     'Features=' +
-        '1:Aware,"1:Extended Darkvision","1:Gray Dwarf Ability Adjustment",' +
-        '"1:Grey Dwarf Level Adjustment","1:Light Sensitivity",' +
-        '"1:Magic Poison Immunity",1:Noiseless,"1:Paralysis Immunity",' +
-        '"1:Phantasm Immunity" ' +
+        '"1:Weapon Familiarity (Dwarven Urgosh/Dwarven Waraxe)",' +
+        '1:Aware,"1:Dwarf Armor Speed Adjustment","1:Dwarf Enmity",' +
+        '"1:Extended Darkvision","1:Gray Dwarf Ability Adjustment",' +
+        '"1:Gray Dwarf Immunities","1:Grey Dwarf Level Adjustment",' +
+        '"1:Know Depth","1:Light Sensitivity","1:Natural Smith",1:Noiseless,' +
+        '"1:Resist Poison","1:Resist Spells",1:Slow,1:Stability,' +
+        '1:Stonecunning ' +
+    'Languages=Undercommon,Dwarven ' +
     'SpellAbility=intelligence ' +
     'SpellSlots=' +
-      'Gray1:1=1,' +
-      'Gray2:1=1 ' +
+      'Duergar1:1=1,' +
+      'Duergar2:1=1 ' +
     'Spells=' +
-      '"Gray1:Enlarge Person",' +
-      'Gray2:Invisibility',
+      '"Duergar1:Enlarge Person",' +
+      'Duergar2:Invisibility',
   'Shield Dwarf':
     SRD35.RACES['Dwarf'],
   'Drow Elf':
     'Features=' +
       '"1:Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)",' +
       '"1:Drow Elf Ability Adjustment","1:Drow Level Adjustment",' +
-      '"1:Drow Spell Resistance","1:Extended Darkvision","1:Light Blindness",' +
-      '"1:Light Sensitivity","1:Stong Will" ' +
-    'SpellAbility=intelligence ' +
+      '"1:Drow Spell Resistance","1:Extended Darkvision","1:Keen Senses",' +
+      '"1:Light Blindness","1:Light Sensitivity","1:Resist Enchantment",' +
+      '"1:Sense Secret Doors","1:Sleep Immunity","1:Stong Will" ' +
+    'Languages=Undercommon,Elven ' +
+    'SpellAbility=charisma ' +
     'SpellSlots=' +
       'Drow0:1=1,' +
       'Drow1:1=1,' +
@@ -1012,14 +1017,16 @@ Realms.RACES = {
     'Features=' +
       '"1:Deep Gnome Ability Adjustment","1:Deep Gnome Level Adjustment",' +
       '"1:Exceptional Dodge","1:Extended Darkvision","1:Extra Luck",' +
-      '1:Shadowy,1:Sneaky,"1:Svirfneblin Spell Resistance",1:Stonecunning,' +
+      '"1:Gnome Enmity","1:Keen Ears","1:Resist Fear",1:Shadowed,1:Slow,' +
+      '1:Small,1:Sneaky,1:Stonecunning,"1:Svirfneblin Spell Resistance",' +
       '1:Undetectable ' +
+    'Languages=Undercommon,Gnome ' +
     'SpellAbility=intelligence ' +
     'SpellSlots=' +
       'Svirfneblin2:1=3,' +
       'Svirfneblin3:1=1 ' +
     'Spells=' +
-      '"Svirfneblin2:Alter Self;Blur;Alter Self",' +
+      '"Svirfneblin2:Alter Self;Blindness/Deafness;Blur",' +
       'Svirfneblin3:Nondetection',
   'Rock Gnome':
     SRD35.RACES['Gnome'],
@@ -1028,11 +1035,13 @@ Realms.RACES = {
   'Half-Orc':
     SRD35.RACES['Half-Orc'],
   'Ghostwise Halfling':
-    SRD35.RACES['Halfling'].replace('Fortunate', '"Speak Without Sound"'),
+    SRD35.RACES['Halfling']
+      .replace('Fortunate', '"Speak Without Sound"'),
   'Lightfoot Halfling':
     SRD35.RACES['Halfling'],
   'Strongheart Halfling':
-    SRD35.RACES['Halfling'].replace('Fortunate', '"Strongheart Feat Bonus"'),
+    SRD35.RACES['Halfling']
+      .replace('Fortunate', '"Strongheart Feat Bonus"'),
   'Human':
     SRD35.RACES['Human'],
   'Aasimar':
@@ -1040,7 +1049,7 @@ Realms.RACES = {
       '"1:Aasimar Ability Adjustment","1:Aasimar Alertness",' +
       '"1:Aasimar Level Adjustment","1:Aasimar Resistance",1:Darkvision,' +
       '"1:Native Outsider" ' +
-    'Languages=Common,any ' +
+    'Languages=Common ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
       'Aasimar0:1=1 ' +
@@ -1051,7 +1060,7 @@ Realms.RACES = {
       '"1:Air Genasi Ability Adjustment",1:Breathless,1:Darkvision,' +
       '"1:Elemental Affinity","1:Genasi Level Adjustment",' +
       '"1:Native Outsider" ' +
-    'Languages=Common,any ' +
+    'Languages=Common ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
       'AG2:1=1 ' +
@@ -1062,7 +1071,7 @@ Realms.RACES = {
       '1:Darkvision,"1:Earth Genasi Ability Adjustment",' +
       '"1:Elemental Affinity","1:Genasi Level Adjustment",' +
       '"1:Native Outsider" ' +
-    'Languages=Common,any ' +
+    'Languages=Common ' +
     'SpellAbility=wisdom ' +
     'SpellSlots=' +
       'EG1:1=1 ' +
@@ -1073,13 +1082,13 @@ Realms.RACES = {
       '"1:Control Flame",1:Darkvision,"1:Elemental Affinity",' +
       '"1:Fire Genasi Ability Adjustment","1:Genasi Level Adjustment",' +
       '"1:Native Outsider" ' +
-    'Languages=Common,any',
+    'Languages=Common',
   'Water Genasi':
     'Features=' +
       '1:Amphibious,1:Darkvision,"1:Elemental Affinity",' +
       '"1:Genasi Level Adjustment","1:Native Outsider","1:Natural Swimmer",' +
       '"1:Water Genasi Ability Adjustment" ' +
-    'Languages=Common,any ' +
+    'Languages=Common ' +
     'SpellAbility=wisdom ' +
     'SpellSlots=' +
       'WG0:1=1 ' +
@@ -1090,7 +1099,7 @@ Realms.RACES = {
       '1:Beguiling,1:Darkvision,"1:Native Outsider",1:Sneaky,' +
       '"1:Tiefling Ability Adjustment","1:Tiefling Level Adjustment",' +
       '"1:Tiefling Resistance" ' +
-    'Languages=Common,any ' +
+    'Languages=Common ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
       'Tiefling2:1=1 ' +
@@ -1355,6 +1364,7 @@ Realms.identityRules = function(
   rules.defineChoice('notes',
     'validationNotes.regionRace:Racial region requires equivalent race'
   );
+  rules.defineRule('level', '', '^', '1');
   /* TBD
   rules.defineRule('validationNotes.regionRace',
     'region', '=', 'Realms.RACES[source] == null ? ' +
@@ -1880,6 +1890,12 @@ Realms.raceRulesExtra = function(rules, name) {
   }
   if(name == 'Air Genasi') {
     rules.defineRule('casterLevels.AG', 'airGenasiLevel', '=', '5');
+  } else if(name == 'Deep Gnome') {
+    rules.defineRule
+      ('saveNotes.svirfneblinSpellResistance', 'deepGnomeLevel', '=', 'source + 11');
+  } else if(name == 'Gray Dwarf') {
+    rules.defineRule
+      ('casterLevels.Duergar', 'grayDwarfLevel', '=', 'source * 2');
   } else if(name == 'Earth Genasi') {
     rules.defineRule('casterLevels.EG', 'earthGenasiLevel', '=', '5');
   } else if(name == 'Water Genasi') {
@@ -2004,6 +2020,8 @@ Realms.ruleNotes = function() {
     '<p>\n' +
     '<ul>\n' +
     '  <li>\n' +
+    '    Regional languages are not included in character languages lists.\n' +
+    '  </li><li>\n' +
     '    The 1st-level Arcane Devotee "Enlarge Spell" feature is renamed\n' +
     '    "Freely Enlarge Spell" to distinguish it from the feat of the same\n' +
     '    name.\n' +
