@@ -319,32 +319,31 @@ Realms.FEATURES_ADDED = {
   // Path
   'Advanced Illusionist':'Section=magic Note="+1 caster level illusion spells"',
   'Beguiling':'Section=skill Note="+2 Bluff"',
-  'Charming':'Section=ability Note="+4 charisma for 1 minute 1/day"',
   'Compelling Magic':'Section=magic Note="+2 DC compulsion spells"',
   'Creator':'Section=magic,skill Note="+1 caster level creation spells","+2 chosen Craft"',
   'Detect Portal':'Section=skill Note="DC 20 Search to detect in/active portals"',
   'Disabling Touch':'Section=combat Note="Touch attack causes -2 Str and Dex for 1 minute 1/day"',
-  'Drow Level Adjustment':'Section=ability Note="-2 Level"',
-  'Familial Protection':'Section=magic Note="R10\' Add 4 to AC of %V creatures for %1 rounds 1/day"',
+  'Familial Protection':'Section=magic Note="R10\' %V targets +4 AC for %1 rounds 1/day"',
   'Foreshadowed':'Section=combat Note="Always adds dexterity modifier to AC"',
   'Frenzy':'Section=combat Note="+%V (+%1 vs. dwarf/elf) smite damage 1/day"',
-  'Grey Dwarf Level Adjustment':'Section=ability Note="-2 Level"',
-  'Hammer Specialist':'Section=feature Note="Weapon Proficiency and Focus w/chosen hammer"',
+  'Hammer Specialist':'Section=feature Note="+2 General Feat (Weapon Proficiency and Focus w/chosen hammer)"',
   'Insider Knowledge':'Section=magic Note="<i>Detect Thoughts</i> on 1 target for %V minutes 1/day (Will neg)"',
   'Inspire Companions':'Section=magic Note="+2 allies\' attack, damage, skill, ability rolls for %V rounds 1/day"',
   'Mental Control':'Section=magic Note="Touch to allow target +%V on next Will save for 1 hour 1/day"',
   'Rebound':'Section=combat Note="Recover 1d8+%V HP points when negative 1/day"',
+  'Reprisal':'Section=combat Note="Strike for max damage after foe hit 1/dy"',
   'Skilled Caster':'Section=skill Note="+2 Concentration/+2 Spellcraft"',
-  'Spelunker':'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
+  'Stone Affinity':'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
   'Spurred':'Section=skill Note="+%V Climb, Hide, Jump, Move Silently for 10 minutes 1/day"',
   'Stormfriend':'Section=save Note="Electricity resistance 5"',
+  'Turn It On':'Section=ability Note="+4 charisma for 1 minute 1/day"',
   'Turn Lycanthropes':'Section=combat Note="Turn lycanthropes as undead"',
   'Turn Oozes':'Section=combat Note="Turn oozes as undead"',
   'Turn Reptiles':'Section=combat Note="Turn reptiles as undead"',
   'Turn Spiders':'Section=combat Note="Turn spiders as undead"',
   'Vicious Assault':'Section=combat Note="+2 attack, AC vs. one foe for 1 minute 1/day"',
   'Water Breathing':'Section=magic Note="Breathe water %V rounds/day"',
-  'Wily':'Section=saves Note=":+2 saves vs. one foe for 1 minute 1/day"',
+  'Wily':'Section=save Note="+2 saves vs. one foe for 1 minute 1/day"',
   // Race
   'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
   'Aasimar Alertness':'Section=skill Note="+2 Listen/Spot"',
@@ -358,6 +357,7 @@ Realms.FEATURES_ADDED = {
   'Deep Gnome Ability Adjustment':'Section=ability Note="-2 Strength/+2 Dexterity/+2 Wisdom/-4 Charisma"',
   'Deep Gnome Level Adjustment':'Section=ability Note="-3 Level"',
   'Drow Elf Ability Adjustment':'Section=ability Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
+  'Drow Elf Level Adjustment':'Section=ability Note="-2 Level"',
   'Drow Spell Resistance':'Section=save Note="DC %V"',
   'Earth Genasi Ability Adjustment':'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
   'Elemental Affinity':'Section=save Note="+%V vs. %1 spells"',
@@ -369,6 +369,7 @@ Realms.FEATURES_ADDED = {
   'Gold Dwarf Ability Adjustment':'Section=ability Note="+2 Constitution/-2 Dexterity"',
   'Gold Dwarf Enmity':'Section=combat Note="+1 attack vs. aberrations"',
   'Gray Dwarf Ability Adjustment':'Section=ability Note="+2 Constitution/-4 Charisma"',
+  'Grey Dwarf Level Adjustment':'Section=ability Note="-2 Level"',
   'Gray Dwarf Immunities':'Section=save Note="Immune to paralysis, phantasms, and magical and alchemaic poisons"',
   'Light Blindness':'Section=feature Note="Blind 1 rd from sudden daylight"',
   'Light Sensitivity':'Section=combat,save,skill Note="-2 attack in bright light","-2 saves in bright light","-2 checks in bright light"',
@@ -420,9 +421,9 @@ Realms.LANGUAGES_ADDED = {
 Realms.PATHS_ADDED = {
   'Cavern Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Spelunker" ' +
+      '"1:Stone Affinity" ' +
     'SpellAbility=wisdom ' +
     'Spells=' +
       '"Cavern1:Detect Secret Doors",' +
@@ -433,12 +434,13 @@ Realms.PATHS_ADDED = {
       '"Cavern6:Find The Path",' +
       '"Cavern7:Maw Of Stone",' +
       '"Cavern8:Earthquake",' +
-      '"Cavern9:Imprisonment"',
+      '"Cavern9:Imprisonment" ' +
+    'SpellSlots=Cavern0:99=0',
   'Charm Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Charming" ' +
+      '"1:Turn It On" ' +
     'SpellAbility=wisdom ' +
     'Spells=' +
       '"Charm1:Charm Person",' +
@@ -449,10 +451,11 @@ Realms.PATHS_ADDED = {
       '"Charm6:Geas/Quest",' +
       '"Charm7:Insanity",' +
       '"Charm8:Demand",' +
-      '"Charm9:Dominate Monster"',
+      '"Charm9:Dominate Monster" ' +
+    'SpellSlots=Charm0:99=0',
   'Craft Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Creator" ' +
     'SpellAbility=wisdom ' +
@@ -465,10 +468,11 @@ Realms.PATHS_ADDED = {
       '"Craft6:Fantastic Machine",' +
       '"Craft7:Major Creation",' +
       '"Craft8:Forcecage",' +
-      '"Craft9:Greater Fantastic Machine"',
+      '"Craft9:Greater Fantastic Machine" ' +
+    'SpellSlots=Craft0:99=0',
   'Darkness Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Blind-Fight" ' +
     'SpellAbility=wisdom ' +
@@ -481,10 +485,11 @@ Realms.PATHS_ADDED = {
       '"Darkness6:Prying Eyes",' +
       '"Darkness7:Nightmare",' +
       '"Darkness8:Power Word Blind",' +
-      '"Darkness9:Power Word Kill"',
+      '"Darkness9:Power Word Kill" ' +
+    'SpellSlots=Darkness0:99=0',
   'Drow Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Lightning Reflexes" ' +
     'SpellAbility=wisdom ' +
@@ -497,10 +502,11 @@ Realms.PATHS_ADDED = {
       '"Drow6:Greater Dispel Magic",' +
       '"Drow7:Word Of Chaos",' +
       '"Drow8:Greater Planar Ally",' +
-      '"Drow9:Gate"',
+      '"Drow9:Gate" ' +
+    'SpellSlots=Drow0:99=0',
   'Dwarf Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Great Fortitude" ' +
     'SpellAbility=wisdom ' +
@@ -513,10 +519,11 @@ Realms.PATHS_ADDED = {
       '"Dwarf6:Stone Tell",' +
       '"Dwarf7:Dictum",' +
       '"Dwarf8:Protection From Spells",' +
-      '"Dwarf9:Elemental Swarm"',
+      '"Dwarf9:Elemental Swarm" ' +
+    'SpellSlots=Dwarf0:99=0',
   'Elf Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Point-Blank Shot" ' +
     'SpellAbility=wisdom ' +
@@ -529,10 +536,11 @@ Realms.PATHS_ADDED = {
       '"Elf6:Find The Path",' +
       '"Elf7:Liveoak",' +
       '"Elf8:Sunburst",' +
-      '"Elf9:Antipathy"',
+      '"Elf9:Antipathy" ' +
+    'SpellSlots=Elf0:99=0',
   'Family Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Familial Protection" ' +
     'SpellAbility=wisdom ' +
@@ -545,10 +553,11 @@ Realms.PATHS_ADDED = {
       '"Family6:Heroes\' Feast",' +
       '"Family7:Refuge",' +
       '"Family8:Protection From Spells",' +
-      '"Family9:Prismatic Sphere"',
+      '"Family9:Prismatic Sphere" ' +
+    'SpellSlots=Family0:99=0',
   'Fate Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Foreshadowed" ' +
     'SpellAbility=wisdom ' +
@@ -561,10 +570,11 @@ Realms.PATHS_ADDED = {
       '"Fate6:Geas/Quest",' +
       '"Fate7:Vision",' +
       '"Fate8:Mind Blank",' +
-      '"Fate9:Foresight"',
+      '"Fate9:Foresight" ' +
+    'SpellSlots=Fate0:99=0',
   'Gnome Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Advanced Illusionist" ' +
     'SpellAbility=wisdom ' +
@@ -577,10 +587,11 @@ Realms.PATHS_ADDED = {
       '"Gnome6:Fantastic Machine",' +
       '"Gnome7:Screen",' +
       '"Gnome8:Irresistible Dance",' +
-      '"Gnome9:Summon Nature\'s Ally IX"',
+      '"Gnome9:Summon Nature\'s Ally IX" ' +
+    'SpellSlots=Gnome0:99=0',
   'Halfling Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Spurred" ' +
     'SpellAbility=wisdom ' +
@@ -593,10 +604,11 @@ Realms.PATHS_ADDED = {
       '"Halfling6:Move Earth",' +
       '"Halfling7:Shadow Walk",' +
       '"Halfling8:Shadow Walk",' +
-      '"Halfling9:Word Of Recall"',
+      '"Halfling9:Word Of Recall" ' +
+    'SpellSlots=Halfling0:99=0',
   'Hatred Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Vicious Assault","1:Wily" ' +
     'SpellAbility=wisdom ' +
@@ -609,10 +621,11 @@ Realms.PATHS_ADDED = {
       '"Hatred6:Forbiddance",' +
       '"Hatred7:Blasphemy",' +
       '"Hatred8:Antipathy",' +
-      '"Hatred9:Wail Of The Banshee"',
+      '"Hatred9:Wail Of The Banshee" ' +
+    'SpellSlots=Hatred0:99=0',
   'Illusion Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Advanced Illusionist" ' +
     'SpellAbility=wisdom ' +
@@ -625,12 +638,13 @@ Realms.PATHS_ADDED = {
       '"Illusion6:Mislead",' +
       '"Illusion7:Project Image",' +
       '"Illusion8:Screen",' +
-      '"Illusion9:Weird"',
+      '"Illusion9:Weird" ' +
+    'SpellSlots=Illusion0:99=0',
   'Mentalism Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Mentral Control" ' +
+      '"1:Mental Control" ' +
     'SpellAbility=wisdom ' +
     'Spells=' +
       '"Mentalism1:Confusion",' +
@@ -641,10 +655,11 @@ Realms.PATHS_ADDED = {
       '"Mentalism6:Telepathic Bond",' +
       '"Mentalism7:Antipathy",' +
       '"Mentalism8:Mind Blank",' +
-      '"Mentalism9:Astral Projection"',
+      '"Mentalism9:Astral Projection" ' +
+    'SpellSlots=Mentalism0:99=0',
   'Metal Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Hammer Specialist" ' +
     'SpellAbility=wisdom ' +
@@ -657,10 +672,11 @@ Realms.PATHS_ADDED = {
       '"Metal6:Blade Barrier",' +
       '"Metal7:Transmute Metal To Wood",' +
       '"Metal8:Iron Body",' +
-      '"Metal9:Repel Metal Or Stone"',
+      '"Metal9:Repel Metal Or Stone" ' +
+    'SpellSlots=Metal0:99=0',
   'Moon Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Turn Lycanthropes" ' +
     'SpellAbility=wisdom ' +
@@ -673,10 +689,11 @@ Realms.PATHS_ADDED = {
       '"Moon6:Permanent Image",' +
       '"Moon7:Insanity",' +
       '"Moon8:Animal Shapes",' +
-      '"Moon9:Moonfire"',
+      '"Moon9:Moonfire" ' +
+    'SpellSlots=Moon0:99=0',
   'Nobility Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Inspire Companions" ' +
     'SpellAbility=wisdom ' +
@@ -689,10 +706,11 @@ Realms.PATHS_ADDED = {
       '"Nobility6:Geas/Quest",' +
       '"Nobility7:Repulsion",' +
       '"Nobility8:Demand",' +
-      '"Nobility9:Storm Of Vengeance"',
+      '"Nobility9:Storm Of Vengeance" ' +
+    'SpellSlots=Nobility0:99=0',
   'Ocean Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Water Breathing" ' +
     'SpellAbility=wisdom ' +
@@ -705,10 +723,11 @@ Realms.PATHS_ADDED = {
       '"Ocean6:Freezing Sphere",' +
       '"Ocean7:Waterspout",' +
       '"Ocean8:Maelstrom",' +
-      '"Ocean9:Elemental Swarm"',
+      '"Ocean9:Elemental Swarm" ' +
+    'SpellSlots=Ocean0:99=0',
   'Orc Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Frenzy" ' +
     'SpellAbility=wisdom ' +
@@ -721,26 +740,28 @@ Realms.PATHS_ADDED = {
       '"Orc6:Eyebite",' +
       '"Orc7:Blasphemy",' +
       '"Orc8:Cloak Of Chaos",' +
-      '"Orc9:Power Word Kill"',
+      '"Orc9:Power Word Kill" ' +
+    'SpellSlots=Orc0:99=0',
   'Planning Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Extend Spell" ' +
     'SpellAbility=wisdom ' +
     'Spells=' +
-      '"Orc1:Deathwatch",' +
-      '"Orc2:Augury",' +
-      '"Orc3:Clairaudience/Clairvoyance",' +
-      '"Orc4:Status",' +
-      '"Orc5:Detect Scrying",' +
-      '"Orc6:Heroes\' Feast",' +
-      '"Orc7:Greater Scrying",' +
-      '"Orc8:Discern Location",' +
-      '"Orc9:Time Stop"',
+      '"Planning1:Deathwatch",' +
+      '"Planning2:Augury",' +
+      '"Planning3:Clairaudience/Clairvoyance",' +
+      '"Planning4:Status",' +
+      '"Planning5:Detect Scrying",' +
+      '"Planning6:Heroes\' Feast",' +
+      '"Planning7:Greater Scrying",' +
+      '"Planning8:Discern Location",' +
+      '"Planning9:Time Stop" ' +
+    'SpellSlots=Planning0:99=0',
   'Portal Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Detect Portal" ' +
     'SpellAbility=wisdom ' +
@@ -753,10 +774,11 @@ Realms.PATHS_ADDED = {
       '"Portal6:Banishment",' +
       '"Portal7:Etherealness",' +
       '"Portal8:Maze",' +
-      '"Portal9:Gate"',
+      '"Portal9:Gate" ' +
+    'SpellSlots=Portal0:99=0',
   'Renewal Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Rebound" ' +
     'SpellAbility=wisdom ' +
@@ -769,10 +791,11 @@ Realms.PATHS_ADDED = {
       '"Renewal6:Heroes\' Feast",' +
       '"Renewal7:Greater Restoration",' +
       '"Renewal8:Polymorph Any Object",' +
-      '"Renewal9:Freedom"',
+      '"Renewal9:Freedom" ' +
+    'SpellSlots=Renewal0:99=0',
   'Retribution Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Reprisal" ' +
     'SpellAbility=wisdom ' +
@@ -785,10 +808,11 @@ Realms.PATHS_ADDED = {
       '"Retribution6:Banishment",' +
       '"Retribution7:Spell Turning",' +
       '"Retribution8:Discern Location",' +
-      '"Retribution9:Storm Of Vengeance"',
+      '"Retribution9:Storm Of Vengeance" ' +
+    'SpellSlots=Retribution0:99=0',
   'Rune Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Scribe Scroll" ' +
     'SpellAbility=wisdom ' +
@@ -801,10 +825,11 @@ Realms.PATHS_ADDED = {
       '"Rune6:Greater Glyph Of Warding",' +
       '"Rune7:Instant Summons",' +
       '"Rune8:Symbol Of Death",' +
-      '"Rune9:Teleportation Circle"',
+      '"Rune9:Teleportation Circle" ' +
+    'SpellSlots=Rune0:99=0',
   'Scalykind Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Turn Reptiles" ' +
     'SpellAbility=wisdom ' +
@@ -817,10 +842,11 @@ Realms.PATHS_ADDED = {
       '"Scalykind6:Eyebite",' +
       '"Scalykind7:Creeping Doom",' +
       '"Scalykind8:Animal Shapes",' +
-      '"Scalykind9:Shapechange"',
+      '"Scalykind9:Shapechange" ' +
+    'SpellSlots=Scalykind0:99=0',
   'Slime Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Turn Oozes" ' +
     'SpellAbility=wisdom ' +
@@ -833,10 +859,11 @@ Realms.PATHS_ADDED = {
       '"Slime6:Transmute Rock To Mud",' +
       '"Slime7:Destruction",' +
       '"Slime8:Power Word Blind",' +
-      '"Slime9:Implosion"',
+      '"Slime9:Implosion" ' +
+    'SpellSlots=Slime0:99=0',
   'Spell Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Skilled Caster" ' +
     'SpellAbility=wisdom ' +
@@ -849,10 +876,11 @@ Realms.PATHS_ADDED = {
       '"Spell6:Greater Anyspell",' +
       '"Spell7:Limited Wish",' +
       '"Spell8:Antimagic Field",' +
-      '"Spell9:Mage\'s Disjunction"',
+      '"Spell9:Mage\'s Disjunction" ' +
+    'SpellSlots=Spell0:99=0',
   'Spider Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Turn Spiders" ' +
     'SpellAbility=wisdom ' +
@@ -865,10 +893,11 @@ Realms.PATHS_ADDED = {
       '"Spider6:Spider Curse",' +
       '"Spider7:Stone Spiders",' +
       '"Spider8:Creeping Doom",' +
-      '"Spider9:Spider Shapes"',
+      '"Spider9:Spider Shapes" ' +
+    'SpellSlots=Spider0:99=0',
   'Storm Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Stormfriend" ' +
     'SpellAbility=wisdom ' +
@@ -881,10 +910,11 @@ Realms.PATHS_ADDED = {
       '"Storm6:Summon Monster VI",' +
       '"Storm7:Control Weather",' +
       '"Storm8:Whirlwind",' +
-      '"Storm9:Storm Of Vengeance"',
+      '"Storm9:Storm Of Vengeance" ' +
+    'SpellSlots=Storm0:99=0',
   'Suffering Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Disabling Touch" ' +
     'SpellAbility=wisdom ' +
@@ -897,10 +927,11 @@ Realms.PATHS_ADDED = {
       '"Suffering6:Harm",' +
       '"Suffering7:Eyebite",' +
       '"Suffering8:Symbol Of Pain",' +
-      '"Suffering9:Horrid Wilting"',
+      '"Suffering9:Horrid Wilting" ' +
+    'SpellSlots=Suffering0:99=0',
   'Time Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Improved Initiative" ' +
     'SpellAbility=wisdom ' +
@@ -913,10 +944,11 @@ Realms.PATHS_ADDED = {
       '"Time6:Contingency",' +
       '"Time7:Instant Summons",' +
       '"Time8:Foresight",' +
-      '"Time9:Time Stop"',
+      '"Time9:Time Stop" ' +
+    'SpellSlots=Time0:99=0',
   'Trade Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Insider Knowledge" ' +
     'SpellAbility=wisdom ' +
@@ -929,10 +961,11 @@ Realms.PATHS_ADDED = {
       '"Trade6:True Seeing",' +
       '"Trade7:Mage\'s Magnificent Mansion",' +
       '"Trade8:Mind Blank",' +
-      '"Trade9:Discern Location"',
+      '"Trade9:Discern Location" ' +
+    'SpellSlots=Trade0:99=0',
   'Tyranny Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Compelling Magic" ' +
     'SpellAbility=wisdom ' +
@@ -945,10 +978,11 @@ Realms.PATHS_ADDED = {
       '"Tyranny6:Geas/Quest",' +
       '"Tyranny7:Grasping Hand",' +
       '"Tyranny8:Mass Charm Monster",' +
-      '"Tyranny9:Dominate Monster"',
+      '"Tyranny9:Dominate Monster" ' +
+    'SpellSlots=Tyranny0:99=0',
   'Undeath Domain':
     'Group=Cleric ' +
-    'Level=level.Cleric ' +
+    'Level=levels.Cleric ' +
     'Features=' +
       '"1:Extra Turning" ' +
     'SpellAbility=wisdom ' +
@@ -961,7 +995,8 @@ Realms.PATHS_ADDED = {
       '"Undeath6:Create Undead",' +
       '"Undeath7:Control Undead",' +
       '"Undeath8:Create Greater Undead",' +
-      '"Undeath9:Energy Drain"'
+      '"Undeath9:Energy Drain" ' +
+    'SpellSlots=Undeath0:99=0'
 };
 Realms.PATHS = Object.assign({}, SRD35.PATHS, Realms.PATHS_ADDED);
 Realms.RACES = {
@@ -991,20 +1026,20 @@ Realms.RACES = {
   'Drow Elf':
     'Features=' +
       '"1:Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)",' +
-      '"1:Drow Elf Ability Adjustment","1:Drow Level Adjustment",' +
+      '"1:Drow Elf Ability Adjustment","1:Drow Elf Level Adjustment",' +
       '"1:Drow Spell Resistance","1:Extended Darkvision","1:Keen Senses",' +
       '"1:Light Blindness","1:Light Sensitivity","1:Resist Enchantment",' +
       '"1:Sense Secret Doors","1:Sleep Immunity","1:Stong Will" ' +
     'Languages=Undercommon,Elven ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
-      'Drow0:1=1,' +
-      'Drow1:1=1,' +
-      'Drow2:1=1 ' +
+      '"Drow0:1=1",' +
+      '"Drow1:1=1",' +
+      '"Drow2:1=1" ' +
     'Spells=' +
       '"Drow0:Dancing Lights",' +
       '"Drow1:Faerie Fire",' +
-      'Drow2:Darkness',
+      '"Drow2:Darkness"',
   'Moon Elf':
     SRD35.RACES['Elf'],
   'Sun Elf':
@@ -1815,6 +1850,9 @@ Realms.pathRules = function(
       spellSlots, spells, spellDict
     );
   // No changes needed to the rules defined by base method
+  if(name.match(/Domain$/))
+    QuilvynRules.featureListRules
+      (rules, ["deityDomains =~ '" + name.replace(' Domain', '') + "' ? 1:" + name], 'Cleric', 'levels.Cleric', true);
 }
 
 /*
@@ -1828,9 +1866,7 @@ Realms.pathRulesExtra = function(rules, name) {
     );
     rules.defineRule('magicNotes.familialProtection.1', 'level', '=', null);
   } else if(name == 'Halfling Domain') {
-    rules.defineRule('skillNotes.spry',
-      'charismaModifier', '=', 'source >= 1 ? source : null'
-    );
+    rules.defineRule('skillNotes.spurred', 'charismaModifier', '=', null);
   } else if(name == 'Mentalism Domain') {
     rules.defineRule('magicNotes.mentalControl', 'level', '=', 'source + 2');
   } else if(name == 'Nobility Domain') {
@@ -1845,6 +1881,9 @@ Realms.pathRulesExtra = function(rules, name) {
       ('combatNotes.frenzy.1', 'levels.Cleric', '=', 'source + 4');
   } else if(name == 'Renewal Domain') {
     rules.defineRule('combatNotes.rebound', 'charismaModifier', '=', null);
+  } else if(name == 'Trade Domain') {
+    rules.defineRule
+      ('magicNotes.insiderKnowledge', 'charismaModifier', '=', null);
   }
 };
 
