@@ -15,11 +15,12 @@ this program; if not, write to the Free Software Foundation, Inc., 59 Temple
 Place, Suite 330, Boston, MA 02111-1307 USA.
 */
 
+/*jshint esversion: 6 */
 "use strict";
 
 /*
- * This module loads the prestige class rules from the Forgotten Realms
- * campaign setting.  The RealmsPrestige.CLASSES constant field can be
+ * This module loads the rules for the Forgotten Realms campaign setting
+ * prestige classes. The RealmsPrestige.CLASSES constant field can be
  * manipulated in order to trim the choices offered.
  */
 function RealmsPrestige() {
@@ -28,839 +29,524 @@ function RealmsPrestige() {
      ('The RealmsPrestige module requires use of the SRD35 and Realms modules');
     return;
   }
-  RealmsPrestige.classRules(Realms.rules, RealmsPrestige.CLASSES);
+  RealmsPrestige.identityRules(Realms.rules, RealmsPrestige.CLASSES);
+  RealmsPrestige.talentRules(Realms.rules, RealmsPrestige.FEATURES);
 }
 
-RealmsPrestige.CLASSES = [
-  // Identical to SRD: Archmage, Hierophant
-  'Arcane Devotee', 'Divine Champion', 'Divine Disciple', 'Divine Seeker',
-  'Guild Thief', 'Harper Scout', 'Hathran', 'Purple Dragon Knight',
-  'Red Wizard', 'Runecaster', 'Shadow Adept'
-];
+RealmsPrestige.CLASSES = {
+  'Arcane Devotee':
+    'Require=' +
+      '"features.Enlarge Spell","skills.Knowledge (Religion) >= 8",' +
+      '"skills.Spellcraft >= 8","spellSlots.B4||spellSlots.S4||spellSlots.W4" '+
+    'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
+    'Skills=' +
+      // Alchemy => Craft (Alchemy), Scry => null
+      'Concentration,Craft,Knowledge,Profession,Spellcraft ' +
+    'Features=' +
+      '"1:Caster Level Bonus","1:Freely Enlarge Spell","2:Alignment Focus",' +
+      '"2:Sacred Defense","5:Divine Shroud"',
+  'Archmage':
+    'Require=' +
+      '"features.Skill Focus (Spellcraft)",' +
+      '"Sum \'^features\\.Spell Focus\' >= 2",' +
+      '"skills.Knowledge (Arcana) >= 15","skills.Spellcraft >= 15",' +
+      '"spellSlots.S7||spellSlots.W7 >= 1","Level5SpellSchools >= 5" ' +
+    'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
+    'Skills=' +
+       // Alchemy => Craft (Alchemy), Scry => null
+      'Concentration,"Craft (Alchemy)",Knowledge,Profession,Search,' +
+      'Spellcraft ' +
+    'Features="1:Caster Level Bonus" ' +
+    'Selectables=' +
+      '"1:Arcane Fire","1:Arcane Reach","1:Improved Arcane Reach",' +
+      '"1:Mastery Of Counterspelling","1:Mastery Of Elements",' +
+      '"1:Mastery Of Shaping","1:Spell Power","1:Spell-Like Ability"',
+  'Divine Champion':
+    'Require=' +
+       '"baseAttack >= 7","Sum \'features.Weapon Focus\' >= 1",' +
+       '"skills.Knowledge (Religion) >= 3" ' +
+    'HitDie=d10 Attack=1 SkillPoints=2 Fortitude=1/2 Reflex=1/2 Will=1/3 ' +
+    'Skills=' +
+      'Climb,Craft,"Handle Animal",Jump,"Knowledge (Religion)",Ride,Spot,Swim '+
+    'Features=' +
+      '"1:Armor Proficiency (Medium)",' +
+      '"1:Shield Proficiency (Heavy)",' +
+      '"1:Weapon Proficiency (Martial)",' +
+      '"1:Lay On Hands","2:Sacred Defense","3:Smite Infidel","5:Divine Wrath"',
+  'Divine Disciple':
+    'Require=' +
+      '"skills.Diplomacy >= 5","skills.Knowledge (Religion) >= 8",' +
+      '"spellSlots.C4||spellSlots.D4" ' +
+    'HitDie=d8 Attack=3/4 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
+    'Skills=' +
+      // Scry => null, Wilderness Lore => Survival
+      'Concentration,Craft,Diplomacy,Heal,"Knowledge (Arcana)",' +
+      '"Knowledge (Nature)","Knowledge (Religion)",Profession,Spellcraft,' +
+      'Survival ' +
+    'Features=' +
+      '"1:Caster Level Bonus","1:Divine Emissary","1:New Domain",' +
+      '"2:Sacred Defense","3:Imbue With Spell Ability","5:Native Outsider",' +
+      '"5:Transcendence"',
+  'Divine Seeker':
+    'Require=' +
+      '"skills.Hide >= 10","skills.Knowledge (Religion) >= 3",' +
+      '"skills.Move Silently >= 8","skills.Spot >= 5" ' +
+    'HitDie=d6 Attack=3/4 SkillPoints=6 Fortitude=1/3 Reflex=1/2 Will=1/3 ' +
+    'Skills=' +
+      // Intuit Direction => Survival, Pick Pocket => Sleight Of Hand
+      'Bluff,Climb,Craft,"Decipher Script",Diplomacy,"Disable Device",Jump,' +
+      '"Knowledge (Religion)",Listen,"Move Silently","Open Lock",' +
+      'Profession,Search,"Sleight Of Hand",Spot,Survival,Tumble,"Use Rope" ' +
+    'Features=' +
+      '"1:Armor Proficiency (Light)",' +
+      '"1:Weapon Proficiency (Simple)",' +
+      '"1:Sanctuary","1:Thwart Glyph","2:Sacred Defense","2:Sneak Attack",' +
+      '"5:Divine Perseverance" ' +
+      'SpellAbility=charisma ' +
+      'SpellSlots=' +
+        'Seeker1:1=1,' +
+        'Seeker3:1=2,' +
+        'Seeker4:1=1 ' +
+      'Spells=' +
+        '"Seeker1:Sanctuary",' +
+        '"Seeker3:Locate Object;Obscure Object",' +
+        '"Seeker4:Locate Creature"',
+  'Guild Thief':
+    'Require=' +
+      '"skills.Gather Information >= 3","skills.Hide >= 8",' +
+      '"skills.Intimidate >= 3","skills.Move Silently >= 3" ' +
+    'HitDie=d6 Attack=3/4 SkillPoints=6 Fortitude=1/3 Reflex=1/2 Will=1/3 ' +
+    'Skills=' +
+      // Innuendo => Bluff, Pick Pocket => Sleight Of Hand
+      'Appraise,Bluff,Climb,Craft,Diplomacy,"Disable Device",Forgery,' +
+      'Intimidate,Jump,"Knowledge (Local)",Listen,"Move Silently",' +
+      '"Open Lock",Profession,Search,"Sense Motive","Sleight Of Hand",Spot,' +
+      '"Use Rope" ' +
+    'Features=' +
+      '"1:Armor Proficiency (Light)",' +
+      '"1:Weapon Proficiency (Simple)",' +
+      '"1:Sneak Attack",1:Doublespeak,"2:Uncanny Dodge",3:Reputation,' +
+      '"5:Improved Uncanny Dodge"',
+  'Harper Scout':
+    'Require=' +
+      '"alignment !~ \'Evil\'","features.Alertness","features.Iron Will",' +
+      '"skills.Bluff >= 4","skills.Diplomacy >= 8",' +
+      '"skills.Knowledge (Local) >= 4","Sum \'skills.Perform\' >= 5",' +
+      '"skills.Sense Motive >= 2","skills.Survival >= 2" ' +
+    'HitDie=d6 Attack=3/4 SkillPoints=4 Fortitude=1/3 Reflex=1/2 Will=1/2 ' +
+    'Skills=' +
+      // Intuit Direction => Survival, Pick Pocket => Sleight Of Hand
+      'Appraise,Bluff,Climb,Craft,Diplomacy,Disguise,"Escape Artist",' +
+      '"Gather Information",Hide,Jump,Knowledge,Listen,"Move Silently",' +
+      'Perform,Profession,"Sense Motive","Speak Language",Survival,Swim,' +
+      'Tumble" ' +
+    'Features=' +
+      '"1:Armor Proficiency (Light)",' +
+      '"1:Weapon Proficiency (Simple)",' +
+      '"1:Bardic Knowledge","1:Favored Enemy","2:Deneir\'s Eye",' +
+      '"2:Harper Skill Focus","3:Tymora\'s Smile","4:Lliira\'s Heart",' +
+      '"5:Craft Harper Item" ' +
+    'SpellAbility=charisma ' +
+    'SpellSlots=' +
+      'Harper1:1=0;2=1,' +
+      'Harper2:3=0;4=1,' +
+      'Harper3:5=0 ' +
+    'Spells=' +
+      '"Harper1:Alter Self;Charm Person;Comprehend Languages;Erase;' +
+      'Feather Fall;Jump;Light;Message;Mount;Read Magic;Scatterspray;' +
+      'Sleep;Spider Climb",' +
+      '"Harper2:Cat\'s Grace;Darkvision;Detect Thoughts;Eagle\'s Splendor;' +
+      'Invisibility;Knock;Locate Object;Magic Mouth;Misdirection;' +
+      'See Invisibility;Shadow Mask",' +
+      '"Harper3:Clairaudience/Clairvoyance;Nondetection;Suggestion;Tongues;' +
+      'Undetectable Alignment"',
+  'Hathran':
+    'Require=' +
+      '"alignment =~ \'Lawful Good|Lawful Neutral|Neutral Good\'",' +
+      '"deity =~ \'Chauntea|Mielikki|Mystra\'","features.Ethran",' +
+      '"race =~ \'Human\'","region =~ \'Rashemen|Rashemi\'",' +
+      '"spellSlots.B2||spellSlots.S2||spellSlots.W2",' +
+      '"spellsSlots.C2||spellSlots.D2||spellSlots.P2||spellSlots.R2" ' +
+    'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
+    'Skills=' +
+      // Alchemy => Craft (Alchemy), Animal Empathy => null,
+      // Intuit Direction => Survival, Scry => null, Wilderness Lore => Survival
+      'Concentration,Craft,Knowledge,Perform,Profession,"Speak Language",' +
+      'Spellcraft,Survival,Swim ' +
+    'Features=' +
+      '"1:Weapon Proficiency (Whip)",' +
+      '"1:Caster Level Bonus","1:Cohort","1:Place Magic","4:Circle Leader" ' +
+    'SpellAbility=charisma ' +
+    'SpellSlots=' +
+      'Hathran1:3=1,' +
+      'Hathran4:10=1 ' +
+    'Spells=' +
+      '"Hathran1:Cause Fear",' +
+      '"Hathran4:Greater Command"',
+  'Hierophant':
+    'Require=' +
+      '"skills.Knowledge (Nature) >= 15||skills.Knowledge (Religion) >= 15",' +
+      '"spellSlots.C7||spellSlots.D7",' +
+      '"SumMetamagicFeats > 0" ' +
+    'HitDie=d8 Attack=1/2 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
+    'Skills=' +
+      // Scry => null
+      'Concentration,Craft,Diplomacy,Heal,"Knowledge (Arcana)",' +
+      '"Knowledge (Religion)",Profession,Spellcraft ' +
+    'Selectables=' +
+      '"1:Blast Infidel","1:Divine Reach","1:Faith Healing",' +
+      '"1:Gift Of The Divine","1:Improved Divine Reach",' +
+      '"1:Mastery Of Energy","1:Spell Power","1:Spell-Like Ability",' +
+      '"levels.Druid > 0 ? 1:Power Of Nature"',
+  'Purple Dragon Knight':
+    'Require=' +
+      '"alignment !~ \'Chaotic|Evil\'","baseAttack >= 4",' +
+      '"features.Leadership","features.Mounted Combat",' +
+      '"skills.Diplomacy >= 1||skills.Intimidate >= 1",' +
+      '"skills.Listen >= 2","skills.Ride >= 2","skills.Spot >= 2" ' +
+    'HitDie=d10 Attack=1 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/3 ' +
+    'Skills=' +
+      'Climb,Diplomacy,Intimidate,Jump,Ride,Swim ' +
+    'Features=' +
+      '"Armor Proficiency (Medium)",' +
+      '"Shield Proficiency (Heavy)",' +
+      '"Weapon Proficiency (Simple)",' +
+      '"1:Heroic Shield","1:Rallying Cry","2:Knight\'s Courage",' +
+      '"4:Oath Of Wrath","5:Final Stand" ' +
+    'SpellAbility=charisma ' +
+    'SpellSlots=' +
+      'Purple3:3=1 ' +
+    'Spells=' +
+      '"Purple3:Cause Fear"',
+  'Red Wizard':
+    'Require=' +
+      '"alignment !~ \'Good\'","race == \'Human\'","region == \'Thay\'",' +
+      '"skills.Spellcraft >= 8","spellSlots.B3||spellSlots.S3||spellSlots.W3",'+
+      '"features.Tattoo Focus","SumItemCreationAndMetamagicFeats >= 3" ' +
+    'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
+    'Skills=' +
+      // Alchemy => Craft (Alchemy), Innuendo => Bluff, Scry => null
+      'Bluff,Concentration,Craft,Intimidate,Knowledge,Profession,Spellcraft ' +
+    'Features=' +
+      '"1:Caster Level Bonus","1:Enhanced Specialization",' +
+      '"1:Specialist Defense","2:Spell Power","5:Circle Leader",' +
+      '"7:Scribe Tattoo","10:Great Circle Leader"',
+  'Runecaster':
+    'Require=' +
+      '"features.Inscribe Rune","Sum \'skills.Craft\' >= 8",' +
+      '"skills.Spellcraft >= 8",' +
+      '"spellSlots.C3||spellSlots.D3||spellSlots.P3||spellSlots.R3" ' +
+    'HitDie=d8 Attack=3/4 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
+    'Skills=' +
+      // Scry => null
+      'Concentration,Craft,Diplomacy,Heal,"Knowledge (Arcana)",' +
+      '"Knowledge (Religion)",Profession,Spellcraft ' +
+    'Features=' +
+      '"1:Caster Level Bonus","1:Rune Craft","2:Rune Power",' +
+      '"3:Improved Runecasting","6:Maximize Rune","10:Rune Chant"',
+  'Shadow Adept':
+    'Require=' +
+      '"alignment !~ \'Good\'",' +
+      '"spellSlots.B3||spellSlots.C3||spellSlots.D3||spellSlots.R3||spellSlots.S3||spellSlots.W3",' +
+      '"skills.Knowledge (Arcana) >= 8","skills.Spellcraft >= 8",' +
+      '"features.Shadow Weave Magic","SumMetamagicFeats >= 1" ' +
+    'HitDie=d8 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
+    'Skills=' +
+      // Scry => null
+      'Bluff,Concentration,Craft,Disguise,Hide,Knowledge,Profession,' +
+      'Spellcraft ' +
+    'Features=' +
+      '"1:Insidious Magic","1:Pernicious Magic","1:Tenacious Magic",' +
+      '"2:Low-Light Vision","2:Shadow Defense","3:Spell Power",' +
+      '"4:Shield Of Shadows","7:Darkvision","7:Shadow Walk",' +
+      '"8:Greater Shield Of Shadows","10:Shadow Double"'
+};
+RealmsPrestige.FEATURES = {
+  'Alignment Focus':'Section=magic Note="+1 caster level on spells from chosen alignment component"',
+  'Caster Level Bonus':'Section=magic Note="+%V base class level for spells known/per dy"',
+  'Circle Leader':'Section=magic Note="1 hr ritual w/2-5 other members raises caster level, gives metamagic feats"',
+  'Cohort':'Section=feature Note="Gain Hathran or Barbarian follower"',
+  'Craft Harper Item':'Section=magic Note="Create magic instruments, Harper pins, and potions"',
+  "Deneir's Eye":'Section=save Note="+2 vs. glyphs"',
+  'Divine Emissary':'Section=feature Note="Telepathy w/same-alignment outsider w/in 60\'"',
+  'Divine Perseverance':'Section=combat Note="Regain d8+5 HP from negative 1/dy"',
+  'Divine Shroud':'Section=save Note="Aura provides DC %V spell reistance for %1 rd 1/dy"',
+  'Divine Wrath':'Section=combat,save Note="+3 attack and damage and DR 5/- for %V rd 1/dy","+3 saves %V rd 1/dy",',
+  'Doublespeak':'Section=skill Note="+2 Bluff/+2 Diplomacy"',
+  'Enhanced Specialization':'Section=magic Note="Additional opposition school"',
+  'Final Stand':'Section=combat Note="R10\' %V allies gain 2d10 HP for %1 rd 1/dy"',
+  'Freely Enlarge Spell':'Section=magic Note="Cast enlarged spell %V/dy"',
+  'Great Circle Leader':'Section=magic Note="Lead magic circle w/9 other members"',
+  'Greater Shield Of Shadows':'Section=save Note="Shield Of Shadows gives %V spell resistance"',
+  'Harper Skill Focus':'Section=feature Note="+1 General Feat (Skill Focus in chosen Perform or Harper class skill"',
+  'Heroic Shield':'Section=combat Note="Aid Another action gives +4 AC bonus"',
+  'Imbue With Spell Ability':'Section=magic Note="<i>Imbue With Spell Ability</i> 1st/2nd level spells at will"',
+  'Improved Runecasting':'Section=magic Note="Add charges and triggers to runes"',
+  "Knight's Courage":'Section=magic Note="Allies +1 attack and damage, +2 charm and fear saves during speech +5 rd %V/dy"',
+  "Lliira's Heart":'Section=save Note="+2 vs. compulsion and fear"',
+  'Maximize Rune':'Section=magic Note="+5 DC/maximize effects of runes"',
+  'New Domain':'Section=feature Note="Choose additional deity domain"',
+  'Oath Of Wrath':'Section=combat,save,skill Note="+2 attack and damage vs. chosen opponent 1/dy","+2 save vs. chosen opponent 1/dy","+2 checks vs. chosen opponent 1/dy"',
+  'Place Magic':'Section=magic Note="Cast spell w/out prepartion when in Rashemen"',
+  'Rallying Cry':'Section=combat Note="R60\' Allies +1 next attack, +5 speed for 1 tn 3/dy"',
+  'Reputation':'Section=feature Note="+%V Leadership"',
+  'Rune Chant':'Section=magic Note="+3 DC divine spells when tracing rune"',
+  'Rune Craft':'Section=skill Note="+%V Craft (inscribing runes)"',
+  'Rune Power':'Section=magic Note="+%V DC of runes"',
+  'Sacred Defense':'Section=save Note="+%V vs. divine spells"',
+  'Scribe Tattoo':'Section=magic Note="Induct novices into circle"',
+  'Shadow Defense':'Section=save Note="+%V vs. Enchantment, Illusion, Necromancy, and Darkness spells"',
+  'Shadow Double':'Section=magic Note="Create clone lasting %V rd 1/dy"',
+  'Shield Of Shadows':'Section=magic Note="<i>Shield</i> w/30% concealment %V rd/dy"',
+  'Smite Infidel':'Section=combat Note="+%V attack, +%1 damage vs. foe w/different deity 1/dy"',
+  'Specialist Defense':'Section=save Note="+%V bonus on saves vs. specialist school spells"',
+  'Spell Power':'Section=magic Note="+%V specialist spell DC and resistance checks"',
+  'Thwart Glyph':'Section=skill Note="+4 Disable Device (glyphs)/+4 Search (glyphs)"',
+  'Transcendence':'Section=magic,skill Note="Chosen <i>Protection</i> spell at will","+2 charisma checks w/followers of %V"',
+  "Tymora's Smile":'Section=save Note="+2 luck bonus to any save 1/dy"'
+};
+RealmsPrestige.classRulesExtra = function(rules, name) {
 
-/* Defines the rules related to character prestige classes. */
-RealmsPrestige.classRules = function(rules, classes) {
+  var allFeats = rules.getChoices('feats');
+  var allSchools = rules.getChoices('schools');
+  var feats = null;
 
-  var schools = rules.getChoices('schools');
+  if(allFeats == null) {
+    console.log('feats not available for prestige class "' + name + '"');
+    return;
+  }
+  if(allSchools == null) {
+    console.log('schools not available for prestige class "' + name + '"');
+    return;
+  }
 
-  for(var i = 0; i < classes.length; i++) {
+  if(name == 'Arcane Devotee') {
 
-    var baseAttack, feats, features, hitDie, notes, profArmor, profShield,
-        profWeapon, saveFortitude, saveReflex, saveWill, selectableFeatures,
-        skillPoints, skills, spellAbility, spells, spellsKnown, spellsPerDay;
-    var klass = classes[i];
-
-    if(klass == 'Arcane Devotee') {
-
-      baseAttack = SRD35.ATTACK_BONUS_POOR;
-      feats = [
-        'Greater Spell Penetration', 'Improved Counterspell',
-        'Magical Artisan', 'Shadow Weave Magic', 'Spell Penetration'
-      ];
-      for(var school in schools) {
-        feats[feats.length] = 'Greater Spell Focus (' + school + ')';
-        feats[feats.length] = 'Spell Focus (' + school + ')';
-      }
-      features = [
-        '1:Caster Level Bonus', '1:Freely Enlarge Spell', '2:Alignment Focus',
-        '2:Sacred Defense', '5:Divine Shroud'
-      ];
-      hitDie = 4;
-      notes = [
-        'magicNotes.alignmentFocusFeature:' +
-          '+1 caster level on spells from chosen alignment component',
-        'magicNotes.casterLevelBonusFeature:' +
-          '+%V base class level for spells known/per day',
-        'magicNotes.freelyEnlargeSpellFeature:Cast enlarged spell %V/day',
-        'saveNotes.divineShroudFeature:' +
-          'Aura provides DC %V spell reistance for %1 rounds 1/day',
-        'saveNotes.sacredDefenseFeature:+%V vs. divine spells',
-        'validationNotes.arcaneDevoteeClassFeatures:Requires Enlarge Spell',
-        'validationNotes.arcaneDevoteeClassSkills:' +
-          'Requires Knowledge (Religion) >= 8/Spellcraft >= 8',
-        'validationNotes.arcaneDevoteeClassSpells:Requires arcane level 4'
-      ];
-      profArmor = SRD35.PROFICIENCY_NONE;
-      profShield = SRD35.PROFICIENCY_NONE;
-      profWeapon = SRD35.PROFICIENCY_NONE;
-      saveFortitude = SRD35.SAVE_BONUS_POOR;
-      saveReflex = SRD35.SAVE_BONUS_POOR;
-      saveWill = SRD35.SAVE_BONUS_GOOD;
-      selectableFeatures = null;
-      skillPoints = 2;
-      skills = [
-        'Concentration', 'Craft', 'Knowledge', 'Profession', 'Spellcraft'
-      ];
-      spellAbility = null;
-      spells = null;
-      spellsKnown = null;
-      spellsPerDay = null;
-      rules.defineRule('featCount.Arcane Devotee',
-        'levels.Arcane Devotee', '+=', 'source >= 3 ? 1 : null'
-      );
-      rules.defineRule('magicNotes.casterLevelBonusFeature',
-        'levels.Arcane Devotee', '+=', null
-      );
-      rules.defineRule('magicNotes.freelyEnlargeSpellFeature',
-        'charismaModifier', '+=', 'source > 0 ? source + 1 : 1'
-      );
-      rules.defineRule('saveNotes.divineShroudFeature',
-        'casterLevelArcane', '+=', '12 + source'
-      );
-      rules.defineRule('saveNotes.divineShroudFeature.1',
-        'charismaModifier', '+=', '5 + source'
-      );
-      rules.defineRule('saveNotes.sacredDefenseFeature',
-        'levels.Arcane Devotee', '+=', 'Math.floor(source / 2)'
-      );
-      rules.defineRule('validationNotes.arcaneDevoteeClassSpells',
-        'levels.Arcane Devotee', '=', '-1',
-        /^spellsKnown\.(AS|B|S|W)4/, '+', '1',
-        '', 'v', '0'
-      );
-
-    } else if(klass == 'Divine Champion') {
-
-      baseAttack = SRD35.ATTACK_BONUS_GOOD;
-      feats = null;
-      features = [
-        '1:Lay On Hands', '2:Sacred Defense', '3:Smite Infidel',
-        '5:Divine Wrath'
-      ];
-      hitDie = 10;
-      notes = [
-        'combatNotes.divineWrathFeature:' +
-          '+3 attack/damage and DR 5/- for %V rounds 1/day',
-        'combatNotes.smiteInfidelFeature:' +
-          '+%V attack/+%1 damage vs. foe w/different deity 1/day',
-        'magicNotes.layOnHandsFeature:Harm undead or heal %V HP/day',
-        'saveNotes.divineWrathFeature:+3 saves %V rounds 1/day',
-        'saveNotes.sacredDefenseFeature:+%V vs. divine spells',
-        'validationNotes.divineChampionClassBaseAttack:' +
-          'Requires Base Attack >= 7',
-        'validationNotes.divineChampionClassFeats:' +
-          'Requires Sum Weapon Focus >= 1',
-        'validationNotes.divineChampionClassSkills:' +
-          'Requires Knowledge (Religion) >= 3'
-      ];
-      profArmor = SRD35.PROFICIENCY_MEDIUM;
-      profShield = SRD35.PROFICIENCY_HEAVY;
-      profWeapon = SRD35.PROFICIENCY_MEDIUM;
-      saveFortitude = SRD35.SAVE_BONUS_GOOD;
-      saveReflex = SRD35.SAVE_BONUS_GOOD;
-      saveWill = SRD35.SAVE_BONUS_POOR;
-      selectableFeatures = null;
-      skillPoints = 2;
-      skills = [
-        'Climb', 'Craft', 'Handle Animal', 'Jump', 'Knowledge (Religion)',
-        'Ride', 'Spot', 'Swim'
-      ];
-      spellAbility = null;
-      spells = null;
-      spellsKnown = null;
-      spellsPerDay = null;
-      rules.defineRule
-        ('combatNotes.divineWrathFeature', 'charismaModifier', '=', null);
-      rules.defineRule('combatNotes.smiteInfidelFeature',
-        'charismaModifier', '=', 'source > 0 ? source : 0'
-      );
-      rules.defineRule('combatNotes.smiteInfidelFeature.1',
-        'levels.Divine Champion', '=', null
-      );
-      rules.defineRule('featCount.Fighter',
-        'levels.Divine Champion', '+=', 'Math.floor(source / 2)'
-      );
-      rules.defineRule('magicNotes.layOnHandsFeature',
-        'levels.Divine Champion', '+=', null,
-        'charismaModifier', '*', null,
-        'charisma', '?', 'source >= 12'
-      );
-      rules.defineRule
-        ('saveNotes.divineWrathFeature', 'charismaModifier', '=', null);
-      rules.defineRule('saveNotes.sacredDefenseFeature',
-        'levels.Divine Champion', '+=', 'Math.floor(source / 2)'
-      );
-
-    } else if(klass == 'Divine Disciple') {
-
-      baseAttack = SRD35.ATTACK_BONUS_AVERAGE;
-      feats = null;
-      features = [
-        '1:Caster Level Bonus', '1:Divine Emissary', '1:New Domain',
-        '2:Sacred Defense', '3:Imbue With Spell Ability', '5:Native Outsider',
-        '5:Transcendence'
-      ];
-      hitDie = 8;
-      notes = [
-        'featureNotes.divineEmissaryFeature:' +
-          "Telepathy w/same-alignment outsider w/in 60'",
-        'magicNotes.casterLevelBonusFeature:' +
-          '+%V base class level for spells known/per day',
-        'magicNotes.imbueWithSpellAbilityFeature:' +
-          '<i>Imbue With Spell Ability</i> 1st/2nd level spells at will',
-        'magicNotes.transcendenceFeature:' +
-          'Designated <i>Protection</i> spell at will',
-        'saveNotes.nativeOutsiderFeature:' +
-          'Affected by outsider target spells, not humanoid',
-        'saveNotes.sacredDefenseFeature:+%V vs. divine spells',
-        'skillNotes.transcendenceFeature:+2 charisma checks w/followers of %V',
-        'validationNotes.divineDiscipleClassSkills:' +
-          'Requires Diplomacy >= 5/Knowledge (Religion) >= 8',
-        'validationNotes.divineDiscipleClassSpells:Requires divine level 4'
-      ];
-      profArmor = SRD35.PROFICIENCY_NONE;
-      profShield = SRD35.PROFICIENCY_NONE;
-      profWeapon = SRD35.PROFICIENCY_NONE;
-      saveFortitude = SRD35.SAVE_BONUS_GOOD;
-      saveReflex = SRD35.SAVE_BONUS_POOR;
-      saveWill = SRD35.SAVE_BONUS_GOOD;
-      selectableFeatures = null;
-      skillPoints = 2;
-      skills = [
-        'Concentration', 'Craft', 'Diplomacy', 'Heal', 'Knowledge (Arcana)',
-        'Knowledge (Nature)', 'Knowledge (Religion)', 'Profession', 'Scry',
-        'Spellcraft', 'Survival'
-      ];
-      spellAbility = null;
-      spells = null;
-      spellsKnown = null;
-      spellsPerDay = null;
-      rules.defineRule('domainCount', 'features.New Domain', '+', '1');
-      rules.defineRule('magicNotes.casterLevelBonusFeature',
-        'levels.Divine Disciple', '+=', null
-      );
-      rules.defineRule('saveNotes.sacredDefenseFeature',
-        'levels.Divine Disciple', '+=', 'Math.floor(source / 2)'
-      );
-      rules.defineRule('skillNotes.transcendenceFeature',
-        'deity', '=', 'source.replace(/\\s*\\(.*\\)/, "")'
-      );
-      rules.defineRule('validationNotes.divineDiscipleClassSpells',
-        'levels.Divine Disciple', '=', '-1',
-        /^spellsKnown\.(C|D|P|R)4/, '+', '1',
-        '', 'v', '0'
-      );
-
-    } else if(klass == 'Divine Seeker') {
-
-      baseAttack = SRD35.ATTACK_BONUS_AVERAGE;
-      feats = null;
-      features = [
-        '1:Sanctuary', '1:Thwart Glyph', '2:Sacred Defense', '2:Sneak Attack',
-        '3:Locate Object', '3:Obscure Object', '5:Locate Creature',
-        '5:Divine Perseverance'
-      ];
-      hitDie = 6;
-      notes = [
-        'combatNotes.sneakAttackFeature:' +
-          '%Vd6 HP extra when surprising or flanking',
-        'combatNotes.divinePerseveranceFeature:' +
-          'Regain d8+5 HP from negative 1/day',
-        'magicNotes.locateCreatureFeature:<i>Locate Creature</i> 1/day',
-        'magicNotes.locateObjectFeature:<i>Locate Object</i> 1/day',
-        'magicNotes.obscureObjectFeature:' +
-          '<i>Obscure Object</i> to prevent tracking 1/day',
-        'magicNotes.sanctuaryFeature:<i>Sanctuary</i> 1/day',
-        'saveNotes.sacredDefenseFeature:+%V vs. divine spells',
-        'skillNotes.thwartGlyphFeature:' +
-          '+4 Disable Device (glyphs)/Search (glyphs)',
-        'validationNotes.divineSeekerClassSkills:' +
-          'Requires Hide >= 10/Knowledge (Religion) >= 3/Move Silently >= 8/' +
-          'Spot >= 5'
-      ];
-      profArmor = SRD35.PROFICIENCY_LIGHT;
-      profShield = SRD35.PROFICIENCY_NONE;
-      profWeapon = SRD35.PROFICIENCY_LIGHT;
-      saveFortitude = SRD35.SAVE_BONUS_POOR;
-      saveReflex = SRD35.SAVE_BONUS_GOOD;
-      saveWill = SRD35.SAVE_BONUS_POOR;
-      selectableFeatures = null;
-      skillPoints = 6;
-      skills = [
-        // Pick Pocket => Sleight Of Hand, Intuit Direction => ?
-        'Bluff', 'Climb', 'Craft', 'Decipher Script', 'Diplomacy',
-        'Disable Device', 'Jump', 'Knowledge (Religion)', 'Listen',
-        'Move Silently', 'Open Lock', 'Profession', 'Search',
-        'Sleight Of Hand', 'Tumble', 'Use Rope'
-      ];
-      spellAbility = null;
-      spells = null;
-      spellsKnown = null;
-      spellsPerDay = null;
-      rules.defineRule('casterLevels.Divine Seeker',
-        'levels.Divine Seeker', '=', null,
-        'charismaModifier', '+', null
-      );
-      rules.defineRule('casterLevels.Locate Creature',
-        'casterLevels.Divine Seeker', '^=', null
-      );
-      rules.defineRule('casterLevels.Locate Object',
-        'casterLevels.Divine Seeker', '^=', null
-      );
-      rules.defineRule
-        ('casterLevels.Sanctuary', 'casterLevels.Divine Seeker', '^=', null);
-      // Set casterLevels.C to a minimal value so that spell DC will be
-      // calcuated even for non-Cleric Divine Seekers.
-      rules.defineRule
-        ('casterLevels.C', 'casterLevels.Divine Seeker', '^=', '1');
-      rules.defineRule('combatNotes.sneakAttackFeature',
-        'levels.Divine Seeker', '+=', 'Math.floor(source / 2)'
-      );
-      rules.defineRule('saveNotes.sacredDefenseFeature',
-        'levels.Divine Seeker', '+=', 'Math.floor(source / 2)'
-      );
-
-    } else if(klass == 'Guild Thief') {
-
-      baseAttack = SRD35.ATTACK_BONUS_AVERAGE;
-      feats = [
-        'Alertness', 'Blind-Fight', 'Cosmopolitan', 'Education', 'Leadership',
-        'Lightning Reflexes', 'Skill Focus', 'Still Spell', 'Street Smart',
-        'Track', 'Weapon Finesse', 'Weapon Focus',
-        'Weapon Proficiency (Hand Crossbow)'
-      ];
-      features = [
-        '1:Sneak Attack', '1:Doublespeak', '2:Uncanny Dodge', '3:Reputation',
-        '5:Improved Uncanny Dodge'
-      ];
-      hitDie = 6;
-      notes = [
-        'combatNotes.improvedUncannyDodgeFeature:' +
-          'Flanked only by rogue four levels higher',
-        'combatNotes.sneakAttackFeature:' +
-          '%Vd6 HP extra when surprising or flanking',
-        'combatNotes.uncannyDodgeFeature:Always adds dexterity modifier to AC',
-        'featureNotes.reputationFeature:+%V Leadership',
-        'skillNotes.doublespeakFeature:+2 Bluff/Diplomacy',
-        'validationNotes.guildThiefClassSkills:' +
-          'Requires Gather Information >= 3/Hide >= 8/Intimidate >= 3/' +
-          'Move Silently >= 3'
-      ];
-      profArmor = SRD35.PROFICIENCY_LIGHT;
-      profShield = SRD35.PROFICIENCY_NONE;
-      profWeapon = SRD35.PROFICIENCY_LIGHT;
-      saveFortitude = SRD35.SAVE_BONUS_POOR;
-      saveReflex = SRD35.SAVE_BONUS_GOOD;
-      saveWill = SRD35.SAVE_BONUS_POOR;
-      selectableFeatures = null;
-      skillPoints = 6;
-      skills = [
-        // Innuendo => ?, Pick Pocket => Sleight Of Hand
-        'Appraise', 'Bluff', 'Climb', 'Craft', 'Diplomacy', 'Disable Device',
-        'Forgery', 'Intimidate', 'Jump', 'Knowledge (Local)', 'Listen',
-        'Move Silently', 'Open Lock', 'Profession', 'Search',
-        'Sense Motive', 'Sleight Of Hand', 'Spot', 'Use Rope'
-      ];
-      spellAbility = null;
-      spells = null;
-      spellsKnown = null;
-      spellsPerDay = null;
-      rules.defineRule('combatNotes.sneakAttackFeature',
-        'levels.Guild Thief', '+=', 'Math.floor((source + 1) / 2)'
-      );
-      rules.defineRule('featCount.Guild Thief',
-        'levels.Guild Thief', '=', 'source < 2 ? null : Math.floor(source / 2)'
-      );
-      rules.defineRule('featureNotes.reputationFeature',
-        'levels.Guild Thief', '=', 'source >= 3 ? source - 2 : null'
-      );
-
-    } else if(klass == 'Harper Scout') {
-
-      baseAttack = SRD35.ATTACK_BONUS_AVERAGE;
-      feats = null;
-      features = [
-        '1:Bardic Knowledge', '1:Favored Enemy', "2:Deneir's Eye",
-        '2:Harper Skill Focus', "3:Tymora's Smile", "4:Lliira's Heart",
-        '5:Craft Harper Item'
-      ];
-      hitDie = 6;
-      notes = [
-        'combatNotes.favoredEnemyFeature:' +
-          '+2 or more damage vs. %V type(s) of creatures',
-        'featureNotes.harperSkillFocusFeature:' +
-          'Skill Focus in perform/chosen Harper class skill',
-        'magicNotes.craftHarperItemFeature:' +
-          'Create magic instruments/Harper pins/potions',
-        "saveNotes.deneir'sEyeFeature:+2 vs. glyphs",
-        "saveNotes.lliira'sHeartFeature:+2 vs. compulsion/fear",
-        "saveNotes.tymora'sSmileFeature:+2 luck bonus to any save 1/day",
-        'skillNotes.favoredEnemyFeature:' +
-          '+2 or more Bluff, Listen, Sense Motive, Spot, Survival ' +
-          'vs. %V type(s) of creatures',
-        'validationNotes.harperScoutSkillFocus:Requires Skill Focus (Perform)',
-        'validationNotes.harperScoutClassAlignment:Requires Alignment !~ Evil',
-        'validationNotes.harperScoutClassFeats:Requires Alertness/Iron Will',
-        'validationNotes.harperScoutClassSkills:' +
-          'Requires Bluff >= 4/Diplomacy >= 8/Knowledge (Local) >= 4/' +
-          'Sum Perform >= 5/Sense Motive >= 2/Survival >= 2'
-      ];
-      profArmor = SRD35.PROFICIENCY_LIGHT;
-      profShield = SRD35.PROFICIENCY_NONE;
-      profWeapon = SRD35.PROFICIENCY_LIGHT;
-      saveFortitude = SRD35.SAVE_BONUS_POOR;
-      saveReflex = SRD35.SAVE_BONUS_GOOD;
-      saveWill = SRD35.SAVE_BONUS_GOOD;
-      selectableFeatures = null;
-      skillPoints = 4;
-      skills = [
-        // Intuit Direction => ?/Pick Pocket => Sleight Of Hand
-        'Appraise', 'Bluff', 'Climb', 'Craft', 'Diplomacy', 'Disguise',
-        'Escape Artist', 'Gather Information', 'Hide', 'Jump', 'Knowledge',
-        'Listen', 'Move Silently', 'Perform', 'Profession', 'Sense Motive',
-        'Speak Language', 'Swim', 'Tumble'
-      ];
-      spellAbility = 'charisma';
-      spells = [
-        'HS1:Change Self:Charm Person:Comprehend Languages:Erase:' +
-        'Feather Fall:Jump:Light:Message:Mount:Read Magic:Scatterspray:' +
-        'Sleep:Spider Climb',
-        "HS2:Cat's Grace:Darkvision:Detect Thoughts:Eagle's Splendor:" +
-        'Invisibility:Knock:Locate Object:Magic Mouth:Misdirection:' +
-        'See Invisibility:Shadow Mask',
-        'HS3:Clairaudience/Clairvoyance:Nondetection:Suggestion:Tongues:' +
-        'Undetectable Alignment'
-      ];
-      spellsKnown = [
-        'HS1:1:2/2:4',
-        'HS2:3:2/4:4',
-        'HS3:5:2'
-      ];
-      spellsPerDay = [
-        'HS1:1:0/2:1',
-        'HS2:3:0/4:1',
-        'HS3:5:0'
-      ];
-      rules.defineRule
-        ('classSkills.Bardic Knowledge', 'features.Bardic Knowledge', '=', '1');
-      rules.defineRule('combatNotes.favoredEnemyFeature',
-        'levels.Harper Scout', '+=', '1 + Math.floor(source / 4)'
-      );
-      rules.defineRule('featCount.General',
-        'levels.Harper Scout', '+=', 'source >= 2 ? 2 : null'
-      );
-      rules.defineRule('validationNotes.harperScoutSkillFocus',
-        'levels.Harper Scout', '=', 'source >= 2 ? 1 : null',
-        /features.Skill Focus .Perform/, '+', '-1',
-        '', '^', '0'
-      );
-      rules.defineRule('skillModifier.Bardic Knowledge',
-        'skills.Bardic Knowledge', '=', null,
-        'levels.Harper Scout', '+', null,
-        'intelligenceModifier', '+', null
-      );
-      rules.defineRule('skillNotes.favoredEnemyFeature',
-        'levels.Harper Scout', '+=', '1 + Math.floor(source / 4)'
-      );
-      rules.defineRule
-        ('skills.Bardic Knowledge', 'features.Bardic Knowledge', '=', '0');
-
-    } else if(klass == 'Hathran') {
-
-      baseAttack = SRD35.ATTACK_BONUS_POOR;
-      feats = null;
-      features = [
-        '1:Caster Level Bonus', '1:Cohort', '1:Place Magic',
-        '1:Weapon Proficiency (Whip)', '3:Fear', '4:Circle Leader',
-        '10:Greater Command'
-      ];
-      hitDie = 4;
-      notes = [
-        'featureNotes.cohortFeature:Gain Hathran or Barbarian follower',
-        'magicNotes.casterLevelBonusFeature:' +
-          '+%V base class level for spells known/per day',
-        'magicNotes.circleLeaderFeature:' +
-          '1 hour ritual w/2-5 other members raises caster level, ' +
-          'gives metamagic feats',
-        'magicNotes.fearFeature:<i>Fear</i> %V/day',
-        'magicNotes.greaterCommandFeature:' +
-          'Quickened <i>Greater Command</i> 1/day',
-        'magicNotes.placeMagicFeature:' +
-          'Cast spell w/out prepartion when in Rashemen',
-        'validationNotes.hathranClassAlignment:' +
-          'Requires Alignment =~ Lawful Good|Lawful Neutral|Neutral Good',
-        'validationNotes.hathranClassDeity:' +
-          'Requires Deity =~ Chauntea|Mielikki|Mystra',
-        'validationNotes.hathranClassFeats:Requires Ethran',
-        'validationNotes.hathranClassRace:Requires Race =~ Human',
-        'validationNotes.hathranClassSpells:' +
-          'Requires arcane level 2/divine level 2'
-      ];
-      profArmor = SRD35.PROFICIENCY_NONE;
-      profShield = SRD35.PROFICIENCY_NONE;
-      profWeapon = SRD35.PROFICIENCY_NONE;
-      saveFortitude = SRD35.SAVE_BONUS_GOOD;
-      saveReflex = SRD35.SAVE_BONUS_POOR;
-      saveWill = SRD35.SAVE_BONUS_GOOD;
-      selectableFeatures = null;
-      skillPoints = 2;
-      skills = [
-        // Animal Empathy => ?, Intuit Direction => ?, Scry => ?,
-        // Wilderness Lore => Survival
-        'Alchemy', 'Concentration', 'Craft', 'Knowledge', 'Perform',
-        'Profession', 'Swim', 'Speak Language', 'Spellcraft', 'Survival'
-      ];
-      spellAbility = null;
-      spells = null;
-      spellsKnown = null;
-      spellsPerDay = null;
-      rules.defineRule
-        ('magicNotes.casterLevelBonusFeature', 'levels.Hathran', '+=', null);
-      rules.defineRule('magicNotes.fearFeature',
-        'levels.Hathran', '=', 'source >= 8 ? 3 : source >= 6 ? 2 : 1'
-      );
-      rules.defineRule('validationNotes.hathranClassSpells',
-        'levels.Hathran', '=', '-11',
-        /^spellsKnown\.(B|S|W)2/, '+', '10',
-        /^spellsKnown\.(C|D|P|R)2/, '+', '1',
-        '', 'v', '0'
-      );
-
-    } else if(klass == 'Purple Dragon Knight') {
-
-      baseAttack = SRD35.ATTACK_BONUS_GOOD;
-      feats = null;
-      features = [
-        '1:Heroic Shield', '1:Rallying Cry', "2:Knight's Courage",
-        "3:Knight's Fear", '4:Oath Of Wrath', '5:Final Stand'
-      ];
-      hitDie = 10;
-      notes = [
-        'combatNotes.finalStandFeature:' +
-          "%V allies w/in 10' gain 2d10 HP for %1 rounds 1/day",
-        'combatNotes.heroicShieldFeature:Aid Another action gives +4 AC bonus',
-        'combatNotes.oathOfWrathFeature:' +
-          '+2 attack/damage vs. chosen opponent 1/day',
-        'combatNotes.rallyingCryFeature:' +
-          "Allies w/in 60' +1 next attack/+5 speed for 1 turn 3/day",
-        "magicNotes.knight'sCourageFeature:" +
-          'Allies +1 attack/damage, +2 charm/fear saves during speech +5 ' +
-          'rounds %V/day',
-        "magicNotes.knight'sFearFeature:<i>Fear</i> at will",
-        'saveNotes.oathOfWrathFeature:+2 save vs. chosen opponent 1/day',
-        'skillNotes.oathOfWrathFeature:+2 checks vs. chosen opponent 1/day',
-        'validationNotes.purpleDragonKnightClassAlignment:' +
-          'Alignment !~ Chaotic|Evil',
-        'validationNotes.purpleDragonKnightClassBaseAttack:' +
-          'Requires Base Attack >= 4',
-        'validationNotes.purpleDragonKnightClassFeats:' +
-          'Requires Leadership/Mounted Combat',
-        'validationNotes.purpleDragonKnightClassSkills:' +
-          'Requires Diplomacy >= 1||Intimidate >= 1/Listen >= 2/Ride >= 2/' +
-          'Spot >= 2'
-      ];
-      profArmor = SRD35.PROFICIENCY_MEDIUM;
-      profShield = SRD35.PROFICIENCY_HEAVY;
-      profWeapon = SRD35.PROFICIENCY_LIGHT;
-      saveFortitude = SRD35.SAVE_BONUS_GOOD;
-      saveReflex = SRD35.SAVE_BONUS_POOR;
-      saveWill = SRD35.SAVE_BONUS_POOR;
-      selectableFeatures = null;
-      skillPoints = 2;
-      skills = [
-        'Climb', 'Diplomacy', 'Intimidate', 'Jump', 'Ride', 'Swim'
-      ];
-      spellAbility = null;
-      spells = null;
-      spellsKnown = null;
-      spellsPerDay = null;
-      rules.defineRule('casterLevels.Purple Dragon Knight',
-        "purpleDragonKnightFeatures.Knight's Fear", '?', null,
-        'level', '=', null
-      );
-      rules.defineRule
-        ('casterLevels.Fear', 'casterLevels.Purple Dragon Knight', '^=', null);
-      // Set casterLevels.B to a minimal value so that spell DC will be
-      // calcuated even for non-Bard Purple Dragon Knights.
-      rules.defineRule
-        ('casterLevels.B', 'casterLevels.Purple Dragon Knight', '^=', '1');
-      rules.defineRule('combatNotes.finalStandFeature',
-        'levels.Purple Dragon Knight', '=', null,
-        'charismaModifier', '+', null
-      );
-      rules.defineRule('combatNotes.finalStandFeature.1',
-        'levels.Purple Dragon Knight', '=', null,
-        'charismaModifier', '+', null
-      );
-      rules.defineRule("magicNotes.knight'sCourageFeature",
-        'levels.Purple Dragon Knight', '=', 'Math.floor(source / 2)'
-      );
-
-    } else if(klass == 'Red Wizard') {
-
-      baseAttack = SRD35.ATTACK_BONUS_POOR;
-      feats = null;
-      features = [
-        '1:Caster Level Bonus', '1:Enhanced Specialization',
-        '1:Specialist Defense', '2:Spell Power', '5:Circle Leader',
-        '7:Scribe Tattoo', '10:Great Circle Leader'
-      ];
-      hitDie = 4;
-      notes = [
-        'magicNotes.casterLevelBonusFeature:' +
-          '+%V base class level for spells known/per day',
-        'magicNotes.enhancedSpecializationFeature:Additional prohibited school',
-        'magicNotes.circleLeaderFeature:' +
-          '1 hour ritual w/2-5 other members raises caster level, ' +
-          'gives metamagic feats',
-        'magicNotes.greatCircleLeaderFeature:' +
-          'Lead magic circle w/9 other members',
-        'magicNotes.scribeTattooFeature:Induct novices into circle',
-        'magicNotes.spellPowerFeature:+%V specific spell DC/resistance checks',
-        'magicNotes.tattooFocusFeature:' +
-          '+1 DC/+1 caster level vs. resistance w/specialization school spells',
-        'saveNotes.specialistDefenseFeature:' +
-          '+%V bonus on saves vs. specialist school spells',
-        'validationNotes.redWizardClassAlignment:Requires Alignment !~ Good',
-        'validationNotes.redWizardClassFeats:' +
-          'Requires Tattoo Focus/any 3 metamagic or item creation',
-        'validationNotes.redWizardClassRace:Requires Race == "Human"',
-        'validationNotes.redWizardClassSkills:Requires Spellcraft >= 8',
-        'validationNotes.redWizardClassSpells:Requires arcane level 3',
-        'validationNotes.tattooFocusMagic:Requires magic school specialization'
-      ];
-      profArmor = SRD35.PROFICIENCY_NONE;
-      profShield = SRD35.PROFICIENCY_NONE;
-      profWeapon = SRD35.PROFICIENCY_NONE;
-      saveFortitude = SRD35.SAVE_BONUS_POOR;
-      saveReflex = SRD35.SAVE_BONUS_POOR;
-      saveWill = SRD35.SAVE_BONUS_GOOD;
-      selectableFeatures = null;
-      skillPoints = 2;
-      skills = [
-        'Bluff', 'Concentration', 'Craft', 'Intimidate', 'Knowledge',
-        'Profession', 'Spellcraft'
-      ];
-      spellAbility = null;
-      spells = null;
-      spellsKnown = null;
-      spellsPerDay = null;
-      rules.defineChoice('feats', 'Tattoo Focus:General');
-      rules.defineRule
-        ('featCount.Wizard', 'levels.Red Wizard', '+=', 'source>=5 ? 1 : null');
-      rules.defineRule
-        ('features.Tattoo Focus', 'feats.Tattoo Focus', '=', null);
-      rules.defineRule
-        ('magicNotes.casterLevelBonusFeature', 'levels.Red Wizard', '+=', null);
-      rules.defineRule('saveNotes.specialistDefenseFeature',
-        'levels.Red Wizard', '+=',
-        'Math.floor((source + 1) / 2) - (source >= 5 ? 1 : 0)'
-      );
-      rules.defineRule('magicNotes.spellPowerFeature',
-        'levels.Red Wizard', '+=', 'Math.floor(source / 2)'
-      );
-      rules.defineRule('validationNotes.redWizardClassFeats',
-        'levels.Red Wizard', '=', '-103',
-        'features.Tattoo Focus', '+', '100',
-        '', 'v', '0'
-      );
-      var rulesFeats = rules.getChoices('feats');
-      for(var f in rulesFeats) {
-        if(rulesFeats[f].indexOf('Metamagic') >= 0 ||
-           rulesFeats[f].indexOf('Item Creation') >= 0) {
-          rules.defineRule
-            ('validationNotes.redWizardClassFeats', 'feats.' + f, '+', '1');
-        }
-      }
-      rules.defineRule('validationNotes.redWizardClassSpells',
-        'levels.Red Wizard', '=', '-1',
-        /^spellsKnown\.(AS|B|W)3/, '+', '1',
-        '', 'v', '0'
-      );
-      rules.defineRule('validationNotes.tattooFocusMagic',
-        'feats.Tattoo Focus', '=', '-1',
-        /^specialize\./, '+', '1',
-        '', 'v', '0'
-      );
-
-    } else if(klass == 'Runecaster') {
-
-      baseAttack = SRD35.ATTACK_BONUS_AVERAGE;
-      feats = null;
-      features = [
-        '1:Caster Level Bonus', '1:Rune Craft', '2:Rune Power',
-        '3:Improved Runecasting', '6:Maximize Rune', '10:Rune Chant'
-      ];
-      hitDie = 8;
-      notes = [
-        'magicNotes.casterLevelBonusFeature:' +
-          '+%V base class level for spells known/per day',
-        'magicNotes.improvedRunecastingFeature:Add charges/triggers to runes',
-        'magicNotes.runeChantFeature:+3 DC divine spells when tracing rune',
-        'magicNotes.maximizeRuneFeature:+5 DC/maximize effects of runes',
-        'magicNotes.runePowerFeature:+%V DC of runes',
-        'skillNotes.runeCraftFeature:+%V Craft (inscribing runes)',
-        'validationNotes.runecasterClassFeats:Requires Inscribe Rune',
-        'validationNotes.runecasterClassSkills:' +
-          'Requires Sum Craft >= 8/Spellcraft >= 8',
-        'validationNotes.runecasterClassSpells:Requires divine level 3'
-      ];
-      profArmor = SRD35.PROFICIENCY_NONE;
-      profShield = SRD35.PROFICIENCY_NONE;
-      profWeapon = SRD35.PROFICIENCY_NONE;
-      saveFortitude = SRD35.SAVE_BONUS_GOOD;
-      saveReflex = SRD35.SAVE_BONUS_POOR;
-      saveWill = SRD35.SAVE_BONUS_GOOD;
-      selectableFeatures = null;
-      skillPoints = 2;
-      skills = [
-        // Scry => ?
-        'Concentration', 'Craft', 'Diplomacy', 'Heal', 'Knowledge (Arcana)',
-        'Knowledge (Religion)', 'Profession', 'Spellcraft'
-      ];
-      spellAbility = null;
-      spells = null;
-      spellsKnown = null;
-      spellsPerDay = null;
-      rules.defineRule
-        ('magicNotes.casterLevelBonusFeature', 'levels.Runecaster', '+=', null);
-      rules.defineRule('magicNotes.runePowerFeature',
-        'levels.Runecaster', '=', 'source >= 9 ? 3 : source >= 5 ? 2 : 1'
-      );
-      rules.defineRule('skillNotes.runeCraftFeature',
-        'levels.Runecaster', '=', 'source>=7 ? 3 : Math.floor((source + 2) / 3)'
-      );
-      rules.defineRule('validationNotes.runecasterClassSpells',
-        'levels.Runecaster', '=', '-1',
-        /^spellsKnown\.(C|D|P|R)3/, '+', '1',
-        '', 'v', '0'
-      );
-
-    } else if(klass == 'Shadow Adept') {
-
-      baseAttack = SRD35.ATTACK_BONUS_POOR;
-      feats = null;
-      features = [
-        '1:Insidious Magic', '1:Pernicious Magic', '1:Tenacious Magic',
-        '2:Low-Light Vision', '2:Shadow Defense', '3:Spell Power',
-        '4:Shield Of Shadows', '7:Darkvision', '7:Shadow Walk',
-        '8:Greater Shield Of Shadows', '10:Shadow Double'
-      ];
-      hitDie = 4;
-      notes = [
-        "featureNotes.darkvisionFeature:%V' b/w vision in darkness",
-        'featureNotes.low-LightVisionFeature:x%V normal distance in poor light',
-        'magicNotes.insidiousMagicFeature:' +
-          'DC 9+foe level check to detect Weave magic/Foe DC %V check to ' +
-          'detect Shadow Weave spell',
-        'magicNotes.perniciousMagicFeature:' +
-          'Weave foes DC %V check to counterspell/DC 9+foe level to ' +
-          'counterspell Weave foes',
-        'magicNotes.shadowWalkFeature:<i>Shadow Walk</i> 1/day',
-        'magicNotes.shieldOfShadowsFeature:' +
-          '<i>Shield</i> w/30% concealment %V rounds/day',
-        'magicNotes.shadowDoubleFeature:Create clone lasting %V rounds 1/day',
-        'magicNotes.spellPowerFeature:+%V specific spell DC/resistance checks',
-        'magicNotes.tenaciousMagicFeature:' +
-          'Weave foes DC %V check to dispel/DC 13+foe level to ' +
-          'dispel Weave foes',
-        'saveNotes.greaterShieldOfShadowsFeature:' +
-          'Shield Of Shadows gives %V spell resistance',
-        'saveNotes.shadowDefenseFeature:' +
-          '+%V vs. Enchantment/Illusion/Necromancy/Darkness spells',
-        'validationNotes.shadowAdeptClassFeats:' +
-          'Requires Shadow Weave Magic/any Metamagic',
-        'validationNotes.shadowAdeptClassAlignment:Requires Alignment !~ Good',
-        'validationNotes.shadowAdeptClassSkills:' +
-          'Requires Knowledge (Arcana) >= 8/Spellcraft >= 8',
-        'validationNotes.shadowAdeptClassSpells:Requires level 3'
-      ];
-      profArmor = SRD35.PROFICIENCY_NONE;
-      profShield = SRD35.PROFICIENCY_NONE;
-      profWeapon = SRD35.PROFICIENCY_NONE;
-      saveFortitude = SRD35.SAVE_BONUS_POOR;
-      saveReflex = SRD35.SAVE_BONUS_POOR;
-      saveWill = SRD35.SAVE_BONUS_GOOD;
-      selectableFeatures = null;
-      skillPoints = 2;
-      skills = [
-        // Scry => ?
-        'Bluff', 'Concentration', 'Craft', 'Disguise', 'Hide', 'Knowledge',
-        'Profession', 'Spellcraft'
-      ];
-      spellAbility = null;
-      spells = null;
-      spellsKnown = null;
-      spellsPerDay = null;
-      rules.defineRule('featCount.Metamagic',
-        'levels.Shadow Adept', '+=', 'source >= 5 ? 1 : null'
-      );
-      rules.defineRule('featureNotes.darkvisionFeature',
-        'shadowAdeptFeatures.Darkvision', '+=', '60'
-      );
-      rules.defineRule('featureNotes.low-LightVisionFeature',
-        '', '=', '1',
-        'shadowAdeptFeatures.Low-Light Vision', '+', null
-      );
-      rules.defineRule
-        ('magicNotes.insidiousMagicFeature', 'casterLevel', '=', 'source + 11');
-      rules.defineRule('magicNotes.perniciousMagicFeature',
-        'casterLevel', '=', 'source + 11'
-      );
-      rules.defineRule
-        ('magicNotes.shieldOfShadowsFeature', 'casterLevel', '=', null);
-      rules.defineRule
-        ('magicNotes.shadowDoubleFeature', 'casterLevel', '=', null);
-      rules.defineRule('magicNotes.spellPowerFeature',
-        'levels.Shadow Adept', '+=', 'Math.floor(source / 3)'
-      );
-      rules.defineRule
-        ('magicNotes.tenaciousMagicFeature', 'casterLevel', '=', '15 + source');
-      rules.defineRule('saveNotes.greaterShieldOfShadowsFeature',
-        'levels.Shadow Adept', '=', 'source + 12'
-      );
-      rules.defineRule('saveNotes.shadowDefenseFeature',
-        'levels.Shadow Adept', '=', 'Math.floor((source + 1) / 3)'
-      );
-      rules.defineRule('validationNotes.shadowAdeptClassSpells',
-        'levels.Shadow Adept', '=', '-1',
-        /^spellsKnown\..*3/, '+', '1',
-        '', 'v', '0'
-      );
-
-    } else
-      continue;
-
-    SRD35.defineClass
-      (rules, klass, hitDie, skillPoints, baseAttack, saveFortitude, saveReflex,
-       saveWill, profArmor, profShield, profWeapon, skills, features,
-       spellsKnown, spellsPerDay, spellAbility);
-    if(notes != null)
-      rules.defineNote(notes);
-    if(feats != null) {
-      for(var j = 0; j < feats.length; j++) {
-        rules.defineChoice('feats', feats[j] + ':' + klass);
-      }
-    } 
-    if(selectableFeatures != null) {
-      for(var j = 0; j < selectableFeatures.length; j++) {
-        var selectable = selectableFeatures[j];
-        var choice = klass + ' ' + selectable;
-        rules.defineChoice('selectableFeatures', choice + ':' + klass);
-        rules.defineRule(klass + 'Features.' + selectable,
-          'selectableFeatures.' + choice, '+=', null
-        );
-        rules.defineRule('features.' + selectable,
-          'selectableFeatures.' + choice, '+=', null
-        );
+    feats = [
+      'Greater Spell Penetration', 'Improved Counterspell',
+      'Magical Artisan', 'Shadow Weave Magic', 'Spell Penetration'
+    ];
+    for(var school in allSchools) {
+      if(school != 'Universal') {
+        feats.push('Greater Spell Focus (' + school + ')');
+        feats.push('Spell Focus (' + school + ')');
       }
     }
-    if(spells != null) {
-      for(var j = 0; j < spells.length; j++) {
-        var pieces = spells[j].split(':');
-        for(var k = 1; k < pieces.length; k++) {
-          var spell = pieces[k];
-          var school = SRD35.spellsSchools[spell];
-          if(school == null) {
-            continue;
-          }
-          spell += '(' + pieces[0] + ' ' +
-                    (school == 'Universal' ? 'Univ' : schools[school]) + ')';
-          rules.defineChoice('spells', spell);
-        }
-      }
+
+    rules.defineRule('featCount.Arcane Devotee',
+      'levels.Arcane Devotee', '+=', 'source >= 3 ? 1 : null'
+    );
+    rules.defineRule
+      ('magicNotes.casterLevelBonus', 'levels.Arcane Devotee', '+=', null);
+    rules.defineRule('magicNotes.freelyEnlargeSpell',
+      'charismaModifier', '+=', 'source > 0 ? source + 1 : 1'
+    );
+    rules.defineRule
+      ('saveNotes.divineShroud', 'casterLevelArcane', '+=', '12 + source');
+    rules.defineRule
+      ('saveNotes.divineShroud.1', 'charismaModifier', '+=', '5 + source');
+    rules.defineRule('saveNotes.sacredDefense',
+      'levels.Arcane Devotee', '+=', 'Math.floor(source / 2)'
+    );
+
+  } else if(name == 'Divine Champion') {
+
+    rules.defineRule('combatNotes.divineWrath', 'charismaModifier', '=', null);
+    rules.defineRule('combatNotes.smiteInfidel',
+      'charismaModifier', '=', 'source > 0 ? source : 0'
+    );
+    rules.defineRule('combatNotes.smiteInfidel.1',
+      'levels.Divine Champion', '=', null
+    );
+    rules.defineRule('featCount.Fighter',
+      'levels.Divine Champion', '+=', 'Math.floor(source / 2)'
+    );
+    rules.defineRule('magicNotes.layOnHands',
+      'levels.Divine Champion', '+=', null,
+      'charismaModifier', '*', null,
+      'charisma', '?', 'source >= 12'
+    );
+    rules.defineRule('saveNotes.divineWrath', 'charismaModifier', '=', null);
+    rules.defineRule('saveNotes.sacredDefense',
+      'levels.Divine Champion', '+=', 'Math.floor(source / 2)'
+    );
+
+  } else if(name == 'Divine Disciple') {
+
+    rules.defineRule
+      ('selectableFeatureCount.Cleric', 'featureNotes.newDomain', '+=', '1');
+    rules.defineRule('magicNotes.casterLevelBonus',
+      'levels.Divine Disciple', '+=', null
+    );
+    rules.defineRule('saveNotes.sacredDefense',
+      'levels.Divine Disciple', '+=', 'Math.floor(source / 2)'
+    );
+    rules.defineRule('skillNotes.transcendence',
+      'deity', '=', 'source.replace(/\\s*\\(.*\\)/, "")'
+    );
+
+  } else if(name == 'Divine Seeker') {
+
+    rules.defineRule('combatNotes.sneakAttack',
+      'levels.Divine Seeker', '+=', 'Math.floor(source / 2)'
+    );
+    rules.defineRule('saveNotes.sacredDefense',
+      'levels.Divine Seeker', '+=', 'Math.floor(source / 2)'
+    );
+
+  } else if(name == 'Guild Thief') {
+
+    feats = [
+      'Alertness', 'Blind-Fight', 'Cosmopolitan', 'Education', 'Leadership',
+      'Lightning Reflexes', 'Still Spell', 'Street Smart', 'Track',
+      'Weapon Finesse', 'Weapon Proficiency (Hand Crossbow)'
+    ];
+    for(var feat in allFeats) {
+      if(feat.match(/(Skill|Weapon)\sFocus/))
+        feats.push(feat);
     }
+
+    rules.defineRule('combatNotes.improvedUncannyDodge',
+      'levels.Guild Thief', '+=', null,
+      '', '+', '4'
+    );
+    rules.defineRule('combatNotes.sneakAttack',
+      'levels.Guild Thief', '+=', 'Math.floor((source + 1) / 2)'
+    );
+    rules.defineRule('featCount.Guild Thief',
+      'levels.Guild Thief', '=', 'source < 2 ? null : Math.floor(source / 2)'
+    );
+    rules.defineRule('featureNotes.reputation',
+      'levels.Guild Thief', '=', 'source >= 3 ? source - 2 : null'
+    );
+
+  } else if(name == 'Harper Scout') {
+
+    rules.defineRule('combatNotes.favoredEnemy',
+      'levels.Harper Scout', '+=', '1 + Math.floor(source / 4)'
+    );
+    rules.defineRule('featCount.General',
+      'levels.Harper Scout', '+=', 'source >= 2 ? 2 : null'
+    );
+    rules.defineRule
+      ('skillNotes.bardicKnowledge', 'levels.Harper Scout', '+=', null);
+    rules.defineRule('skillNotes.favoredEnemy',
+      'levels.Harper Scout', '+=', '1 + Math.floor(source / 4)'
+    );
+
+  } else if(name == 'Hathran') {
+
+    rules.defineRule
+      ('magicNotes.casterLevelBonus', 'levels.Hathran', '+=', null);
+
+  } else if(name == 'Purple Dragon Knight') {
+
+    rules.defineRule('combatNotes.finalStand',
+      'levels.Purple Dragon Knight', '=', null,
+      'charismaModifier', '+', null
+    );
+    rules.defineRule('combatNotes.finalStand.1',
+      'levels.Purple Dragon Knight', '=', null,
+      'charismaModifier', '+', null
+    );
+    rules.defineRule("magicNotes.knight'sCourage",
+      'levels.Purple Dragon Knight', '=', 'Math.floor(source / 2)'
+    );
+
+  } else if(name == 'Red Wizard') {
+
+    for(var feat in allFeats) {
+      if(allFeats[feat].indexOf('Metamagic') >= 0 ||
+         allFeats[feat].indexOf('Item Creation') >= 0)
+        rules.defineRule
+          ('SumItemCreationAndMetamagicFeats', 'feats.' + feat, '+=', null);
+    }
+
+    rules.defineRule
+      ('featCount.Wizard', 'levels.Red Wizard', '+=', 'source>=5 ? 1 : null');
+    rules.defineRule
+      ('magicNotes.casterLevelBonus', 'levels.Red Wizard', '+=', null);
+    rules.defineRule('magicNotes.spellPower',
+      'levels.Red Wizard', '+=', 'Math.floor(source / 2)'
+    );
+    rules.defineRule('saveNotes.specialistDefense',
+      'levels.Red Wizard', '+=',
+      'Math.floor((source + 1) / 2) - (source >= 5 ? 1 : 0)'
+    );
+    rules.defineRule('selectableFeatureCount.Wizard',
+      'magicNotes.enhancedSpecialization', '+', '1'
+    );
+
+  } else if(name == 'Runecaster') {
+
+    rules.defineRule
+      ('magicNotes.casterLevelBonus', 'levels.Runecaster', '+=', null);
+    rules.defineRule('magicNotes.runePower',
+      'levels.Runecaster', '=', 'source >= 9 ? 3 : source >= 5 ? 2 : 1'
+    );
+    rules.defineRule('skillNotes.runeCraft',
+      'levels.Runecaster', '=', 'source>=7 ? 3 : Math.floor((source + 2) / 3)'
+    );
+
+  } else if(name == 'Shadow Adept') {
+
+    for(var feat in allFeats) {
+      if(allFeats[feat].indexOf('Metamagic') >= 0)
+        rules.defineRule('SumMetamagicFeats', 'feats.' + feat, '+=', null);
+    }
+
+    rules.defineRule('featCount.Metamagic',
+      'levels.Shadow Adept', '+=', 'source >= 5 ? 1 : null'
+    );
+    rules.defineRule
+      ('magicNotes.insidiousMagic', 'casterLevel', '=', 'source + 11');
+    rules.defineRule('magicNotes.perniciousMagic', 'casterLevel', '=', 'source + 11');
+    rules.defineRule
+      ('magicNotes.shieldOfShadows', 'casterLevel', '=', null);
+    rules.defineRule
+      ('magicNotes.shadowDouble', 'casterLevel', '=', null);
+    rules.defineRule('magicNotes.spellPower',
+      'levels.Shadow Adept', '+=', 'Math.floor(source / 3)'
+    );
+    rules.defineRule
+      ('magicNotes.tenaciousMagic', 'casterLevel', '=', '15 + source');
+    rules.defineRule('saveNotes.greaterShieldOfShadows',
+      'levels.Shadow Adept', '=', 'source + 12'
+    );
+    rules.defineRule('saveNotes.shadowDefense',
+      'levels.Shadow Adept', '=', 'Math.floor((source + 1) / 3)'
+    );
 
   }
 
+  if(feats != null) {
+    for(var j = 0; j < feats.length; j++) {
+      var feat = feats[j];
+      if(!(feat in allFeats)) {
+        console.log
+          ('feat "' + feat + '" undefined for prestige class "' + name + '"');
+        continue;
+      }
+      allFeats[feat] = allFeats[feat].replace('Type=', 'Type="' + name + '",');
+    }
+  }
+
+};
+
+/* Defines rules related to basic character identity. */
+RealmsPrestige.identityRules = function(rules, classes) {
+  QuilvynUtils.checkAttrTable
+    (classes, ['Require', 'HitDie', 'Attack', 'SkillPoints', 'Fortitude', 'Reflex', 'Will', 'Skills', 'Features', 'Selectables', 'Languages', 'CasterLevelArcane', 'CasterLevelDivine', 'SpellAbility', 'SpellSlots', 'Spells']);
+  for(var clas in classes) {
+    rules.choiceRules(rules, 'Class', clas, classes[clas]);
+    RealmsPrestige.classRulesExtra(rules, clas);
+  }
+};
+
+/* Defines rules related to character feats, languages, and skills. */
+RealmsPrestige.talentRules = function(rules, features) {
+  QuilvynUtils.checkAttrTable(features, ['Section', 'Note']);
+  for(var feature in features) {
+    rules.choiceRules(rules, 'Feature', feature, features[feature]);
+  }
 };
