@@ -79,6 +79,36 @@ function Realms() {
     Object.assign({}, Realms.baseRules.LANGUAGES, Realms.LANGUAGES_ADDED);
   Realms.PATHS =
     Object.assign({}, Realms.baseRules.PATHS, Realms.PATHS_ADDED);
+  Realms.RACES['Gold Dwarf'] =
+    Realms.baseRules.RACES['Dwarf']
+      .replace('Dwarf Ability', 'Gold Dwarf Ability')
+      .replace('Dwarf Enmity', 'Gold Dwarf Enmity'),
+  Realms.RACES['Shield Dwarf'] =
+    Realms.baseRules.RACES['Dwarf'],
+  Realms.RACES['Moon Elf'] =
+    Realms.baseRules.RACES['Elf'],
+  Realms.RACES['Sun Elf'] =
+    Realms.baseRules.RACES['Elf'].replace('Elf Ability', 'Sun Elf Ability'),
+  Realms.RACES['Wild Elf'] =
+    Realms.baseRules.RACES['Elf'].replace('Elf Ability', 'Wild Elf Ability'),
+  Realms.RACES['Wood Elf'] =
+    Realms.baseRules.RACES['Elf'].replace('Elf Ability', 'Wood Elf Ability'),
+  Realms.RACES['Rock Gnome'] =
+    Realms.baseRules.RACES['Gnome'],
+  Realms.RACES['Half-Elf'] =
+    Realms.baseRules.RACES['Half-Elf'],
+  Realms.RACES['Half-Orc'] =
+    Realms.baseRules.RACES['Half-Orc'],
+  Realms.RACES['Ghostwise Halfling'] =
+    Realms.baseRules.RACES['Halfling']
+      .replace(/['"]?Fortunate['"]?/, '"Speak Without Sound"'),
+  Realms.RACES['Lightfoot Halfling'] =
+    Realms.baseRules.RACES['Halfling'],
+  Realms.RACES['Strongheart Halfling'] =
+    Realms.baseRules.RACES['Halfling']
+      .replace(/['"]?Fortunate['"]?/, '"Strongheart Feat Bonus"'),
+  Realms.RACES['Human'] =
+    Realms.baseRules.RACES['Human'],
   Realms.SCHOOLS = Object.assign({}, Realms.baseRules.SCHOOLS);
   Realms.SHIELDS = Object.assign({}, Realms.baseRules.SHIELDS);
   Realms.SKILLS = Object.assign({}, Realms.baseRules.SKILLS);
@@ -1322,11 +1352,11 @@ Realms.RACES = {
     'Languages=Undercommon,Dwarven ' +
     'SpellAbility=intelligence ' +
     'SpellSlots=' +
-      'Duergarish1:1=1,' +
-      'Duergarish2:1=1 ' +
+      'Duergaren1:1=1,' +
+      'Duergaren2:1=1 ' +
     'Spells=' +
-      '"Duergarish1:Enlarge Person",' +
-      'Duergarish2:Invisibility',
+      '"Duergaren1:Enlarge Person",' +
+      'Duergaren2:Invisibility',
   'Shield Dwarf':
     SRD35.RACES['Dwarf'],
   'Drow Elf':
@@ -1339,13 +1369,13 @@ Realms.RACES = {
     'Languages=Undercommon,Elven ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
-      '"Drowish0:1=1",' +
-      '"Drowish1:1=1",' +
-      '"Drowish2:1=1" ' +
+      '"Drowen0:1=1",' +
+      '"Drowen1:1=1",' +
+      '"Drowen2:1=1" ' +
     'Spells=' +
-      '"Drowish0:Dancing Lights",' +
-      '"Drowish1:Faerie Fire",' +
-      '"Drowish2:Darkness"',
+      '"Drowen0:Dancing Lights",' +
+      '"Drowen1:Faerie Fire",' +
+      '"Drowen2:Darkness"',
   'Moon Elf':
     SRD35.RACES['Elf'],
   'Sun Elf':
@@ -1393,9 +1423,9 @@ Realms.RACES = {
     'Languages=Common ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
-      'Aasimarish0:1=1 ' +
+      'Aasimaren0:1=1 ' +
     'Spells=' +
-      'Aasimarish0:Light',
+      'Aasimaren0:Light',
   'Air Genasi':
     'Features=' +
       '"1:Air Genasi Ability Adjustment",1:Breathless,1:Darkvision,' +
@@ -1404,9 +1434,9 @@ Realms.RACES = {
     'Languages=Common ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
-      'Airish2:1=1 ' +
+      'Airen2:1=1 ' +
     'Spells=' +
-      'Airish2:Levitate',
+      'Airen2:Levitate',
   'Earth Genasi':
     'Features=' +
       '1:Darkvision,"1:Earth Genasi Ability Adjustment",' +
@@ -1415,9 +1445,9 @@ Realms.RACES = {
     'Languages=Common ' +
     'SpellAbility=wisdom ' +
     'SpellSlots=' +
-      'Earthish1:1=1 ' +
+      'Earthen1:1=1 ' +
     'Spells=' +
-      '"Earthish1:Pass Without Trace"',
+      '"Earthen1:Pass Without Trace"',
   'Fire Genasi':
     'Features=' +
       '"1:Control Flame",1:Darkvision,"1:Elemental Affinity",' +
@@ -1432,9 +1462,9 @@ Realms.RACES = {
     'Languages=Common ' +
     'SpellAbility=wisdom ' +
     'SpellSlots=' +
-      'Waterish0:1=1 ' +
+      'Wateren0:1=1 ' +
     'Spells=' +
-      '"Waterish0:Create Water"',
+      '"Wateren0:Create Water"',
   'Tiefling':
     'Features=' +
       '1:Beguiling,1:Darkvision,"1:Native Outsider",1:Sneaky,' +
@@ -1443,9 +1473,9 @@ Realms.RACES = {
     'Languages=Common ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
-      'Tieflingish2:1=1 ' +
+      'Tieflen2:1=1 ' +
     'Spells=' +
-      'Tieflingish2:Darkness'
+      'Tieflen2:Darkness'
 };
 Realms.REGIONS = {
   'Aglarond':'',
@@ -2033,7 +2063,7 @@ Realms.featRules = function(rules, name, requires, implies, types) {
       requires[i] = requires[i].replace(/Druid\s*>=\s*15/, 'Druid >= 8');
   }
   Realms.baseRules.featRules(rules, name, requires, implies, types);
-  // No changes needed to the rules defined by SRD35 method
+  // No changes needed to the rules defined by base method
 };
 
 /*
@@ -2091,6 +2121,8 @@ Realms.featRulesExtra = function(rules, name) {
   } else if(name == 'Tenacious Magic') {
     rules.defineRule
       ('magicNotes.tenaciousMagic', 'casterLevel', '=', '15 + source');
+  } else if(Realms.baseRules.featRulesExtra) {
+    Realms.baseRules.featRulesExtra(rules, name);
   }
 
 };
@@ -2190,6 +2222,8 @@ Realms.pathRulesExtra = function(rules, name) {
   } else if(name == 'Trade Domain') {
     rules.defineRule
       ('magicNotes.insiderKnowledge', 'charismaModifier', '=', null);
+  } else if(Realms.baseRules.pathRulesExtra) {
+    Realms.baseRules.pathRulesExtra(rules, name);
   }
 };
 
@@ -2245,6 +2279,8 @@ Realms.raceRulesExtra = function(rules, name) {
     rules.defineRule('casterLevels.EG', 'earthGenasiLevel', '=', '5');
   } else if(name == 'Water Genasi') {
     rules.defineRule('casterLevels.WG', 'waterGenasiLevel', '=', '5');
+  } else if(Realms.baseRules.raceRulesExtra) {
+    Realms.baseRules.raceRulesExtra(rules, name);
   }
 };
 
@@ -2274,7 +2310,7 @@ Realms.shieldRules = function(
 ) {
   Realms.baseRules.shieldRules
     (rules, name, ac, profLevel, skillFail, spellFail);
-  // No changes needed to the rules defined by SRD35 method
+  // No changes needed to the rules defined by base method
 };
 
 /*
@@ -2339,7 +2375,7 @@ Realms.randomizeOneAttribute = function(attributes, attribute) {
     }
     attributes[attribute] = choices[QuilvynUtils.random(0, choices.length - 1)];
   } else {
-    SRD35.randomizeOneAttribute.apply(this, [attributes, attribute]);
+    Realms.baseRules.randomizeOneAttribute.apply(this, [attributes, attribute]);
     if(attribute == 'levels') {
       // Recompute experience to account for level offset for some races
       var attrs = this.applyRules(attributes);
