@@ -19,9 +19,10 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 "use strict";
 
 /*
- * This module loads the rules for the Forgotten Realms campaign setting
- * prestige classes. The RealmsPrestige.CLASSES constant field can be
- * manipulated in order to trim the choices offered.
+ * This module loads the prestige class rules for the Forgotten Realms v3
+ * campaign setting rule book. Member methods can be called independently in
+ * order to use a subset of the rules. Similarly, the RealmsPrestige.CLASSES
+ * constant field can be manipulated in order to modify the choices.
  */
 function RealmsPrestige() {
   if(window.SRD35 == null || window.Realms == null) {
@@ -262,48 +263,88 @@ RealmsPrestige.CLASSES = {
       '"8:Greater Shield Of Shadows","10:Shadow Double"'
 };
 RealmsPrestige.FEATURES = {
-  'Alignment Focus':'Section=magic Note="+1 caster level on spells from chosen alignment component"',
-  'Caster Level Bonus':'Section=magic Note="+%V base class level for spells known/per dy"',
-  'Circle Leader':'Section=magic Note="1 hr ritual w/2-5 other members raises caster level, gives metamagic feats"',
+  'Alignment Focus':
+    'Section=magic ' +
+    'Note="+1 caster level on spells from chosen alignment component"',
+  'Caster Level Bonus':
+    'Section=magic Note="+%V base class level for spells known/per dy"',
+  'Circle Leader':
+    'Section=magic ' +
+    'Note="1 hr ritual w/2-5 other members raises caster level, gives metamagic feats"',
   'Cohort':'Section=feature Note="Gain Hathran or Barbarian follower"',
-  'Craft Harper Item':'Section=magic Note="Create magic instruments, Harper pins, and potions"',
+  'Craft Harper Item':
+    'Section=magic Note="Create magic instruments, Harper pins, and potions"',
   "Deneir's Eye":'Section=save Note="+2 vs. glyphs"',
-  'Divine Emissary':'Section=feature Note="Telepathy w/same-alignment outsider w/in 60\'"',
-  'Divine Perseverance':'Section=combat Note="Regain d8+5 HP from negative 1/dy"',
-  'Divine Shroud':'Section=save Note="Aura provides DC %V spell reistance for %1 rd 1/dy"',
-  'Divine Wrath':'Section=combat,save Note="+3 attack and damage and DR 5/- for %V rd 1/dy","+3 saves %V rd 1/dy",',
+  'Divine Emissary':
+    'Section=feature Note="Telepathy w/same-alignment outsider w/in 60\'"',
+  'Divine Perseverance':
+    'Section=combat Note="Regain d8+5 HP from negative 1/dy"',
+  'Divine Shroud':
+    'Section=save Note="Aura provides DC %V spell reistance for %1 rd 1/dy"',
+  'Divine Wrath':
+    'Section=combat,save ' +
+    'Note="+3 attack and damage and DR 5/- for %V rd 1/dy",' +
+         '"+3 saves %V rd 1/dy",',
   'Doublespeak':'Section=skill Note="+2 Bluff/+2 Diplomacy"',
   'Enhanced Specialization':'Section=magic Note="Additional opposition school"',
-  'Final Stand':'Section=combat Note="R10\' %V allies gain 2d10 HP for %1 rd 1/dy"',
+  'Final Stand':
+    'Section=combat Note="R10\' %V allies gain 2d10 HP for %1 rd 1/dy"',
   'Freely Enlarge Spell':'Section=magic Note="Cast enlarged spell %V/dy"',
-  'Great Circle Leader':'Section=magic Note="Lead magic circle w/9 other members"',
-  'Greater Shield Of Shadows':'Section=save Note="Shield Of Shadows gives %V spell resistance"',
-  'Harper Skill Focus':'Section=feature Note="+1 General Feat (Skill Focus in chosen Perform or Harper class skill"',
+  'Great Circle Leader':
+    'Section=magic Note="Lead magic circle w/9 other members"',
+  'Greater Shield Of Shadows':
+    'Section=save Note="Shield Of Shadows gives %V spell resistance"',
+  'Harper Skill Focus':
+    'Section=feature ' +
+    'Note="+1 General Feat (Skill Focus in chosen Perform or Harper class skill"',
   'Heroic Shield':'Section=combat Note="Aid Another action gives +4 AC bonus"',
-  'Imbue With Spell Ability':'Section=magic Note="<i>Imbue With Spell Ability</i> 1st/2nd level spells at will"',
-  'Improved Runecasting':'Section=magic Note="Add charges and triggers to runes"',
-  "Knight's Courage":'Section=magic Note="Allies +1 attack and damage, +2 charm and fear saves during speech +5 rd %V/dy"',
+  'Imbue With Spell Ability':
+    'Section=magic ' +
+    'Note="<i>Imbue With Spell Ability</i> 1st/2nd level spells at will"',
+  'Improved Runecasting':
+    'Section=magic Note="Add charges and triggers to runes"',
+  "Knight's Courage":
+    'Section=magic ' +
+    'Note="Allies +1 attack and damage, +2 charm and fear saves during speech +5 rd %V/dy"',
   "Lliira's Heart":'Section=save Note="+2 vs. compulsion and fear"',
   'Maximize Rune':'Section=magic Note="+5 DC/maximize effects of runes"',
   'New Domain':'Section=feature Note="Choose additional deity domain"',
-  'Oath Of Wrath':'Section=combat,save,skill Note="+2 attack and damage vs. chosen opponent 1/dy","+2 save vs. chosen opponent 1/dy","+2 checks vs. chosen opponent 1/dy"',
-  'Place Magic':'Section=magic Note="Cast spell w/out prepartion when in Rashemen"',
-  'Rallying Cry':'Section=combat Note="R60\' Allies +1 next attack, +5 speed for 1 tn 3/dy"',
+  'Oath Of Wrath':
+    'Section=combat,save,skill ' +
+    'Note="+2 attack and damage vs. chosen opponent 1/dy",' +
+         '"+2 save vs. chosen opponent 1/dy",' +
+         '"+2 checks vs. chosen opponent 1/dy"',
+  'Place Magic':
+    'Section=magic Note="Cast spell w/out prepartion when in Rashemen"',
+  'Rallying Cry':
+    'Section=combat Note="R60\' Allies +1 next attack, +5 speed for 1 tn 3/dy"',
   'Reputation':'Section=feature Note="+%V Leadership"',
   'Rune Chant':'Section=magic Note="+3 DC divine spells when tracing rune"',
   'Rune Craft':'Section=skill Note="+%V Craft (inscribing runes)"',
   'Rune Power':'Section=magic Note="+%V DC of runes"',
   'Sacred Defense':'Section=save Note="+%V vs. divine spells"',
   'Scribe Tattoo':'Section=magic Note="Induct novices into circle"',
-  'Shadow Defense':'Section=save Note="+%V vs. Enchantment, Illusion, Necromancy, and Darkness spells"',
+  'Shadow Defense':
+    'Section=save ' +
+    'Note="+%V vs. Enchantment, Illusion, Necromancy, and Darkness spells"',
   'Shadow Double':'Section=magic Note="Create clone lasting %V rd 1/dy"',
-  'Shield Of Shadows':'Section=magic Note="<i>Shield</i> w/30% concealment %V rd/dy"',
-  'Smite Infidel':'Section=combat Note="+%V attack, +%1 damage vs. foe w/different deity 1/dy"',
-  'Specialist Defense':'Section=save Note="+%V bonus on saves vs. specialist school spells"',
-  'Spell Power':'Section=magic Note="+%V specialist spell DC and resistance checks"',
-  'Thwart Glyph':'Section=skill Note="+4 Disable Device (glyphs)/+4 Search (glyphs)"',
-  'Transcendence':'Section=magic,skill Note="Chosen <i>Protection</i> spell at will","+2 charisma checks w/followers of %V"',
-  "Tymora's Smile":'Section=save Note="+2 luck bonus to any save 1/dy"'
+  'Shield Of Shadows':
+    'Section=magic Note="<i>Shield</i> w/30% concealment %V rd/dy"',
+  'Smite Infidel':
+    'Section=combat ' +
+    'Note="+%V attack, +%1 damage vs. foe w/different deity 1/dy"',
+  'Specialist Defense':
+    'Section=save Note="+%V bonus on saves vs. specialist school spells"',
+  'Spell Power':
+    'Section=magic Note="+%V specialist spell DC and resistance checks"',
+  'Thwart Glyph':
+    'Section=skill Note="+4 Disable Device (glyphs)/+4 Search (glyphs)"',
+  'Transcendence':
+    'Section=magic,skill ' +
+    'Note="Chosen <i>Protection</i> spell at will",' +
+         '"+2 charisma checks w/followers of %V"',
+  "Tymora's Smile":
+    'Section=save Note="+2 luck bonus to any save 1/dy"'
 };
 RealmsPrestige.classRulesExtra = function(rules, name) {
 
@@ -543,7 +584,7 @@ RealmsPrestige.identityRules = function(rules, classes) {
   }
 };
 
-/* Defines rules related to character feats, languages, and skills. */
+/* Defines rules related to character aptitudes. */
 RealmsPrestige.talentRules = function(rules, features) {
   QuilvynUtils.checkAttrTable(features, ['Section', 'Note']);
   for(var feature in features) {

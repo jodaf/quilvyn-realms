@@ -22,11 +22,11 @@ var REALMS_VERSION = '2.1.1.0';
 
 /*
  * This module loads the rules from the Forgotten Realms v3 source book. The
- * Realms function contains methods that load rules for particular
- * parts/chapters of the rule book: raceRules for character races, magicRules
- * for spells, etc.  These member methods can be called independently in order
- * to use a subset of the rules.  Similarly, the constant fields of Realms
- * (DEITIES, FEATS, etc.) can be manipulated to modify the user's choices.
+ * Realms function contains methods that load rules for particular parts of the
+ * rule book: raceRules for character races, magicRules for spells, etc. These
+ * member methods can be called independently in order to use a subset of the
+ * Realms rules.  Similarly, the constant fields of Realms (DEITIES, FEATS,
+ * etc.) can be manipulated to modify the user's choices.
  */
 function Realms() {
 
@@ -41,7 +41,7 @@ function Realms() {
   Realms.baseRules = Realms.USE_PATHFINDER ? Pathfinder : SRD35;
 
   var rules = new QuilvynRules
-    ('Forgotten Realms' + (Realms.USE_PATHFINDER ? ' - PF' : ''), REALMS_VERSION);
+    ('Forgotten Realms' + (Realms.USE_PATHFINDER?' - PF':''), REALMS_VERSION);
   Realms.rules = rules;
 
   Realms.CHOICES = Realms.baseRules.CHOICES.concat(Realms.CHOICES_ADDED);
@@ -59,7 +59,10 @@ function Realms() {
   rules.ruleNotes = Realms.ruleNotes;
 
   SRD35.createViewers(rules, SRD35.VIEWERS);
-  rules.defineChoice('extras', 'feats', 'featCount', 'selectableFeatureCount');
+  rules.defineChoice('extras',
+    'feats', 'featCount', 'sanityNotes', 'selectableFeatureCount',
+    'validationNotes'
+  );
   rules.defineChoice('preset', 'race', 'level', 'levels');
 
   Realms.ALIGNMENTS = Object.assign({}, Realms.baseRules.ALIGNMENTS);
@@ -120,8 +123,8 @@ function Realms() {
   Realms.abilityRules(rules);
   Realms.aideRules(rules, Realms.ANIMAL_COMPANIONS, Realms.FAMILIARS);
   Realms.combatRules(rules, Realms.ARMORS, Realms.SHIELDS, Realms.WEAPONS);
-  // Spell definition is handled by each individual class and domain. Schools
-  // have to be defined before this can be done.
+  // Most spell definitions are handled by individual classes and paths.
+  // Schools must be defined before this can be done.
   Realms.magicRules(rules, Realms.SCHOOLS, []);
   // Feats must be defined before classes
   Realms.talentRules
@@ -161,138 +164,301 @@ Realms.ARMORS = Object.assign({}, SRD35.ARMORS);
 Realms.CLASSES = Object.assign({}, SRD35.CLASSES);
 Realms.DEITIES = {
   'None':'',
-  'Akadi':'Alignment=N Weapon="Heavy Flail" Domain=Air,Illusion,Travel,Trickery',
+  'Akadi':
+    'Alignment=N Weapon="Heavy Flail" Domain=Air,Illusion,Travel,Trickery',
   'Auril':'Alignment=NE Weapon=Battleaxe Domain=Air,Evil,Storm,Water',
-  'Azuth':'Alignment=LN Weapon=Quarterstaff Domain=Illusion,Magic,Knowledge,Law,Spell',
-  'Bane':'Alignment=LE Weapon=Morningstar Domain=Destruction,Evil,Hatred,Law,Tyranny',
+  'Azuth':
+    'Alignment=LN ' +
+    'Weapon=Quarterstaff ' +
+    'Domain=Illusion,Magic,Knowledge,Law,Spell',
+  'Bane':
+    'Alignment=LE ' +
+    'Weapon=Morningstar ' +
+    'Domain=Destruction,Evil,Hatred,Law,Tyranny',
   'Beshaba':'Alignment=CE Weapon=Scourge Domain=Chaos,Evil,Fate,Luck,Trickery',
-  'Chauntea':'Alignment=NG Weapon=Scythe Domain=Animal,Earth,Good,Plant,Protection,Renewal',
-  'Cyric':'Alignment=CE Weapon=Longsword Domain=Chaos,Destruction,Evil,Illusion,Trickery',
+  'Chauntea':
+    'Alignment=NG ' +
+    'Weapon=Scythe ' +
+    'Domain=Animal,Earth,Good,Plant,Protection,Renewal',
+  'Cyric':
+    'Alignment=CE ' +
+    'Weapon=Longsword ' +
+    'Domain=Chaos,Destruction,Evil,Illusion,Trickery',
   'Deneir':'Alignment=NG Weapon=Dagger Domain=Good,Knowledge,Protection,Rune',
   'Eldath':'Alignment=NG Weapon=Net Domain=Family,Good,Plant,Protection,Water',
-  'Finder Wyvernspur':'Alignment=CN Weapon="Bastard Sword" Domain=Chaos,Charm,Renewal,Scalykind',
-  'Garagos':'Alignment=CN Weapon=Longsword Domain=Chaos,Destruction,Strength,War',
-  'Gargauth':'Alignment=LE Weapon=Dagger,"Throwing Dagger" Domain=Charm,Evil,Law,Trickery',
-  'Gond':'Alignment=N Weapon=Warhammer Domain=Craft,Earth,Fire,Knowledge,Metal,Planning',
+  'Finder Wyvernspur':
+    'Alignment=CN Weapon="Bastard Sword" Domain=Chaos,Charm,Renewal,Scalykind',
+  'Garagos':
+    'Alignment=CN Weapon=Longsword Domain=Chaos,Destruction,Strength,War',
+  'Gargauth':
+    'Alignment=LE ' +
+    'Weapon=Dagger,"Throwing Dagger" ' +
+    'Domain=Charm,Evil,Law,Trickery',
+  'Gond':
+    'Alignment=N ' +
+    'Weapon=Warhammer ' +
+    'Domain=Craft,Earth,Fire,Knowledge,Metal,Planning',
   'Grumbar':'Alignment=N Weapon=Warhammer Domain=Cavern,Earth,Metal,Time',
-  'Gwaeron Windstrom':'Alignment=NG Weapon=Greatsword Domain=Animal,Good,Knowledge,Plant,Travel',
-  'Helm':'Alignment=LN Weapon="Bastard Sword" Domain=Law,Planning,Protection,Strength',
+  'Gwaeron Windstrom':
+    'Alignment=NG Weapon=Greatsword Domain=Animal,Good,Knowledge,Plant,Travel',
+  'Helm':
+    'Alignment=LN ' +
+    'Weapon="Bastard Sword" ' +
+    'Domain=Law,Planning,Protection,Strength',
   'Hoar':'Alignment=LN Weapon=Javelin Domain=Fate,Law,Retribution,Travel',
-  'Ilmater':'Alignment=LG Weapon=Unarmed Domain=Good,Healing,Law,Strength,Suffering',
-  'Istishia':'Alignment=N Weapon=Warhammer Domain=Destruction,Ocean,Storm,Travel,Water',
+  'Ilmater':
+    'Alignment=LG Weapon=Unarmed Domain=Good,Healing,Law,Strength,Suffering',
+  'Istishia':
+    'Alignment=N Weapon=Warhammer Domain=Destruction,Ocean,Storm,Travel,Water',
   'Jergal':'Alignment=LN Weapon=Scythe Domain=Death,Fate,Law,Rune,Suffering',
-  'Kelemvor':'Alignment=LN Weapon="Bastard Sword" Domain=Death,Fate,Law,Protection,Travel',
-  'Kossuth':'Alignment=N Weapon="Spiked Chain" Domain=Destruction,Fire,Renewal,Suffering',
-  'Lathander':'Alignment=NG Weapon="Heavy Mace","Light Mace" Domain=Good,Nobility,Protection,Renewal,Strength,Sun',
+  'Kelemvor':
+    'Alignment=LN ' +
+    'Weapon="Bastard Sword" ' +
+    'Domain=Death,Fate,Law,Protection,Travel',
+  'Kossuth':
+    'Alignment=N ' +
+    'Weapon="Spiked Chain" ' +
+    'Domain=Destruction,Fire,Renewal,Suffering',
+  'Lathander':
+    'Alignment=NG ' +
+    'Weapon="Heavy Mace","Light Mace" ' +
+    'Domain=Good,Nobility,Protection,Renewal,Strength,Sun',
   'Lliira':'Alignment=CG Weapon=Shuriken Domain=Chaos,Charm,Family,Good,Travel',
-  'Loviatar':'Alignment=LE Weapon=Scourge Domain=Evil,Law,Retribution,Strength,Suffering',
+  'Loviatar':
+    'Alignment=LE ' +
+    'Weapon=Scourge ' +
+    'Domain=Evil,Law,Retribution,Strength,Suffering',
   'Lurue':'Alignment=CG Weapon=Shortspear Domain=Animal,Chaos,Good,Healing',
-  'Malar':'Alignment=CE Weapon="Claw Bracer" Domain=Animal,Chaos,Evil,Moon,Strength',
+  'Malar':
+    'Alignment=CE Weapon="Claw Bracer" Domain=Animal,Chaos,Evil,Moon,Strength',
   'Mask':'Alignment=NE Weapon=Longsword Domain=Darkness,Evil,Luck,Trickery',
   'Mielikki':'Alignment=NG Weapon=Scimitar Domain=Animal,Good,Plant,Travel',
   'Milil':'Alignment=NG Weapon=Rapier Domain=Charm,Good,Knowledge,Nobility',
-  'Mystra':'Alignment=NG Weapon=Shuriken Domain=Good,Illusion,Knowledge,Magic,Rune,Spell',
+  'Mystra':
+    'Alignment=NG ' +
+    'Weapon=Shuriken ' +
+    'Domain=Good,Illusion,Knowledge,Magic,Rune,Spell',
   'Nobanion':'Alignment=LG Weapon="Heavy Pick" Domain=Animal,Good,Law,Nobility',
-  'Oghma':'Alignment=N Weapon=Longsword Domain=Charm,Knowledge,Luck,Travel,Trickery',
+  'Oghma':
+    'Alignment=N Weapon=Longsword Domain=Charm,Knowledge,Luck,Travel,Trickery',
   'Red Knight':'Alignment=LN Weapon=Longsword Domain=Law,Nobility,Planning,War',
   'Savras':'Alignment=LN Weapon=Dagger Domain=Fate,Knowledge,Law,Magic,Spell',
-  'Selune':'Alignment=CG Weapon="Heavy Mace" Domain=Chaos,Good,Moon,Protection,Travel',
+  'Selune':
+    'Alignment=CG Weapon="Heavy Mace" Domain=Chaos,Good,Moon,Protection,Travel',
   'Shar':'Alignment=NE Weapon=Chakram Domain=Cavern,Darkness,Evil,Knowledge',
-  'Sharess':'Alignment=CG Weapon="Claw Bracer" Domain=Chaos,Charm,Good,Travel,Trickery',
-  'Shaundakul':'Alignment=CN Weapon=Greatsword Domain=Air,Chaos,Portal,Protection,Trade,Travel',
-  'Shiallia':'Alignment=NG Weapon=Quarterstaff Domain=Animal,Good,Plant,Renewal',
-  'Siamorphe':'Alignment=LN Weapon="Light Mace" Domain=Knowledge,Law,Nobility,Planning',
-  'Silvanus':'Alignment=N Weapon=Maul Domain=Animal,Plant,Protection,Renewal,Water',
+  'Sharess':
+    'Alignment=CG Weapon="Claw Bracer" Domain=Chaos,Charm,Good,Travel,Trickery',
+  'Shaundakul':
+    'Alignment=CN ' +
+    'Weapon=Greatsword ' +
+    'Domain=Air,Chaos,Portal,Protection,Trade,Travel',
+  'Shiallia':
+    'Alignment=NG Weapon=Quarterstaff Domain=Animal,Good,Plant,Renewal',
+  'Siamorphe':
+    'Alignment=LN Weapon="Light Mace" Domain=Knowledge,Law,Nobility,Planning',
+  'Silvanus':
+    'Alignment=N Weapon=Maul Domain=Animal,Plant,Protection,Renewal,Water',
   'Sune':'Alignment=CG Weapon=Whip Domain=Chaos,Charm,Good,Protection',
-  'Talona':'Alignment=CE Weapon=Unarmed Domain=Chaos,Destruction,Evil,Suffering',
-  'Talos':'Alignment=CE Weapon=Halfspear,Longspear,Shortspear Domain=Chaos,Destruction,Evil,Fire,Storm',
+  'Talona':
+    'Alignment=CE Weapon=Unarmed Domain=Chaos,Destruction,Evil,Suffering',
+  'Talos':
+    'Alignment=CE ' +
+    'Weapon=Halfspear,Longspear,Shortspear ' +
+    'Domain=Chaos,Destruction,Evil,Fire,Storm',
   'Tempus':'Alignment=CN Weapon=Battleaxe Domain=Chaos,Protection,Strength,War',
   'Tiamat':'Alignment=LE Weapon="Heavy Pick" Domain=Evil,Law,Scalykind,Tyranny',
-  'Torm':'Alignment=LG Weapon=Greatsword Domain=Good,Healing,Law,Protection,Strength',
-  'Tymora':'Alignment=CG Weapon=Shuriken Domain=Chaos,Good,Luck,Protection,Travel',
-  'Tyr':'Alignment=LG Weapon=Longsword Domain=Good,Knowledge,Law,Retribution,War',
-  'Ubtao':'Alignment=N Weapon="Heavy Pick" Domain=Planning,Plant,Protection,Scalykind',
-  'Ulutiu':'Alignment=LN Weapon=Longspear,Shortspear Domain=Animal,Law,Ocean,Protection,Strength',
-  'Umberlee':'Alignment=CE Weapon=Trident Domain=Chaos,Destruction,Evil,Ocean,Storm,Water',
-  'Uthgar':'Alignment=CN Weapon=Battleaxe Domain=Animal,Chaos,Retribution,Strength,War',
-  'Valkur':'Alignment=CG Weapon=Cutlass Domain=Air,Chaos,Good,Ocean,Protection',
-  'Velsharoon':'Alignment=NE Weapon=Quarterstaff Domain=Death,Evil,Magic,Undeath',
-  'Waukeen':'Alignment=N Weapon=Nunchaku Domain=Knowledge,Protection,Trade,Travel'
+  'Torm':
+    'Alignment=LG ' +
+    'Weapon=Greatsword ' +
+    'Domain=Good,Healing,Law,Protection,Strength',
+  'Tymora':
+    'Alignment=CG Weapon=Shuriken Domain=Chaos,Good,Luck,Protection,Travel',
+  'Tyr':
+    'Alignment=LG Weapon=Longsword Domain=Good,Knowledge,Law,Retribution,War',
+  'Ubtao':
+    'Alignment=N ' +
+    'Weapon="Heavy Pick" ' +
+    'Domain=Planning,Plant,Protection,Scalykind',
+  'Ulutiu':
+    'Alignment=LN ' +
+    'Weapon=Longspear,Shortspear ' +
+    'Domain=Animal,Law,Ocean,Protection,Strength',
+  'Umberlee':
+    'Alignment=CE ' +
+    'Weapon=Trident ' +
+    'Domain=Chaos,Destruction,Evil,Ocean,Storm,Water',
+  'Uthgar':
+    'Alignment=CN ' +
+    'Weapon=Battleaxe ' +
+    'Domain=Animal,Chaos,Retribution,Strength,War',
+  'Valkur':
+    'Alignment=CG Weapon=Cutlass Domain=Air,Chaos,Good,Ocean,Protection',
+  'Velsharoon':
+    'Alignment=NE Weapon=Quarterstaff Domain=Death,Evil,Magic,Undeath',
+  'Waukeen':
+    'Alignment=N Weapon=Nunchaku Domain=Knowledge,Protection,Trade,Travel'
 };
 Realms.FAMILIARS = Object.assign({}, SRD35.FAMILIARS);
 Realms.FEATS_ADDED = {
   'Arcane Preparation':'Type=General Require="levels.Bard || levels.Sorcerer"',
-  'Arcane Schooling':'Type=General Require="Region =~ \'Chessenta|Halruaa|Lantan|Mulhorand|Unther\'"',
-  'Artist':'Type=General Imply="Sum \'skills.Perform\' > 0 || Sum \'skills.Craft\' > 0" Require="Region =~ \'Chessenta|Evermeet|Waterdeep|Rock Gnome\'"',
-  'Blooded':'Type=General Require="region =~ \'Dalelands|Nelanther Isles|Sembia|Silverymoon|Tethyr|Vaasa\'"',
+  'Arcane Schooling':
+    'Type=General ' +
+    'Require="Region =~ \'Chessenta|Halruaa|Lantan|Mulhorand|Unther\'"',
+  'Artist':
+    'Type=General ' +
+    'Imply="Sum \'skills.Perform\' > 0 || Sum \'skills.Craft\' > 0" ' +
+    'Require="Region =~ \'Chessenta|Evermeet|Waterdeep|Rock Gnome\'"',
+  'Blooded':
+    'Type=General ' +
+    'Require="region =~ \'Dalelands|Nelanther Isles|Sembia|Silverymoon|Tethyr|Vaasa\'"',
   'Bloodline Of Fire':'Type=General Require="region == \'Calimshan\'"',
-  'Bullheaded':'Type=General Require="region =~ \'Damara|Dragon Coast|Great Dale|Moonshaes|Narfell|Nelanther Isles|Rashemen|Vaasa|Western Heartlands|Gold Dwarf|Gray Dwarf|Shield Dwarf\'"',
+  'Bullheaded':
+    'Type=General ' +
+    'Require="region =~ \'Damara|Dragon Coast|Great Dale|Moonshaes|Narfell|Nelanther Isles|Rashemen|Vaasa|Western Heartlands|Gold Dwarf|Gray Dwarf|Shield Dwarf\'"',
   'Cosmopolitan':'Type=General Require="region =~ \'Amn|Waterdeep\'"',
-  'Courteous Magocracy':'Type=General Require="skills.Diplomacy||skills.Spellcraft","region =~ \'Evermeet|Halruaa\'"',
+  'Courteous Magocracy':
+    'Type=General ' +
+    'Require="skills.Diplomacy||skills.Spellcraft",' +
+            '"region =~ \'Evermeet|Halruaa\'"',
   'Create Portal':'Type="Item Creation" Require="features.Craft Wondrous Item"',
-  'Daylight Adaptation':'Type=General Require="region =~ \'Drow|Gray Dwarf|Orc\'"',
-  'Delay Spell':'Type=Metamagic Imply="casterLevel >= 1" Require="SumMetamagicFeats >= 1"',
-  'Discipline':'Type=General Require="region =~ \'Aglarond|Anauroch|Cormyr|Impitur|Thay|Strongheart Halfling|Sun Elf|Rock Gnome\'"',
-  'Education':'Type=General Require="region =~ \'Amn|Chessenta|Cormyr|Evermeet|Lantan|Mulhorand|Sembia|Silverymoon|Waterdeep|Moon Elf|Sun Elf\'"',
-  'Ethran':'Type=General Require="charisma >= 11","casterLevel >= 1","gender == \'Female\'","region == \'Rashemen\'"',
-  'Foe Hunter':'Type=Fighter Require="region =~ \'Chult|Cormyr|Damara|Lake Of Steam|The North|Moonsea|Tashalar|Thethyr|Vaasa|Shield Dwarf|Wood Elf\'"',
-  'Forester':'Type=General Require="region =~ \'Chondalwood|Dalelands|Great Dale|High Forest|Ghostwise Halfling|Moon Elf|Wild Elf|Moon Elf\'"',
-  'Horse Nomad':'Type=Fighter Require="region =~ \'Hordelands|The Shaar|Vaasa\'"',
-  'Innate Spell':'Type=General Require="features.Quicken Spell/features.ilent Spell/features.till Spell"',
-  'Inscribe Rune':'Type="Item Creation" Require="intelligence >= 13","casterLevelDivine >= 3"',
+  'Daylight Adaptation':
+    'Type=General Require="region =~ \'Drow|Gray Dwarf|Orc\'"',
+  'Delay Spell':
+    'Type=Metamagic Imply="casterLevel >= 1" Require="SumMetamagicFeats >= 1"',
+  'Discipline':
+    'Type=General ' +
+    'Require="region =~ \'Aglarond|Anauroch|Cormyr|Impitur|Thay|Strongheart Halfling|Sun Elf|Rock Gnome\'"',
+  'Education':
+    'Type=General ' +
+    'Require="region =~ \'Amn|Chessenta|Cormyr|Evermeet|Lantan|Mulhorand|Sembia|Silverymoon|Waterdeep|Moon Elf|Sun Elf\'"',
+  'Ethran':
+    'Type=General ' +
+    'Require="charisma >= 11",' +
+            '"casterLevel >= 1",' +
+            '"gender == \'Female\'",' +
+            '"region == \'Rashemen\'"',
+  'Foe Hunter':
+    'Type=Fighter ' +
+    'Require="region =~ \'Chult|Cormyr|Damara|Lake Of Steam|The North|Moonsea|Tashalar|Thethyr|Vaasa|Shield Dwarf|Wood Elf\'"',
+  'Forester':
+    'Type=General ' +
+    'Require="region =~ \'Chondalwood|Dalelands|Great Dale|High Forest|Ghostwise Halfling|Moon Elf|Wild Elf|Moon Elf\'"',
+  'Horse Nomad':
+    'Type=Fighter Require="region =~ \'Hordelands|The Shaar|Vaasa\'"',
+  'Innate Spell':
+    'Type=General ' +
+    'Require="features.Quicken Spell/features.ilent Spell/features.till Spell"',
+  'Inscribe Rune':
+    'Type="Item Creation" ' +
+    'Require="intelligence >= 13","casterLevelDivine >= 3"',
     // TBD 'Requires appropriate Craft skill'
   'Insidious Magic':'Type=Metamagic Require="features.Shadow Weave Magic"',
-  'Luck Of Heroes':'Type=General Require="region =~ \'Aglarond|Dalelands|Tethyr|The Vast\'"',
-  'Magical Artisan':'Type=General Imply="casterLevel >= 1" Require="SumItemCreationFeats >= 1"',
-  'Magical Training':'Type=General Require="Intelligence >= 10","region == \'Halruaa\'"',
-  'Mercantile Background':'Type=General Require="Sum \'skills.Appraise\' > 0||Sum \'skills.Craft\' > 0||Sum \'skills.Profession\' > 0","region =~ \'Impiltur|Lake Of Steam|Lantan|Sembia|Tashalar|Tethyr|Thesk|The Vast|Deep Gnome|Gray Dwarf\'"',
-  'Militia':'Type=General Require="region =~ \'Dalelands|Impiltur|Luiren|Strongheart Halfling\'"',
-  'Mind Over Body':'Type=General Imply="intelligenceModifier >= constitutionModifier" Require="region =~ \'Calimshan|Thay|Moon Elf|Sun Elf\'"',
+  'Luck Of Heroes':
+    'Type=General Require="region =~ \'Aglarond|Dalelands|Tethyr|The Vast\'"',
+  'Magical Artisan':
+    'Type=General Imply="casterLevel >= 1" Require="SumItemCreationFeats >= 1"',
+  'Magical Training':
+    'Type=General Require="Intelligence >= 10","region == \'Halruaa\'"',
+  'Mercantile Background':
+    'Type=General ' +
+    'Require="Sum \'skills.Appraise\' > 0||Sum \'skills.Craft\' > 0||Sum \'skills.Profession\' > 0",' +
+            '"region =~ \'Impiltur|Lake Of Steam|Lantan|Sembia|Tashalar|Tethyr|Thesk|The Vast|Deep Gnome|Gray Dwarf\'"',
+  'Militia':
+    'Type=General ' +
+    'Require="region =~ \'Dalelands|Impiltur|Luiren|Strongheart Halfling\'"',
+  'Mind Over Body':
+    'Type=General ' +
+    'Imply="intelligenceModifier >= constitutionModifier" ' +
+    'Require="region =~ \'Calimshan|Thay|Moon Elf|Sun Elf\'"',
   'Pernicious Magic':'Type=Metamagic Require="features.Shadow Weave Magic"',
   'Persistent Spell':'Type=Metamagic Require="features.Extend Spell"',
-  'Resist Poison Training':'Type=General Require="region =~ \'Gray Dwarf|Half Orc|Orc\'"',
-  'Saddleback':'Type=Fighter Require="region =~ \'Cormyr|Hordelands|Narfell|The North|Western Heartlands\'"',
-  'Shadow Weave Magic':'Type=General Imply="casterLevel >= 1" Require="wisdom >= 13 || deity == \'Shar\'"',
+  'Resist Poison Training':
+    'Type=General Require="region =~ \'Gray Dwarf|Half Orc|Orc\'"',
+  'Saddleback':
+    'Type=Fighter ' +
+    'Require="region =~ \'Cormyr|Hordelands|Narfell|The North|Western Heartlands\'"',
+  'Shadow Weave Magic':
+    'Type=General ' +
+    'Imply="casterLevel >= 1" ' +
+    'Require="wisdom >= 13 || deity == \'Shar\'"',
   'Signature Spell':'Type=General Require="features.Spell Mastery"',
-  'Silver Palm':'Type=General Require="region =~ \'Amn|Dragon Coast|Great Dale|Impiltur|Moonsea|Sembia|The Shaar|Thesk|Vilhon Reach|Gold Dwarf|Gray Dwarf\'"',
-  'Smooth Talk':'Type=General Require="region =~ \'Luiren|Silverymoon|Thesk|Waterdeep|Gold Dwarf|Lightfoot Halfling\'"',
-  'Snake Blood':'Type=General Require="region =~ \'Chult|Tashalar|Vilhon Reach\'"',
+  'Silver Palm':
+    'Type=General ' +
+    'Require="region =~ \'Amn|Dragon Coast|Great Dale|Impiltur|Moonsea|Sembia|The Shaar|Thesk|Vilhon Reach|Gold Dwarf|Gray Dwarf\'"',
+  'Smooth Talk':
+    'Type=General ' +
+    'Require="region =~ \'Luiren|Silverymoon|Thesk|Waterdeep|Gold Dwarf|Lightfoot Halfling\'"',
+  'Snake Blood':
+    'Type=General Require="region =~ \'Chult|Tashalar|Vilhon Reach\'"',
   'Spellcasting Prodigy (Bard)':'Type=General Imply="levels.Bard >= 1"',
   'Spellcasting Prodigy (Cleric)':'Type=General Imply="levels.Cleric >= 1"',
   'Spellcasting Prodigy (Druid)':'Type=General Imply="levels.Druid >= 1"',
   'Spellcasting Prodigy (Sorcerer)':'Type=General Imply="levels.Druid >= 1"',
   'Spellcasting Prodigy (Wizard)':'Type=General Imply="levels.Druid >= 1"',
-  'Stealthy':'Type=General Require="region =~ \'Drow Elf|Half Orc|Ghostwise Halfling|Lightfoot Halfling|Strongheart Halfling\'"',
-  'Street Smart':'Type=General Require="region =~ \'Amn|Calimshan|Chessenta|Moonsea|Unther\'"',
-  'Strong Soul':'Type=General Require="region =~ \'Dalelands|Moonshaes|Deep Gnome|Ghostwise Halfling|Lightfoot Halfling|Moon Elf|Rock Gnome|Strongheart Halfling|Sun Elf|Wild Elf|Wood Elf\'"',
-  'Survivor':'Type=General Require="region =~ \'Anauroch|Chondalwood|Chult|Damara|Hordelands|Moonshaes|Narfell|The North|The Shaar|Rashemen|Silverymoon|Vaasa|Vilhon Reach|Western Heartlands|Deep Gnome|Drow Elf|Lightfoot Halfling|Ghostwise Halfling|Shield Dwarf|Wild Elf\'"',
-  'Tattoo Focus':'Type=General Require="levels.Wizard >= 1","features.School Specialization (None) == 0","region == \'Thay\'"',
-  'Tenacious Magic':'Type=Metamagic Imply="casterLevel >= 1" Require="features.Shadow Weave Magic"',
-  'Thug':'Type=General Require="region =~ \'Calimshan|Dragon Coast|Moonsea|elanther Isles|Unther|The Vast|Vilhon Reach|Waterdeep\'"',
+  'Stealthy':
+    'Type=General ' +
+    'Require="region =~ \'Drow Elf|Half Orc|Ghostwise Halfling|Lightfoot Halfling|Strongheart Halfling\'"',
+  'Street Smart':
+    'Type=General ' +
+    'Require="region =~ \'Amn|Calimshan|Chessenta|Moonsea|Unther\'"',
+  'Strong Soul':
+    'Type=General ' +
+    'Require="region =~ \'Dalelands|Moonshaes|Deep Gnome|Ghostwise Halfling|Lightfoot Halfling|Moon Elf|Rock Gnome|Strongheart Halfling|Sun Elf|Wild Elf|Wood Elf\'"',
+  'Survivor':
+    'Type=General ' +
+    'Require="region =~ \'Anauroch|Chondalwood|Chult|Damara|Hordelands|Moonshaes|Narfell|The North|The Shaar|Rashemen|Silverymoon|Vaasa|Vilhon Reach|Western Heartlands|Deep Gnome|Drow Elf|Lightfoot Halfling|Ghostwise Halfling|Shield Dwarf|Wild Elf\'"',
+  'Tattoo Focus':
+    'Type=General ' +
+    'Require="levels.Wizard >= 1",' +
+            '"features.School Specialization (None) == 0",' +
+            '"region == \'Thay\'"',
+  'Tenacious Magic':
+    'Type=Metamagic ' +
+    'Imply="casterLevel >= 1" ' +
+    'Require="features.Shadow Weave Magic"',
+  'Thug':
+    'Type=General ' +
+    'Require="region =~ \'Calimshan|Dragon Coast|Moonsea|elanther Isles|Unther|The Vast|Vilhon Reach|Waterdeep\'"',
   'Thunder Twin':'Type=General Require="region =~ \'Gold Dwarf|Shield Dwarf\'"',
-  'Treetopper':'Type=General Require="region =~ \'Aglarond|Chondalwood|High Forest|Ghostwise Halfling|Wild Elf|Wood Elf\'"',
-  'Twin Spell':'Type=Metamagic Imply="casterLevel >= 1" Require="SumMetamagicFeats >= 1"',
-  'Twin Sword Style':'Type=Fighter Require="features.Two Weapon Fighting","region =~ \'Sembia|Waterdeep|Drow Elf\'"',
+  'Treetopper':
+    'Type=General ' +
+    'Require="region =~ \'Aglarond|Chondalwood|High Forest|Ghostwise Halfling|Wild Elf|Wood Elf\'"',
+  'Twin Spell':
+    'Type=Metamagic Imply="casterLevel >= 1" Require="SumMetamagicFeats >= 1"',
+  'Twin Sword Style':
+    'Type=Fighter ' +
+    'Require="features.Two Weapon Fighting",' +
+            '"region =~ \'Sembia|Waterdeep|Drow Elf\'"',
 };
 Realms.FEATS = Object.assign({}, SRD35.FEATS, Realms.FEATS_ADDED);
 Realms.FEATURES_ADDED = {
+
   // Feat
-  'Arcane Preparation':'Section=magic Note="Prepare arcane spell ahead of time"',
+  'Arcane Preparation':
+    'Section=magic Note="Prepare arcane spell ahead of time"',
   'Arcane Schooling':'Section=magic Note="Designated arcane class is favored"',
   'Artist':'Section=skill Note="+2 Perform/+2 chosen Craft"',
   'Blooded':'Section=combat,skill Note="+2 Initiative","+2 Spot"',
-  'Bloodline Of Fire':'Section=magic,save Note="+2 DC Sorcerer fire spells","+4 vs. fire spells"',
+  'Bloodline Of Fire':
+    'Section=magic,save Note="+2 DC Sorcerer fire spells","+4 vs. fire spells"',
   'Bullheaded':'Section=save,skill Note="+1 Will","+2 Intimidate"',
-  'Cosmopolitan':'Section=skill Note="Chosen skill is class skill/+2 chosen skill checks"',
+  'Cosmopolitan':
+    'Section=skill Note="Chosen skill is class skill/+2 chosen skill checks"',
   'Courteous Magocracy':'Section=skill Note="+2 Diplomacy/+2 Spellcraft"',
   'Create Portal':'Section=magic Note="Create magical portal"',
   'Daylight Adaptation':'Section=feature Note="No bright light penalties"',
   'Delay Spell':'Section=magic Note="Delay effect of spell 1-5 rd"',
   'Discipline':'Section=save,skill Note="+1 Will","+2 Concentration"',
-  'Education':'Section=skill Note="All Knowledge skills class skills/+1 any 2 Knowledge skills"',
+  'Education':
+    'Section=skill ' +
+    'Note="All Knowledge skills class skills/+1 any 2 Knowledge skills"',
   // Substitute for SRD3.0 skills Animal Empathy/Intuit Direction
-  'Ethran':'Section=ability,skill Note="+2 charisma w/Rashemi","+2 Handle Animal/Survival"',
-  'Foe Hunter':'Section=combat Note="+1 damage, double critical range w/regional foe"',
+  'Ethran':
+    'Section=ability,skill ' +
+    'Note="+2 charisma w/Rashemi",' +
+         '"+2 Handle Animal/Survival"',
+  'Foe Hunter':
+    'Section=combat Note="+1 damage, double critical range w/regional foe"',
   'Forester':'Section=skill Note="+2 Heal/Survival"',
   // Identical to SRD35, but +3 DC instead of +1
   'Greater Spell Focus (Abjuration)':
@@ -311,69 +477,121 @@ Realms.FEATURES_ADDED = {
     'Section=magic Note="+3 Spell DC (Necromancy)"',
   'Greater Spell Focus (Transmutation)':
     'Section=magic Note="+3 Spell DC (Transmutation)"',
-  'Horse Nomad':'Section=combat,skill Note="Martial Weapon Proficiency (Composite Shortbow)","+2 Ride"',
-  'Innate Spell':'Section=magic Note="Designated spells as spell-like ability 1/rd uses +8 spell slot"',
+  'Horse Nomad':
+    'Section=combat,skill ' +
+    'Note="Martial Weapon Proficiency (Composite Shortbow)",' +
+         '"+2 Ride"',
+  'Innate Spell':
+    'Section=magic ' +
+    'Note="Designated spells as spell-like ability 1/rd uses +8 spell slot"',
   'Inscribe Rune':'Section=magic Note="Cast divine spell via rune"',
-  'Insidious Magic':'Section=magic Note="DC 9+foe level check to detect Weave magic, Foe DC %V check to detect Shadow Weave spell"',
+  'Insidious Magic':
+    'Section=magic ' +
+    'Note="DC 9+foe level check to detect Weave magic, Foe DC %V check to detect Shadow Weave spell"',
   'Luck Of Heroes':'Section=save Note="+1 Fortitude/+1 Reflex/+1 Will"',
-  'Magical Artisan':'Section=magic Note="Reduce item creation base price by 25%"',
-  'Magical Training':'Section=magic Note="<i>Dancing Lights</i>, <i>Daze</i>, <i>Mage Hand</i> 1/dy"',
-  'Mercantile Background':'Section=skill Note="+2 Appraise/chosen Craft/chosen Profession"',
+  'Magical Artisan':
+    'Section=magic Note="Reduce item creation base price by 25%"',
+  'Magical Training':
+    'Section=magic ' +
+    'Note="<i>Dancing Lights</i>, <i>Daze</i>, <i>Mage Hand</i> 1/dy"',
+  'Mercantile Background':
+    'Section=skill Note="+2 Appraise/chosen Craft/chosen Profession"',
   'Militia':'Section=combat Note="Additional martial weapon proficiencies"',
-  'Mind Over Body':'Section=combat Note="Intelligence modifier adds %1 HP, +%2 HP from Metamagic feats"',
-  'Pernicious Magic':'Section=magic Note="Weave foes DC %V check to counterspell/DC 9+foe level to counterspell Weave foes"',
+  'Mind Over Body':
+    'Section=combat ' +
+    'Note="Intelligence modifier adds %1 HP, +%2 HP from Metamagic feats"',
+  'Pernicious Magic':
+    'Section=magic ' +
+    'Note="Weave foes DC %V check to counterspell, DC 9+foe level to counterspell Weave foes"',
   'Persistent Spell':'Section=magic Note="Fixed-range spell lasts 24 hr"',
   'Resist Poison Training':'Section=save Note="+4 vs. poison"',
   'Saddleback':'Section=skill Note="+3 Ride"',
-  'Shadow Weave Magic':'Section=ability,magic Note="-2 Wisdom","+1 DC and resistance checks on enchantment, illusion, necromancy, and darkness descriptor spells, -1 caster level on evocation and transmutation, no light descriptor spells"',
-  'Signature Spell':'Section=magic Note="Convert arcane spells into specified mastered spell"',
+  'Shadow Weave Magic':
+    'Section=ability,magic ' +
+    'Note="-2 Wisdom",' +
+         '"+1 DC and resistance checks on enchantment, illusion, necromancy, and darkness descriptor spells, -1 caster level on evocation and transmutation, no light descriptor spells"',
+  'Signature Spell':
+    'Section=magic Note="Convert arcane spells into specified mastered spell"',
   'Silver Palm':'Section=skill Note="+2 Appraise/+2 Bluff"',
   'Smooth Talk':'Section=skill Note="+2 Diplomacy/+2 Sense Motive"',
   'Snake Blood':'Section=save Note="+1 Reflex/+2 vs. poison"',
-  'Spellcasting Prodigy (Bard)':'Section=magic Note="+1 spell DC/+2 charisma for bonus spells"',
-  'Spellcasting Prodigy (Cleric)':'Section=magic Note="+1 spell DC/+2 wisdom for bonus spells"',
-  'Spellcasting Prodigy (Druid)':'Section=magic Note="+1 spell DC/+2 wisdom for bonus spells"',
-  'Spellcasting Prodigy (Sorcerer)':'Section=magic Note="+1 spell DC/+2 charisma for bonus spells"',
-  'Spellcasting Prodigy (Wizard)':'Section=magic Note="+1 spell DC/+2 intelligence for bonus spells"',
+  'Spellcasting Prodigy (Bard)':
+    'Section=magic Note="+1 spell DC/+2 charisma for bonus spells"',
+  'Spellcasting Prodigy (Cleric)':
+    'Section=magic Note="+1 spell DC/+2 wisdom for bonus spells"',
+  'Spellcasting Prodigy (Druid)':
+    'Section=magic Note="+1 spell DC/+2 wisdom for bonus spells"',
+  'Spellcasting Prodigy (Sorcerer)':
+    'Section=magic Note="+1 spell DC/+2 charisma for bonus spells"',
+  'Spellcasting Prodigy (Wizard)':
+    'Section=magic Note="+1 spell DC/+2 intelligence for bonus spells"',
   'Stealthy':'Section=skill Note="+2 Hide/+2 Move Silently"',
   'Street Smart':'Section=skill Note="+2 Bluff/+2 Gather Information"',
-  'Strong Soul':'Section=save Note="+1 Fortitude/+1 Will/+1 vs. draining and death"',
+  'Strong Soul':
+    'Section=save Note="+1 Fortitude/+1 Will/+1 vs. draining and death"',
   'Survivor':'Section=save,skill Note="+1 Fortitude","+2 Survival"',
-  'Tattoo Focus':'Section=magic Note="+1 DC and caster level vs. resistance w/specialization school spells"',
-  'Tenacious Magic':'Section=magic Note="Weave foes DC %V to dispel, DC 13+foe level to dispel Weave foes"',
+  'Tattoo Focus':
+    'Section=magic ' +
+    'Note="+1 DC and caster level vs. resistance w/specialization school spells"',
+  'Tenacious Magic':
+    'Section=magic ' +
+    'Note="Weave foes DC %V to dispel, DC 13+foe level to dispel Weave foes"',
   'Thug':'Section=combat,skill Note="+2 Initiative","+2 Intimidate"',
-  'Thunder Twin':'Section=ability,skill Note="+2 charisma checks","DC 15 Wisdom check to determine direction of twin"',
+  'Thunder Twin':
+    'Section=ability,skill ' +
+    'Note="+2 charisma checks",' +
+         '"DC 15 Wisdom check to determine direction of twin"',
   'Treetopper':'Section=skill Note="+2 Climb"',
   'Twin Spell':'Section=magic Note="Affect as two spells uses +4 spell slot"',
-  'Twin Sword Style':'Section=combat Note="+2 AC vs. chosen foe when using two swords"',
+  'Twin Sword Style':
+    'Section=combat Note="+2 AC vs. chosen foe when using two swords"',
+
   // Path
   'Advanced Illusionist':'Section=magic Note="+1 caster level illusion spells"',
   'Beguiling':'Section=skill Note="+2 Bluff"',
   'Compelling Magic':'Section=magic Note="+2 DC compulsion spells"',
-  'Creator':'Section=magic,skill Note="+1 caster level creation spells","+2 chosen Craft"',
-  'Detect Portal':'Section=skill Note="DC 20 Search to detect in/active portals"',
-  'Disabling Touch':'Section=combat Note="Touch attack causes -2 Str and Dex for 1 min 1/dy"',
-  'Familial Protection':'Section=magic Note="R10\' %V targets +4 AC for %1 rd 1/dy"',
+  'Creator':
+    'Section=magic,skill ' +
+    'Note="+1 caster level creation spells",' +
+         '"+2 chosen Craft"',
+  'Detect Portal':
+    'Section=skill Note="DC 20 Search to detect in/active portals"',
+  'Disabling Touch':
+    'Section=combat Note="Touch attack causes -2 Str and Dex for 1 min 1/dy"',
+  'Familial Protection':
+    'Section=magic Note="R10\' %V targets +4 AC for %1 rd 1/dy"',
   'Foreshadowed':'Section=combat Note="Always adds dexterity modifier to AC"',
   'Frenzy':'Section=combat Note="+%V (+%1 vs. dwarf/elf) smite damage 1/dy"',
-  'Hammer Specialist':'Section=feature Note="+2 General Feat (Weapon Proficiency and Focus w/chosen hammer)"',
-  'Insider Knowledge':'Section=magic Note="<i>Detect Thoughts</i> on 1 target for %V min 1/dy (Will neg)"',
-  'Inspire Companions':'Section=magic Note="+2 allies\' attack, damage, skill, ability rolls for %V rd 1/dy"',
-  'Mental Control':'Section=magic Note="Touch to allow target +%V on next Will save for 1 hr 1/dy"',
+  'Hammer Specialist':
+    'Section=feature ' +
+    'Note="+2 General Feat (Weapon Proficiency and Focus w/chosen hammer)"',
+  'Insider Knowledge':
+    'Section=magic ' +
+    'Note="<i>Detect Thoughts</i> on 1 target for %V min 1/dy (Will neg)"',
+  'Inspire Companions':
+    'Section=magic ' +
+    'Note="+2 allies\' attack, damage, skill, ability rolls for %V rd 1/dy"',
+  'Mental Control':
+    'Section=magic ' +
+    'Note="Touch to allow target +%V on next Will save for 1 hr 1/dy"',
   'Rebound':'Section=combat Note="Recover 1d8+%V HP points when negative 1/dy"',
   'Reprisal':'Section=combat Note="Strike for max damage after foe hit 1/dy"',
   'Skilled Caster':'Section=skill Note="+2 Concentration/+2 Spellcraft"',
-  'Stone Affinity':'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
-  'Spurred':'Section=skill Note="+%V Climb, Hide, Jump, Move Silently for 10 min 1/dy"',
+  'Stone Affinity':
+    'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
+  'Spurred':
+    'Section=skill Note="+%V Climb, Hide, Jump, Move Silently for 10 min 1/dy"',
   'Stormfriend':'Section=save Note="Electricity resistance 5"',
   'Turn It On':'Section=ability Note="+4 charisma for 1 min 1/dy"',
   'Turn Lycanthropes':'Section=combat Note="Turn lycanthropes as undead"',
   'Turn Oozes':'Section=combat Note="Turn oozes as undead"',
   'Turn Reptiles':'Section=combat Note="Turn reptiles as undead"',
   'Turn Spiders':'Section=combat Note="Turn spiders as undead"',
-  'Vicious Assault':'Section=combat Note="+2 attack, AC vs. one foe for 1 min 1/dy"',
+  'Vicious Assault':
+    'Section=combat Note="+2 attack, AC vs. one foe for 1 min 1/dy"',
   'Water Breathing':'Section=magic Note="Breathe water %V rd/dy"',
   'Wily':'Section=save Note="+2 saves vs. one foe for 1 min 1/dy"',
+
   // Race
   'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
   'Aasimar Alertness':'Section=skill Note="+2 Listen/Spot"',
@@ -381,29 +599,46 @@ Realms.FEATURES_ADDED = {
   'Aasimar Resistance':'Section=save Note="5 vs. acid, cold, and electricity"',
   'Amphibious':'Section=feature Note="Breathe water at will"',
   'Aware':'Section=skill Note="+1 Listen/+1Spot"',
-  'Air Genasi Ability Adjustment':'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Wisdom/-2 Charisma"',
-  'Breathless':'Section=save Note="Immune drowning, suffocation, inhalation effects"',
-  'Control Flame':'Section=magic Note="R10\' Shrink or expand natural fire for 5 min 1/dy"',
-  'Deep Gnome Ability Adjustment':'Section=ability Note="-2 Strength/+2 Dexterity/+2 Wisdom/-4 Charisma"',
+  'Air Genasi Ability Adjustment':
+    'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Wisdom/-2 Charisma"',
+  'Breathless':
+    'Section=save Note="Immune drowning, suffocation, inhalation effects"',
+  'Control Flame':
+    'Section=magic Note="R10\' Shrink or expand natural fire for 5 min 1/dy"',
+  'Deep Gnome Ability Adjustment':
+    'Section=ability Note="-2 Strength/+2 Dexterity/+2 Wisdom/-4 Charisma"',
   'Deep Gnome Level Adjustment':'Section=ability Note="-3 Level"',
-  'Drow Elf Ability Adjustment':'Section=ability Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
+  'Drow Elf Ability Adjustment':
+    'Section=ability ' +
+    'Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
   'Drow Elf Level Adjustment':'Section=ability Note="-2 Level"',
   'Drow Spell Resistance':'Section=save Note="DC %V"',
-  'Earth Genasi Ability Adjustment':'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
+  'Earth Genasi Ability Adjustment':
+    'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
   'Elemental Affinity':'Section=save Note="+%V vs. %1 spells"',
   'Exceptional Dodge':'Section=combat Note="+4 AC"',
   'Extended Darkvision':'Section=feature Note="120\' b/w vision in darkness"',
   'Extra Luck':'Section=save Note="+2 Fortitude/+2 Reflex/+2 Will"',
-  'Fire Genasi Ability Adjustment':'Section=ability Note="+2 Intelligence/-2 Charisma"',
+  'Fire Genasi Ability Adjustment':
+    'Section=ability Note="+2 Intelligence/-2 Charisma"',
   'Genasi Level Adjustment':'Section=ability Note="-1 Level"',
-  'Gold Dwarf Ability Adjustment':'Section=ability Note="+2 Constitution/-2 Dexterity"',
+  'Gold Dwarf Ability Adjustment':
+    'Section=ability Note="+2 Constitution/-2 Dexterity"',
   'Gold Dwarf Enmity':'Section=combat Note="+1 attack vs. aberrations"',
-  'Gray Dwarf Ability Adjustment':'Section=ability Note="+2 Constitution/-4 Charisma"',
+  'Gray Dwarf Ability Adjustment':
+    'Section=ability Note="+2 Constitution/-4 Charisma"',
   'Grey Dwarf Level Adjustment':'Section=ability Note="-2 Level"',
-  'Gray Dwarf Immunities':'Section=save Note="Immune to paralysis, phantasms, and magical and alchemaic poisons"',
+  'Gray Dwarf Immunities':
+    'Section=save ' +
+    'Note="Immune to paralysis, phantasms, and magical and alchemaic poisons"',
   'Light Blindness':'Section=feature Note="Blind 1 rd from sudden daylight"',
-  'Light Sensitivity':'Section=combat,save,skill Note="-2 attack in bright light","-2 saves in bright light","-2 checks in bright light"',
-  'Native Outsider':'Section=save Note="Affected by outsider target spells, not humanoid"',
+  'Light Sensitivity':
+    'Section=combat,save,skill ' +
+    'Note="-2 attack in bright light",' +
+         '"-2 saves in bright light",' +
+         '"-2 checks in bright light"',
+  'Native Outsider':
+    'Section=save Note="Affected by outsider target spells, not humanoid"',
   'Natural Swimmer':'Section=ability Note="Swim 30\'"',
   'Noiseless':'Section=skill Note="+4 Move Silently"',
   'Sly':'Section=skill Note="+2 Hide"',
@@ -412,15 +647,22 @@ Realms.FEATURES_ADDED = {
   'Speak Without Sound':'Section=feature Note="R20\' Telepathic communication"',
   'Strong Will':'Section=save Note="+2 Will vs. spells"',
   'Strongheart Feat Bonus':'Section=feature Note="+1 General Feat"',
-  'Sun Elf Ability Adjustment':'Section=ability Note="+2 Intelligence/-2 Constitution"',
+  'Sun Elf Ability Adjustment':
+    'Section=ability Note="+2 Intelligence/-2 Constitution"',
   'Svirfneblin Spell Resistance':'Section=save Note="DC %V"',
-  'Tiefling Ability Adjustment':'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Charisma"',
+  'Tiefling Ability Adjustment':
+    'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Charisma"',
   'Tiefling Level Adjustment':'Section=ability Note="-1 Level"',
   'Tiefling Resistance':'Section=save Note="5 vs. cold, electricity, and fire"',
   'Undetectable':'Section=magic Note="Continuous <i>Nondetection</i>"',
-  'Water Genasi Ability Adjustment':'Section=ability Note="+2 Constitution/-2 Charisma"',
-  'Wild Elf Ability Adjustment':'Section=ability Note="+2 Dexterity/-2 Intelligence"',
-  'Wood Elf Ability Adjustment':'Section=ability Note="+2 Strength/+2 Dexterity/-2 Constitution/-2 Intelligence/-2 Charisma"'
+  'Water Genasi Ability Adjustment':
+    'Section=ability Note="+2 Constitution/-2 Charisma"',
+  'Wild Elf Ability Adjustment':
+    'Section=ability Note="+2 Dexterity/-2 Intelligence"',
+  'Wood Elf Ability Adjustment':
+    'Section=ability ' +
+    'Note="+2 Strength/+2 Dexterity/-2 Constitution/-2 Intelligence/-2 Charisma"'
+
 };
 Realms.FEATURES = Object.assign({}, SRD35.FEATURES, Realms.FEATURES_ADDED);
 Realms.LANGUAGES_ADDED = {
@@ -1540,6 +1782,7 @@ Realms.SCHOOLS = Object.assign({}, SRD35.SCHOOLS);
 Realms.SHIELDS = Object.assign({}, SRD35.SHIELDS);
 Realms.SKILLS = Object.assign({}, SRD35.SKILLS);
 Realms.SPELLS_ADDED = {
+
   "Aganazzar's Scorcher":
     'School=Evocation ' +
     'Description="5\'w by $RS\'l flame ${Math.min(5,Math.floor(lvl/2))}d8 HP (Ref half)"',
@@ -1650,6 +1893,7 @@ Realms.SPELLS_ADDED = {
   'Waterspout':
     'School=Conjuration ' +
     'Description="R$RL\' 10\'w by 80\'h spout moves 30\'/rd, touched creatures 2d6 HP (Ref neg) for $L rd"'
+
 };
 Realms.CLASS_SPELLS_ADDED = {
   'Bard':
@@ -1752,7 +1996,7 @@ Realms.magicRules = function(rules, schools, spells) {
   // No changes needed to the rules defined by base method
 };
 
-/* Defines rules related to character feats, languages, and skills. */
+/* Defines rules related to character aptitudes. */
 Realms.talentRules = function(rules, feats, features, languages, skills) {
   Realms.baseRules.talentRules(rules, feats, features, languages, skills);
   // No changes needed to the rules defined by base method
@@ -1962,23 +2206,23 @@ Realms.armorRules = function(
 
 /*
  * Defines in #rules# the rules associated with class #name#, which has the list
- * of hard prerequisites #requires# and soft prerequisites #implies#. The class
- * grants #hitDie# (format [n]'d'n) additional hit points and #skillPoints#
- * additional skill points with each level advance. #attack# is one of '1',
- * '1/2', or '3/4', indicating the base attack progression for the class;
- * similarly, #saveFort#, #saveRef#, and #saveWill# are each one of '1/2' or
- * '1/3', indicating the saving throw progressions. #skills# indicate class
- * skills for the class; see skillRules for an alternate way these can be
- * defined. #features# and #selectables# list the fixed and selectable features
- * acquired as the character advances in class level, and #languages# list any
- * automatic languages for the class. #casterLevelArcane# and
- * #casterLevelDivine#, if specified, give the Javascript expression for
- * determining the caster level for the class; these can incorporate a class
- * level attribute (e.g., 'levels.Fighter') or the character level attribute
- * 'level'. #spellAbility#, if specified, contains the ability for computing
- * spell difficulty class for cast spells. #spellSlots# lists the number of
- * spells per level per day that the class can cast, and #spells# lists spells
- * defined by the class.
+ * of hard prerequisites #requires#. The class grants #hitDie# (format [n]'d'n)
+ * additional hit points and #skillPoints# additional skill points with each
+ * level advance. #attack# is one of '1', '1/2', or '3/4', indicating the base
+ * attack progression for the class; similarly, #saveFort#, #saveRef#, and
+ * #saveWill# are each one of '1/2' or '1/3', indicating the saving throw
+ * progressions. #skills# indicate class skills for the class; see skillRules
+ * for an alternate way these can be defined. #features# and #selectables# list
+ * the fixed and selectable features acquired as the character advances in
+ * class level, and #languages# lists any automatic languages for the class.
+ * #casterLevelArcane# and #casterLevelDivine#, if specified, give the
+ * Javascript expression for determining the caster level for the class; these
+ * can incorporate a class level attribute (e.g., 'levels.Cleric') or the
+ * character level attribute 'level'. #spellAbility#, if specified, names the
+ * ability for computing spell difficulty class. #spellSlots# lists the
+ * number of spells per level per day granted by the class, and #spells# lists
+ * spells defined by the class. #spellDict# is the dictionary of all spells,
+ * used to look up individual spell attributes.
  */
 Realms.classRules = function(
   rules, name, requires, hitDie, attack, skillPoints, saveFort, saveRef,
@@ -2067,8 +2311,8 @@ Realms.featRules = function(rules, name, requires, implies, types) {
 };
 
 /*
- * Defines in #rules# the rules associated with feat #name# that are not
- * directly derived from the parmeters passed to featRules.
+ * Defines in #rules# the rules associated with feat #name# that cannot be
+ * derived directly from the abilities passed to featRules.
  */
 Realms.featRulesExtra = function(rules, name) {
 
@@ -2133,10 +2377,6 @@ Realms.featRulesExtra = function(rules, name) {
  * the two must have the same number of elements.
  */
 Realms.featureRules = function(rules, name, sections, notes) {
-  if(typeof sections == 'string')
-    sections = [sections];
-  if(typeof notes == 'string')
-    notes = [notes];
   if(Realms.baseRules == window.Pathfinder) {
     for(var i = 0; i < sections.length; i++) {
       if(sections[i] != 'skill')
@@ -2194,8 +2434,8 @@ Realms.pathRules = function(
 }
 
 /*
- * Defines in #rules# the rules associated with path #name# that are not
- * directly derived from the parmeters passed to pathRules.
+ * Defines in #rules# the rules associated with path #name# that cannot be
+ * derived directly from the abilities passed to pathRules.
  */
 Realms.pathRulesExtra = function(rules, name) {
   if(name == 'Family Domain') {
@@ -2230,10 +2470,11 @@ Realms.pathRulesExtra = function(rules, name) {
 /*
  * Defines in #rules# the rules associated with race #name#, which has the list
  * of hard prerequisites #requires#. #features# and #selectables# list
- * associated features and #languages# the automatic languages. #spells# lists
+ * associated features and #languages# any automatic languages. #spells# lists
  * any natural spells, for which #spellAbility# is used to compute the save DC.
- * #spellDict# is the dictionary of all spells used to look up individual spell
- * attributes.
+ * #spellSlots# lists the number of spells per level per day granted by the
+ * race, and #spells# lists spells defined by the race. #spellDict# is the
+ * dictionary of all spells, used to look up individual spell attributes.
  */
 Realms.raceRules = function(
   rules, name, requires, features, selectables, languages, spellAbility,
@@ -2246,8 +2487,8 @@ Realms.raceRules = function(
 };
 
 /*
- * Defines in #rules# the rules associated with race #name# that are not
- * directly derived from the parmeters passed to raceRules.
+ * Defines in #rules# the rules associated with race #name# that cannot be
+ * derived directly from the abilities passed to raceRules.
  */
 Realms.raceRulesExtra = function(rules, name) {
   var matchInfo;
@@ -2293,7 +2534,10 @@ Realms.regionRules = function(rules, name, features) {
   // No rules pertain to region
 };
 
-/* Defines in #rules# the rules associated with magic school #name#. */
+/*
+ * Defines in #rules# the rules associated with magic school #name#, which
+ * grants the list of #features#.
+ */
 Realms.schoolRules = function(rules, name, features) {
   Realms.baseRules.schoolRules(rules, name, features);
   // No changes needed to the rules defined by base method
@@ -2302,8 +2546,8 @@ Realms.schoolRules = function(rules, name, features) {
 /*
  * Defines in #rules# the rules associated with shield #name#, which adds #ac#
  * to the character's armor class, requires a #profLevel# proficiency level to
- * use effectively, imposes #skillPenalty# on specific skills
- * and yields a #spellFail# percent chance of arcane spell failure.
+ * use effectively, imposes #skillPenalty# on specific skills and yields a
+ * #spellFail# percent chance of arcane spell failure.
  */
 Realms.shieldRules = function(
   rules, name, ac, profLevel, skillFail, spellFail
@@ -2315,12 +2559,12 @@ Realms.shieldRules = function(
 
 /*
  * Defines in #rules# the rules associated with skill #name#, associated with
- * #ability# (one of 'strength', 'intelligence', etc.). #untrained#, if
- * specified is a boolean indicating whether or not the skill can be used
- * untrained; the default is true. #classes# lists the classes for which this
- * is a class skill; a value of "all" indicates that this is a class skill for
- * all classes. #synergies#, if specified, lists synergies to other skills and
- * abilities granted by high ranks in this skill.
+ * basic ability #ability#. #untrained#, if specified, is a boolean indicating
+ * whether or not the skill can be used untrained; the default is true.
+ * #classes# lists the classes for which this is a class skill; a value of
+ * "all" indicates that this is a class skill for all classes. #synergies#
+ * lists any synergies with other skills and abilities granted by high ranks in
+ * this skill.
  */
 Realms.skillRules = function(
   rules, name, ability, untrained, classes, synergies
@@ -2333,7 +2577,7 @@ Realms.skillRules = function(
 /*
  * Defines in #rules# the rules associated with spell #name#, which is from
  * magic school #school#. #casterGroup# and #level# are used to compute any
- * saving throw value required by the spell. #description# is a verbose
+ * saving throw value required by the spell. #description# is a concise
  * description of the spell's effects.
  */
 Realms.spellRules = function(
@@ -2360,6 +2604,16 @@ Realms.weaponRules = function(
     rules, name, profLevel, category, damage, threat, critMultiplier, range
   );
   // No changes needed to the rules defined by base method
+};
+
+/*
+ * Returns the list of editing elements needed by #choiceRules# to add a #type#
+ * item to #rules#.
+ */
+Realms.choiceEditorElements = function(rules, type) {
+  if(type == 'Region')
+    return []; // empty
+  return Realms.baseRules.choiceEditorElements(rules, type);
 };
 
 /* Sets #attributes#'s #attribute# attribute to a random value. */
