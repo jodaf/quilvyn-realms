@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.1.1.0';
+var REALMS_VERSION = '2.1.1.1';
 
 /*
  * This module loads the rules from the Forgotten Realms v3 source book. The
@@ -350,8 +350,10 @@ Realms.FEATS_ADDED = {
     'Require="features.Quicken Spell/features.ilent Spell/features.till Spell"',
   'Inscribe Rune':
     'Type="Item Creation" ' +
-    'Require="intelligence >= 13","casterLevelDivine >= 3"',
-    // TBD 'Requires appropriate Craft skill'
+    'Require=' +
+      '"intelligence >= 13","casterLevelDivine >= 3",' +
+      // Note Figure any Craft provides "appropriate Craft skill"
+      '"Sum \'skills.Craft\' > 0"',
   'Insidious Magic':'Type=Metamagic Require="features.Shadow Weave Magic"',
   'Luck Of Heroes':
     'Type=General Require="region =~ \'Aglarond|Dalelands|Tethyr|The Vast\'"',
@@ -1972,21 +1974,18 @@ Realms.identityRules = function(
     rules.choiceRules(rules, 'Region', region, regions[region]);
   }
 
-  rules.defineEditorElement
-    ('region', 'Region', 'select-one', 'regions', 'experience');
-  rules.defineSheetElement('Region', 'Alignment');
-
+  rules.defineRule('level', '', '^', '1');
   rules.defineChoice('notes',
     'validationNotes.regionRace:Racial region requires equivalent race'
   );
-  rules.defineRule('level', '', '^', '1');
-  /* TBD
   rules.defineRule('validationNotes.regionRace',
-    'region', '=', 'Realms.RACES[source] == null ? ' +
-                   'null : -QuilvynUtils.findElement(Realms.RACES, source)',
-    'race', '+', 'QuilvynUtils.findElement(Realms.RACES, source)'
+    'region', '=', 'Realms.RACES[source] ? QuilvynUtils.findElement(QuilvynUtils.getKeys(Realms.RACES), source) : null',
+    'race', '+', '-QuilvynUtils.findElement(QuilvynUtils.getKeys(Realms.RACES), source)'
   );
-  */
+
+  rules.defineEditorElement
+    ('region', 'Region', 'select-one', 'regions', 'experience');
+  rules.defineSheetElement('Region', 'Alignment');
 
 };
 
