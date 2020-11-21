@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.1.1.1';
+var REALMS_VERSION = '2.1.1.2';
 
 /*
  * This module loads the rules from the Forgotten Realms v3 source book. The
@@ -2177,7 +2177,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
   if(type != 'Feature' && type != 'Path') {
     type = type == 'Class' ? 'levels' :
     type = type == 'Deity' ? 'deities' :
-    (type.substring(0,1).toLowerCase() + type.substring(1).replace(/ /g, '') + 's');
+    (type.substring(0,1).toLowerCase() + type.substring(1).replaceAll(' ', '') + 's');
     rules.addChoice(type, name, attrs);
   }
 };
@@ -2345,7 +2345,7 @@ Realms.featRulesExtra = function(rules, name) {
     rules.defineRule('magicNotes.perniciousMagic',
       'casterLevel', '=', 'source + 11'
     );
-  } else if((matchInfo = name.match(/^Spellcasting Prodigy .(.*).$/)) != null) {
+  } else if((matchInfo = name.match(/^Spellcasting\sProdigy\s(.*).$/)) != null) {
     var clas = matchInfo[1];
     var spellCode = clas.charAt(0);
     var ability = {'Bard':'charisma', 'Cleric':'wisdom', 'Druid':'wisdom', 'Sorcerer':'charisma', 'Wizard':'intelligence'}[clas];
