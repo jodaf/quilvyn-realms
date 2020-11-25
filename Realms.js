@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.1.1.2';
+var REALMS_VERSION = '2.1.1.3';
 
 /*
  * This module loads the rules from the Forgotten Realms v3 source book. The
@@ -699,16 +699,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Stone Affinity" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Cavern1:1=1,' +
-      'Cavern2:3=1,' +
-      'Cavern3:5=1,' +
-      'Cavern4:7=1,' +
-      'Cavern5:9=1,' +
-      'Cavern6:11=1,' +
-      'Cavern7:13=1,' +
-      'Cavern8:15=1,' +
-      'Cavern9:17=1 ' +
     'Spells=' +
       '"Cavern1:Detect Secret Doors",' +
       '"Cavern2:Darkness",' +
@@ -725,16 +715,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Turn It On" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Charm1:1=1,' +
-      'Charm2:3=1,' +
-      'Charm3:5=1,' +
-      'Charm4:7=1,' +
-      'Charm5:9=1,' +
-      'Charm6:11=1,' +
-      'Charm7:13=1,' +
-      'Charm8:15=1,' +
-      'Charm9:17=1 ' +
     'Spells=' +
       '"Charm1:Charm Person",' +
       '"Charm2:Calm Emotions",' +
@@ -751,16 +731,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Creator" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Craft1:1=1,' +
-      'Craft2:3=1,' +
-      'Craft3:5=1,' +
-      'Craft4:7=1,' +
-      'Craft5:9=1,' +
-      'Craft6:11=1,' +
-      'Craft7:13=1,' +
-      'Craft8:15=1,' +
-      'Craft9:17=1 ' +
     'Spells=' +
       '"Craft1:Animate Rope",' +
       '"Craft2:Wood Shape",' +
@@ -777,16 +747,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Blind-Fight" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Darkness1:1=1,' +
-      'Darkness2:3=1,' +
-      'Darkness3:5=1,' +
-      'Darkness4:7=1,' +
-      'Darkness5:9=1,' +
-      'Darkness6:11=1,' +
-      'Darkness7:13=1,' +
-      'Darkness8:15=1,' +
-      'Darkness9:17=1 ' +
     'Spells=' +
       '"Darkness1:Obscuring Mist",' +
       '"Darkness2:Blindness/Deafness",' +
@@ -803,16 +763,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Lightning Reflexes" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Drow1:1=1,' +
-      'Drow2:3=1,' +
-      'Drow3:5=1,' +
-      'Drow4:7=1,' +
-      'Drow5:9=1,' +
-      'Drow6:11=1,' +
-      'Drow7:13=1,' +
-      'Drow8:15=1,' +
-      'Drow9:17=1 ' +
     'Spells=' +
       '"Drow1:Cloak Of Dark Power",' +
       '"Drow2:Clairaudience/Clairvoyance",' +
@@ -829,16 +779,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Great Fortitude" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Dwarf1:1=1,' +
-      'Dwarf2:3=1,' +
-      'Dwarf3:5=1,' +
-      'Dwarf4:7=1,' +
-      'Dwarf5:9=1,' +
-      'Dwarf6:11=1,' +
-      'Dwarf7:13=1,' +
-      'Dwarf8:15=1,' +
-      'Dwarf9:17=1 ' +
     'Spells=' +
       '"Dwarf1:Magic Weapon",' +
       '"Dwarf2:Bear\'s Endurance",' +
@@ -855,16 +795,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Point-Blank Shot" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Elf1:1=1,' +
-      'Elf2:3=1,' +
-      'Elf3:5=1,' +
-      'Elf4:7=1,' +
-      'Elf5:9=1,' +
-      'Elf6:11=1,' +
-      'Elf7:13=1,' +
-      'Elf8:15=1,' +
-      'Elf9:17=1 ' +
     'Spells=' +
       '"Elf1:True Strike",' +
       '"Elf2:Cat\'s Grace",' +
@@ -881,16 +811,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Familial Protection" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Family1:1=1,' +
-      'Family2:3=1,' +
-      'Family3:5=1,' +
-      'Family4:7=1,' +
-      'Family5:9=1,' +
-      'Family6:11=1,' +
-      'Family7:13=1,' +
-      'Family8:15=1,' +
-      'Family9:17=1 ' +
     'Spells=' +
       '"Family1:Bless",' +
       '"Family2:Shield Other",' +
@@ -907,16 +827,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Foreshadowed" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Fate1:1=1,' +
-      'Fate2:3=1,' +
-      'Fate3:5=1,' +
-      'Fate4:7=1,' +
-      'Fate5:9=1,' +
-      'Fate6:11=1,' +
-      'Fate7:13=1,' +
-      'Fate8:15=1,' +
-      'Fate9:17=1 ' +
     'Spells=' +
       '"Fate1:True Strike",' +
       '"Fate2:Augury",' +
@@ -933,16 +843,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Advanced Illusionist" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Gnome1:1=1,' +
-      'Gnome2:3=1,' +
-      'Gnome3:5=1,' +
-      'Gnome4:7=1,' +
-      'Gnome5:9=1,' +
-      'Gnome6:11=1,' +
-      'Gnome7:13=1,' +
-      'Gnome8:15=1,' +
-      'Gnome9:17=1 ' +
     'Spells=' +
       '"Gnome1:Silent Image",' +
       '"Gnome2:Gembomb",' +
@@ -959,16 +859,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Spurred" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Halfling1:1=1,' +
-      'Halfling2:3=1,' +
-      'Halfling3:5=1,' +
-      'Halfling4:7=1,' +
-      'Halfling5:9=1,' +
-      'Halfling6:11=1,' +
-      'Halfling7:13=1,' +
-      'Halfling8:15=1,' +
-      'Halfling9:17=1 ' +
     'Spells=' +
       '"Halfling1:Magic Stone",' +
       '"Halfling2:Cat\'s Grace",' +
@@ -985,16 +875,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Vicious Assault","1:Wily" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Hatred1:1=1,' +
-      'Hatred2:3=1,' +
-      'Hatred3:5=1,' +
-      'Hatred4:7=1,' +
-      'Hatred5:9=1,' +
-      'Hatred6:11=1,' +
-      'Hatred7:13=1,' +
-      'Hatred8:15=1,' +
-      'Hatred9:17=1 ' +
     'Spells=' +
       '"Hatred1:Doom",' +
       '"Hatred2:Scare",' +
@@ -1011,16 +891,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Advanced Illusionist" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Illusion1:1=1,' +
-      'Illusion2:3=1,' +
-      'Illusion3:5=1,' +
-      'Illusion4:7=1,' +
-      'Illusion5:9=1,' +
-      'Illusion6:11=1,' +
-      'Illusion7:13=1,' +
-      'Illusion8:15=1,' +
-      'Illusion9:17=1 ' +
     'Spells=' +
       '"Illusion1:Silent Image",' +
       '"Illusion2:Minor Image",' +
@@ -1037,16 +907,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Mental Control" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Mentalism1:1=1,' +
-      'Mentalism2:3=1,' +
-      'Mentalism3:5=1,' +
-      'Mentalism4:7=1,' +
-      'Mentalism5:9=1,' +
-      'Mentalism6:11=1,' +
-      'Mentalism7:13=1,' +
-      'Mentalism8:15=1,' +
-      'Mentalism9:17=1 ' +
     'Spells=' +
       '"Mentalism1:Confusion",' +
       '"Mentalism2:Detect Thoughts",' +
@@ -1063,16 +923,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Hammer Specialist" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Metal1:1=1,' +
-      'Metal2:3=1,' +
-      'Metal3:5=1,' +
-      'Metal4:7=1,' +
-      'Metal5:9=1,' +
-      'Metal6:11=1,' +
-      'Metal7:13=1,' +
-      'Metal8:15=1,' +
-      'Metal9:17=1 ' +
     'Spells=' +
       '"Metal1:Magic Weapon",' +
       '"Metal2:Heat Metal",' +
@@ -1089,16 +939,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Turn Lycanthropes" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Moon1:1=1,' +
-      'Moon2:3=1,' +
-      'Moon3:5=1,' +
-      'Moon4:7=1,' +
-      'Moon5:9=1,' +
-      'Moon6:11=1,' +
-      'Moon7:13=1,' +
-      'Moon8:15=1,' +
-      'Moon9:17=1 ' +
     'Spells=' +
       '"Moon1:Faerie Fire",' +
       '"Moon2:Moonbeam",' +
@@ -1115,16 +955,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Inspire Companions" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Nobility1:1=1,' +
-      'Nobility2:3=1,' +
-      'Nobility3:5=1,' +
-      'Nobility4:7=1,' +
-      'Nobility5:9=1,' +
-      'Nobility6:11=1,' +
-      'Nobility7:13=1,' +
-      'Nobility8:15=1,' +
-      'Nobility9:17=1 ' +
     'Spells=' +
       '"Nobility1:Divine Favor",' +
       '"Nobility2:Enthrall",' +
@@ -1141,16 +971,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Water Breathing" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Ocean1:1=1,' +
-      'Ocean2:3=1,' +
-      'Ocean3:5=1,' +
-      'Ocean4:7=1,' +
-      'Ocean5:9=1,' +
-      'Ocean6:11=1,' +
-      'Ocean7:13=1,' +
-      'Ocean8:15=1,' +
-      'Ocean9:17=1 ' +
     'Spells=' +
       '"Ocean1:Endure Elements",' +
       '"Ocean2:Sound Burst",' +
@@ -1167,16 +987,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Frenzy" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Orc1:1=1,' +
-      'Orc2:3=1,' +
-      'Orc3:5=1,' +
-      'Orc4:7=1,' +
-      'Orc5:9=1,' +
-      'Orc6:11=1,' +
-      'Orc7:13=1,' +
-      'Orc8:15=1,' +
-      'Orc9:17=1 ' +
     'Spells=' +
       '"Orc1:Cause Fear",' +
       '"Orc2:Produce Flame",' +
@@ -1193,16 +1003,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Extend Spell" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Planning1:1=1,' +
-      'Planning2:3=1,' +
-      'Planning3:5=1,' +
-      'Planning4:7=1,' +
-      'Planning5:9=1,' +
-      'Planning6:11=1,' +
-      'Planning7:13=1,' +
-      'Planning8:15=1,' +
-      'Planning9:17=1 ' +
     'Spells=' +
       '"Planning1:Deathwatch",' +
       '"Planning2:Augury",' +
@@ -1219,16 +1019,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Detect Portal" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Portal1:1=1,' +
-      'Portal2:3=1,' +
-      'Portal3:5=1,' +
-      'Portal4:7=1,' +
-      'Portal5:9=1,' +
-      'Portal6:11=1,' +
-      'Portal7:13=1,' +
-      'Portal8:15=1,' +
-      'Portal9:17=1 ' +
     'Spells=' +
       '"Portal1:Summon Monster I",' +
       '"Portal2:Analyze Portal",' +
@@ -1245,16 +1035,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Rebound" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Renewal1:1=1,' +
-      'Renewal2:3=1,' +
-      'Renewal3:5=1,' +
-      'Renewal4:7=1,' +
-      'Renewal5:9=1,' +
-      'Renewal6:11=1,' +
-      'Renewal7:13=1,' +
-      'Renewal8:15=1,' +
-      'Renewal9:17=1 ' +
     'Spells=' +
       '"Renewal1:Charm Person",' +
       '"Renewal2:Lesser Restoration",' +
@@ -1271,16 +1051,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Reprisal" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Retribution1:1=1,' +
-      'Retribution2:3=1,' +
-      'Retribution3:5=1,' +
-      'Retribution4:7=1,' +
-      'Retribution5:9=1,' +
-      'Retribution6:11=1,' +
-      'Retribution7:13=1,' +
-      'Retribution8:15=1,' +
-      'Retribution9:17=1 ' +
     'Spells=' +
       '"Retribution1:Shield Of Faith",' +
       '"Retribution2:Bear\'s Endurance",' +
@@ -1297,16 +1067,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Scribe Scroll" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Rune1:1=1,' +
-      'Rune2:3=1,' +
-      'Rune3:5=1,' +
-      'Rune4:7=1,' +
-      'Rune5:9=1,' +
-      'Rune6:11=1,' +
-      'Rune7:13=1,' +
-      'Rune8:15=1,' +
-      'Rune9:17=1 ' +
     'Spells=' +
       '"Rune1:Erase",' +
       '"Rune2:Secret Page",' +
@@ -1323,16 +1083,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Turn Reptiles" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Scalykind1:1=1,' +
-      'Scalykind2:3=1,' +
-      'Scalykind3:5=1,' +
-      'Scalykind4:7=1,' +
-      'Scalykind5:9=1,' +
-      'Scalykind6:11=1,' +
-      'Scalykind7:13=1,' +
-      'Scalykind8:15=1,' +
-      'Scalykind9:17=1 ' +
     'Spells=' +
       '"Scalykind1:Magic Fang",' +
       '"Scalykind2:Animal Trance",' +
@@ -1349,16 +1099,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Turn Oozes" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Slime1:1=1,' +
-      'Slime2:3=1,' +
-      'Slime3:5=1,' +
-      'Slime4:7=1,' +
-      'Slime5:9=1,' +
-      'Slime6:11=1,' +
-      'Slime7:13=1,' +
-      'Slime8:15=1,' +
-      'Slime9:17=1 ' +
     'Spells=' +
       '"Slime1:Grease",' +
       '"Slime2:Acid Arrow",' +
@@ -1375,16 +1115,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Skilled Caster" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Spell1:1=1,' +
-      'Spell2:3=1,' +
-      'Spell3:5=1,' +
-      'Spell4:7=1,' +
-      'Spell5:9=1,' +
-      'Spell6:11=1,' +
-      'Spell7:13=1,' +
-      'Spell8:15=1,' +
-      'Spell9:17=1 ' +
     'Spells=' +
       '"Spell1:Mage Armor",' +
       '"Spell2:Silence",' +
@@ -1401,16 +1131,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Turn Spiders" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Spider1:1=1,' +
-      'Spider2:3=1,' +
-      'Spider3:5=1,' +
-      'Spider4:7=1,' +
-      'Spider5:9=1,' +
-      'Spider6:11=1,' +
-      'Spider7:13=1,' +
-      'Spider8:15=1,' +
-      'Spider9:17=1 ' +
     'Spells=' +
       '"Spider1:Spider Climb",' +
       '"Spider2:Summon Swarm",' +
@@ -1427,16 +1147,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Stormfriend" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Storm1:1=1,' +
-      'Storm2:3=1,' +
-      'Storm3:5=1,' +
-      'Storm4:7=1,' +
-      'Storm5:9=1,' +
-      'Storm6:11=1,' +
-      'Storm7:13=1,' +
-      'Storm8:15=1,' +
-      'Storm9:17=1 ' +
     'Spells=' +
       '"Storm1:Entropic Shield",' +
       '"Storm2:Gust Of Wind",' +
@@ -1453,16 +1163,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Disabling Touch" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Suffering1:1=1,' +
-      'Suffering2:3=1,' +
-      'Suffering3:5=1,' +
-      'Suffering4:7=1,' +
-      'Suffering5:9=1,' +
-      'Suffering6:11=1,' +
-      'Suffering7:13=1,' +
-      'Suffering8:15=1,' +
-      'Suffering9:17=1 ' +
     'Spells=' +
       '"Suffering1:Bane",' +
       '"Suffering2:Bear\'s Endurance",' +
@@ -1479,16 +1179,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Improved Initiative" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Time1:1=1,' +
-      'Time2:3=1,' +
-      'Time3:5=1,' +
-      'Time4:7=1,' +
-      'Time5:9=1,' +
-      'Time6:11=1,' +
-      'Time7:13=1,' +
-      'Time8:15=1,' +
-      'Time9:17=1 ' +
     'Spells=' +
       '"Time1:True Strike",' +
       '"Time2:Gentle Repose",' +
@@ -1505,16 +1195,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Insider Knowledge" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Trade1:1=1,' +
-      'Trade2:3=1,' +
-      'Trade3:5=1,' +
-      'Trade4:7=1,' +
-      'Trade5:9=1,' +
-      'Trade6:11=1,' +
-      'Trade7:13=1,' +
-      'Trade8:15=1,' +
-      'Trade9:17=1 ' +
     'Spells=' +
       '"Trade1:Detect Thoughts;Message",' +
       '"Trade2:Gembomb",' +
@@ -1531,16 +1211,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Compelling Magic" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Tyranny1:1=1,' +
-      'Tyranny2:3=1,' +
-      'Tyranny3:5=1,' +
-      'Tyranny4:7=1,' +
-      'Tyranny5:9=1,' +
-      'Tyranny6:11=1,' +
-      'Tyranny7:13=1,' +
-      'Tyranny8:15=1,' +
-      'Tyranny9:17=1 ' +
     'Spells=' +
       '"Tyranny1:Command",' +
       '"Tyranny2:Enthrall",' +
@@ -1557,16 +1227,6 @@ Realms.PATHS_ADDED = {
     'Features=' +
       '"1:Extra Turning" ' +
     'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Undeath1:1=1,' +
-      'Undeath2:3=1,' +
-      'Undeath3:5=1,' +
-      'Undeath4:7=1,' +
-      'Undeath5:9=1,' +
-      'Undeath6:11=1,' +
-      'Undeath7:13=1,' +
-      'Undeath8:15=1,' +
-      'Undeath9:17=1 ' +
     'Spells=' +
       '"Undeath1:Detect Undead",' +
       '"Undeath2:Desecrate",' +
