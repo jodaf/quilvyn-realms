@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.1.1.3';
+var REALMS_VERSION = '2.1.1.4';
 
 /*
  * This module loads the rules from the Forgotten Realms v3 source book. The
@@ -38,22 +38,23 @@ function Realms() {
   if(window.Pathfinder == null || Pathfinder.SRD35_SKILL_MAP == null) {
     Realms.USE_PATHFINDER = false;
   }
-  Realms.baseRules = Realms.USE_PATHFINDER ? Pathfinder : SRD35;
+  Realms.basePlugin = Realms.USE_PATHFINDER ? Pathfinder : SRD35;
 
   var rules = new QuilvynRules
     ('Forgotten Realms' + (Realms.USE_PATHFINDER?' - PF':''), REALMS_VERSION);
   Realms.rules = rules;
 
-  Realms.CHOICES = Realms.baseRules.CHOICES.concat(Realms.CHOICES_ADDED);
+  Realms.CHOICES = Realms.basePlugin.CHOICES.concat(Realms.CHOICES_ADDED);
   rules.defineChoice('choices', Realms.CHOICES);
   rules.choiceEditorElements = Realms.choiceEditorElements;
   rules.choiceRules = Realms.choiceRules;
   rules.editorElements = SRD35.initialEditorElements();
   rules.getFormats = SRD35.getFormats;
+  rules.getPlugins = Realms.getPlugins;
   rules.makeValid = SRD35.makeValid;
   rules.randomizeOneAttribute = Realms.randomizeOneAttribute;
   Realms.RANDOMIZABLE_ATTRIBUTES =
-    Realms.baseRules.RANDOMIZABLE_ATTRIBUTES.concat
+    Realms.basePlugin.RANDOMIZABLE_ATTRIBUTES.concat
     (Realms.RANDOMIZABLE_ATTRIBUTES_ADDED);
   rules.defineChoice('random', Realms.RANDOMIZABLE_ATTRIBUTES);
   rules.ruleNotes = Realms.ruleNotes;
@@ -65,60 +66,60 @@ function Realms() {
   );
   rules.defineChoice('preset', 'race', 'level', 'levels');
 
-  Realms.ALIGNMENTS = Object.assign({}, Realms.baseRules.ALIGNMENTS);
+  Realms.ALIGNMENTS = Object.assign({}, Realms.basePlugin.ALIGNMENTS);
   Realms.ANIMAL_COMPANIONS =
-    Object.assign( {}, Realms.baseRules.ANIMAL_COMPANIONS);
-  Realms.ARMORS = Object.assign({}, Realms.baseRules.ARMORS);
-  Realms.CLASSES = Object.assign({}, Realms.baseRules.CLASSES);
+    Object.assign( {}, Realms.basePlugin.ANIMAL_COMPANIONS);
+  Realms.ARMORS = Object.assign({}, Realms.basePlugin.ARMORS);
+  Realms.CLASSES = Object.assign({}, Realms.basePlugin.CLASSES);
   for(var clas in Realms.CLASS_SPELLS_ADDED) {
     Realms.CLASSES[clas] = Realms.CLASSES[clas].replace('Spells=', 'Spells=' + Realms.CLASS_SPELLS_ADDED[clas] + ',');
   }
-  Realms.FAMILIARS = Object.assign({}, Realms.baseRules.FAMILIARS);
+  Realms.FAMILIARS = Object.assign({}, Realms.basePlugin.FAMILIARS);
   Realms.FEATS =
-    Object.assign({}, Realms.baseRules.FEATS, Realms.FEATS_ADDED);
+    Object.assign({}, Realms.basePlugin.FEATS, Realms.FEATS_ADDED);
   Realms.FEATURES =
-    Object.assign({}, Realms.baseRules.FEATURES, Realms.FEATURES_ADDED);
+    Object.assign({}, Realms.basePlugin.FEATURES, Realms.FEATURES_ADDED);
   Realms.LANGUAGES =
-    Object.assign({}, Realms.baseRules.LANGUAGES, Realms.LANGUAGES_ADDED);
+    Object.assign({}, Realms.basePlugin.LANGUAGES, Realms.LANGUAGES_ADDED);
   Realms.PATHS =
-    Object.assign({}, Realms.baseRules.PATHS, Realms.PATHS_ADDED);
+    Object.assign({}, Realms.basePlugin.PATHS, Realms.PATHS_ADDED);
   Realms.RACES['Gold Dwarf'] =
-    Realms.baseRules.RACES['Dwarf']
+    Realms.basePlugin.RACES['Dwarf']
       .replace('Dwarf Ability', 'Gold Dwarf Ability')
       .replace('Dwarf Enmity', 'Gold Dwarf Enmity'),
   Realms.RACES['Shield Dwarf'] =
-    Realms.baseRules.RACES['Dwarf'],
+    Realms.basePlugin.RACES['Dwarf'],
   Realms.RACES['Moon Elf'] =
-    Realms.baseRules.RACES['Elf'],
+    Realms.basePlugin.RACES['Elf'],
   Realms.RACES['Sun Elf'] =
-    Realms.baseRules.RACES['Elf'].replace('Elf Ability', 'Sun Elf Ability'),
+    Realms.basePlugin.RACES['Elf'].replace('Elf Ability', 'Sun Elf Ability'),
   Realms.RACES['Wild Elf'] =
-    Realms.baseRules.RACES['Elf'].replace('Elf Ability', 'Wild Elf Ability'),
+    Realms.basePlugin.RACES['Elf'].replace('Elf Ability', 'Wild Elf Ability'),
   Realms.RACES['Wood Elf'] =
-    Realms.baseRules.RACES['Elf'].replace('Elf Ability', 'Wood Elf Ability'),
+    Realms.basePlugin.RACES['Elf'].replace('Elf Ability', 'Wood Elf Ability'),
   Realms.RACES['Rock Gnome'] =
-    Realms.baseRules.RACES['Gnome'],
+    Realms.basePlugin.RACES['Gnome'],
   Realms.RACES['Half-Elf'] =
-    Realms.baseRules.RACES['Half-Elf'],
+    Realms.basePlugin.RACES['Half-Elf'],
   Realms.RACES['Half-Orc'] =
-    Realms.baseRules.RACES['Half-Orc'],
+    Realms.basePlugin.RACES['Half-Orc'],
   Realms.RACES['Ghostwise Halfling'] =
-    Realms.baseRules.RACES['Halfling']
+    Realms.basePlugin.RACES['Halfling']
       .replace(/['"]?Fortunate['"]?/, '"Speak Without Sound"'),
   Realms.RACES['Lightfoot Halfling'] =
-    Realms.baseRules.RACES['Halfling'],
+    Realms.basePlugin.RACES['Halfling'],
   Realms.RACES['Strongheart Halfling'] =
-    Realms.baseRules.RACES['Halfling']
+    Realms.basePlugin.RACES['Halfling']
       .replace(/['"]?Fortunate['"]?/, '"Strongheart Feat Bonus"'),
   Realms.RACES['Human'] =
-    Realms.baseRules.RACES['Human'],
-  Realms.SCHOOLS = Object.assign({}, Realms.baseRules.SCHOOLS);
-  Realms.SHIELDS = Object.assign({}, Realms.baseRules.SHIELDS);
-  Realms.SKILLS = Object.assign({}, Realms.baseRules.SKILLS);
+    Realms.basePlugin.RACES['Human'],
+  Realms.SCHOOLS = Object.assign({}, Realms.basePlugin.SCHOOLS);
+  Realms.SHIELDS = Object.assign({}, Realms.basePlugin.SHIELDS);
+  Realms.SKILLS = Object.assign({}, Realms.basePlugin.SKILLS);
   Realms.SPELLS =
-    Object.assign({}, Realms.baseRules.SPELLS, Realms.SPELLS_ADDED);
+    Object.assign({}, Realms.basePlugin.SPELLS, Realms.SPELLS_ADDED);
   Realms.WEAPONS =
-    Object.assign({}, Realms.baseRules.WEAPONS, Realms.WEAPONS_ADDED);
+    Object.assign({}, Realms.basePlugin.WEAPONS, Realms.WEAPONS_ADDED);
 
   Realms.abilityRules(rules);
   Realms.aideRules(rules, Realms.ANIMAL_COMPANIONS, Realms.FAMILIARS);
@@ -1592,25 +1593,25 @@ Realms.WEAPONS = Object.assign({}, SRD35.WEAPONS, Realms.WEAPONS_ADDED);
 
 /* Defines the rules related to character abilities. */
 Realms.abilityRules = function(rules) {
-  Realms.baseRules.abilityRules(rules);
+  Realms.basePlugin.abilityRules(rules);
   // No changes needed to the rules defined by base method
 };
 
 /* Defines rules related to animal companions and familiars. */
 Realms.aideRules = function(rules, companions, familiars) {
-  Realms.baseRules.aideRules(rules, companions, familiars);
+  Realms.basePlugin.aideRules(rules, companions, familiars);
   // No changes needed to the rules defined by base method
 };
 
 /* Defines rules related to combat. */
 Realms.combatRules = function(rules, armors, shields, weapons) {
-  Realms.baseRules.combatRules(rules, armors, shields, weapons);
+  Realms.basePlugin.combatRules(rules, armors, shields, weapons);
   // No changes needed to the rules defined by base method
 };
 
 /* Defines the rules related to goodies included in character notes. */
 Realms.goodiesRules = function(rules) {
-  Realms.baseRules.goodiesRules(rules);
+  Realms.basePlugin.goodiesRules(rules);
   // No changes needed to the rules defined by base method
 };
 
@@ -1621,7 +1622,7 @@ Realms.identityRules = function(
 
   QuilvynUtils.checkAttrTable(regions, []);
 
-  if(Realms.baseRules == window.Pathfinder)
+  if(Realms.basePlugin == window.Pathfinder)
     Pathfinder.identityRules(
       rules, alignments, classes, deities, {}, paths, races, Pathfinder.TRACKS,
       Pathfinder.TRAITS
@@ -1651,13 +1652,13 @@ Realms.identityRules = function(
 
 /* Defines rules related to magic use. */
 Realms.magicRules = function(rules, schools, spells) {
-  Realms.baseRules.magicRules(rules, schools, spells);
+  Realms.basePlugin.magicRules(rules, schools, spells);
   // No changes needed to the rules defined by base method
 };
 
 /* Defines rules related to character aptitudes. */
 Realms.talentRules = function(rules, feats, features, languages, skills) {
-  Realms.baseRules.talentRules(rules, feats, features, languages, skills);
+  Realms.basePlugin.talentRules(rules, feats, features, languages, skills);
   // No changes needed to the rules defined by base method
   for(var feat in feats) {
     if(feats[feat].indexOf('Item Creation') >= 0)
@@ -1717,8 +1718,8 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValueArray(attrs, 'Spells'),
       Realms.SPELLS
     );
-    if(Realms.baseRules.classRulesExtra)
-      Realms.baseRules.classRulesExtra(rules, name);
+    if(Realms.basePlugin.classRulesExtra)
+      Realms.basePlugin.classRulesExtra(rules, name);
   } else if(type == 'Deity')
     Realms.deityRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Alignment'),
@@ -1784,8 +1785,8 @@ Realms.choiceRules = function(rules, type, name, attrs) {
     Realms.schoolRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Features')
     );
-    if(Realms.baseRules.schoolRulesExtra)
-      Realms.baseRules.schoolRulesExtra(rules, name);
+    if(Realms.basePlugin.schoolRulesExtra)
+      Realms.basePlugin.schoolRulesExtra(rules, name);
   } else if(type == 'Shield')
     Realms.shieldRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'AC'),
@@ -1801,8 +1802,8 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValueArray(attrs, 'Class'),
       QuilvynUtils.getAttrValueArray(attrs, 'Synergies')
     );
-    if(Realms.baseRules.skillRulesExtra)
-      Realms.baseRules.skillRulesExtra(rules, name);
+    if(Realms.basePlugin.skillRulesExtra)
+      Realms.basePlugin.skillRulesExtra(rules, name);
   } else if(type == 'Spell')
     Realms.spellRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'School'),
@@ -1844,7 +1845,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
 
 /* Defines in #rules# the rules associated with alignment #name#. */
 Realms.alignmentRules = function(rules, name) {
-  Realms.baseRules.alignmentRules(rules, name);
+  Realms.basePlugin.alignmentRules(rules, name);
   // No changes needed to the rules defined by base method
 };
 
@@ -1858,7 +1859,7 @@ Realms.alignmentRules = function(rules, name) {
 Realms.armorRules = function(
   rules, name, ac, weight, maxDex, skillPenalty, spellFail
 ) {
-  Realms.baseRules.armorRules
+  Realms.basePlugin.armorRules
     (rules, name, ac, weight, maxDex, skillPenalty, spellFail);
   // No changes needed to the rules defined by base method
 };
@@ -1888,7 +1889,7 @@ Realms.classRules = function(
   saveWill, skills, features, selectables, languages, casterLevelArcane,
   casterLevelDivine, spellAbility, spellSlots, spells, spellDict
 ) {
-  if(Realms.baseRules == window.Pathfinder) {
+  if(Realms.basePlugin == window.Pathfinder) {
     for(var i = 0; i < requires.length; i++) {
       for(var skill in Pathfinder.SRD35_SKILL_MAP) {
         requires[i] =
@@ -1905,7 +1906,7 @@ Realms.classRules = function(
         skills[i] = Pathfinder.SRD35_SKILL_MAP[skill];
     }
   }
-  Realms.baseRules.classRules(
+  Realms.basePlugin.classRules(
     rules, name, requires, hitDie, attack, skillPoints, saveFort, saveRef,
     saveWill, skills, features, selectables, languages, casterLevelArcane,
     casterLevelDivine, spellAbility, spellSlots, spells, spellDict
@@ -1923,7 +1924,7 @@ Realms.classRules = function(
 Realms.companionRules = function(
   rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, level, size
 ) {
-  Realms.baseRules.companionRules(
+  Realms.basePlugin.companionRules(
     rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size, level
   );
   // No changes needed to the rules defined by base method
@@ -1935,7 +1936,7 @@ Realms.companionRules = function(
  * domains and favored weapons.
  */
 Realms.deityRules = function(rules, name, alignment, domains, weapons) {
-  Realms.baseRules.deityRules(rules, name, alignment, domains, weapons);
+  Realms.basePlugin.deityRules(rules, name, alignment, domains, weapons);
   // No changes needed to the rules defined by base method
 };
 
@@ -1949,7 +1950,7 @@ Realms.deityRules = function(rules, name, alignment, domains, weapons) {
 Realms.familiarRules = function(
   rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, level, size
 ) {
-  Realms.baseRules.familiarRules
+  Realms.basePlugin.familiarRules
     (rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size, level);
   // No changes needed to the rules defined by base method
 };
@@ -1960,12 +1961,12 @@ Realms.familiarRules = function(
  * lists the categories of the feat.
  */
 Realms.featRules = function(rules, name, requires, implies, types) {
-  if(name == 'Beast Shape' && Realms.baseRules == window.Pathfinder) {
+  if(name == 'Beast Shape' && Realms.basePlugin == window.Pathfinder) {
     // PF allows Wild Shape to Huge at level 8 instead of 15
     for(var i = 0; i < requires.length; i++)
       requires[i] = requires[i].replace(/Druid\s*>=\s*15/, 'Druid >= 8');
   }
-  Realms.baseRules.featRules(rules, name, requires, implies, types);
+  Realms.basePlugin.featRules(rules, name, requires, implies, types);
   // No changes needed to the rules defined by base method
 };
 
@@ -2024,8 +2025,8 @@ Realms.featRulesExtra = function(rules, name) {
   } else if(name == 'Tenacious Magic') {
     rules.defineRule
       ('magicNotes.tenaciousMagic', 'casterLevel', '=', '15 + source');
-  } else if(Realms.baseRules.featRulesExtra) {
-    Realms.baseRules.featRulesExtra(rules, name);
+  } else if(Realms.basePlugin.featRulesExtra) {
+    Realms.basePlugin.featRulesExtra(rules, name);
   }
 
 };
@@ -2036,7 +2037,7 @@ Realms.featRulesExtra = function(rules, name) {
  * the two must have the same number of elements.
  */
 Realms.featureRules = function(rules, name, sections, notes) {
-  if(Realms.baseRules == window.Pathfinder) {
+  if(Realms.basePlugin == window.Pathfinder) {
     for(var i = 0; i < sections.length; i++) {
       if(sections[i] != 'skill')
         continue;
@@ -2054,13 +2055,13 @@ Realms.featureRules = function(rules, name, sections, notes) {
       notes[i] = note;
     }
   }
-  Realms.baseRules.featureRules(rules, name, sections, notes);
+  Realms.basePlugin.featureRules(rules, name, sections, notes);
   // No changes needed to the rules defined by base method
 };
 
 /* Defines in #rules# the rules associated with language #name#. */
 Realms.languageRules = function(rules, name) {
-  Realms.baseRules.languageRules(rules, name);
+  Realms.basePlugin.languageRules(rules, name);
   // No changes needed to the rules defined by base method
 };
 
@@ -2076,13 +2077,13 @@ Realms.pathRules = function(
   rules, name, group, levelAttr, features, selectables, spellAbility,
   spellSlots, spells, spellDict
 ) {
-  if(Realms.baseRules == window.Pathfinder)
-    Realms.baseRules.pathRules(
+  if(Realms.basePlugin == window.Pathfinder)
+    Realms.basePlugin.pathRules(
       rules, name, group, levelAttr, features, selectables, [], [],
       spellAbility, spellSlots, spells, spellDict
     );
   else
-    Realms.baseRules.pathRules(
+    Realms.basePlugin.pathRules(
       rules, name, group, levelAttr, features, selectables, spellAbility,
       spellSlots, spells, spellDict
     );
@@ -2121,8 +2122,8 @@ Realms.pathRulesExtra = function(rules, name) {
   } else if(name == 'Trade Domain') {
     rules.defineRule
       ('magicNotes.insiderKnowledge', 'charismaModifier', '=', null);
-  } else if(Realms.baseRules.pathRulesExtra) {
-    Realms.baseRules.pathRulesExtra(rules, name);
+  } else if(Realms.basePlugin.pathRulesExtra) {
+    Realms.basePlugin.pathRulesExtra(rules, name);
   }
 };
 
@@ -2139,7 +2140,7 @@ Realms.raceRules = function(
   rules, name, requires, features, selectables, languages, spellAbility,
   spells, spellSlots, spellDict
 ) {
-  Realms.baseRules.raceRules
+  Realms.basePlugin.raceRules
     (rules, name, requires, features, selectables, languages, spellAbility,
      spells, spellSlots, spellDict);
   // No changes needed to the rules defined by base method
@@ -2179,8 +2180,8 @@ Realms.raceRulesExtra = function(rules, name) {
     rules.defineRule('casterLevels.EG', 'earthGenasiLevel', '=', '5');
   } else if(name == 'Water Genasi') {
     rules.defineRule('casterLevels.WG', 'waterGenasiLevel', '=', '5');
-  } else if(Realms.baseRules.raceRulesExtra) {
-    Realms.baseRules.raceRulesExtra(rules, name);
+  } else if(Realms.basePlugin.raceRulesExtra) {
+    Realms.basePlugin.raceRulesExtra(rules, name);
   }
 };
 
@@ -2198,7 +2199,7 @@ Realms.regionRules = function(rules, name, features) {
  * grants the list of #features#.
  */
 Realms.schoolRules = function(rules, name, features) {
-  Realms.baseRules.schoolRules(rules, name, features);
+  Realms.basePlugin.schoolRules(rules, name, features);
   // No changes needed to the rules defined by base method
 };
 
@@ -2211,7 +2212,7 @@ Realms.schoolRules = function(rules, name, features) {
 Realms.shieldRules = function(
   rules, name, ac, profLevel, skillFail, spellFail
 ) {
-  Realms.baseRules.shieldRules
+  Realms.basePlugin.shieldRules
     (rules, name, ac, profLevel, skillFail, spellFail);
   // No changes needed to the rules defined by base method
 };
@@ -2228,7 +2229,7 @@ Realms.shieldRules = function(
 Realms.skillRules = function(
   rules, name, ability, untrained, classes, synergies
 ) {
-  Realms.baseRules.skillRules
+  Realms.basePlugin.skillRules
     (rules, name, ability, untrained, classes, synergies);
   // No changes needed to the rules defined by base method
 };
@@ -2242,7 +2243,7 @@ Realms.skillRules = function(
 Realms.spellRules = function(
   rules, name, school, casterGroup, level, description
 ) {
-  Realms.baseRules.spellRules
+  Realms.basePlugin.spellRules
     (rules, name, school, casterGroup, level, description);
   // No changes needed to the rules defined by base method
 };
@@ -2259,7 +2260,7 @@ Realms.spellRules = function(
 Realms.weaponRules = function(
   rules, name, profLevel, category, damage, threat, critMultiplier, range
 ) {
-  Realms.baseRules.weaponRules(
+  Realms.basePlugin.weaponRules(
     rules, name, profLevel, category, damage, threat, critMultiplier, range
   );
   // No changes needed to the rules defined by base method
@@ -2272,7 +2273,7 @@ Realms.weaponRules = function(
 Realms.choiceEditorElements = function(rules, type) {
   if(type == 'Region')
     return []; // empty
-  return Realms.baseRules.choiceEditorElements(rules, type);
+  return Realms.basePlugin.choiceEditorElements(rules, type);
 };
 
 /* Sets #attributes#'s #attribute# attribute to a random value. */
@@ -2288,7 +2289,7 @@ Realms.randomizeOneAttribute = function(attributes, attribute) {
     }
     attributes[attribute] = choices[QuilvynUtils.random(0, choices.length - 1)];
   } else {
-    Realms.baseRules.randomizeOneAttribute.apply(this, [attributes, attribute]);
+    Realms.basePlugin.randomizeOneAttribute.apply(this, [attributes, attribute]);
     if(attribute == 'levels') {
       // Recompute experience to account for level offset for some races
       var attrs = this.applyRules(attributes);
@@ -2332,4 +2333,9 @@ Realms.ruleNotes = function() {
     '  </li>\n' +
     '</ul>\n' +
     '</p>';
+};
+
+/* Returns an array of plugins upon which this one depends. */
+Realms.getPlugins = function() {
+  return Realms.basePlugin.rules.getPlugins().concat([Realms.basePlugin]);
 };
