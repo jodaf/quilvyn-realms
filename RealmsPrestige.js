@@ -31,6 +31,7 @@ function RealmsPrestige() {
     return;
   }
   RealmsPrestige.identityRules(Realms.rules, RealmsPrestige.CLASSES);
+  RealmsPrestige.magicRules(Realms.rules, RealmsPrestige.SPELLS);
   RealmsPrestige.talentRules(Realms.rules, RealmsPrestige.FEATURES);
 }
 
@@ -107,11 +108,7 @@ RealmsPrestige.CLASSES = {
       'SpellSlots=' +
         'Seeker1:1=1,' +
         'Seeker3:1=2,' +
-        'Seeker4:1=1 ' +
-      'Spells=' +
-        '"Seeker1:Sanctuary",' +
-        '"Seeker3:Locate Object;Obscure Object",' +
-        '"Seeker4:Locate Creature"',
+        'Seeker4:1=1',
   'Guild Thief':
     'Require=' +
       '"skills.Gather Information >= 3","skills.Hide >= 8",' +
@@ -151,16 +148,7 @@ RealmsPrestige.CLASSES = {
     'SpellSlots=' +
       'Harper1:1=0;2=1,' +
       'Harper2:3=0;4=1,' +
-      'Harper3:5=0 ' +
-    'Spells=' +
-      '"Harper1:Alter Self;Charm Person;Comprehend Languages;Erase;' +
-      'Feather Fall;Jump;Light;Message;Mount;Read Magic;Scatterspray;' +
-      'Sleep;Spider Climb",' +
-      '"Harper2:Cat\'s Grace;Darkvision;Detect Thoughts;Eagle\'s Splendor;' +
-      'Invisibility;Knock;Locate Object;Magic Mouth;Misdirection;' +
-      'See Invisibility;Shadow Mask",' +
-      '"Harper3:Clairaudience/Clairvoyance;Nondetection;Suggestion;Tongues;' +
-      'Undetectable Alignment"',
+      'Harper3:5=0',
   'Hathran':
     'Require=' +
       '"alignment =~ \'Lawful Good|Lawful Neutral|Neutral Good\'",' +
@@ -180,10 +168,7 @@ RealmsPrestige.CLASSES = {
     'SpellAbility=charisma ' +
     'SpellSlots=' +
       'Hathran1:3=1,' +
-      'Hathran4:10=1 ' +
-    'Spells=' +
-      '"Hathran1:Cause Fear",' +
-      '"Hathran4:Greater Command"',
+      'Hathran4:10=1',
   'Hierophant':
     'Require=' +
       '"skills.Knowledge (Nature) >= 15||skills.Knowledge (Religion) >= 15",' +
@@ -216,9 +201,7 @@ RealmsPrestige.CLASSES = {
       '"4:Oath Of Wrath","5:Final Stand" ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
-      'Purple3:3=1 ' +
-    'Spells=' +
-      '"Purple3:Cause Fear"',
+      'Purple3:3=1',
   'Red Wizard':
     'Require=' +
       '"alignment !~ \'Good\'","race == \'Human\'","region == \'Thay\'",' +
@@ -346,6 +329,43 @@ RealmsPrestige.FEATURES = {
   "Tymora's Smile":
     'Section=save Note="+2 luck bonus to any save 1/dy"'
 };
+RealmsPrestige.SPELLS = {
+  'Alter Self':'Level=Harper1',
+  'Cat\'s Grace':'Level=Harper2',
+  'Cause Fear':'Level=Hathran1,Purple3',
+  'Charm Person':'Level=Harper1',
+  'Clairaudience/Clairvoyance':'Level=Harper3',
+  'Comprehend Languages':'Level=Harper1',
+  'Darkvision':'Level=Harper2',
+  'Detect Thoughts':'Level=Harper2',
+  'Eagle\'s Splendor':'Level=Harper2',
+  'Erase':'Level=Harper1',
+  'Feather Fall':'Level=Harper1',
+  'Greater Command':'Level=Hathran4',
+  'Invisibility':'Level=Harper2',
+  'Jump':'Level=Harper1',
+  'Knock':'Level=Harper2',
+  'Light':'Level=Harper1',
+  'Locate Creature':'Level=Seeker4',
+  'Locate Object':'Level=Harper2,Seeker3',
+  'Magic Mouth':'Level=Harper2',
+  'Message':'Level=Harper1',
+  'Misdirection':'Level=Harper2',
+  'Mount':'Level=Harper1',
+  'Nondetection':'Level=Harper3',
+  'Obscure Object':'Level=Seeker3',
+  'Read Magic':'Level=Harper1',
+  'Sanctuary':'Level=Seeker1',
+  'Scatterspray':'Level=Harper1',
+  'See Invisibility':'Level=Harper2',
+  'Shadow Mask':'Level=Harper2',
+  'Sleep':'Level=Harper1',
+  'Spider Climb':'Level=Harper1',
+  'Suggestion':'Level=Harper3',
+  'Tongues':'Level=Harper3',
+  'Undetectable Alignment':'Level=Harper3'
+};
+
 RealmsPrestige.classRulesExtra = function(rules, name) {
 
   var allFeats = rules.getChoices('feats');
@@ -577,10 +597,18 @@ RealmsPrestige.classRulesExtra = function(rules, name) {
 /* Defines rules related to basic character identity. */
 RealmsPrestige.identityRules = function(rules, classes) {
   QuilvynUtils.checkAttrTable
-    (classes, ['Require', 'HitDie', 'Attack', 'SkillPoints', 'Fortitude', 'Reflex', 'Will', 'Skills', 'Features', 'Selectables', 'Languages', 'CasterLevelArcane', 'CasterLevelDivine', 'SpellAbility', 'SpellSlots', 'Spells']);
+    (classes, ['Require', 'HitDie', 'Attack', 'SkillPoints', 'Fortitude', 'Reflex', 'Will', 'Skills', 'Features', 'Selectables', 'Languages', 'CasterLevelArcane', 'CasterLevelDivine', 'SpellAbility', 'SpellSlots']);
   for(var clas in classes) {
     rules.choiceRules(rules, 'Class', clas, classes[clas]);
     RealmsPrestige.classRulesExtra(rules, clas);
+  }
+};
+
+/* Defines rules related to magic use. */
+RealmsPrestige.magicRules = function(rules, spells) {
+  QuilvynUtils.checkAttrTable(spells, ['School', 'Level', 'Description']);
+  for(var s in spells) {
+    rules.choiceRules(rules, 'Spell', s, Realms.SPELLS[s] + ' ' + spells[s]);
   }
 };
 

@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.1.1.4';
+var REALMS_VERSION = '2.2.1.0';
 
 /*
  * This module loads the rules from the Forgotten Realms v3 source book. The
@@ -71,9 +71,6 @@ function Realms() {
     Object.assign( {}, Realms.basePlugin.ANIMAL_COMPANIONS);
   Realms.ARMORS = Object.assign({}, Realms.basePlugin.ARMORS);
   Realms.CLASSES = Object.assign({}, Realms.basePlugin.CLASSES);
-  for(var clas in Realms.CLASS_SPELLS_ADDED) {
-    Realms.CLASSES[clas] = Realms.CLASSES[clas].replace('Spells=', 'Spells=' + Realms.CLASS_SPELLS_ADDED[clas] + ',');
-  }
   Realms.FAMILIARS = Object.assign({}, Realms.basePlugin.FAMILIARS);
   Realms.FEATS =
     Object.assign({}, Realms.basePlugin.FEATS, Realms.FEATS_ADDED);
@@ -118,15 +115,17 @@ function Realms() {
   Realms.SKILLS = Object.assign({}, Realms.basePlugin.SKILLS);
   Realms.SPELLS =
     Object.assign({}, Realms.basePlugin.SPELLS, Realms.SPELLS_ADDED);
+  for(var s in Realms.SPELLS_LEVELS) {
+    Realms.SPELLS[s] =
+      Realms.SPELLS[s].replace('Level=', 'Level=' + Realms.SPELLS_LEVELS[s] + ',');
+  }
   Realms.WEAPONS =
     Object.assign({}, Realms.basePlugin.WEAPONS, Realms.WEAPONS_ADDED);
 
   Realms.abilityRules(rules);
   Realms.aideRules(rules, Realms.ANIMAL_COMPANIONS, Realms.FAMILIARS);
   Realms.combatRules(rules, Realms.ARMORS, Realms.SHIELDS, Realms.WEAPONS);
-  // Most spell definitions are handled by individual classes and paths.
-  // Schools must be defined before this can be done.
-  Realms.magicRules(rules, Realms.SCHOOLS, []);
+  Realms.magicRules(rules, Realms.SCHOOLS, Realms.SPELLS);
   // Feats must be defined before classes
   Realms.talentRules
     (rules, Realms.FEATS, Realms.FEATURES, Realms.LANGUAGES, Realms.SKILLS);
@@ -698,546 +697,172 @@ Realms.PATHS_ADDED = {
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Stone Affinity" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Cavern1:Detect Secret Doors",' +
-      '"Cavern2:Darkness",' +
-      '"Cavern3:Meld Into Stone",' +
-      '"Cavern4:Secure Shelter",' +
-      '"Cavern5:Passwall",' +
-      '"Cavern6:Find The Path",' +
-      '"Cavern7:Maw Of Stone",' +
-      '"Cavern8:Earthquake",' +
-      '"Cavern9:Imprisonment"',
+      '"1:Stone Affinity"',
   'Charm Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Turn It On" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Charm1:Charm Person",' +
-      '"Charm2:Calm Emotions",' +
-      '"Charm3:Suggestion",' +
-      '"Charm4:Good Hope",' +
-      '"Charm5:Charm Monster",' +
-      '"Charm6:Geas/Quest",' +
-      '"Charm7:Insanity",' +
-      '"Charm8:Demand",' +
-      '"Charm9:Dominate Monster"',
+      '"1:Turn It On"',
   'Craft Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Creator" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Craft1:Animate Rope",' +
-      '"Craft2:Wood Shape",' +
-      '"Craft3:Stone Shape",' +
-      '"Craft4:Minor Creation",' +
-      '"Craft5:Wall Of Stone",' +
-      '"Craft6:Fantastic Machine",' +
-      '"Craft7:Major Creation",' +
-      '"Craft8:Forcecage",' +
-      '"Craft9:Greater Fantastic Machine"',
+      '"1:Creator"',
   'Darkness Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Blind-Fight" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Darkness1:Obscuring Mist",' +
-      '"Darkness2:Blindness/Deafness",' +
-      '"Darkness3:Blacklight",' +
-      '"Darkness4:Armor Of Darkness",' +
-      '"Darkness5:Darkbolt",' +
-      '"Darkness6:Prying Eyes",' +
-      '"Darkness7:Nightmare",' +
-      '"Darkness8:Power Word Blind",' +
-      '"Darkness9:Power Word Kill"',
+      '"1:Blind-Fight"',
   'Drow Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Lightning Reflexes" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Drow1:Cloak Of Dark Power",' +
-      '"Drow2:Clairaudience/Clairvoyance",' +
-      '"Drow3:Suggestion",' +
-      '"Drow4:Discern Lies",' +
-      '"Drow5:Spiderform",' +
-      '"Drow6:Greater Dispel Magic",' +
-      '"Drow7:Word Of Chaos",' +
-      '"Drow8:Greater Planar Ally",' +
-      '"Drow9:Gate"',
+      '"1:Lightning Reflexes"',
   'Dwarf Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Great Fortitude" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Dwarf1:Magic Weapon",' +
-      '"Dwarf2:Bear\'s Endurance",' +
-      '"Dwarf3:Glyph Of Warding",' +
-      '"Dwarf4:Greater Magic Weapon",' +
-      '"Dwarf5:Fabricate",' +
-      '"Dwarf6:Stone Tell",' +
-      '"Dwarf7:Dictum",' +
-      '"Dwarf8:Protection From Spells",' +
-      '"Dwarf9:Elemental Swarm"',
+      '"1:Great Fortitude"',
   'Elf Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Point-Blank Shot" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Elf1:True Strike",' +
-      '"Elf2:Cat\'s Grace",' +
-      '"Elf3:Snare",' +
-      '"Elf4:Tree Stride",' +
-      '"Elf5:Commune With Nature",' +
-      '"Elf6:Find The Path",' +
-      '"Elf7:Liveoak",' +
-      '"Elf8:Sunburst",' +
-      '"Elf9:Antipathy"',
+      '"1:Point-Blank Shot"',
   'Family Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Familial Protection" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Family1:Bless",' +
-      '"Family2:Shield Other",' +
-      '"Family3:Helping Hand",' +
-      '"Family4:Imbue With Spell Ability",' +
-      '"Family5:Mnemonic Enhancer",' +
-      '"Family6:Heroes\' Feast",' +
-      '"Family7:Refuge",' +
-      '"Family8:Protection From Spells",' +
-      '"Family9:Prismatic Sphere"',
+      '"1:Familial Protection"',
   'Fate Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Foreshadowed" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Fate1:True Strike",' +
-      '"Fate2:Augury",' +
-      '"Fate3:Bestow Curse",' +
-      '"Fate4:Status",' +
-      '"Fate5:Mark Of Justice",' +
-      '"Fate6:Geas/Quest",' +
-      '"Fate7:Vision",' +
-      '"Fate8:Mind Blank",' +
-      '"Fate9:Foresight"',
+      '"1:Foreshadowed"',
   'Gnome Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Advanced Illusionist" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Gnome1:Silent Image",' +
-      '"Gnome2:Gembomb",' +
-      '"Gnome3:Minor Image",' +
-      '"Gnome4:Minor Creation",' +
-      '"Gnome5:Hallucinatory Terrain",' +
-      '"Gnome6:Fantastic Machine",' +
-      '"Gnome7:Screen",' +
-      '"Gnome8:Irresistible Dance",' +
-      '"Gnome9:Summon Nature\'s Ally IX"',
+      '"1:Advanced Illusionist"',
   'Halfling Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Spurred" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Halfling1:Magic Stone",' +
-      '"Halfling2:Cat\'s Grace",' +
-      '"Halfling3:Magic Vestment",' +
-      '"Halfling4:Freedom Of Movement",' +
-      '"Halfling5:Mage\'s Faithful Hound",' +
-      '"Halfling6:Move Earth",' +
-      '"Halfling7:Shadow Walk",' +
-      '"Halfling8:Shadow Walk",' +
-      '"Halfling9:Word Of Recall"',
+      '"1:Spurred"',
   'Hatred Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Vicious Assault","1:Wily" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Hatred1:Doom",' +
-      '"Hatred2:Scare",' +
-      '"Hatred3:Bestow Curse",' +
-      '"Hatred4:Crushing Despair",' +
-      '"Hatred5:Righteous Might",' +
-      '"Hatred6:Forbiddance",' +
-      '"Hatred7:Blasphemy",' +
-      '"Hatred8:Antipathy",' +
-      '"Hatred9:Wail Of The Banshee"',
+      '"1:Vicious Assault","1:Wily"',
   'Illusion Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Advanced Illusionist" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Illusion1:Silent Image",' +
-      '"Illusion2:Minor Image",' +
-      '"Illusion3:Displacement",' +
-      '"Illusion4:Phantasmal Killer",' +
-      '"Illusion5:Persistent Image",' +
-      '"Illusion6:Mislead",' +
-      '"Illusion7:Project Image",' +
-      '"Illusion8:Screen",' +
-      '"Illusion9:Weird"',
+      '"1:Advanced Illusionist"',
   'Mentalism Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Mental Control" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Mentalism1:Confusion",' +
-      '"Mentalism2:Detect Thoughts",' +
-      '"Mentalism3:Clairaudience/Clairvoyance",' +
-      '"Mentalism4:Modify Memory",' +
-      '"Mentalism5:Mind Fog",' +
-      '"Mentalism6:Telepathic Bond",' +
-      '"Mentalism7:Antipathy",' +
-      '"Mentalism8:Mind Blank",' +
-      '"Mentalism9:Astral Projection"',
+      '"1:Mental Control"',
   'Metal Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Hammer Specialist" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Metal1:Magic Weapon",' +
-      '"Metal2:Heat Metal",' +
-      '"Metal3:Keen Edge",' +
-      '"Metal4:Rusting Grasp",' +
-      '"Metal5:Wall Of Iron",' +
-      '"Metal6:Blade Barrier",' +
-      '"Metal7:Transmute Metal To Wood",' +
-      '"Metal8:Iron Body",' +
-      '"Metal9:Repel Metal Or Stone"',
+      '"1:Hammer Specialist"',
   'Moon Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Turn Lycanthropes" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Moon1:Faerie Fire",' +
-      '"Moon2:Moonbeam",' +
-      '"Moon3:Moon Blade",' +
-      '"Moon4:Rage",' +
-      '"Moon5:Moon Path",' +
-      '"Moon6:Permanent Image",' +
-      '"Moon7:Insanity",' +
-      '"Moon8:Animal Shapes",' +
-      '"Moon9:Moonfire"',
+      '"1:Turn Lycanthropes"',
   'Nobility Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Inspire Companions" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Nobility1:Divine Favor",' +
-      '"Nobility2:Enthrall",' +
-      '"Nobility3:Magic Vestment",' +
-      '"Nobility4:Discern Lies",' +
-      '"Nobility5:Greater Command",' +
-      '"Nobility6:Geas/Quest",' +
-      '"Nobility7:Repulsion",' +
-      '"Nobility8:Demand",' +
-      '"Nobility9:Storm Of Vengeance"',
+      '"1:Inspire Companions"',
   'Ocean Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Water Breathing" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Ocean1:Endure Elements",' +
-      '"Ocean2:Sound Burst",' +
-      '"Ocean3:Water Breathing",' +
-      '"Ocean4:Freedom Of Movement",' +
-      '"Ocean5:Wall Of Ice",' +
-      '"Ocean6:Freezing Sphere",' +
-      '"Ocean7:Waterspout",' +
-      '"Ocean8:Maelstrom",' +
-      '"Ocean9:Elemental Swarm"',
+      '"1:Water Breathing"',
   'Orc Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Frenzy" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Orc1:Cause Fear",' +
-      '"Orc2:Produce Flame",' +
-      '"Orc3:Prayer",' +
-      '"Orc4:Divine Power",' +
-      '"Orc5:Prying Eyes",' +
-      '"Orc6:Eyebite",' +
-      '"Orc7:Blasphemy",' +
-      '"Orc8:Cloak Of Chaos",' +
-      '"Orc9:Power Word Kill"',
+      '"1:Frenzy"',
   'Planning Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Extend Spell" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Planning1:Deathwatch",' +
-      '"Planning2:Augury",' +
-      '"Planning3:Clairaudience/Clairvoyance",' +
-      '"Planning4:Status",' +
-      '"Planning5:Detect Scrying",' +
-      '"Planning6:Heroes\' Feast",' +
-      '"Planning7:Greater Scrying",' +
-      '"Planning8:Discern Location",' +
-      '"Planning9:Time Stop"',
+      '"1:Extend Spell"',
   'Portal Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Detect Portal" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Portal1:Summon Monster I",' +
-      '"Portal2:Analyze Portal",' +
-      '"Portal3:Dimensional Anchor",' +
-      '"Portal4:Dimension Door",' +
-      '"Portal5:Teleport",' +
-      '"Portal6:Banishment",' +
-      '"Portal7:Etherealness",' +
-      '"Portal8:Maze",' +
-      '"Portal9:Gate"',
+      '"1:Detect Portal"',
   'Renewal Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Rebound" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Renewal1:Charm Person",' +
-      '"Renewal2:Lesser Restoration",' +
-      '"Renewal3:Remove Disease",' +
-      '"Renewal4:Reincarnate",' +
-      '"Renewal5:Atonement",' +
-      '"Renewal6:Heroes\' Feast",' +
-      '"Renewal7:Greater Restoration",' +
-      '"Renewal8:Polymorph Any Object",' +
-      '"Renewal9:Freedom"',
+      '"1:Rebound"',
   'Retribution Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Reprisal" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Retribution1:Shield Of Faith",' +
-      '"Retribution2:Bear\'s Endurance",' +
-      '"Retribution3:Speak With Dead",' +
-      '"Retribution4:Fire Shield",' +
-      '"Retribution5:Mark Of Justice",' +
-      '"Retribution6:Banishment",' +
-      '"Retribution7:Spell Turning",' +
-      '"Retribution8:Discern Location",' +
-      '"Retribution9:Storm Of Vengeance"',
+      '"1:Reprisal"',
   'Rune Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Scribe Scroll" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Rune1:Erase",' +
-      '"Rune2:Secret Page",' +
-      '"Rune3:Glyph Of Warding",' +
-      '"Rune4:Explosive Runes",' +
-      '"Rune5:Lesser Planar Binding",' +
-      '"Rune6:Greater Glyph Of Warding",' +
-      '"Rune7:Instant Summons",' +
-      '"Rune8:Symbol Of Death",' +
-      '"Rune9:Teleportation Circle"',
+      '"1:Scribe Scroll"',
   'Scalykind Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Turn Reptiles" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Scalykind1:Magic Fang",' +
-      '"Scalykind2:Animal Trance",' +
-      '"Scalykind3:Greater Magic Fang",' +
-      '"Scalykind4:Poison",' +
-      '"Scalykind5:Animal Growth",' +
-      '"Scalykind6:Eyebite",' +
-      '"Scalykind7:Creeping Doom",' +
-      '"Scalykind8:Animal Shapes",' +
-      '"Scalykind9:Shapechange"',
+      '"1:Turn Reptiles"',
   'Slime Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Turn Oozes" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Slime1:Grease",' +
-      '"Slime2:Acid Arrow",' +
-      '"Slime3:Poison",' +
-      '"Slime4:Rusting Grasp",' +
-      '"Slime5:Black Tentacles",' +
-      '"Slime6:Transmute Rock To Mud",' +
-      '"Slime7:Destruction",' +
-      '"Slime8:Power Word Blind",' +
-      '"Slime9:Implosion"',
+      '"1:Turn Oozes"',
   'Spell Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Skilled Caster" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Spell1:Mage Armor",' +
-      '"Spell2:Silence",' +
-      '"Spell3:Anyspell",' +
-      '"Spell4:Mnemonic Enhancer",' +
-      '"Spell5:Break Enchantment",' +
-      '"Spell6:Greater Anyspell",' +
-      '"Spell7:Limited Wish",' +
-      '"Spell8:Antimagic Field",' +
-      '"Spell9:Mage\'s Disjunction"',
+      '"1:Skilled Caster"',
   'Spider Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Turn Spiders" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Spider1:Spider Climb",' +
-      '"Spider2:Summon Swarm",' +
-      '"Spider3:Phantom Steed",' +
-      '"Spider4:Giant Vermin",' +
-      '"Spider5:Insect Plague",' +
-      '"Spider6:Spider Curse",' +
-      '"Spider7:Stone Spiders",' +
-      '"Spider8:Creeping Doom",' +
-      '"Spider9:Spider Shapes"',
+      '"1:Turn Spiders"',
   'Storm Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Stormfriend" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Storm1:Entropic Shield",' +
-      '"Storm2:Gust Of Wind",' +
-      '"Storm3:Call Lightning",' +
-      '"Storm4:Sleet Storm",' +
-      '"Storm5:Ice Storm",' +
-      '"Storm6:Summon Monster VI",' +
-      '"Storm7:Control Weather",' +
-      '"Storm8:Whirlwind",' +
-      '"Storm9:Storm Of Vengeance"',
+      '"1:Stormfriend"',
   'Suffering Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Disabling Touch" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Suffering1:Bane",' +
-      '"Suffering2:Bear\'s Endurance",' +
-      '"Suffering3:Bestow Curse",' +
-      '"Suffering4:Enervation",' +
-      '"Suffering5:Feeblemind",' +
-      '"Suffering6:Harm",' +
-      '"Suffering7:Eyebite",' +
-      '"Suffering8:Symbol Of Pain",' +
-      '"Suffering9:Horrid Wilting"',
+      '"1:Disabling Touch"',
   'Time Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Improved Initiative" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Time1:True Strike",' +
-      '"Time2:Gentle Repose",' +
-      '"Time3:Haste",' +
-      '"Time4:Freedom Of Movement",' +
-      '"Time5:Permanency",' +
-      '"Time6:Contingency",' +
-      '"Time7:Instant Summons",' +
-      '"Time8:Foresight",' +
-      '"Time9:Time Stop"',
+      '"1:Improved Initiative"',
   'Trade Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Insider Knowledge" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Trade1:Detect Thoughts;Message",' +
-      '"Trade2:Gembomb",' +
-      '"Trade3:Eagle\'s Splendor",' +
-      '"Trade4:Sending",' +
-      '"Trade5:Fabricate",' +
-      '"Trade6:True Seeing",' +
-      '"Trade7:Mage\'s Magnificent Mansion",' +
-      '"Trade8:Mind Blank",' +
-      '"Trade9:Discern Location"',
+      '"1:Insider Knowledge"',
   'Tyranny Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Compelling Magic" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Tyranny1:Command",' +
-      '"Tyranny2:Enthrall",' +
-      '"Tyranny3:Discern Lies",' +
-      '"Tyranny4:Fear",' +
-      '"Tyranny5:Greater Command",' +
-      '"Tyranny6:Geas/Quest",' +
-      '"Tyranny7:Grasping Hand",' +
-      '"Tyranny8:Mass Charm Monster",' +
-      '"Tyranny9:Dominate Monster"',
+      '"1:Compelling Magic"',
   'Undeath Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Extra Turning" ' +
-    'SpellAbility=wisdom ' +
-    'Spells=' +
-      '"Undeath1:Detect Undead",' +
-      '"Undeath2:Desecrate",' +
-      '"Undeath3:Animate Dead",' +
-      '"Undeath4:Death Ward",' +
-      '"Undeath5:Mass Inflict Light Wounds",' +
-      '"Undeath6:Create Undead",' +
-      '"Undeath7:Control Undead",' +
-      '"Undeath8:Create Greater Undead",' +
-      '"Undeath9:Energy Drain"'
+      '"1:Extra Turning"'
 };
 Realms.PATHS = Object.assign({}, SRD35.PATHS, Realms.PATHS_ADDED);
 Realms.RACES = {
@@ -1258,10 +883,7 @@ Realms.RACES = {
     'SpellAbility=intelligence ' +
     'SpellSlots=' +
       'Duergaren1:1=1,' +
-      'Duergaren2:1=1 ' +
-    'Spells=' +
-      '"Duergaren1:Enlarge Person",' +
-      'Duergaren2:Invisibility',
+      'Duergaren2:1=1',
   'Shield Dwarf':
     SRD35.RACES['Dwarf'],
   'Drow Elf':
@@ -1276,11 +898,7 @@ Realms.RACES = {
     'SpellSlots=' +
       '"Drowen0:1=1",' +
       '"Drowen1:1=1",' +
-      '"Drowen2:1=1" ' +
-    'Spells=' +
-      '"Drowen0:Dancing Lights",' +
-      '"Drowen1:Faerie Fire",' +
-      '"Drowen2:Darkness"',
+      '"Drowen2:1=1"',
   'Moon Elf':
     SRD35.RACES['Elf'],
   'Sun Elf':
@@ -1300,10 +918,7 @@ Realms.RACES = {
     'SpellAbility=intelligence ' +
     'SpellSlots=' +
       'Svirfneblinish2:1=3,' +
-      'Svirfneblinish3:1=1 ' +
-    'Spells=' +
-      '"Svirfneblinish2:Alter Self;Blindness/Deafness;Blur",' +
-      'Svirfneblinish3:Nondetection',
+      'Svirfneblinish3:1=1',
   'Rock Gnome':
     SRD35.RACES['Gnome'],
   'Half-Elf':
@@ -1328,9 +943,7 @@ Realms.RACES = {
     'Languages=Common ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
-      'Aasimaren0:1=1 ' +
-    'Spells=' +
-      'Aasimaren0:Light',
+      'Aasimaren0:1=1',
   'Air Genasi':
     'Features=' +
       '"1:Air Genasi Ability Adjustment",1:Breathless,1:Darkvision,' +
@@ -1339,9 +952,7 @@ Realms.RACES = {
     'Languages=Common ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
-      'Airen2:1=1 ' +
-    'Spells=' +
-      'Airen2:Levitate',
+      'Airen2:1=1',
   'Earth Genasi':
     'Features=' +
       '1:Darkvision,"1:Earth Genasi Ability Adjustment",' +
@@ -1350,9 +961,7 @@ Realms.RACES = {
     'Languages=Common ' +
     'SpellAbility=wisdom ' +
     'SpellSlots=' +
-      'Earthen1:1=1 ' +
-    'Spells=' +
-      '"Earthen1:Pass Without Trace"',
+      'Earthen1:1=1',
   'Fire Genasi':
     'Features=' +
       '"1:Control Flame",1:Darkvision,"1:Elemental Affinity",' +
@@ -1367,9 +976,7 @@ Realms.RACES = {
     'Languages=Common ' +
     'SpellAbility=wisdom ' +
     'SpellSlots=' +
-      'Wateren0:1=1 ' +
-    'Spells=' +
-      '"Wateren0:Create Water"',
+      'Wateren0:1=1',
   'Tiefling':
     'Features=' +
       '1:Beguiling,1:Darkvision,"1:Native Outsider",1:Sneaky,' +
@@ -1378,9 +985,7 @@ Realms.RACES = {
     'Languages=Common ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
-      'Tieflen2:1=1 ' +
-    'Spells=' +
-      'Tieflen2:Darkness'
+      'Tieflen2:1=1'
 };
 Realms.REGIONS = {
   'Aglarond':'',
@@ -1448,135 +1053,384 @@ Realms.SPELLS_ADDED = {
 
   "Aganazzar's Scorcher":
     'School=Evocation ' +
+    'Level=W2 ' +
     'Description="5\'w by $RS\'l flame ${Math.min(5,Math.floor(lvl/2))}d8 HP (Ref half)"',
   'Analyze Portal':
     'School=Divination ' +
+    'Level=B3,Portal2,W3 ' +
     'Description="R60\' cone info on portals for $L rd"',
   'Anyspell':
     'School=Transmutation ' +
+    'Level=Spell3 ' +
     'Description="Self prepare up to 2nd level arcane spell from written source"',
   'Armor Of Darkness':
     'School=Abjuration ' +
+    'Level=Darkness4 ' +
     'Description="Touched +${Math.min(8,Math.floor(lvl/4)+3)} AC, darkvision for $L10 min"',
   'Blacklight':
     'School=Evocation ' +
+    'Level=Darkness3,W3 ' +
     'Description="R$RS\' Target center 20\' radius darkness only caster can see within for $L rd (Will neg)"',
   'Claws Of Darkness':
     'School=Illusion ' +
+   'Level=W2 ' +
     'Description="Self hands become 6\' extendable claws 1d4 HP cold and slow when grappling (Fort neg) for $L rd"',
   'Cloak Of Dark Power':
-    'School=Abjuration ' + 'Description="Touched protected from sunlight, +4 save vs. light and dark for $L min"',
+    'School=Abjuration ' +
+    'Level=Drow1 ' +
+    'Description="Touched protected from sunlight, +4 save vs. light and dark for $L min"',
   'Create Magic Tatoo':
     'School=Conjuration ' +
+    'Level=W2 ' +
     'Description="Touched gains tatoo w/variable effects for 1 dy"',
   'Darkbolt':
     'School=Evocation ' +
+    'Level=Darkness5 ' +
     'Description="R$RM\' ${Math.min(Math.floor(lvl/2),7)} ranged touch bolts 2d8 HP, dazed (Will neg)"',
   "Elminster's Evasion":
     'School=Evocation ' +
+    'Level=W9 ' +
     'Description="Self and up to 50 lb teleport to named locale"',
   'Fantastic Machine':
     'School=Illusion ' +
+    'Level=Craft6,Gnome6 ' +
     'Description="Lg machine (HP 22, AC 14, slam +5 1d8+4, rock +3 2d6+4, load 230) obeys commands for $L min"',
   'Fire Stride':
     'School=Transmutation ' +
+    'Level=W4 ' +
     'Description="Self teleport $RL\' between fires $L times for $L10 min"',
   'Flashburst':
     'School=Evocation ' +
+    'Level=W3 ' +
     'Description="R$RL\' Targets in 20\' radius dazzled, all w/in 120\' blinded (Will neg) for 2d8 rd"',
   'Flensing':
     'School=Evocation ' +
+    'Level=W8 ' +
     'Description="R$RS\' Target 2d6 HP (Fort half), lose 1d6 Cha and Con (Fort neg) for 4 rd"',
   'Gate Seal':
     'School=Abjuration ' +
+    'Level=B6,C6,D6,W6 ' +
     'Description="R$RS\' seal target gate or portal"',
   'Gembomb':
     'School=Conjuration ' +
+    'Level=Gnome2,Trade2 ' +
     'Description="Up to 5 gems become R100\' ranged touch bombs totalling ${Math.min(5,Math.floor(lvl/2))}d8 HP (Ref half)"',
   'Great Shout':
     'School=Evocation ' +
+    'Level=B6,W8 ' +
     'Description="R$RS\' Objects in range 20d6 HP (Ref neg), creatures in cone 10d6 HP, stunned 1 rd, deaf 4d6 rd (Fort half)"',
   'Greater Anyspell':
     'School=Transmutation ' +
+    'Level=Spell6 ' +
     'Description="Self prepare up to 5th level arcane spell from written source"',
   'Greater Fantastic Machine':
     'School=Illusion ' +
+    'Level=Craft9 ' +
     'Description="Lg machine (HP 88, AC 20, slam +17,+12 1d8+9, rock +12,+7 2d6+9, load 520) obeys commands for $L min"',
   "Grimwald's Graymantle":
     'School=Necromancy ' +
+    'Level=W5 ' +
     'Description="R$RM\' Target prevented from heal, restore, regen for $L rd (Fort neg)"',
   'Lesser Ironguard':
     'School=Abjuration ' +
+    'Level=W5 ' +
     'Description="Touched unaffected by normal metal for $L rd"',
   'Maelstrom':
     'School=Conjuration ' +
+    'Level=Ocean8 ' +
     'Description="R$RL\' Targets in whirpool 3d8 HP for 2d4 rd (Ref et al neg) for $L rd"',
   'Maw Of Stone':
     'School=Transmutation ' +
+    'Level=Cavern7 ' +
     'Description="Animated opening can attack and grapple"',
   'Moon Blade':
     'School=Evocation ' +
+    'Level=Moon3 ' +
     'Description="Moonlight blade touch attack 1d8+$Ldiv2 HP (undead 2d8+$L HP) for $L min"',
   'Moon Path':
     'School=Evocation ' +
+    'Level=Moon5 ' +
     'Description="Glowing pathway 5\'-20\'w by $L15\'l for $L min; <i>Sanctuary</i> on path for $L designed"',
   'Moonbeam':
     'School=Evocation ' +
+    'Level=Moon2 ' +
     'Description="R$RS\' Target lycanthropes become animal for $L min (Will neg)"',
   'Moonfire':
     'School=Evocation ' +
+    'Level=Moon9 ' +
     'Description="R$RS\' Cone ${Math.min(Math.floor(lvl/2),10)}d8 HP (undead x2) (Ref half), changed creatures revert (Will neg), marks auras for $L min"',
   'Scatterspray':
     'School=Transmutation ' +
+    'Level=W1 ' +
     'Description="R$RS\' Little items w/in 1\' radius scatter; creatures w/in 10\' 1d8 HP (Ref neg)"',
   'Shadow Mask':
     'School=Illusion ' +
+    'Level=W2 ' +
     'Description="Self face hidden, +4 save vs. light and dark, 50% gaze attack for $L10 min"',
   'Shadow Spray':
     'School=Illusion ' +
+    'Level=W2 ' +
     'Description="R$RM\' Creatures in 5\' radius lose 2 Str, dazed 1 rd, -2 fear saves for $L rd (Fort neg)"',
   "Snilloc's Snowball Swarm":
     'School=Evocation ' +
+    'Level=W2 ' +
     'Description="R$RM\' Creatures in 10\' radius ${Math.min(2+Math.floor((lvl-3)/2),5)}d6 HP cold (Ref half)"',
   'Spider Curse':
     'School=Transmutation ' +
+    'Level=Spider6 ' +
     'Description="R$RM\' Target polymorph to dominated drider for $L dy (Will neg)"',
   'Spider Shapes':
     'School=Transmutation ' +
+    'Level=Spider9 ' +
     'Description="R$RS\' Willing target polymorph to monstrous spider for $L hr"',
   'Spiderform':
     'School=Transmutation ' +
+    'Level=Drow5 ' +
     'Description="Self polymorph to drider or monstrous spider for $L hr"',
   'Stone Spiders':
     'School=Transmutation ' +
+    'Level=Spider7 ' +
     'Description="R$RS\' Transform 1d3 pebbles into controlled monstrous spiders for $L rd"',
   'Thunderlance':
     'School=Evocation ' +
+    'Level=W4 ' +
     'Description="Self wield shimmering staff (+${Math.floor(1+lvl/2)} 2d6+${Math.floor(1+lvl/2)} x3@20) 1\'-20\' long for $L rd"',
   'Waterspout':
     'School=Conjuration ' +
+    'Level=Ocean7 ' +
     'Description="R$RL\' 10\'w by 80\'h spout moves 30\'/rd, touched creatures 2d6 HP (Ref neg) for $L rd"'
-
 };
-Realms.CLASS_SPELLS_ADDED = {
-  'Bard':
-    '"B2:Eagle\'s Splendor",' +
-    '"B3:Analyze Portal",' +
-    '"B6:Gate Seal;Great Shout"',
-  'Cleric':
-    '"C6:Gate Seal"',
-  'Druid':
-    '"D6:Gate Seal"',
-  'Wizard':
-    'W1:Scatterspray,' +
-    '"W2:Aganazzar\'s Scorcher;Claws Of Darkness;Create Magic Tatoo;' +
-    'Eagle\'s Splendor;Shadow Mask;Shadow Spray;Snilloc\'s Snowball Swarm",' +
-    '"W3:Analyze Portal;Blacklight;Flashburst",' +
-    '"W4:Fire Stride;Thunderlance",' +
-    '"W5:Grimwald\'s Graymantle;Lesser Ironguard",' +
-    '"W6:Gate Seal",' +
-    '"W8:Flensing;Great Shout",' +
-    '"W9:Elminster\'s Evasion"'
+Realms.SPELLS = Object.assign({}, SRD35.SPELLS, Realms.SPELLS_ADDED);
+Realms.SPELLS_LEVELS = {
+  'Acid Arrow':'Slime2',
+  'Alter Self':'Svirfneblinish2',
+  'Animal Growth':'Scalykind5',
+  'Animal Shapes':'Moon8,Scalykind8',
+  'Animal Trance':'Scalykind2',
+  'Animate Dead':'Undeath3',
+  'Animate Rope':'Craft1',
+  'Antimagic Field':'Spell8',
+  'Antipathy':'Elf9,Hatred8,Mentalism7',
+  'Astral Projection':'Mentalism9',
+  'Atonement':'Renewal5',
+  'Augury':'Fate2,Planning2',
+  'Bane':'Suffering1',
+  'Banishment':'Portal6,Retribution6',
+  'Bear\'s Endurance':'Dwarf2,Retribution2,Suffering2',
+  'Bestow Curse':'Fate3,Hatred3,Suffering3',
+  'Black Tentacles':'Slime5',
+  'Blade Barrier':'Metal6',
+  'Blasphemy':'Hatred7,Orc7',
+  'Bless':'Family1',
+  'Blindness/Deafness':'Darkness2,Svirfneblinish2',
+  'Blur':'Svirfneblinish2',
+  'Break Enchantment':'Spell5',
+  'Call Lightning':'Storm3',
+  'Calm Emotions':'Charm2',
+  'Cat\'s Grace':'Elf2,Halfling2',
+  'Cause Fear':'Orc1',
+  'Charm Monster':'Charm5',
+  'Charm Person':'Charm1,Renewal1',
+  'Clairaudience/Clairvoyance':'Drow2,Mentalism3,Planning3',
+  'Cloak Of Chaos':'Orc8',
+  'Command':'Tyranny1',
+  'Commune With Nature':'Elf5',
+  'Confusion':'Mentalism1',
+  'Contingency':'Time6',
+  'Control Undead':'Undeath7',
+  'Control Weather':'Storm7',
+  'Create Greater Undead':'Undeath8',
+  'Create Undead':'Undeath6',
+  'Create Water':'Wateren0',
+  'Creeping Doom':'Scalykind7,Spider8',
+  'Crushing Despair':'Hatred4',
+  'Dancing Lights':'Drowen0',
+  'Darkness':'Cavern2,Drowen2,Tieflen2',
+  'Death Ward':'Undeath4',
+  'Deathwatch':'Planning1',
+  'Demand':'Charm8,Nobility8',
+  'Desecrate':'Undeath2',
+  'Destruction':'Slime7',
+  'Detect Scrying':'Planning5',
+  'Detect Secret Doors':'Cavern1',
+  'Detect Thoughts':'Mentalism2,Trade1',
+  'Detect Undead':'Undeath1',
+  'Dictum':'Dwarf7',
+  'Dimension Door':'Portal4',
+  'Dimensional Anchor':'Portal3',
+  'Discern Lies':'Drow4,Nobility4,Tyranny3',
+  'Discern Location':'Planning8,Retribution8,Trade9',
+  'Displacement':'Illusion3',
+  'Divine Favor':'Nobility1',
+  'Divine Power':'Orc4',
+  'Dominate Monster':'Charm9,Tyranny9',
+  'Doom':'Hatred1',
+  'Eagle\'s Splendor':'Trade3',
+  'Earthquake':'Cavern8',
+  'Elemental Swarm':'Dwarf9,Ocean9',
+  'Endure Elements':'Ocean1',
+  'Energy Drain':'Undeath9',
+  'Enervation':'Suffering4',
+  'Enlarge Person':'Duergaren1',
+  'Enthrall':'Nobility2,Tyranny2',
+  'Entropic Shield':'Storm1',
+  'Erase':'Rune1',
+  'Etherealness':'Portal7',
+  'Explosive Runes':'Rune4',
+  'Eyebite':'Orc6,Scalykind6,Suffering7',
+  'Fabricate':'Dwarf5,Trade5',
+  'Faerie Fire':'Drowen1,Moon1',
+  'Fear':'Tyranny4',
+  'Feeblemind':'Suffering5',
+  'Find The Path':'Cavern6,Elf6',
+  'Fire Shield':'Retribution4',
+  'Forbiddance':'Hatred6',
+  'Forcecage':'Craft8',
+  'Foresight':'Fate9,Halfling9,Time8',
+  'Freedom':'Renewal9',
+  'Freedom Of Movement':'Halfling4,Ocean4,Time4',
+  'Freezing Sphere':'Ocean6',
+  'Gate':'Drow9,Portal9',
+  'Geas/Quest':'Charm6,Fate6,Nobility6,Tyranny6',
+  'Gentle Repose':'Time2',
+  'Giant Vermin':'Spider4',
+  'Glyph Of Warding':'Dwarf3,Rune3',
+  'Good Hope':'Charm4',
+  'Grasping Hand':'Tyranny7',
+  'Grease':'Slime1',
+  'Greater Command':'Nobility5,Tyranny5',
+  'Greater Dispel Magic':'Drow6',
+  'Greater Glyph Of Warding':'Rune6',
+  'Greater Magic Fang':'Scalykind3',
+  'Greater Magic Weapon':'Dwarf4',
+  'Greater Planar Ally':'Drow8',
+  'Greater Restoration':'Renewal7',
+  'Greater Scrying':'Planning7',
+  'Gust Of Wind':'Storm2',
+  'Hallucinatory Terrain':'Gnome5',
+  'Harm':'Suffering6',
+  'Haste':'Time3',
+  'Heat Metal':'Metal2',
+  'Helping Hand':'Family3',
+  'Heroes\' Feast':'Family6,Planning6,Renewal6',
+  'Horrid Wilting':'Suffering9',
+  'Ice Storm':'Storm5',
+  'Imbue With Spell Ability':'Family4',
+  'Implosion':'Slime9',
+  'Imprisonment':'Cavern9',
+  'Insanity':'Charm7,Moon7',
+  'Insect Plague':'Spider5',
+  'Instant Summons':'Rune7,Time7',
+  'Invisibility':'Duergaren2',
+  'Iron Body':'Metal8',
+  'Irresistible Dance':'Gnome8',
+  'Keen Edge':'Metal3',
+  'Lesser Planar Binding':'Rune5',
+  'Lesser Restoration':'Renewal2',
+  'Levitate':'Airen2',
+  'Light':'Aasimaren0',
+  'Limited Wish':'Spell7',
+  'Liveoak':'Elf7',
+  'Mage Armor':'Spell1',
+  'Mage\'s Disjunction':'Spell9',
+  'Mage\'s Faithful Hound':'Halfling5',
+  'Mage\'s Magnificent Mansion':'Trade7',
+  'Magic Fang':'Scalykind1',
+  'Magic Stone':'Halfling1',
+  'Magic Vestment':'Halfling3,Nobility3',
+  'Magic Weapon':'Dwarf1,Metal1',
+  'Major Creation':'Craft7',
+  'Mark Of Justice':'Fate5,Retribution5',
+  'Mass Charm Monster':'Tyranny8',
+  'Mass Inflict Light Wounds':'Undeath5',
+  'Maze':'Portal8',
+  'Meld Into Stone':'Cavern3',
+  'Message':'Trade1',
+  'Mind Blank':'Fate8,Mentalism8,Trade8',
+  'Mind Fog':'Mentalism5',
+  'Minor Creation':'Craft4,Gnome4',
+  'Minor Image':'Gnome3,Illusion2',
+  'Mislead':'Illusion6',
+  'Mnemonic Enhancer':'Family5,Spell4',
+  'Modify Memory':'Mentalism4',
+  'Move Earth':'Halfling6',
+  'Nightmare':'Darkness7',
+  'Nondetection':'Svirfneblinish3',
+  'Obscuring Mist':'Darkness1',
+  'Pass Without Trace':'Earthen1',
+  'Passwall':'Cavern5',
+  'Permanency':'Time5',
+  'Permanent Image':'Moon6',
+  'Persistent Image':'Illusion5',
+  'Phantasmal Killer':'Illusion4',
+  'Phantom Steed':'Spider3',
+  'Poison':'Scalykind4,Slime3',
+  'Polymorph Any Object':'Renewal8',
+  'Power Word Blind':'Darkness8,Slime8',
+  'Power Word Kill':'Darkness9,Orc9',
+  'Prayer':'Orc3',
+  'Prismatic Sphere':'Family9',
+  'Produce Flame':'Orc2',
+  'Project Image':'Illusion7',
+  'Protection From Spells':'Dwarf8,Family8',
+  'Prying Eyes':'Darkness6,Orc5',
+  'Rage':'Moon4',
+  'Refuge':'Family7',
+  'Reincarnate':'Renewal4',
+  'Remove Disease':'Renewal3',
+  'Repel Metal Or Stone':'Metal9',
+  'Repulsion':'Nobility7',
+  'Righteous Might':'Hatred5',
+  'Rusting Grasp':'Metal4,Slime4',
+  'Scare':'Hatred2',
+  'Screen':'Gnome7,Illusion8',
+  'Secret Page':'Rune2',
+  'Secure Shelter':'Cavern4',
+  'Sending':'Trade4',
+  'Shadow Walk':'Halfling7',
+  'Shapechange':'Scalykind9',
+  'Shield Of Faith':'Retribution1',
+  'Shield Other':'Family2',
+  'Silence':'Spell2',
+  'Silent Image':'Gnome1,Illusion1',
+  'Sleet Storm':'Storm4',
+  'Snare':'Elf3',
+  'Sound Burst':'Ocean2',
+  'Speak With Dead':'Retribution3',
+  'Spell Turning':'Retribution7',
+  'Spider Climb':'Spider1',
+  'Status':'Fate4,Planning4',
+  'Stone Shape':'Craft3',
+  'Stone Tell':'Dwarf6',
+  'Storm Of Vengeance':'Nobility9,Retribution9,Storm9',
+  'Suggestion':'Charm3,Drow3',
+  'Summon Monster I':'Portal1',
+  'Summon Monster VI':'Storm6',
+  'Summon Nature\'s Ally IX':'Gnome9',
+  'Summon Swarm':'Spider2',
+  'Sunburst':'Elf8',
+  'Symbol Of Death':'Rune8',
+  'Symbol Of Pain':'Suffering8',
+  'Telepathic Bond':'Mentalism6',
+  'Teleport':'Portal5',
+  'Teleportation Circle':'Rune9',
+  'Time Stop':'Planning9,Time9',
+  'Transmute Metal To Wood':'Metal7',
+  'Transmute Rock To Mud':'Slime6',
+  'Tree Stride':'Elf4',
+  'True Seeing':'Trade6',
+  'True Strike':'Elf1,Fate1,Time1',
+  'Vision':'Fate7',
+  'Wail Of The Banshee':'Hatred9',
+  'Wall Of Ice':'Ocean5',
+  'Wall Of Iron':'Metal5',
+  'Wall Of Stone':'Craft5',
+  'Water Breathing':'Ocean3',
+  'Weird':'Illusion9',
+  'Whirlwind':'Storm8',
+  'Wood Shape':'Craft2',
+  'Word Of Chaos':'Drow7',
+  'Word Of Recall':'Halfling8'
 };
 Realms.WEAPONS_ADDED = {
   'Blade Boot':'Level=3 Category=Li Damage=1d4 Threat=19',
@@ -1714,9 +1568,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'CasterLevelArcane'),
       QuilvynUtils.getAttrValue(attrs, 'CasterLevelDivine'),
       QuilvynUtils.getAttrValue(attrs, 'SpellAbility'),
-      QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots'),
-      QuilvynUtils.getAttrValueArray(attrs, 'Spells'),
-      Realms.SPELLS
+      QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots')
     );
     if(Realms.basePlugin.classRulesExtra)
       Realms.basePlugin.classRulesExtra(rules, name);
@@ -1747,7 +1599,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValueArray(attrs, 'Imply'),
       QuilvynUtils.getAttrValueArray(attrs, 'Type')
     );
-    Realms.featRulesExtra(rules, name, Realms.SPELLS);
+    Realms.featRulesExtra(rules, name);
   } else if(type == 'Feature')
      Realms.featureRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Section'),
@@ -1762,9 +1614,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValueArray(attrs, 'Features'),
       QuilvynUtils.getAttrValueArray(attrs, 'Selectables'),
       QuilvynUtils.getAttrValue(attrs, 'SpellAbility'),
-      QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots'),
-      QuilvynUtils.getAttrValueArray(attrs, 'Spells'),
-      Realms.SPELLS
+      QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots')
     );
     Realms.pathRulesExtra(rules, name);
   } else if(type == 'Race') {
@@ -1774,9 +1624,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValueArray(attrs, 'Selectables'),
       QuilvynUtils.getAttrValueArray(attrs, 'Languages'),
       QuilvynUtils.getAttrValue(attrs, 'SpellAbility'),
-      QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots'),
-      QuilvynUtils.getAttrValueArray(attrs, 'Spells'),
-      Realms.SPELLS
+      QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots')
     );
     Realms.raceRulesExtra(rules, name);
   } else if(type == 'Region')
@@ -1804,14 +1652,24 @@ Realms.choiceRules = function(rules, type, name, attrs) {
     );
     if(Realms.basePlugin.skillRulesExtra)
       Realms.basePlugin.skillRulesExtra(rules, name);
-  } else if(type == 'Spell')
-    Realms.spellRules(rules, name,
-      QuilvynUtils.getAttrValue(attrs, 'School'),
-      QuilvynUtils.getAttrValue(attrs, 'Group'),
-      QuilvynUtils.getAttrValue(attrs, 'Level'),
-      QuilvynUtils.getAttrValue(attrs, 'Description')
-    );
-  else if(type == 'Track')
+  } else if(type == 'Spell') {
+    var description = QuilvynUtils.getAttrValue(attrs, 'Description');
+    var groupLevels = QuilvynUtils.getAttrValueArray(attrs, 'Level');
+    var school = QuilvynUtils.getAttrValue(attrs, 'School');
+    var schoolAbbr = school.substring(0, 4);
+    for(var i = 0; i < groupLevels.length; i++) {
+      var matchInfo = groupLevels[i].match(/^(\D+)(\d+)$/);
+      if(!matchInfo) {
+        console.log('Bad level "' + groupLevels[i] + '" for spell ' + name);
+        continue;
+      }
+      var group = matchInfo[1];
+      var level = matchInfo[2] * 1;
+      var fullName = name + '(' + group + level + ' ' + schoolAbbr + ')';
+      Realms.spellRules(rules, fullName, school, group, level, description);
+      rules.addChoice('spells', fullName, attrs);
+    }
+  } else if(type == 'Track')
     Pathfinder.trackRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Progression')
     );
@@ -1835,7 +1693,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
     console.log('Unknown choice type "' + type + '"');
     return;
   }
-  if(type != 'Feature' && type != 'Path') {
+  if(type != 'Feature' && type != 'Path' && type != 'Spell') {
     type = type == 'Class' ? 'levels' :
     type = type == 'Deity' ? 'deities' :
     (type.substring(0,1).toLowerCase() + type.substring(1).replaceAll(' ', '') + 's');
@@ -1878,16 +1736,14 @@ Realms.armorRules = function(
  * #casterLevelArcane# and #casterLevelDivine#, if specified, give the
  * Javascript expression for determining the caster level for the class; these
  * can incorporate a class level attribute (e.g., 'levels.Cleric') or the
- * character level attribute 'level'. #spellAbility#, if specified, names the
- * ability for computing spell difficulty class. #spellSlots# lists the
- * number of spells per level per day granted by the class, and #spells# lists
- * spells defined by the class. #spellDict# is the dictionary of all spells,
- * used to look up individual spell attributes.
+ * character level attribute 'level'. If the class grants spell slots,
+ * #spellAbility# names the ability for computing spell difficulty class, and
+ * #spellSlots# lists the number of spells per level per day granted.
  */
 Realms.classRules = function(
   rules, name, requires, hitDie, attack, skillPoints, saveFort, saveRef,
   saveWill, skills, features, selectables, languages, casterLevelArcane,
-  casterLevelDivine, spellAbility, spellSlots, spells, spellDict
+  casterLevelDivine, spellAbility, spellSlots
 ) {
   if(Realms.basePlugin == window.Pathfinder) {
     for(var i = 0; i < requires.length; i++) {
@@ -1909,7 +1765,7 @@ Realms.classRules = function(
   Realms.basePlugin.classRules(
     rules, name, requires, hitDie, attack, skillPoints, saveFort, saveRef,
     saveWill, skills, features, selectables, languages, casterLevelArcane,
-    casterLevelDivine, spellAbility, spellSlots, spells, spellDict
+    casterLevelDivine, spellAbility, spellSlots
   );
   // No changes needed to the rules defined by base method
 };
@@ -2068,24 +1924,24 @@ Realms.languageRules = function(rules, name) {
 /*
  * Defines in #rules# the rules associated with path #name#, which is a
  * selection for characters belonging to #group# and tracks path level via
- * #levelAttr#. The path grants the features and spells listed in #features#
- * and #spells#. #spellAbility#, if specified, names the ability for computing
- * spell difficulty class. #spellDict# is the dictionary of all spells used to
- * look up individual spell attributes.
+ * #levelAttr#. The path grants the features listed in #features#. If the path
+ * grants spell slots, #spellAbility# names the ability for computing spell
+ * difficulty class, and #spellSlots# lists the number of spells per level per
+ * day granted.
  */
 Realms.pathRules = function(
   rules, name, group, levelAttr, features, selectables, spellAbility,
-  spellSlots, spells, spellDict
+  spellSlots
 ) {
   if(Realms.basePlugin == window.Pathfinder)
     Realms.basePlugin.pathRules(
       rules, name, group, levelAttr, features, selectables, [], [],
-      spellAbility, spellSlots, spells, spellDict
+      spellAbility, spellSlots
     );
   else
     Realms.basePlugin.pathRules(
       rules, name, group, levelAttr, features, selectables, spellAbility,
-      spellSlots, spells, spellDict
+      spellSlots
     );
   // No changes needed to the rules defined by base method
   if(name.match(/Domain$/))
@@ -2130,19 +1986,18 @@ Realms.pathRulesExtra = function(rules, name) {
 /*
  * Defines in #rules# the rules associated with race #name#, which has the list
  * of hard prerequisites #requires#. #features# and #selectables# list
- * associated features and #languages# any automatic languages. #spells# lists
- * any natural spells, for which #spellAbility# is used to compute the save DC.
- * #spellSlots# lists the number of spells per level per day granted by the
- * race, and #spells# lists spells defined by the race. #spellDict# is the
- * dictionary of all spells, used to look up individual spell attributes.
+ * associated features and #languages# any automatic languages. If the race
+ * grants spell slots, #spellAbility# names the ability for computing spell
+ * difficulty class, and #spellSlots# lists the number of spells per level per
+ * day granted.
  */
 Realms.raceRules = function(
   rules, name, requires, features, selectables, languages, spellAbility,
-  spells, spellSlots, spellDict
+  spellSlots
 ) {
   Realms.basePlugin.raceRules
     (rules, name, requires, features, selectables, languages, spellAbility,
-     spells, spellSlots, spellDict);
+     spellSlots);
   // No changes needed to the rules defined by base method
 };
 
