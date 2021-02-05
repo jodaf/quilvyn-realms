@@ -25,9 +25,8 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
  * constant field can be manipulated in order to modify the choices.
  */
 function RealmsPrestige() {
-  if(window.SRD35 == null || window.Realms == null) {
-    alert
-     ('The RealmsPrestige module requires use of the SRD35 and Realms modules');
+  if(window.Realms == null) {
+    alert('The RealmsPrestige module requires use of the Realms module');
     return;
   }
   RealmsPrestige.identityRules(Realms.rules, RealmsPrestige.CLASSES);
