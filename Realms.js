@@ -1666,7 +1666,10 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       var group = matchInfo[1];
       var level = matchInfo[2] * 1;
       var fullName = name + '(' + group + level + ' ' + schoolAbbr + ')';
-      Realms.spellRules(rules, fullName, school, group, level, description);
+      // TODO indicate domain spells in attributes?
+      var domainSpell = Realms.PATHS[group + ' Domain'] != null;
+      Realms.spellRules
+        (rules, fullName, school, group, level, description, domainSpell);
       rules.addChoice('spells', fullName, attrs);
     }
   } else if(type == 'Track')
@@ -2096,10 +2099,10 @@ Realms.skillRules = function(
  * description of the spell's effects.
  */
 Realms.spellRules = function(
-  rules, name, school, casterGroup, level, description
+  rules, name, school, casterGroup, level, description, domainSpell
 ) {
   Realms.basePlugin.spellRules
-    (rules, name, school, casterGroup, level, description);
+    (rules, name, school, casterGroup, level, description, domainSpell);
   // No changes needed to the rules defined by base method
 };
 
