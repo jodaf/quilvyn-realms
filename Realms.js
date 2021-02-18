@@ -59,6 +59,11 @@ function Realms() {
   rules.defineChoice('random', Realms.RANDOMIZABLE_ATTRIBUTES);
   rules.ruleNotes = Realms.ruleNotes;
 
+  if(Realms.basePlugin == window.Pathfinder) {
+    SRD35.ABBREVIATIONS['CMB'] = 'Combat Maneuver Bonus';
+    SRD35.ABBREVIATIONS['CMD'] = 'Combat Maneuver Defense';
+  }
+
   SRD35.createViewers(rules, SRD35.VIEWERS);
   rules.defineChoice('extras',
     'feats', 'featCount', 'sanityNotes', 'selectableFeatureCount',
@@ -76,6 +81,7 @@ function Realms() {
     Object.assign({}, Realms.basePlugin.FEATS, Realms.FEATS_ADDED);
   Realms.FEATURES =
     Object.assign({}, Realms.basePlugin.FEATURES, Realms.FEATURES_ADDED);
+  Realms.GOODIES = Object.assign({}, Realms.basePlugin.GOODIES);
   Realms.LANGUAGES =
     Object.assign({}, Realms.basePlugin.LANGUAGES, Realms.LANGUAGES_ADDED);
   Realms.PATHS =
@@ -128,12 +134,12 @@ function Realms() {
   Realms.magicRules(rules, Realms.SCHOOLS, Realms.SPELLS);
   // Feats must be defined before classes
   Realms.talentRules
-    (rules, Realms.FEATS, Realms.FEATURES, Realms.LANGUAGES, Realms.SKILLS);
+    (rules, Realms.FEATS, Realms.FEATURES, Realms.GOODIES, Realms.LANGUAGES,
+     Realms.SKILLS);
   Realms.identityRules(
     rules, Realms.ALIGNMENTS, Realms.CLASSES, Realms.DEITIES, Realms.PATHS,
     Realms.RACES, Realms.REGIONS
   );
-  Realms.goodiesRules(rules);
 
   if(window.SRD35NPC != null) {
     SRD35NPC.identityRules(rules, SRD35NPC.CLASSES);
@@ -667,6 +673,7 @@ Realms.FEATURES_ADDED = {
 
 };
 Realms.FEATURES = Object.assign({}, SRD35.FEATURES, Realms.FEATURES_ADDED);
+Realms.GOODIES = Object.assign({}, SRD35.GOODIES);
 Realms.LANGUAGES_ADDED = {
   'Aglarondan':'',
   'Alzhedo':'',
@@ -1463,12 +1470,6 @@ Realms.combatRules = function(rules, armors, shields, weapons) {
   // No changes needed to the rules defined by base method
 };
 
-/* Defines the rules related to goodies included in character notes. */
-Realms.goodiesRules = function(rules) {
-  Realms.basePlugin.goodiesRules(rules);
-  // No changes needed to the rules defined by base method
-};
-
 /* Defines rules related to basic character identity. */
 Realms.identityRules = function(
   rules, alignments, classes, deities, paths, races, regions
@@ -1511,8 +1512,11 @@ Realms.magicRules = function(rules, schools, spells) {
 };
 
 /* Defines rules related to character aptitudes. */
-Realms.talentRules = function(rules, feats, features, languages, skills) {
-  Realms.basePlugin.talentRules(rules, feats, features, languages, skills);
+Realms.talentRules = function(
+  rules, feats, features, goodies, languages, skills
+) {
+  Realms.basePlugin.talentRules
+    (rules, feats, features, goodies, languages, skills);
   // No changes needed to the rules defined by base method
   for(var feat in feats) {
     if(feats[feat].indexOf('Item Creation') >= 0)
@@ -1602,6 +1606,15 @@ Realms.choiceRules = function(rules, type, name, attrs) {
     Realms.featRulesExtra(rules, name);
   } else if(type == 'Feature')
      Realms.featureRules(rules, name,
+      QuilvynUtils.getAttrValueArray(attrs, 'Section'),
+      QuilvynUtils.getAttrValueArray(attrs, 'Note')
+    );
+  else if(type == 'Goody')
+    Realms.goodyRules(rules, name,
+      QuilvynUtils.getAttrValue(attrs, 'Pattern'),
+      QuilvynUtils.getAttrValue(attrs, 'Effect'),
+      QuilvynUtils.getAttrValue(attrs, 'Value'),
+      QuilvynUtils.getAttrValueArray(attrs, 'Attribute'),
       QuilvynUtils.getAttrValueArray(attrs, 'Section'),
       QuilvynUtils.getAttrValueArray(attrs, 'Note')
     );
@@ -1915,6 +1928,26 @@ Realms.featureRules = function(rules, name, sections, notes) {
     }
   }
   Realms.basePlugin.featureRules(rules, name, sections, notes);
+  // No changes needed to the rules defined by base method
+};
+
+/*
+ * Defines in #rules# the rules associated with goody #name#, triggered by
+ * a starred line in the character notes that matches #pattern#. #effect#
+ * specifies the effect of the goody on each attribute in list #attributes#.
+ * This is one of "increment" (adds #value# to the attribute), "set" (replaces
+ * the value of the attribute by #value#), "lower" (decreases the value to
+ * #value#), or "raise" (increases the value to #value#). #value#, if null,
+ * defaults to 1; occurrences of $1, $2, ... in #value# reference capture
+ * groups in #pattern#. #sections# and #notes# list the note sections
+ * ("attribute", "combat", "companion", "feature", "magic", "save", or "skill")
+ * and formats that show the effects of the goody on the character sheet.
+ */
+Realms.goodyRules = function(
+  rules, name, pattern, effect, value, attributes, sections, notes
+) {
+  Realms.basePlugin.goodyRules
+    (rules, name, pattern, effect, value, attributes, sections, notes);
   // No changes needed to the rules defined by base method
 };
 
