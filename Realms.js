@@ -143,11 +143,13 @@ function Realms() {
 
   if(window.SRD35NPC != null) {
     SRD35NPC.identityRules(rules, SRD35NPC.CLASSES);
+    SRD35NPC.magicRules(rules, SRD35NPC.SPELLS);
     SRD35NPC.talentRules(rules, SRD35NPC.FEATURES);
   }
   if(window.SRD35Prestige != null) {
-    SRD35Prestige.identityRules(rules, SRD35NPC.CLASSES);
-    SRD35Prestige.talentRules(rules, SRD35NPC.FEATURES);
+    SRD35Prestige.identityRules(rules, SRD35Prestige.CLASSES);
+    SRD35Prestige.magicRules(rules, SRD35Prestige.SPELLS);
+    SRD35Prestige.talentRules(rules, SRD35Prestige.FEATURES);
   }
 
   Quilvyn.addRuleSet(rules);
@@ -330,7 +332,7 @@ Realms.FEATS_ADDED = {
   'Daylight Adaptation':
     'Type=General Require="region =~ \'Drow|Gray Dwarf|Orc\'"',
   'Delay Spell':
-    'Type=Metamagic Imply="casterLevel >= 1" Require="SumMetamagicFeats >= 1"',
+    'Type=Metamagic Imply="casterLevel >= 1" Require="sumMetamagicFeats >= 1"',
   'Discipline':
     'Type=General ' +
     'Require="region =~ \'Aglarond|Anauroch|Cormyr|Impitur|Thay|Strongheart Halfling|Sun Elf|Rock Gnome\'"',
@@ -353,7 +355,9 @@ Realms.FEATS_ADDED = {
     'Type=Fighter Require="region =~ \'Hordelands|The Shaar|Vaasa\'"',
   'Innate Spell':
     'Type=General ' +
-    'Require="features.Quicken Spell/features.ilent Spell/features.till Spell"',
+    'Require="features.Quicken Spell",' +
+            '"features.Silent Spell",' +
+            '"features.Still Spell"',
   'Inscribe Rune':
     'Type="Item Creation" ' +
     'Require=' +
@@ -364,7 +368,7 @@ Realms.FEATS_ADDED = {
   'Luck Of Heroes':
     'Type=General Require="region =~ \'Aglarond|Dalelands|Tethyr|The Vast\'"',
   'Magical Artisan':
-    'Type=General Imply="casterLevel >= 1" Require="SumItemCreationFeats >= 1"',
+    'Type=General Imply="casterLevel >= 1" Require="sumItemCreationFeats >= 1"',
   'Magical Training':
     'Type=General Require="Intelligence >= 10","region == \'Halruaa\'"',
   'Mercantile Background':
@@ -432,7 +436,7 @@ Realms.FEATS_ADDED = {
     'Type=General ' +
     'Require="region =~ \'Aglarond|Chondalwood|High Forest|Ghostwise Halfling|Wild Elf|Wood Elf\'"',
   'Twin Spell':
-    'Type=Metamagic Imply="casterLevel >= 1" Require="SumMetamagicFeats >= 1"',
+    'Type=Metamagic Imply="casterLevel >= 1" Require="sumMetamagicFeats >= 1"',
   'Twin Sword Style':
     'Type=Fighter ' +
     'Require="features.Two Weapon Fighting",' +
@@ -1439,6 +1443,10 @@ Realms.SPELLS_LEVELS = {
   'Word Of Chaos':'Drow7',
   'Word Of Recall':'Halfling8'
 };
+for(var s in Realms.SPELLS_LEVELS) {
+  Realms.SPELLS[s] =
+    Realms.SPELLS[s].replace('Level=', 'Level=' + Realms.SPELLS_LEVELS[s] + ',');
+}
 Realms.WEAPONS_ADDED = {
   'Blade Boot':'Level=3 Category=Li Damage=1d4 Threat=19',
   'Chakram':'Level=3 Category=R Damage=1d4 Crit=3 Range=30',
@@ -1484,13 +1492,14 @@ Realms.identityRules = function(
     );
   else
     SRD35.identityRules(rules, alignments, classes, deities, paths, races)
-  // No changes needed to the rules defined by base method
 
   for(var region in regions) {
     rules.choiceRules(rules, 'Region', region, regions[region]);
   }
 
+  // Make sure race-based level modification doesn't drop below 1
   rules.defineRule('level', '', '^', '1');
+  // Add region to editor and character sheet
   rules.defineChoice('notes',
     'validationNotes.regionRace:Racial region requires equivalent race'
   );
@@ -1498,7 +1507,6 @@ Realms.identityRules = function(
     'region', '=', 'Realms.RACES[source] ? QuilvynUtils.findElement(QuilvynUtils.getKeys(Realms.RACES), source) : null',
     'race', '+', '-QuilvynUtils.findElement(QuilvynUtils.getKeys(Realms.RACES), source)'
   );
-
   rules.defineEditorElement
     ('region', 'Region', 'select-one', 'regions', 'experience');
   rules.defineSheetElement('Region', 'Alignment');
@@ -1518,12 +1526,6 @@ Realms.talentRules = function(
   Realms.basePlugin.talentRules
     (rules, feats, features, goodies, languages, skills);
   // No changes needed to the rules defined by base method
-  for(var feat in feats) {
-    if(feats[feat].indexOf('Item Creation') >= 0)
-      rules.defineRule('SumItemCreationFeats', 'feats.' + feat, '+=', null);
-    if(feats[feat].indexOf('Metamagic') >= 0)
-      rules.defineRule('SumMetamagicFeats', 'feats.' + feat, '+=', null);
-  }
 };
 
 /*
@@ -1545,8 +1547,8 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'AC'),
       QuilvynUtils.getAttrValue(attrs, 'Attack'),
       QuilvynUtils.getAttrValueArray(attrs, 'Dam'),
-      QuilvynUtils.getAttrValue(attrs, 'Level'),
-      QuilvynUtils.getAttrValue(attrs, 'Size')
+      QuilvynUtils.getAttrValue(attrs, 'Size'),
+      QuilvynUtils.getAttrValue(attrs, 'Level')
     );
   else if(type == 'Armor')
     Realms.armorRules(rules, name,
@@ -1594,8 +1596,8 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'AC'),
       QuilvynUtils.getAttrValue(attrs, 'Attack'),
       QuilvynUtils.getAttrValueArray(attrs, 'Dam'),
-      QuilvynUtils.getAttrValue(attrs, 'Level'),
-      QuilvynUtils.getAttrValue(attrs, 'Size')
+      QuilvynUtils.getAttrValue(attrs, 'Size'),
+      QuilvynUtils.getAttrValue(attrs, 'Level')
     );
   else if(type == 'Feat') {
     Realms.featRules(rules, name,
@@ -1794,10 +1796,12 @@ Realms.classRules = function(
  * the character needs to have this animal as a companion.
  */
 Realms.companionRules = function(
-  rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, level, size
+  rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size,
+  level
 ) {
   Realms.basePlugin.companionRules(
-    rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size, level
+    rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size,
+    level
   );
   // No changes needed to the rules defined by base method
 };
@@ -1820,10 +1824,13 @@ Realms.deityRules = function(rules, name, alignment, domains, weapons) {
  * the character needs to have this animal as a familiar.
  */
 Realms.familiarRules = function(
-  rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, level, size
+  rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size,
+  level
 ) {
-  Realms.basePlugin.familiarRules
-    (rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size, level);
+  Realms.basePlugin.familiarRules(
+    rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size,
+    level
+  );
   // No changes needed to the rules defined by base method
 };
 
@@ -1833,11 +1840,6 @@ Realms.familiarRules = function(
  * lists the categories of the feat.
  */
 Realms.featRules = function(rules, name, requires, implies, types) {
-  if(name == 'Beast Shape' && Realms.basePlugin == window.Pathfinder) {
-    // PF allows Wild Shape to Huge at level 8 instead of 15
-    for(var i = 0; i < requires.length; i++)
-      requires[i] = requires[i].replace(/Druid\s*>=\s*15/, 'Druid >= 8');
-  }
   Realms.basePlugin.featRules(rules, name, requires, implies, types);
   // No changes needed to the rules defined by base method
 };
@@ -1979,7 +1981,7 @@ Realms.pathRules = function(
       rules, name, group, levelAttr, features, selectables, spellAbility,
       spellSlots
     );
-  // No changes needed to the rules defined by base method
+  // Add new domains to Cleric selections
   if(name.match(/Domain$/))
     QuilvynRules.featureListRules
       (rules, ["deityDomains =~ '" + name.replace(' Domain', '') + "' ? 1:" + name], 'Cleric', 'levels.Cleric', true);
@@ -2196,10 +2198,15 @@ Realms.randomizeOneAttribute = function(attributes, attribute) {
   }
 };
 
+/* Returns an array of plugins upon which this one depends. */
+Realms.getPlugins = function() {
+  return [Realms.basePlugin].concat(Realms.basePlugin.rules.getPlugins());
+};
+
 /* Returns HTML body content for user notes associated with this rule set. */
 Realms.ruleNotes = function() {
   return '' +
-    '<h2>Forgotton Realms Quilvyn Module Notes</h2>\n' +
+    '<h2>Forgotten Realms Quilvyn Module Notes</h2>\n' +
     'Realms Quilvyn Module Version ' + REALMS_VERSION + '\n' +
     '\n' +
     '<h3>Usage Notes</h3>\n' +
@@ -2224,9 +2231,4 @@ Realms.ruleNotes = function() {
     '  </li>\n' +
     '</ul>\n' +
     '</p>';
-};
-
-/* Returns an array of plugins upon which this one depends. */
-Realms.getPlugins = function() {
-  return Realms.basePlugin.rules.getPlugins().concat([Realms.basePlugin]);
 };

@@ -41,7 +41,7 @@ RealmsPrestige.CLASSES = {
       '"skills.Spellcraft >= 8","spellSlots.B4||spellSlots.S4||spellSlots.W4" '+
     'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // Alchemy => Craft (Alchemy), Scry => null
+      // SRD 3.0 => 3.5: Alchemy => Craft (Alchemy), Scry => null
       'Concentration,Craft,Knowledge,Profession,Spellcraft ' +
     'Features=' +
       '"1:Caster Level Bonus","1:Freely Enlarge Spell","2:Alignment Focus",' +
@@ -51,10 +51,10 @@ RealmsPrestige.CLASSES = {
       '"features.Skill Focus (Spellcraft)",' +
       '"Sum \'^features\\.Spell Focus\' >= 2",' +
       '"skills.Knowledge (Arcana) >= 15","skills.Spellcraft >= 15",' +
-      '"spellSlots.S7||spellSlots.W7 >= 1","Level5SpellSchools >= 5" ' +
+      '"spellSlots.S7||spellSlots.W7 >= 1","level5SpellSchools >= 5" ' +
     'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-       // Alchemy => Craft (Alchemy), Scry => null
+       // SRD 3.0 => 3.5: Alchemy => Craft (Alchemy), Scry => null
       'Concentration,"Craft (Alchemy)",Knowledge,Profession,Search,' +
       'Spellcraft ' +
     'Features="1:Caster Level Bonus" ' +
@@ -80,7 +80,7 @@ RealmsPrestige.CLASSES = {
       '"spellSlots.C4||spellSlots.D4" ' +
     'HitDie=d8 Attack=3/4 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // Scry => null, Wilderness Lore => Survival
+      // SRD 3.0 => 3.5: Scry => null, Wilderness Lore => Survival
       'Concentration,Craft,Diplomacy,Heal,"Knowledge (Arcana)",' +
       '"Knowledge (Nature)","Knowledge (Religion)",Profession,Spellcraft,' +
       'Survival ' +
@@ -94,7 +94,7 @@ RealmsPrestige.CLASSES = {
       '"skills.Move Silently >= 8","skills.Spot >= 5" ' +
     'HitDie=d6 Attack=3/4 SkillPoints=6 Fortitude=1/3 Reflex=1/2 Will=1/3 ' +
     'Skills=' +
-      // Intuit Direction => Survival, Pick Pocket => Sleight Of Hand
+      // SRD 3.0 => 3.5: Intuit Direction => Survival, Pick Pocket => Sleight Of Hand
       'Bluff,Climb,Craft,"Decipher Script",Diplomacy,"Disable Device",Jump,' +
       '"Knowledge (Religion)",Listen,"Move Silently","Open Lock",' +
       'Profession,Search,"Sleight Of Hand",Spot,Survival,Tumble,"Use Rope" ' +
@@ -114,7 +114,7 @@ RealmsPrestige.CLASSES = {
       '"skills.Intimidate >= 3","skills.Move Silently >= 3" ' +
     'HitDie=d6 Attack=3/4 SkillPoints=6 Fortitude=1/3 Reflex=1/2 Will=1/3 ' +
     'Skills=' +
-      // Innuendo => Bluff, Pick Pocket => Sleight Of Hand
+      // SRD 3.0 => 3.5: Innuendo => Bluff, Pick Pocket => Sleight Of Hand
       'Appraise,Bluff,Climb,Craft,Diplomacy,"Disable Device",Forgery,' +
       'Intimidate,Jump,"Knowledge (Local)",Listen,"Move Silently",' +
       '"Open Lock",Profession,Search,"Sense Motive","Sleight Of Hand",Spot,' +
@@ -132,7 +132,7 @@ RealmsPrestige.CLASSES = {
       '"skills.Sense Motive >= 2","skills.Survival >= 2" ' +
     'HitDie=d6 Attack=3/4 SkillPoints=4 Fortitude=1/3 Reflex=1/2 Will=1/2 ' +
     'Skills=' +
-      // Intuit Direction => Survival, Pick Pocket => Sleight Of Hand
+      // SRD 3.0 => 3.5: Intuit Direction => Survival, Pick Pocket => Sleight Of Hand
       'Appraise,Bluff,Climb,Craft,Diplomacy,Disguise,"Escape Artist",' +
       '"Gather Information",Hide,Jump,Knowledge,Listen,"Move Silently",' +
       'Perform,Profession,"Sense Motive","Speak Language",Survival,Swim,' +
@@ -157,8 +157,7 @@ RealmsPrestige.CLASSES = {
       '"spellsSlots.C2||spellSlots.D2||spellSlots.P2||spellSlots.R2" ' +
     'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // Alchemy => Craft (Alchemy), Animal Empathy => null,
-      // Intuit Direction => Survival, Scry => null, Wilderness Lore => Survival
+      // SRD 3.0 => 3.5: Alchemy => Craft (Alchemy), Animal Empathy => null, Intuit Direction => Survival, Scry => null, Wilderness Lore => Survival
       'Concentration,Craft,Knowledge,Perform,Profession,"Speak Language",' +
       'Spellcraft,Survival,Swim ' +
     'Features=' +
@@ -172,10 +171,10 @@ RealmsPrestige.CLASSES = {
     'Require=' +
       '"skills.Knowledge (Nature) >= 15||skills.Knowledge (Religion) >= 15",' +
       '"spellSlots.C7||spellSlots.D7",' +
-      '"SumMetamagicFeats > 0" ' +
+      '"sumMetamagicFeats > 0" ' +
     'HitDie=d8 Attack=1/2 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // Scry => null
+      // SRD 3.0 => 3.5: Scry => null
       'Concentration,Craft,Diplomacy,Heal,"Knowledge (Arcana)",' +
       '"Knowledge (Religion)",Profession,Spellcraft ' +
     'Selectables=' +
@@ -205,10 +204,10 @@ RealmsPrestige.CLASSES = {
     'Require=' +
       '"alignment !~ \'Good\'","race == \'Human\'","region == \'Thay\'",' +
       '"skills.Spellcraft >= 8","spellSlots.B3||spellSlots.S3||spellSlots.W3",'+
-      '"features.Tattoo Focus","SumItemCreationAndMetamagicFeats >= 3" ' +
+      '"features.Tattoo Focus","sumItemCreationAndMetamagicFeats >= 3" ' +
     'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // Alchemy => Craft (Alchemy), Innuendo => Bluff, Scry => null
+      // SRD 3.0 => 3.5: Alchemy => Craft (Alchemy), Innuendo => Bluff, Scry => null
       'Bluff,Concentration,Craft,Intimidate,Knowledge,Profession,Spellcraft ' +
     'Features=' +
       '"1:Caster Level Bonus","1:Enhanced Specialization",' +
@@ -221,7 +220,7 @@ RealmsPrestige.CLASSES = {
       '"spellSlots.C3||spellSlots.D3||spellSlots.P3||spellSlots.R3" ' +
     'HitDie=d8 Attack=3/4 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // Scry => null
+      // SRD 3.0 => 3.5: Scry => null
       'Concentration,Craft,Diplomacy,Heal,"Knowledge (Arcana)",' +
       '"Knowledge (Religion)",Profession,Spellcraft ' +
     'Features=' +
@@ -232,10 +231,10 @@ RealmsPrestige.CLASSES = {
       '"alignment !~ \'Good\'",' +
       '"spellSlots.B3||spellSlots.C3||spellSlots.D3||spellSlots.R3||spellSlots.S3||spellSlots.W3",' +
       '"skills.Knowledge (Arcana) >= 8","skills.Spellcraft >= 8",' +
-      '"features.Shadow Weave Magic","SumMetamagicFeats >= 1" ' +
+      '"features.Shadow Weave Magic","sumMetamagicFeats >= 1" ' +
     'HitDie=d8 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // Scry => null
+      // SRD 3.0 => 3.5: Scry => null
       'Bluff,Concentration,Craft,Disguise,Hide,Knowledge,Profession,' +
       'Spellcraft ' +
     'Features=' +
@@ -363,6 +362,32 @@ RealmsPrestige.SPELLS = {
   'Suggestion':'Level=Harper3',
   'Tongues':'Level=Harper3',
   'Undetectable Alignment':'Level=Harper3'
+};
+
+/* Defines rules related to basic character identity. */
+RealmsPrestige.identityRules = function(rules, classes) {
+  QuilvynUtils.checkAttrTable
+    (classes, ['Require', 'HitDie', 'Attack', 'SkillPoints', 'Fortitude', 'Reflex', 'Will', 'Skills', 'Features', 'Selectables', 'Languages', 'CasterLevelArcane', 'CasterLevelDivine', 'SpellAbility', 'SpellSlots']);
+  for(var clas in classes) {
+    rules.choiceRules(rules, 'Class', clas, classes[clas]);
+    RealmsPrestige.classRulesExtra(rules, clas);
+  }
+};
+
+/* Defines rules related to magic use. */
+RealmsPrestige.magicRules = function(rules, spells) {
+  QuilvynUtils.checkAttrTable(spells, ['School', 'Level', 'Description']);
+  for(var s in spells) {
+    rules.choiceRules(rules, 'Spell', s, Realms.SPELLS[s] + ' ' + spells[s]);
+  }
+};
+
+/* Defines rules related to character aptitudes. */
+RealmsPrestige.talentRules = function(rules, features) {
+  QuilvynUtils.checkAttrTable(features, ['Section', 'Note']);
+  for(var feature in features) {
+    rules.choiceRules(rules, 'Feature', feature, features[feature]);
+  }
 };
 
 RealmsPrestige.classRulesExtra = function(rules, name) {
@@ -515,13 +540,10 @@ RealmsPrestige.classRulesExtra = function(rules, name) {
 
   } else if(name == 'Red Wizard') {
 
-    for(var feat in allFeats) {
-      if(allFeats[feat].indexOf('Metamagic') >= 0 ||
-         allFeats[feat].indexOf('Item Creation') >= 0)
-        rules.defineRule
-          ('SumItemCreationAndMetamagicFeats', 'feats.' + feat, '+=', null);
-    }
-
+    rules.defineRule('sumItemCreationAndMetamagicFeats',
+      'sumItemCreationFeats', '=', null,
+      'sumMetamagicFeats', '+', null
+    );
     rules.defineRule
       ('featCount.Wizard', 'levels.Red Wizard', '+=', 'source>=5 ? 1 : null');
     rules.defineRule
@@ -549,11 +571,6 @@ RealmsPrestige.classRulesExtra = function(rules, name) {
     );
 
   } else if(name == 'Shadow Adept') {
-
-    for(var feat in allFeats) {
-      if(allFeats[feat].indexOf('Metamagic') >= 0)
-        rules.defineRule('SumMetamagicFeats', 'feats.' + feat, '+=', null);
-    }
 
     rules.defineRule('featCount.Metamagic',
       'levels.Shadow Adept', '+=', 'source >= 5 ? 1 : null'
@@ -591,30 +608,4 @@ RealmsPrestige.classRulesExtra = function(rules, name) {
     }
   }
 
-};
-
-/* Defines rules related to basic character identity. */
-RealmsPrestige.identityRules = function(rules, classes) {
-  QuilvynUtils.checkAttrTable
-    (classes, ['Require', 'HitDie', 'Attack', 'SkillPoints', 'Fortitude', 'Reflex', 'Will', 'Skills', 'Features', 'Selectables', 'Languages', 'CasterLevelArcane', 'CasterLevelDivine', 'SpellAbility', 'SpellSlots']);
-  for(var clas in classes) {
-    rules.choiceRules(rules, 'Class', clas, classes[clas]);
-    RealmsPrestige.classRulesExtra(rules, clas);
-  }
-};
-
-/* Defines rules related to magic use. */
-RealmsPrestige.magicRules = function(rules, spells) {
-  QuilvynUtils.checkAttrTable(spells, ['School', 'Level', 'Description']);
-  for(var s in spells) {
-    rules.choiceRules(rules, 'Spell', s, Realms.SPELLS[s] + ' ' + spells[s]);
-  }
-};
-
-/* Defines rules related to character aptitudes. */
-RealmsPrestige.talentRules = function(rules, features) {
-  QuilvynUtils.checkAttrTable(features, ['Section', 'Note']);
-  for(var feature in features) {
-    rules.choiceRules(rules, 'Feature', feature, features[feature]);
-  }
 };
