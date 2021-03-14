@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.0';
+var REALMS_VERSION = '2.2.1.1';
 
 /*
  * This module loads the rules from the Forgotten Realms v3 source book. The
@@ -607,7 +607,6 @@ Realms.FEATURES_ADDED = {
   // Race
   'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
   'Aasimar Alertness':'Section=skill Note="+2 Listen/Spot"',
-  'Aasimar Level Adjustment':'Section=ability Note="-1 Level"',
   'Aasimar Resistance':'Section=save Note="5 vs. acid, cold, and electricity"',
   'Amphibious':'Section=feature Note="Breathe water at will"',
   'Aware':'Section=skill Note="+1 Listen/+1Spot"',
@@ -619,11 +618,9 @@ Realms.FEATURES_ADDED = {
     'Section=magic Note="R10\' Shrink or expand natural fire for 5 min 1/dy"',
   'Deep Gnome Ability Adjustment':
     'Section=ability Note="-2 Strength/+2 Dexterity/+2 Wisdom/-4 Charisma"',
-  'Deep Gnome Level Adjustment':'Section=ability Note="-3 Level"',
   'Drow Elf Ability Adjustment':
     'Section=ability ' +
     'Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
-  'Drow Elf Level Adjustment':'Section=ability Note="-2 Level"',
   'Drow Spell Resistance':'Section=save Note="DC %V"',
   'Earth Genasi Ability Adjustment':
     'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
@@ -633,13 +630,11 @@ Realms.FEATURES_ADDED = {
   'Extra Luck':'Section=save Note="+2 Fortitude/+2 Reflex/+2 Will"',
   'Fire Genasi Ability Adjustment':
     'Section=ability Note="+2 Intelligence/-2 Charisma"',
-  'Genasi Level Adjustment':'Section=ability Note="-1 Level"',
   'Gold Dwarf Ability Adjustment':
     'Section=ability Note="+2 Constitution/-2 Dexterity"',
   'Gold Dwarf Enmity':'Section=combat Note="+1 attack vs. aberrations"',
   'Gray Dwarf Ability Adjustment':
     'Section=ability Note="+2 Constitution/-4 Charisma"',
-  'Grey Dwarf Level Adjustment':'Section=ability Note="-2 Level"',
   'Gray Dwarf Immunities':
     'Section=save ' +
     'Note="Immune to paralysis, phantasms, and magical and alchemaic poisons"',
@@ -653,6 +648,7 @@ Realms.FEATURES_ADDED = {
     'Section=save Note="Affected by outsider target spells, not humanoid"',
   'Natural Swimmer':'Section=ability Note="Swim 30\'"',
   'Noiseless':'Section=skill Note="+4 Move Silently"',
+  'Race Level Adjustment':'Section=ability Note="-%V Level"',
   'Sly':'Section=skill Note="+2 Hide"',
   'Shadowed':'Section=skill Note="+2 Hide in darkened underground areas"',
   'Sneaky':'Section=skill Note="+2 Hide"',
@@ -664,7 +660,6 @@ Realms.FEATURES_ADDED = {
   'Svirfneblin Spell Resistance':'Section=save Note="DC %V"',
   'Tiefling Ability Adjustment':
     'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Charisma"',
-  'Tiefling Level Adjustment':'Section=ability Note="-1 Level"',
   'Tiefling Resistance':'Section=save Note="5 vs. cold, electricity, and fire"',
   'Undetectable':'Section=magic Note="Continuous <i>Nondetection</i>"',
   'Water Genasi Ability Adjustment':
@@ -886,8 +881,8 @@ Realms.RACES = {
         '"1:Weapon Familiarity (Dwarven Urgosh/Dwarven Waraxe)",' +
         '1:Aware,"1:Dwarf Armor Speed Adjustment","1:Dwarf Enmity",' +
         '"1:Extended Darkvision","1:Gray Dwarf Ability Adjustment",' +
-        '"1:Gray Dwarf Immunities","1:Grey Dwarf Level Adjustment",' +
-        '"1:Know Depth","1:Light Sensitivity","1:Natural Smith",1:Noiseless,' +
+        '"1:Gray Dwarf Immunities","1:Know Depth","1:Light Sensitivity",' +
+        '"1:Natural Smith",1:Noiseless,"1:Race Level Adjustment",' +
         '"1:Resist Poison","1:Resist Spells",1:Slow,1:Stability,' +
         '1:Stonecunning ' +
     'Languages=Undercommon,Dwarven ' +
@@ -900,10 +895,11 @@ Realms.RACES = {
   'Drow Elf':
     'Features=' +
       '"1:Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)",' +
-      '"1:Drow Elf Ability Adjustment","1:Drow Elf Level Adjustment",' +
-      '"1:Drow Spell Resistance","1:Extended Darkvision","1:Keen Senses",' +
-      '"1:Light Blindness","1:Light Sensitivity","1:Resist Enchantment",' +
-      '"1:Sense Secret Doors","1:Sleep Immunity","1:Stong Will" ' +
+      '"1:Drow Elf Ability Adjustment","1:Drow Spell Resistance",' +
+      '"1:Extended Darkvision","1:Keen Senses","1:Light Blindness",' +
+      '"1:Light Sensitivity","1:Race Level Adjustment",' +
+      '"1:Resist Enchantment","1:Sense Secret Doors","1:Sleep Immunity",' +
+      '"1:Stong Will" ' +
     'Languages=Undercommon,Elven ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
@@ -920,10 +916,10 @@ Realms.RACES = {
     SRD35.RACES['Elf'].replace('Elf Ability', 'Wood Elf Ability'),
   'Deep Gnome':
     'Features=' +
-      '"1:Deep Gnome Ability Adjustment","1:Deep Gnome Level Adjustment",' +
-      '"1:Exceptional Dodge","1:Extended Darkvision","1:Extra Luck",' +
-      '"1:Gnome Enmity","1:Keen Ears","1:Resist Fear",1:Shadowed,1:Slow,' +
-      '1:Small,1:Sneaky,1:Stonecunning,"1:Svirfneblin Spell Resistance",' +
+      '"1:Deep Gnome Ability Adjustment","1:Exceptional Dodge",' +
+      '"1:Extended Darkvision","1:Extra Luck","1:Gnome Enmity","1:Keen Ears",' +
+      '"1:Race Level Adjustment","1:Resist Fear",1:Shadowed,1:Slow,1:Small,' +
+      '1:Sneaky,1:Stonecunning,"1:Svirfneblin Spell Resistance",' +
       '1:Undetectable ' +
     'Languages=Undercommon,Gnome ' +
     'SpellAbility=intelligence ' +
@@ -949,8 +945,8 @@ Realms.RACES = {
   'Aasimar':
     'Features=' +
       '"1:Aasimar Ability Adjustment","1:Aasimar Alertness",' +
-      '"1:Aasimar Level Adjustment","1:Aasimar Resistance",1:Darkvision,' +
-      '"1:Native Outsider" ' +
+      '"1:Aasimar Resistance",1:Darkvision,"1:Native Outsider",' +
+      '"1:Race Level Adjustment" ' +
     'Languages=Common ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
@@ -958,8 +954,7 @@ Realms.RACES = {
   'Air Genasi':
     'Features=' +
       '"1:Air Genasi Ability Adjustment",1:Breathless,1:Darkvision,' +
-      '"1:Elemental Affinity","1:Genasi Level Adjustment",' +
-      '"1:Native Outsider" ' +
+      '"1:Elemental Affinity","1:Native Outsider","1:Race Level Adjustment" ' +
     'Languages=Common ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
@@ -967,8 +962,7 @@ Realms.RACES = {
   'Earth Genasi':
     'Features=' +
       '1:Darkvision,"1:Earth Genasi Ability Adjustment",' +
-      '"1:Elemental Affinity","1:Genasi Level Adjustment",' +
-      '"1:Native Outsider" ' +
+      '"1:Elemental Affinity","1:Native Outsider","1:Race Level Adjustment" ' +
     'Languages=Common ' +
     'SpellAbility=wisdom ' +
     'SpellSlots=' +
@@ -976,13 +970,13 @@ Realms.RACES = {
   'Fire Genasi':
     'Features=' +
       '"1:Control Flame",1:Darkvision,"1:Elemental Affinity",' +
-      '"1:Fire Genasi Ability Adjustment","1:Genasi Level Adjustment",' +
-      '"1:Native Outsider" ' +
+      '"1:Fire Genasi Ability Adjustment","1:Native Outsider",' +
+      '"1:Race Level Adjustment" ' +
     'Languages=Common',
   'Water Genasi':
     'Features=' +
       '1:Amphibious,1:Darkvision,"1:Elemental Affinity",' +
-      '"1:Genasi Level Adjustment","1:Native Outsider","1:Natural Swimmer",' +
+      '"1:Native Outsider","1:Natural Swimmer","1:Race Level Adjustment",' +
       '"1:Water Genasi Ability Adjustment" ' +
     'Languages=Common ' +
     'SpellAbility=wisdom ' +
@@ -990,8 +984,8 @@ Realms.RACES = {
       'Wateren0:1=1',
   'Tiefling':
     'Features=' +
-      '1:Beguiling,1:Darkvision,"1:Native Outsider",1:Sneaky,' +
-      '"1:Tiefling Ability Adjustment","1:Tiefling Level Adjustment",' +
+      '1:Beguiling,1:Darkvision,"1:Native Outsider",' +
+      '"1:Race Level Adjustment",1:Sneaky,"1:Tiefling Ability Adjustment",' +
       '"1:Tiefling Resistance" ' +
     'Languages=Common ' +
     'SpellAbility=charisma ' +
@@ -1497,8 +1491,28 @@ Realms.identityRules = function(
     rules.choiceRules(rules, 'Region', region, regions[region]);
   }
 
-  // Make sure race-based level modification doesn't drop below 1
+  // Level adjustments for powerful races
+  rules.defineRule('abilityNotes.raceLevelAdjustment',
+    'race', '=', 'source.match(/Aasimar|Genasi|Tiefling/) ? 1 : source.match(/Drow|Gray Dwarf/) ? 2 : source == "Deep Gnome" ? 3 : null'
+  );
   rules.defineRule('level', '', '^', '1');
+  rules.defineRule('experienceNeededLevel',
+    'level', '=', null,
+    'abilityNotes.raceLevelAdjustment', '+', null
+  );
+  if(Realms.basePlugin == window.Pathfinder) {
+    for(var track in Pathfinder.TRACKS) {
+      var progression =
+        QuilvynUtils.getAttrValueArray(Pathfinder.TRACKS[track], 'Progression');
+      rules.defineRule(track + 'Needed',
+        'experienceNeededLevel', '=', 'source < ' + progression.length + ' ? [' + progression + '][source] * 1000 : ' + (progression[progression.length - 1] * 1000 + 1)
+      );
+    }
+  } else {
+    rules.defineRule('experienceNeeded',
+      'experienceNeededLevel', '=', '1000 * source * (source + 1) / 2'
+    );
+  }
   // Add region to editor and character sheet
   rules.defineChoice('notes',
     'validationNotes.regionRace:Racial region requires equivalent race'
