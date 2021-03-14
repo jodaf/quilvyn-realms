@@ -483,9 +483,11 @@ RealmsPrestige.classRulesExtra = function(rules, name) {
 
     feats = [
       'Alertness', 'Blind-Fight', 'Cosmopolitan', 'Education', 'Leadership',
-      'Lightning Reflexes', 'Still Spell', 'Street Smart', 'Track',
-      'Weapon Finesse', 'Weapon Proficiency (Hand Crossbow)'
+      'Lightning Reflexes', 'Still Spell', 'Street Smart', 'Weapon Finesse',
+      'Weapon Proficiency (Hand Crossbow)'
     ];
+    if('Track' in allFeats)
+      feats.push('Track');
     for(var feat in allFeats) {
       if(feat.match(/(Skill|Weapon)\sFocus/))
         feats.push(feat);

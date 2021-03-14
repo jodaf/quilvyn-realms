@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.1';
+var REALMS_VERSION = '2.2.1.2';
 
 /*
  * This module loads the rules from the Forgotten Realms v3 source book. The
@@ -441,6 +441,8 @@ Realms.FEATS_ADDED = {
     'Type=Fighter ' +
     'Require="features.Two Weapon Fighting",' +
             '"region =~ \'Sembia|Waterdeep|Drow Elf\'"',
+  'Weapon Proficiency (Hand Crossbow)':
+    'Type=General Require="baseAttack >= 1" Imply="weapons.Hand Crossbow"'
 };
 Realms.FEATS = Object.assign({}, SRD35.FEATS, Realms.FEATS_ADDED);
 Realms.FEATURES_ADDED = {
