@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.6';
+var REALMS_VERSION = '2.2.1.7';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -90,8 +90,30 @@ function Realms() {
     Realms.basePlugin.RACES['Dwarf']
       .replace('Dwarf Ability', 'Gold Dwarf Ability')
       .replace('Dwarf Enmity', 'Gold Dwarf Enmity'),
+  Realms.RACES['Gray Dwarf'] =
+    Realms.basePlugin.RACES['Dwarf']
+      .replace('Common', 'Undercommon')
+      .replace('Dwarf Ability Adjustment', 'Gray Dwarf Ability Adjustment')
+      .replace(/['"]?Darkvision['"]?/, '"Extended Darkvision"')
+      .replace('Features=', 'Features=Aware,"Gray Dwarf Immunities","Light Sensitivity",Noiseless,"Race Level Adjustment",') + ' ' +
+    'SpellAbility=intelligence ' +
+    'SpellSlots=' +
+      'Duergaren1:1=1,' +
+      'Duergaren2:1=1';
   Realms.RACES['Shield Dwarf'] =
     Realms.basePlugin.RACES['Dwarf'],
+  Realms.RACES['Drow Elf'] =
+    Realms.basePlugin.RACES['Elf']
+      .replace('Common', 'Undercommon')
+      .replace('Elf Ability Adjustment', 'Drow Elf Ability Adjustment')
+      .replace('Low-Light Vision', 'Extended Darkvision')
+      .replace(/Weapon Proficiency[^'"]*/, 'Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)')
+      .replace('Features=', 'Features="Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Race Level Adjustment","Strong Will",') + ' ' +
+    'SpellAbility=charisma ' +
+    'SpellSlots=' +
+      '"Drowen0:1=1",' +
+      '"Drowen1:1=1",' +
+      '"Drowen2:1=1"';
   Realms.RACES['Moon Elf'] =
     Realms.basePlugin.RACES['Elf'],
   Realms.RACES['Sun Elf'] =
@@ -100,6 +122,18 @@ function Realms() {
     Realms.basePlugin.RACES['Elf'].replace('Elf Ability', 'Wild Elf Ability'),
   Realms.RACES['Wood Elf'] =
     Realms.basePlugin.RACES['Elf'].replace('Elf Ability', 'Wood Elf Ability'),
+  Realms.RACES['Deep Gnome'] =
+    Realms.basePlugin.RACES['Gnome']
+      .replace('Common', 'Undercommon')
+      .replace('Gnome Ability Adjustment', 'Deep Gnome Ability Adjustment')
+      .replace('Dodge Giants', 'Exceptional Dodge')
+      .replace('Low-Light Vision', 'Extended Darkvision')
+      .replace('Features=', 'Features="Extra Luck","Know Depth","Race Level Adjustment",Shadowed,Sneaky,Stonecunning,"Svirfneblin Spell Resistance",Undetectable,') + ' ' +
+    'SpellAbility=charisma ' +
+    'SpellSlots=' +
+      'Svirfneblinish1:1=1,' +
+      'Svirfneblinish2:1=2,' +
+      'Svirfneblinish3:1=1';
   Realms.RACES['Rock Gnome'] =
     Realms.basePlugin.RACES['Gnome'],
   Realms.RACES['Half-Elf'] =
@@ -639,7 +673,7 @@ Realms.FEATURES_ADDED = {
     'Section=ability Note="+2 Constitution/-4 Charisma"',
   'Gray Dwarf Immunities':
     'Section=save ' +
-    'Note="Immune to paralysis, phantasms, and magical and alchemaic poisons"',
+    'Note="Immune to paralysis, phantasms, and magic and alchemical poisons"',
   'Light Blindness':'Section=feature Note="Blind 1 rd from sudden daylight"',
   'Light Sensitivity':
     'Section=combat,save,skill ' +
@@ -879,15 +913,11 @@ Realms.RACES = {
       .replace('Dwarf Ability', 'Gold Dwarf Ability')
       .replace('Dwarf Enmity', 'Gold Dwarf Enmity'),
   'Gray Dwarf':
-    'Features=' +
-        '"1:Weapon Familiarity (Dwarven Urgosh/Dwarven Waraxe)",' +
-        '1:Aware,"1:Dwarf Armor Speed Adjustment","1:Dwarf Enmity",' +
-        '"1:Extended Darkvision","1:Gray Dwarf Ability Adjustment",' +
-        '"1:Gray Dwarf Immunities","1:Know Depth","1:Light Sensitivity",' +
-        '"1:Natural Smith",1:Noiseless,"1:Race Level Adjustment",' +
-        '"1:Resist Poison","1:Resist Spells",1:Slow,1:Stability,' +
-        '1:Stonecunning ' +
-    'Languages=Undercommon,Dwarven ' +
+    SRD35.RACES['Dwarf']
+      .replace('Common', 'Undercommon')
+      .replace('Dwarf Ability Adjustment', 'Gray Dwarf Ability Adjustment')
+      .replace(/['"]?Darkvision['"]?/, '"Extended Darkvision"')
+      .replace('Features=', 'Features=Aware,"Gray Dwarf Immunities","Light Sensitivity",Noiseless,"Race Level Adjustment",') + ' ' +
     'SpellAbility=intelligence ' +
     'SpellSlots=' +
       'Duergaren1:1=1,' +
@@ -895,14 +925,12 @@ Realms.RACES = {
   'Shield Dwarf':
     SRD35.RACES['Dwarf'],
   'Drow Elf':
-    'Features=' +
-      '"1:Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)",' +
-      '"1:Drow Elf Ability Adjustment","1:Drow Elf Spell Resistance",' +
-      '"1:Extended Darkvision","1:Keen Senses","1:Light Blindness",' +
-      '"1:Light Sensitivity","1:Race Level Adjustment",' +
-      '"1:Resist Enchantment","1:Sense Secret Doors","1:Sleep Immunity",' +
-      '"1:Strong Will" ' +
-    'Languages=Undercommon,Elven ' +
+    SRD35.RACES['Elf']
+      .replace('Common', 'Undercommon')
+      .replace('Elf Ability Adjustment', 'Drow Elf Ability Adjustment')
+      .replace('Low-Light Vision', 'Extended Darkvision')
+      .replace(/Weapon Proficiency[^'"]*/, 'Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)')
+      .replace('Features=', 'Features="Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Race Level Adjustment","Strong Will",') + ' ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
       '"Drowen0:1=1",' +
@@ -917,18 +945,13 @@ Realms.RACES = {
   'Wood Elf':
     SRD35.RACES['Elf'].replace('Elf Ability', 'Wood Elf Ability'),
   'Deep Gnome':
-    // Several web pages say that the DC for Deep Gnome spells is Charisma
-    // based with a +4 racial modifier. The FG Campaign Setting says 10 +
-    // spell level, so we go with that.
-    'Features=' +
-      '"Weapon Familiarity (Gnome Hooked Hammer)",' +
-      '"Deep Gnome Ability Adjustment","Exceptional Dodge",' +
-      '"Extended Darkvision","Extra Luck","Gnome Enmity","Keen Ears",' +
-      '"Keen Nose","Know Depth","Race Level Adjustment","Resist Fear",' +
-      '"Resist Illusion",Shadowed,Slow,Small,Sneaky,Stonecunning,' +
-      '"Svirfneblin Spell Resistance",Undetectable ' +
-    'Languages=Undercommon,Gnome ' +
-    'SpellAbility=intelligence ' +
+    SRD35.RACES['Gnome']
+      .replace('Common', 'Undercommon')
+      .replace('Gnome Ability Adjustment', 'Deep Gnome Ability Adjustment')
+      .replace('Dodge Giants', 'Exceptional Dodge')
+      .replace('Low-Light Vision', 'Extended Darkvision')
+      .replace('Features=', 'Features="Extra Luck","Know Depth","Race Level Adjustment",Shadowed,Sneaky,Stonecunning,"Svirfneblin Spell Resistance",Undetectable,') + ' ' +
+    'SpellAbility=charisma ' +
     'SpellSlots=' +
       'Svirfneblinish1:1=1,' +
       'Svirfneblinish2:1=2,' +
@@ -2085,6 +2108,12 @@ Realms.raceRulesExtra = function(rules, name) {
   if(name == 'Air Genasi') {
     rules.defineRule('casterLevels.Air Genasi', 'airGenasiLevel', '=', '5');
   } else if(name == 'Deep Gnome') {
+    // Several web pages say that the DC for Deep Gnome spells is Charisma
+    // based with a +4 racial modifier. The FG Campaign Setting says 10 +
+    // spell level, so we go with that; otherwise, the value would be
+    // 14 + source instead of 10
+    rules.defineRule
+      ('spellDifficultyClass.Svirfneblinish', 'charismaModifier', '=', '10');
     rules.defineRule
       ('saveNotes.svirfneblinSpellResistance', 'deepGnomeLevel', '=', 'source + 11');
   } else if(name == 'Drow Elf') {
