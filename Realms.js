@@ -18,15 +18,15 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.5';
+var REALMS_VERSION = '2.2.1.6';
 
 /*
- * This module loads the rules from the Forgotten Realms v3 source book. The
- * Realms function contains methods that load rules for particular parts of the
- * rule book: raceRules for character races, magicRules for spells, etc. These
- * member methods can be called independently in order to use a subset of the
- * Realms rules.  Similarly, the constant fields of Realms (DEITIES, FEATS,
- * etc.) can be manipulated to modify the user's choices.
+ * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
+ * source book. The Realms function contains methods that load rules for
+ * particular parts of the rule book: raceRules for character races, magicRules
+ * for spells, etc. These member methods can be called independently in order
+ * to use a subset of the Realms rules. Similarly, the constant fields of Realms
+ * (DEITIES, FEATS, etc.) can be manipulated to modify the user's choices.
  */
 function Realms() {
 
@@ -623,7 +623,7 @@ Realms.FEATURES_ADDED = {
   'Drow Elf Ability Adjustment':
     'Section=ability ' +
     'Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
-  'Drow Spell Resistance':'Section=save Note="DC %V"',
+  'Drow Elf Spell Resistance':'Section=save Note="DC %V"',
   'Earth Genasi Ability Adjustment':
     'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
   'Elemental Affinity':'Section=save Note="+%V vs. %1 spells"',
@@ -643,9 +643,9 @@ Realms.FEATURES_ADDED = {
   'Light Blindness':'Section=feature Note="Blind 1 rd from sudden daylight"',
   'Light Sensitivity':
     'Section=combat,save,skill ' +
-    'Note="-2 attack in bright light",' +
-         '"-2 saves in bright light",' +
-         '"-2 checks in bright light"',
+    'Note="-%V attack in bright light",' +
+         '"-%V saves in bright light",' +
+         '"-%V checks in bright light"',
   'Native Outsider':
     'Section=save Note="Affected by outsider target spells, not humanoid"',
   'Natural Swimmer':'Section=ability Note="Swim 30\'"',
@@ -897,11 +897,11 @@ Realms.RACES = {
   'Drow Elf':
     'Features=' +
       '"1:Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)",' +
-      '"1:Drow Elf Ability Adjustment","1:Drow Spell Resistance",' +
+      '"1:Drow Elf Ability Adjustment","1:Drow Elf Spell Resistance",' +
       '"1:Extended Darkvision","1:Keen Senses","1:Light Blindness",' +
       '"1:Light Sensitivity","1:Race Level Adjustment",' +
       '"1:Resist Enchantment","1:Sense Secret Doors","1:Sleep Immunity",' +
-      '"1:Stong Will" ' +
+      '"1:Strong Will" ' +
     'Languages=Undercommon,Elven ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
@@ -2087,9 +2087,18 @@ Realms.raceRulesExtra = function(rules, name) {
   } else if(name == 'Deep Gnome') {
     rules.defineRule
       ('saveNotes.svirfneblinSpellResistance', 'deepGnomeLevel', '=', 'source + 11');
+  } else if(name == 'Drow Elf') {
+    rules.defineRule
+      ('saveNotes.drowElfSpellResistance', 'drowElfLevel', '=', 'source + 11');
+    rules.defineRule('saveNotes.lightSensitivity', 'drowElfLevel', '=', '1');
+    rules.defineRule('skillNotes.lightSensitivity', 'drowElfLevel', '=', '1');
+    rules.defineRule('combatNotes.lightSensitivity', 'drowElfLevel', '=', '1');
   } else if(name == 'Gray Dwarf') {
     rules.defineRule
       ('casterLevels.Duergar', 'grayDwarfLevel', '=', 'source * 2');
+    rules.defineRule('saveNotes.lightSensitivity', 'grayDwarfLevel', '=', '2');
+    rules.defineRule('skillNotes.lightSensitivity', 'grayDwarfLevel', '=', '2');
+    rules.defineRule('combatNotes.lightSensitivity', 'grayDwarfLevel', '=','2');
   } else if(name == 'Earth Genasi') {
     rules.defineRule('casterLevels.Earth Genasi', 'earthGenasiLevel', '=', '5');
   } else if(name == 'Water Genasi') {
@@ -2233,6 +2242,10 @@ Realms.ruleNotes = function() {
     '<h3>Usage Notes</h3>\n' +
     '<p>\n' +
     '<ul>\n' +
+    '  <li>\n' +
+    '    Quilvyn gives Drow Elves proficiency in both shortsword and\n' +
+    '    rapier, rather than a choice of the two.\n' +
+    '  </li><li>\n' +
     '  <li>\n' +
     '    Regional languages are not included in character languages lists.\n' +
     '  </li><li>\n' +
