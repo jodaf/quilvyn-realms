@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.4';
+var REALMS_VERSION = '2.2.1.5';
 
 /*
  * This module loads the rules from the Forgotten Realms v3 source book. The
@@ -917,16 +917,21 @@ Realms.RACES = {
   'Wood Elf':
     SRD35.RACES['Elf'].replace('Elf Ability', 'Wood Elf Ability'),
   'Deep Gnome':
+    // Several web pages say that the DC for Deep Gnome spells is Charisma
+    // based with a +4 racial modifier. The FG Campaign Setting says 10 +
+    // spell level, so we go with that.
     'Features=' +
-      '"1:Deep Gnome Ability Adjustment","1:Exceptional Dodge",' +
-      '"1:Extended Darkvision","1:Extra Luck","1:Gnome Enmity","1:Keen Ears",' +
-      '"1:Race Level Adjustment","1:Resist Fear",1:Shadowed,1:Slow,1:Small,' +
-      '1:Sneaky,1:Stonecunning,"1:Svirfneblin Spell Resistance",' +
-      '1:Undetectable ' +
+      '"Weapon Familiarity (Gnome Hooked Hammer)",' +
+      '"Deep Gnome Ability Adjustment","Exceptional Dodge",' +
+      '"Extended Darkvision","Extra Luck","Gnome Enmity","Keen Ears",' +
+      '"Keen Nose","Know Depth","Race Level Adjustment","Resist Fear",' +
+      '"Resist Illusion",Shadowed,Slow,Small,Sneaky,Stonecunning,' +
+      '"Svirfneblin Spell Resistance",Undetectable ' +
     'Languages=Undercommon,Gnome ' +
     'SpellAbility=intelligence ' +
     'SpellSlots=' +
-      'Svirfneblinish2:1=3,' +
+      'Svirfneblinish1:1=1,' +
+      'Svirfneblinish2:1=2,' +
       'Svirfneblinish3:1=1',
   'Rock Gnome':
     SRD35.RACES['Gnome'],
@@ -1210,7 +1215,6 @@ Realms.SPELLS_ADDED = {
 Realms.SPELLS = Object.assign({}, SRD35.SPELLS, Realms.SPELLS_ADDED);
 Realms.SPELLS_LEVELS = {
   'Acid Arrow':'Slime2',
-  'Alter Self':'Svirfneblinish2',
   'Animal Growth':'Scalykind5',
   'Animal Shapes':'Moon8,Scalykind8',
   'Animal Trance':'Scalykind2',
@@ -1267,6 +1271,7 @@ Realms.SPELLS_LEVELS = {
   'Dimensional Anchor':'Portal3',
   'Discern Lies':'Drow4,Nobility4,Tyranny3',
   'Discern Location':'Planning8,Retribution8,Trade9',
+  'Disguise Self':'Svirfneblinish1',
   'Displacement':'Illusion3',
   'Divine Favor':'Nobility1',
   'Divine Power':'Orc4',
