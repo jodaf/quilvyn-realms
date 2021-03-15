@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.2';
+var REALMS_VERSION = '2.2.1.3';
 
 /*
  * This module loads the rules from the Forgotten Realms v3 source book. The
@@ -470,10 +470,10 @@ Realms.FEATURES_ADDED = {
   'Ethran':
     'Section=ability,skill ' +
     'Note="+2 charisma w/Rashemi",' +
-         '"+2 Handle Animal/Survival"',
+         '"+2 Handle Animal/+2 Survival"',
   'Foe Hunter':
     'Section=combat Note="+1 damage, double critical range w/regional foe"',
-  'Forester':'Section=skill Note="+2 Heal/Survival"',
+  'Forester':'Section=skill Note="+2 Heal/+2 Survival"',
   // Identical to SRD35, but +3 DC instead of +1
   'Greater Spell Focus (Abjuration)':
     'Section=magic Note="+3 Spell DC (Abjuration)"',
@@ -608,7 +608,7 @@ Realms.FEATURES_ADDED = {
 
   // Race
   'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
-  'Aasimar Alertness':'Section=skill Note="+2 Listen/Spot"',
+  'Aasimar Alertness':'Section=skill Note="+2 Listen/+2 Spot"',
   'Aasimar Resistance':'Section=save Note="5 vs. acid, cold, and electricity"',
   'Amphibious':'Section=feature Note="Breathe water at will"',
   'Aware':'Section=skill Note="+1 Listen/+1Spot"',
