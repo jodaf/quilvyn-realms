@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.3';
+var REALMS_VERSION = '2.2.1.4';
 
 /*
  * This module loads the rules from the Forgotten Realms v3 source book. The
@@ -2078,7 +2078,7 @@ Realms.raceRulesExtra = function(rules, name) {
     );
   }
   if(name == 'Air Genasi') {
-    rules.defineRule('casterLevels.AG', 'airGenasiLevel', '=', '5');
+    rules.defineRule('casterLevels.Air Genasi', 'airGenasiLevel', '=', '5');
   } else if(name == 'Deep Gnome') {
     rules.defineRule
       ('saveNotes.svirfneblinSpellResistance', 'deepGnomeLevel', '=', 'source + 11');
@@ -2086,9 +2086,9 @@ Realms.raceRulesExtra = function(rules, name) {
     rules.defineRule
       ('casterLevels.Duergar', 'grayDwarfLevel', '=', 'source * 2');
   } else if(name == 'Earth Genasi') {
-    rules.defineRule('casterLevels.EG', 'earthGenasiLevel', '=', '5');
+    rules.defineRule('casterLevels.Earth Genasi', 'earthGenasiLevel', '=', '5');
   } else if(name == 'Water Genasi') {
-    rules.defineRule('casterLevels.WG', 'waterGenasiLevel', '=', '5');
+    rules.defineRule('casterLevels.Water Genasi', 'waterGenasiLevel', '=', '5');
   } else if(Realms.basePlugin.raceRulesExtra) {
     Realms.basePlugin.raceRulesExtra(rules, name);
   }
