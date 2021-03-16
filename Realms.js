@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.8';
+var REALMS_VERSION = '2.2.1.9';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -345,11 +345,11 @@ Realms.FEATS_ADDED = {
   'Arcane Preparation':'Type=General Require="levels.Bard || levels.Sorcerer"',
   'Arcane Schooling':
     'Type=General ' +
-    'Require="Region =~ \'Chessenta|Halruaa|Lantan|Mulhorand|Unther\'"',
+    'Require="region =~ \'Chessenta|Halruaa|Lantan|Mulhorand|Unther\'"',
   'Artist':
     'Type=General ' +
     'Imply="Sum \'skills.Perform\' > 0 || Sum \'skills.Craft\' > 0" ' +
-    'Require="Region =~ \'Chessenta|Evermeet|Waterdeep|Rock Gnome\'"',
+    'Require="region =~ \'Chessenta|Evermeet|Waterdeep|Rock Gnome\'"',
   'Blooded':
     'Type=General ' +
     'Require="region =~ \'Dalelands|Nelanther Isles|Sembia|Silverymoon|Tethyr|Vaasa\'"',
@@ -404,7 +404,7 @@ Realms.FEATS_ADDED = {
   'Magical Artisan':
     'Type=General Imply="casterLevel >= 1" Require="sumItemCreationFeats >= 1"',
   'Magical Training':
-    'Type=General Require="Intelligence >= 10","region == \'Halruaa\'"',
+    'Type=General Require="intelligence >= 10","region == \'Halruaa\'"',
   'Mercantile Background':
     'Type=General ' +
     'Require="Sum \'skills.Appraise\' > 0||Sum \'skills.Craft\' > 0||Sum \'skills.Profession\' > 0",' +
