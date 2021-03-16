@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.10';
+var REALMS_VERSION = '2.2.1.11';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -527,7 +527,7 @@ Realms.FEATURES_ADDED = {
     'Section=magic Note="+3 Spell DC (Transmutation)"',
   'Horse Nomad':
     'Section=combat,skill ' +
-    'Note="Martial Weapon Proficiency (Composite Shortbow)",' +
+    'Note="Weapon Proficiency (Composite Shortbow)",' +
          '"+2 Ride"',
   'Innate Spell':
     'Section=magic ' +
@@ -544,7 +544,9 @@ Realms.FEATURES_ADDED = {
     'Note="<i>Dancing Lights</i>, <i>Daze</i>, <i>Mage Hand</i> 1/dy"',
   'Mercantile Background':
     'Section=skill Note="+2 Appraise/chosen Craft/chosen Profession"',
-  'Militia':'Section=combat Note="Additional martial weapon proficiencies"',
+  'Militia':'Section=combat Note="Weapon Proficiency (Longbow/Longspear)"',
+  'Militia Luiren':
+    'Section=combat Note="Weapon Proficiency (Shortbow/Short Sword)"',
   'Mind Over Body':
     'Section=combat ' +
     'Note="Intelligence modifier adds %1 HP, +%2 HP from Metamagic feats"',
@@ -1906,6 +1908,25 @@ Realms.featRulesExtra = function(rules, name) {
   } else if(name == 'Insidious Magic') {
     rules.defineRule
       ('magicNotes.insidiousMagic', 'casterLevel', '=', 'source + 11');
+  } else if(name == 'Militia') {
+    rules.defineRule
+      ('combatNotes.militia', 'region', '?', 'source != "Luiren"');
+    rules.defineRule('combatNotes.militiaLuiren',
+      'region', '?', 'source == "Luiren"',
+      'features.Militia', '=', null
+    );
+    rules.defineRule('features.Weapon Proficiency (Longbow)',
+      'combatNotes.militia', '=', '1'
+    );
+    rules.defineRule('features.Weapon Proficiency (Longspear)',
+      'combatNotes.militia', '=', '1'
+    );
+    rules.defineRule('features.Weapon Proficiency (Shortbow)',
+      'combatNotes.militiaLuiren', '=', '1'
+    );
+    rules.defineRule('features.Weapon Proficiency (Short Sword)',
+      'combatNotes.militiaLuiren', '=', '1'
+    );
   } else if(name == 'Mind Over Body') {
     rules.defineRule('combatNotes.mindOverBody.1',
       'combatNotes.mindOverBody', '?', null,
