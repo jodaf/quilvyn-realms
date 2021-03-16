@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.7';
+var REALMS_VERSION = '2.2.1.8';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -419,7 +419,7 @@ Realms.FEATS_ADDED = {
   'Pernicious Magic':'Type=Metamagic Require="features.Shadow Weave Magic"',
   'Persistent Spell':'Type=Metamagic Require="features.Extend Spell"',
   'Resist Poison Training':
-    'Type=General Require="region =~ \'Gray Dwarf|Half Orc|Orc\'"',
+    'Type=General Require="region =~ \'Gray Dwarf|Half-Orc|Orc\'"',
   'Saddleback':
     'Type=Fighter ' +
     'Require="region =~ \'Cormyr|Hordelands|Narfell|The North|Western Heartlands\'"',
@@ -443,7 +443,7 @@ Realms.FEATS_ADDED = {
   'Spellcasting Prodigy (Wizard)':'Type=General Imply="levels.Druid >= 1"',
   'Stealthy':
     'Type=General ' +
-    'Require="region =~ \'Drow Elf|Half Orc|Ghostwise Halfling|Lightfoot Halfling|Strongheart Halfling\'"',
+    'Require="region =~ \'Drow Elf|Half-Orc|Ghostwise Halfling|Lightfoot Halfling|Strongheart Halfling\'"',
   'Street Smart':
     'Type=General ' +
     'Require="region =~ \'Amn|Calimshan|Chessenta|Moonsea|Unther\'"',
@@ -1041,8 +1041,8 @@ Realms.REGIONS = {
   'Gold Dwarf':'',
   'Gray Dwarf':'',
   'Great Dale':'',
-  'Half Elf':'',
-  'Half Orc':'',
+  'Half-Elf':'',
+  'Half-Orc':'',
   'Halruaa':'',
   'High Forest':'',
   'Hordelands':'',
