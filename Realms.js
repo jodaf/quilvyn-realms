@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.12';
+var REALMS_VERSION = '2.2.1.13';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -1935,7 +1935,7 @@ Realms.featRulesExtra = function(rules, name) {
     );
     rules.defineRule('combatNotes.mindOverBody.2',
       'combatNotes.mindOverBody', '=', '0',
-      'SumMetamagicFeats', '+', null
+      'sumMetamagicFeats', '+', null
     );
     rules.defineRule('hitPoints',
       'combatNotes.mindOverBody.1', '+', null,
@@ -1964,6 +1964,11 @@ Realms.featRulesExtra = function(rules, name) {
   } else if(name == 'Tenacious Magic') {
     rules.defineRule
       ('magicNotes.tenaciousMagic', 'casterLevel', '=', '15 + source');
+  } else if(name == 'Tattoo Focus') {
+    for(var school in rules.getChoices('schools')) {
+      rules.defineRule
+        ('spellDCSchoolBonus.' + school, 'magicNotes.tattooFocus', '+', '1');
+    }
   } else if(Realms.basePlugin.featRulesExtra) {
     Realms.basePlugin.featRulesExtra(rules, name);
   }
