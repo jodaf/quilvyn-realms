@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.13';
+var REALMS_VERSION = '2.2.1.14';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -439,8 +439,8 @@ Realms.FEATS_ADDED = {
   'Spellcasting Prodigy (Bard)':'Type=General Imply="levels.Bard >= 1"',
   'Spellcasting Prodigy (Cleric)':'Type=General Imply="levels.Cleric >= 1"',
   'Spellcasting Prodigy (Druid)':'Type=General Imply="levels.Druid >= 1"',
-  'Spellcasting Prodigy (Sorcerer)':'Type=General Imply="levels.Druid >= 1"',
-  'Spellcasting Prodigy (Wizard)':'Type=General Imply="levels.Druid >= 1"',
+  'Spellcasting Prodigy (Sorcerer)':'Type=General Imply="levels.Sorcerer >= 1"',
+  'Spellcasting Prodigy (Wizard)':'Type=General Imply="levels.Wizard >= 1"',
   'Stealthy':
     'Type=General ' +
     'Require="region =~ \'Drow Elf|Half-Orc|Ghostwise Halfling|Lightfoot Halfling|Strongheart Halfling\'"',
@@ -544,9 +544,12 @@ Realms.FEATURES_ADDED = {
     'Note="<i>Dancing Lights</i>, <i>Daze</i>, <i>Mage Hand</i> 1/dy"',
   'Mercantile Background':
     'Section=skill Note="+2 Appraise/chosen Craft/chosen Profession"',
-  'Militia':'Section=combat Note="Weapon Proficiency (Longbow/Longspear)"',
+  'Militia':
+    'Section=combat ' +
+    'Note="Weapon Proficiency (Longbow)/Weapon Proficiency (Longspear)"',
   'Militia Luiren':
-    'Section=combat Note="Weapon Proficiency (Shortbow/Short Sword)"',
+    'Section=combat ' +
+    'Note="Weapon Proficiency (Shortbow)/Weapon Proficiency (Short Sword)"',
   'Mind Over Body':
     'Section=combat ' +
     'Note="Intelligence modifier adds %1 HP, +%2 HP from Metamagic feats"',
@@ -1905,6 +1908,10 @@ Realms.featRulesExtra = function(rules, name) {
   } else if(name == 'Bloodline Of Fire') {
     rules.defineRule
       ('magicNotes.bloodlineOfFire', 'levels.Sorcerer', '?', null);
+  } else if(name == 'Horse Nomad') {
+    rules.defineRule('features.Weapon Proficiency (Composite Shortbow)',
+      'combatNotes.horseNomad', '=', '1'
+    );
   } else if(name == 'Insidious Magic') {
     rules.defineRule
       ('magicNotes.insidiousMagic', 'casterLevel', '=', 'source + 11');
