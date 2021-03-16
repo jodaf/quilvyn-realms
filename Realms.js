@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.9';
+var REALMS_VERSION = '2.2.1.10';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -499,7 +499,7 @@ Realms.FEATURES_ADDED = {
   'Discipline':'Section=save,skill Note="+1 Will","+2 Concentration"',
   'Education':
     'Section=skill ' +
-    'Note="All Knowledge skills class skills/+1 any 2 Knowledge skills"',
+    'Note="All Knowledge is a class skill/+1 any 2 Knowledge skills"',
   // Substitute for SRD3.0 skills Animal Empathy/Intuit Direction
   'Ethran':
     'Section=ability,skill ' +
