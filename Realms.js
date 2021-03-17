@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.15';
+var REALMS_VERSION = '2.2.1.16';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -384,7 +384,7 @@ Realms.FEATS_ADDED = {
     'Require="region =~ \'Chult|Cormyr|Damara|Lake Of Steam|The North|Moonsea|Tashalar|Thethyr|Vaasa|Shield Dwarf|Wood Elf\'"',
   'Forester':
     'Type=General ' +
-    'Require="region =~ \'Chondalwood|Dalelands|Great Dale|High Forest|Ghostwise Halfling|Moon Elf|Wild Elf|Moon Elf\'"',
+    'Require="region =~ \'Chondalwood|Dalelands|Great Dale|High Forest|Ghostwise Halfling|Moon Elf|Wild Elf|Wood Elf\'"',
   'Horse Nomad':
     'Type=Fighter Require="region =~ \'Hordelands|The Shaar|Vaasa\'"',
   'Innate Spell':
@@ -407,7 +407,7 @@ Realms.FEATS_ADDED = {
     'Type=General Require="intelligence >= 10","region == \'Halruaa\'"',
   'Mercantile Background':
     'Type=General ' +
-    'Require="Sum \'skills.Appraise\' > 0||Sum \'skills.Craft\' > 0||Sum \'skills.Profession\' > 0",' +
+    'Require="skills.Appraise > 0||Sum \'skills.Craft\' > 0||Sum \'skills.Profession\' > 0",' +
             '"region =~ \'Impiltur|Lake Of Steam|Lantan|Sembia|Tashalar|Tethyr|Thesk|The Vast|Deep Gnome|Gray Dwarf\'"',
   'Militia':
     'Type=General ' +
@@ -418,7 +418,7 @@ Realms.FEATS_ADDED = {
     'Require="region =~ \'Calimshan|Thay|Moon Elf|Sun Elf\'"',
   'Pernicious Magic':'Type=Metamagic Require="features.Shadow Weave Magic"',
   'Persistent Spell':'Type=Metamagic Require="features.Extend Spell"',
-  'Resist Poison Training':
+  'Poison Tolerance':
     'Type=General Require="region =~ \'Gray Dwarf|Half-Orc|Orc\'"',
   'Saddleback':
     'Type=Fighter ' +
@@ -557,7 +557,7 @@ Realms.FEATURES_ADDED = {
     'Section=magic ' +
     'Note="Weave foes DC %V check to counterspell, DC 9+foe level to counterspell Weave foes"',
   'Persistent Spell':'Section=magic Note="Fixed-range spell lasts 24 hr"',
-  'Resist Poison Training':'Section=save Note="+4 vs. poison"',
+  'Poison Tolerance':'Section=save Note="+4 vs. poison"',
   'Saddleback':'Section=skill Note="+3 Ride"',
   'Shadow Weave Magic':
     'Section=ability,magic ' +
@@ -2305,11 +2305,13 @@ Realms.ruleNotes = function() {
     '<p>\n' +
     '<ul>\n' +
     '  <li>\n' +
-    '    Quilvyn gives Drow Elves proficiency in both shortsword and\n' +
+    '    Quilvyn gives Drow Elves proficiency in both short sword and\n' +
     '    rapier, rather than a choice of the two.\n' +
     '  </li><li>\n' +
-    '  <li>\n' +
     '    Regional languages are not included in character languages lists.\n' +
+    '  </li><li>\n' +
+    '    The "Resist Poison" feat is renamed "Poison Tolerance" to\n' +
+    '    distinguish it from the racial feature of the same name.\n' +
     '  </li><li>\n' +
     '    The 1st-level Arcane Devotee "Enlarge Spell" feature is renamed\n' +
     '    "Freely Enlarge Spell" to distinguish it from the feat of the same\n' +
