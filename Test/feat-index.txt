@@ -1,0 +1,51 @@
+Arcane Preparation: Rashemen
+Arcane Schooling: Chessenta, Halruaa
+Artist: Chessenta
+Blooded: Dalelands
+Bloodline Of Fire: Calimshan
+Bullheaded: Gold Dwarf, Gray Dwarf, Rashemen
+Cosmopolitan: Amn
+Courteous Magocracy: Halruaa
+Create Portal: Nonregional
+Daylight Adaptation: Drow, Gray Dwarf
+Delay Spell: Nonregional
+Discipline: Impiltur, Thay
+Education: Amn, Chessenta
+Ethran: Rashemen
+Foe Hunter: Chult, Wood Elf
+Forester: Dalelands, Wood Elf
+Greater Spell Focus: Nonregional
+Greater Spell Penetration: Nonregional
+Horse Nomad: Hordelands
+Improved Counterspell: Nonregional
+Improved Familiar: Nonregional
+Innate Spell: Nonregional
+Inscribe Rune: Impiltur
+Insidious Magic: Nonregional
+Luck Of Heroes: Dalelands
+Magical Artisan: Nonregional
+Magical Training: Halruaa
+Mercantile Background: Gray Dwarf, Impiltur
+Militia: Dalelands
+Mind Over Body: Calimshan, Thay
+Pernicious Magic: Nonregional
+Persistent Spell: Nonregional
+Poison Tolerance: Gray Dwarf
+Saddleback: Hordelands
+Shadow Weave Magic: Nonregional
+Signature Spell: Nonregional
+Silver Palm: Amn, Gold Dwarf, Gray Dwarf, Impiltur
+Smooth Talk: Gold Dwarf
+Snake Blood: Chult
+Spellcasting Prodigy: Nonregional
+Stealthy: Drow
+Street Smart: Amn, Calimshan, Chessenta
+Strong Soul: Dalelands, Wood Elf
+Survivor: Chult, Drow, Hordelands, Rashemen
+Tattoo Focus: Thay
+Tenacious Magic: Nonregional
+Thug: Calimshan
+Thunder Twin: Gold Dwarf
+Treetopper: Wood Elf
+Twin Spell: Nonregional
+Twin Sword Style: Drow
