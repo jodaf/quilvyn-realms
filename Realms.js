@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.14';
+var REALMS_VERSION = '2.2.1.15';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -369,7 +369,7 @@ Realms.FEATS_ADDED = {
     'Type=Metamagic Imply="casterLevel >= 1" Require="sumMetamagicFeats >= 1"',
   'Discipline':
     'Type=General ' +
-    'Require="region =~ \'Aglarond|Anauroch|Cormyr|Impitur|Thay|Strongheart Halfling|Sun Elf|Rock Gnome\'"',
+    'Require="region =~ \'Aglarond|Anauroch|Cormyr|Impiltur|Thay|Strongheart Halfling|Sun Elf|Rock Gnome\'"',
   'Education':
     'Type=General ' +
     'Require="region =~ \'Amn|Chessenta|Cormyr|Evermeet|Lantan|Mulhorand|Sembia|Silverymoon|Waterdeep|Moon Elf|Sun Elf\'"',
