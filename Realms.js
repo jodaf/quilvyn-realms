@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.16';
+var REALMS_VERSION = '2.2.1.17';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -1098,7 +1098,7 @@ Realms.SPELLS_ADDED = {
   'Analyze Portal':
     'School=Divination ' +
     'Level=B3,Portal2,W3 ' +
-    'Description="R60\' cone info on portals for $L rd"',
+    'Description="R60\' cone info on portals for $L rd or conc"',
   'Anyspell':
     'School=Transmutation ' +
     'Level=Spell3 ' +
@@ -1119,10 +1119,10 @@ Realms.SPELLS_ADDED = {
     'School=Abjuration ' +
     'Level=Drow1 ' +
     'Description="Touched protected from sunlight, +4 save vs. light and dark for $L min"',
-  'Create Magic Tatoo':
+  'Create Magic Tattoo':
     'School=Conjuration ' +
     'Level=W2 ' +
-    'Description="Touched gains tatoo w/variable effects for 1 dy"',
+    'Description="Touched gains tattoo w/variable effects for 1 dy"',
   'Darkbolt':
     'School=Evocation ' +
     'Level=Darkness5 ' +
@@ -1154,7 +1154,7 @@ Realms.SPELLS_ADDED = {
   'Gembomb':
     'School=Conjuration ' +
     'Level=Gnome2,Trade2 ' +
-    'Description="Up to 5 gems become R100\' ranged touch bombs totalling ${Math.min(5,Math.floor(lvl/2))}d8 HP (Ref half)"',
+    'Description="Up to 5 gems become R100\' ranged touch bombs totaling ${Math.min(5,Math.floor(lvl/2))}d8 HP (Ref half)"',
   'Great Shout':
     'School=Evocation ' +
     'Level=B6,W8 ' +
@@ -1178,7 +1178,7 @@ Realms.SPELLS_ADDED = {
   'Maelstrom':
     'School=Conjuration ' +
     'Level=Ocean8 ' +
-    'Description="R$RL\' Targets in whirpool 3d8 HP for 2d4 rd (Ref et al neg) for $L rd"',
+    'Description="R$RL\' Targets in whirlpool 3d8 HP for 2d4 rd (Ref et al neg) for $L rd"',
   'Maw Of Stone':
     'School=Transmutation ' +
     'Level=Cavern7 ' +
