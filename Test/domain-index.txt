@@ -1,0 +1,34 @@
+Cavern: Ghaunadaur,Grumbar 
+Charm: Finder Wyvernspur 
+Craft: Thoth
+Darkness: Lolth 
+Drow: Lolth,Ghaunadaur,Kiaransalee 
+Dwarf: Deep Duerra
+Elf: Sehanine Moonbow
+Family: Cyrrollalee
+Fate: Jergal
+Gnome:Urdlen
+Halfling: Cyrrollalee
+Hatred: Ghaunadaur,Urdlen
+Illusion: Sehanine Moonbow
+Mentalism: Deep Duerra
+Metal: Grumbar 
+Moon: Sehanine Moonbow 
+Nobility: Horus-Re
+Ocean: Istishia
+Orc: Ilneval
+Planning: Ilneval
+Portal: Shaundakul
+Renewal: Finder Wyvernspur
+Retribution: Horus-Re,Kiaransalee
+Rune: Jergal,Thoth
+Scalykind: Finder Wyvernspur,Tiamat
+Slime: Ghaunadaur
+Spell: Thoth
+Spider: Lolth 
+Storm: Istishia
+Suffering: Jergal
+Time: Grumbar 
+Trade: Shaundakul
+Tyranny: Tiamat
+Undeath: Kiaransalee
