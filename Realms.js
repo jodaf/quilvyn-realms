@@ -207,7 +207,6 @@ Realms.CLASSES = Object.assign({}, SRD35.CLASSES);
 Realms.DEITIES = {
   'None':'',
   // Faerun
-  'Abbathor':'Alignment=NE Weapon=Dagger Domain=Dwarf,Evil,Luck,Trade,Trickery',
   'Akadi':
     'Alignment=N Weapon="Heavy Flail" Domain=Air,Illusion,Travel,Trickery',
   'Auril':'Alignment=NE Weapon=Battleaxe Domain=Air,Evil,Storm,Water',
@@ -387,6 +386,7 @@ Realms.DEITIES = {
     'Alignment=CE Weapon="Short Sword" Domain=Chaos,Drow,Evil,Spider,War',
 
   // Dwarven
+  'Abbathor':'Alignment=NE Weapon=Dagger Domain=Dwarf,Evil,Luck,Trade,Trickery',
   'Berronar Truesilver':
     'Alignment=LG ' +
     'Weapon="Heavy Mace" ' +
