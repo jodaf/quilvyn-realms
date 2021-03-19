@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.17';
+var REALMS_VERSION = '2.2.1.18';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -206,6 +206,8 @@ Realms.ARMORS = Object.assign({}, SRD35.ARMORS);
 Realms.CLASSES = Object.assign({}, SRD35.CLASSES);
 Realms.DEITIES = {
   'None':'',
+  // Faerun
+  'Abbathor':'Alignment=NE Weapon=Dagger Domain=Dwarf,Evil,Luck,Trade,Trickery',
   'Akadi':
     'Alignment=N Weapon="Heavy Flail" Domain=Air,Illusion,Travel,Trickery',
   'Auril':'Alignment=NE Weapon=Battleaxe Domain=Air,Evil,Storm,Water',
@@ -338,7 +340,175 @@ Realms.DEITIES = {
   'Velsharoon':
     'Alignment=NE Weapon=Quarterstaff Domain=Death,Evil,Magic,Undeath',
   'Waukeen':
-    'Alignment=N Weapon=Nunchaku Domain=Knowledge,Protection,Trade,Travel'
+    'Alignment=N Weapon=Nunchaku Domain=Knowledge,Protection,Trade,Travel',
+
+  // Mulhorandi
+  'Anhur':'Alignment=CG Weapon=Falchion Domain=Chaos,Good,Strength,Storm,War',
+  'Geb':'Alignment=N Weapon=Quarterstaff Domain=Cavern,Craft,Earth,Protection',
+  'Hathor':'Alignment=NG Weapon="Short Sword" Domain=Family,Fate,Good,Moon',
+  'Horus-Re':
+    'Alignment=LG Weapon=Khopesh Domain=Good,Law,Nobility,Retribution,Sun',
+  'Isis':
+    'Alignment=NG ' +
+    'Weapon="Punching Dagger" ' +
+    'Domain=Family,Good,Magic,Storm,Water',
+  'Nephthys':'Alignment=CG Weapon=Whip Domain=Chaos,Good,Protection,Trade',
+  'Osiris':
+    'Alignment=LG ' +
+    'Weapon="Heavy Flail","Light Flail" ' +
+    'Domain=Death,Good,Law,Plant,Retribution',
+  'Sebek':
+    'Alignment=NE ' +
+    'Weapon=Halfspear,Longspear,Shortspear ' +
+    'Domain=Animal,Evil,Scalykind,Water',
+  'Set':
+    'Alignment=LE ' +
+    'Weapon=Halfspear,Longspear,Shortspear ' +
+    'Domain=Air,Darkness,Evil,Hatred,Law,Magic,Scalykind',
+  'Thoth':
+    'Alignment=N Weapon=Quarterstaff Domain=Craft,Knowledge,Magic,Rune,Spell',
+
+  // Drow
+  'Eilistraee':
+    'Alignment=CG ' +
+    'Weapon="Bastard Sword" ' +
+    'Domain=Chaos,Charm,Drow,Elf,Good,Moon,Portal',
+  'Ghaunadaur':
+    'Alignment=CE Weapon=Warhammer Domain=Cavern,Chaos,Drow,Evil,Hatred,Slime',
+  'Kiaransalee':
+    'Alignment=CE Weapon=Dagger Domain=Chaos,Drow,Evil,Retribution,Undeath',
+  'Lolth':
+    'Alignment=CE ' +
+    'Weapon=Dagger ' +
+    'Domain=Chaos,Darkness,Destruction,Drow,Evil,Spider,Trickery',
+  'Selvetarm':
+    'Alignment=CE Weapon="Heavy Mace" Domain=Chaos,Drow,Evil,Spider,War',
+  'Vhaeraun':
+    'Alignment=CE Weapon="Short Sword" Domain=Chaos,Drow,Evil,Spider,War',
+
+  // Dwarven
+  'Berronar Truesilver':
+    'Alignment=LG ' +
+    'Weapon="Heavy Mace" ' +
+    'Domain=Dwarf,Family,Good,Healing,Law,Protection',
+  'Clangeddin Silverbeard':
+    'Alignment=LG Weapon=Battleaxe Domain=Dwarf,Good,Law,Strength,War',
+  'Deep Duerra':
+    'Alignment=LE Weapon=Battleaxe Domain=Dwarf,Evil,Law,Mentalism,War',
+  'Dugmaren Brightmantle':
+    'Alignment=CG ' +
+    'Weapon="Short Sword" ' +
+    'Domain=Chaos,Craft,Dwarf,Good,Knowledge,Rune',
+  'Dumathoin':
+    'Alignment=N ' +
+    'Weapon=Maul ' +
+    'Domain=Cavern,Craft,Dwarf,Earth,Knowledge,Metal,Protection',
+  'Gorm Gulthyn':
+    'Alignment=LG Weapon=Battleaxe Domain=Dwarf,Good,Law,Protection,War',
+  'Haela Brightaxe':
+    'Alignment=CG Weapon=Greatsword Domain=Chaos,Dwarf,Good,Luck,War',
+  'Laduguer':
+    'Alignment=LE ' +
+    'Weapon=Warhammer ' +
+    'Domain=Craft,Dwarf,Evil,Law,Magic,Metal,Protection',
+  'Marthammor Duin':
+    'Alignment=NG Weapon="Heavy Mace" Domain=Dwarf,Good,Protection,Travel',
+  'Moradin':
+    'Alignment=LG ' +
+    'Weapon=Warhammer ' +
+    'Domain=Craft,Dwarf,Earth,Good,Law,Protection',
+  'Sharindlar':
+    'Alignment=CG Weapon=Whip Domain=Chaos,Charm,Dwarf,Good,Healing,Moon',
+  'Thard Harr':
+    'Alignment=CG ' +
+    'Weapon="Spiked Gauntlet" ' +
+    'Domain=Animal,Chaos,Dwarf,Good,Plant',
+  'Vergadain':'Alignment=N Weapon=Longsword Domain=Dwarf,Luck,Trade,Trickery',
+
+  // Elven
+  'Aerdrie Faenya':
+    'Alignment=CG Weapon=Quarterstaff Domain=Air,Animal,Chaos,Elf,Good,Storm',
+  'Angharradh':
+    'Alignment=CG ' +
+    'Weapon=Longspear,Shortspear ' +
+    'Domain=Chaos,Elf,Good,Knowledge,Plant,Protection,Renewal',
+  'Corellon Larethian':
+    'Alignment=CG Weapon=Longsword Domain=Chaos,Elf,Good,Magic,Protection,War',
+  'Deep Sashelas':
+    'Alignment=CG Weapon=Trident Domain=Chaos,Elf,Good,Knowledge,Ocean,Water',
+  'Erevan Ilesere':
+    'Alignment=CN Weapon="Short Sword" Domain=Chaos,Elf,Luck,Trickery',
+  'Fenmarel Mestarine':
+    'Alignment=CN Weapon=Dagger Domain=Animal,Chaos,Elf,Plant,Travel',
+  'Hanali Celanil':
+    'Alignment=CG Weapon=Dagger Domain=Chaos,Charm,Elf,Good,Magic,Protection',
+  'Labelas Enoreth':
+    'Alignment=CG Weapon=Quarterstaff Domain=Chaos,Elf,Good,Knowledge,Time',
+  'Rillifane Rallathil':
+    'Alignment=CG Weapon=Quarterstaff Domain=Chaos,Elf,Good,Plant,Protection',
+  'Sehanine Moonbow':
+    'Alignment=CG ' +
+    'Weapon=Quarterstaff ' +
+    'Domain=Chaos,Elf,Good,Illusion,Knowledge,Moon,Travel',
+  'Shevarash':'Alignment=CN Weapon=Longbow Domain=Chaos,Elf,Retribution,War',
+  'Solonor Thelandira':
+    'Alignment=CG Weapon=Longbow Domain=Chaos,Elf,Good,Plant,War',
+
+  // Gnome
+  'Baervan Wildwanderer':
+    'Alignment=NG Weapon=Halfspear Domain=Animal,Gnome,Good,Plant,Travel',
+  'Baravar Cloakshadow':
+    'Alignment=NG Weapon=Dagger Domain=Gnome,Good,Illusion,Protection,Trickery',
+  'Callarduran Smoothhands':
+    'Alignment=N Weapon=Battleaxe Domain=Cavern,Craft,Earth,Gnome',
+  'Flandal Steelskin':
+    'Alignment=NG Weapon=Warhammer Domain=Craft,Gnome,Good,Metal',
+  'Gaerdal Ironhand':
+    'Alignment=LG Weapon=Warhammer Domain=Gnome,Good,Law,Protection,War',
+  'Garl Glittergold':
+    'Alignment=LG ' +
+    'Weapon=Battleaxe ' +
+    'Domain=Craft,Gnome,Good,Law,Protection,Trickery',
+  'Segoyan Earthcaller':
+    'Alignment=NG Weapon="Heavy Mace" Domain=Cavern,Earth,Gnome,Good',
+  'Urdlen':
+    'Alignment=CE Weapon="Claw Bracer" Domain=Chaos,Earth,Evil,Gnome,Hatred',
+
+  // Halfling
+  'Arvoreen':
+    'Alignment=LG Weapon="Short Sword" Domain=Good,Halfling,Law,Protection,War',
+  'Brandobaris':
+    'Alignment=N Weapon=Dagger Domain=Halfling,Luck,Travel,Trickery',
+  'Cyrrollalee':
+    'Alignment=LG Weapon=Club,Quarterstaff Domain=Family,Good,Halfling,Law',
+  'Sheela Peryoyl':'Alignment=N Weapon=Sickle Domain=Air,Charm,Halfling,Plant',
+  'Urogalan':
+    'Alignment=LN ' +
+    'Weapon="Dire Flail",Flail,"Heavy Flail" ' +
+    'Domain=Death,Earth,Halfling,Law,Protection',
+  'Yondalla':
+    'Alignment=LG ' +
+    'Weapon="Short Sword" ' +
+    'Domain=Family,Good,Halfling,Law,Protection',
+
+  // Orc
+  'Bahgtru':
+    'Alignment=CE Weapon="Spiked Gauntlet" Domain=Chaos,Evil,Orc,Strength',
+  'Gruumsh':
+    'Alignment=CE ' +
+    'Weapon=Longspear,Shortspear ' +
+    'Domain=Cavern,Chaos,Evil,Hatred,Orc,Strength,War',
+  'Ilneval':
+    'Alignment=NE Weapon=Longsword Domain=Destruction,Evil,Orc,Planning,War',
+  'Luthic':
+    'Alignment=NE ' +
+    'Weapon="Claw Bracer" ' +
+    'Domain=Cavern,Earth,Evil,Family,Healing,Orc',
+  'Shargaas':
+    'Alignment=CE Weapon="Short Sword" Domain=Chaos,Darkness,Evil,Orc,Trickery',
+  'Yurtrus':
+    'Alignment=NE Weapon=Unarmed Domain=Death,Destruction,Evil,Orc,Suffering'
+
 };
 Realms.FAMILIARS = Object.assign({}, SRD35.FAMILIARS);
 Realms.FEATS_ADDED = {
@@ -464,7 +634,7 @@ Realms.FEATS_ADDED = {
     'Require="features.Shadow Weave Magic"',
   'Thug':
     'Type=General ' +
-    'Require="region =~ \'Calimshan|Dragon Coast|Moonsea|elanther Isles|Unther|The Vast|Vilhon Reach|Waterdeep\'"',
+    'Require="region =~ \'Calimshan|Dragon Coast|Moonsea|Nelanther Isles|Unther|The Vast|Vilhon Reach|Waterdeep\'"',
   'Thunder Twin':'Type=General Require="region =~ \'Gold Dwarf|Shield Dwarf\'"',
   'Treetopper':
     'Type=General ' +
@@ -500,7 +670,7 @@ Realms.FEATURES_ADDED = {
   'Education':
     'Section=skill ' +
     'Note="All Knowledge is a class skill/+1 any 2 Knowledge skills"',
-  // Substitute for SRD3.0 skills Animal Empathy/Intuit Direction
+  // 3.0 Animal Empathy/Intuit Direction => 3.5 Handle Animal/Survival
   'Ethran':
     'Section=ability,skill ' +
     'Note="+2 charisma w/Rashemi",' +
@@ -604,20 +774,23 @@ Realms.FEATURES_ADDED = {
   'Beguiling':'Section=skill Note="+2 Bluff"',
   'Compelling Magic':'Section=magic Note="+2 DC compulsion spells"',
   'Creator':
-    'Section=magic,skill ' +
+    'Section=magic,feature ' +
     'Note="+1 caster level creation spells",' +
-         '"+2 chosen Craft"',
+         '"+1 General Feat (Skill Focus(chosen Craft))"',
   'Detect Portal':
     'Section=skill Note="DC 20 Search to detect in/active portals"',
   'Disabling Touch':
     'Section=combat Note="Touch attack causes -2 Str and Dex for 1 min 1/dy"',
   'Familial Protection':
     'Section=magic Note="R10\' %V targets +4 AC for %1 rd 1/dy"',
-  'Foreshadowed':'Section=combat Note="Always adds dexterity modifier to AC"',
   'Frenzy':'Section=combat Note="+%V (+%1 vs. dwarf/elf) smite damage 1/dy"',
   'Hammer Specialist':
     'Section=feature ' +
     'Note="+2 General Feat (Weapon Proficiency and Focus w/chosen hammer)"',
+  'Hated Foe':
+    'Section=combat,save ' +
+    'Note="+2 attack, AC vs. one foe for 1 min 1/dy",' +
+         '"+2 saves vs. one foe for 1 min 1/dy"',
   'Insider Knowledge':
     'Section=magic ' +
     'Note="<i>Detect Thoughts</i> on 1 target for %V min 1/dy (Will neg)"',
@@ -628,22 +801,20 @@ Realms.FEATURES_ADDED = {
     'Section=magic ' +
     'Note="Touch to allow target +%V on next Will save for 1 hr 1/dy"',
   'Rebound':'Section=combat Note="Recover 1d8+%V HP points when negative 1/dy"',
-  'Reprisal':'Section=combat Note="Strike for max damage after foe hit 1/dy"',
   'Skilled Caster':'Section=skill Note="+2 Concentration/+2 Spellcraft"',
-  'Stone Affinity':
-    'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
   'Spurred':
     'Section=skill Note="+%V Climb, Hide, Jump, Move Silently for 10 min 1/dy"',
+  'Stone Affinity':
+    'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
   'Stormfriend':'Section=save Note="Electricity resistance 5"',
+  'Strike Of Vengeance':
+    'Section=combat Note="Strike for max damage after foe hit 1/dy"',
   'Turn It On':'Section=ability Note="+4 charisma for 1 min 1/dy"',
   'Turn Lycanthropes':'Section=combat Note="Turn lycanthropes as undead"',
   'Turn Oozes':'Section=combat Note="Turn oozes as undead"',
   'Turn Reptiles':'Section=combat Note="Turn reptiles as undead"',
   'Turn Spiders':'Section=combat Note="Turn spiders as undead"',
-  'Vicious Assault':
-    'Section=combat Note="+2 attack, AC vs. one foe for 1 min 1/dy"',
   'Water Breathing':'Section=magic Note="Breathe water %V rd/dy"',
-  'Wily':'Section=save Note="+2 saves vs. one foe for 1 min 1/dy"',
 
   // Race
   'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
@@ -784,7 +955,7 @@ Realms.PATHS_ADDED = {
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Foreshadowed"',
+      '"1:Uncanny Dodge"',
   'Gnome Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
@@ -799,7 +970,7 @@ Realms.PATHS_ADDED = {
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Vicious Assault","1:Wily"',
+      '"1:Hated Foe"',
   'Illusion Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
@@ -854,7 +1025,7 @@ Realms.PATHS_ADDED = {
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
     'Features=' +
-      '"1:Reprisal"',
+      '"1:Strike Of Vengeance"',
   'Rune Domain':
     'Group=Cleric ' +
     'Level=levels.Cleric ' +
@@ -1255,6 +1426,7 @@ Realms.SPELLS_LEVELS = {
   'Augury':'Fate2,Planning2',
   'Bane':'Suffering1',
   'Banishment':'Portal6,Retribution6',
+  // 3.0 Endurance => 3.5 Bear's Endurance
   'Bear\'s Endurance':'Dwarf2,Retribution2,Suffering2',
   'Bestow Curse':'Fate3,Hatred3,Suffering3',
   'Black Tentacles':'Slime5',
@@ -1274,7 +1446,6 @@ Realms.SPELLS_LEVELS = {
   'Cloak Of Chaos':'Orc8',
   'Command':'Tyranny1',
   'Commune With Nature':'Elf5',
-  'Confusion':'Mentalism1',
   'Contingency':'Time6',
   'Control Undead':'Undeath7',
   'Control Weather':'Storm7',
@@ -1282,7 +1453,6 @@ Realms.SPELLS_LEVELS = {
   'Create Undead':'Undeath6',
   'Create Water':'Wateren0',
   'Creeping Doom':'Scalykind7,Spider8',
-  'Crushing Despair':'Hatred4',
   'Dancing Lights':'Drowen0',
   'Darkness':'Cavern2,Drowen2,Tieflen2',
   'Death Ward':'Undeath4',
@@ -1335,7 +1505,8 @@ Realms.SPELLS_LEVELS = {
   'Gentle Repose':'Time2',
   'Giant Vermin':'Spider4',
   'Glyph Of Warding':'Dwarf3,Rune3',
-  'Good Hope':'Charm4',
+  // 3.0 Emotion => 3.5 Good Hope
+  'Good Hope':'Charm4,Moon4',
   'Grasping Hand':'Tyranny7',
   'Grease':'Slime1',
   'Greater Command':'Nobility5,Tyranny5',
@@ -1360,11 +1531,13 @@ Realms.SPELLS_LEVELS = {
   'Imprisonment':'Cavern9',
   'Insanity':'Charm7,Moon7',
   'Insect Plague':'Spider5',
-  'Instant Summons':'Rune7,Time7',
+  'Instant Summons':'Rune7',
   'Invisibility':'Duergaren2',
   'Iron Body':'Metal8',
   'Irresistible Dance':'Gnome8',
   'Keen Edge':'Metal3',
+  // 3.0 Random Action => 3.5 Lesser Confusion
+  'Lesser Confusion':'Mentalism1',
   'Lesser Planar Binding':'Rune5',
   'Lesser Restoration':'Renewal2',
   'Levitate':'Airen2',
@@ -1382,6 +1555,7 @@ Realms.SPELLS_LEVELS = {
   'Major Creation':'Craft7',
   'Mark Of Justice':'Fate5,Retribution5',
   'Mass Charm Monster':'Tyranny8',
+  // 3.0 Circle Of Doom => 3.5 Mass Inflict Light Wounds
   'Mass Inflict Light Wounds':'Undeath5',
   'Maze':'Portal8',
   'Meld Into Stone':'Cavern3',
@@ -1391,8 +1565,10 @@ Realms.SPELLS_LEVELS = {
   'Minor Creation':'Craft4,Gnome4',
   'Minor Image':'Gnome3,Illusion2',
   'Mislead':'Illusion6',
-  'Mnemonic Enhancer':'Family5,Spell4',
+  'Mnemonic Enhancer':'Spell4',
   'Modify Memory':'Mentalism4',
+  // 3.0 Mass Haste => 3.5 Moment Of Prescience
+  'Moment Of Prescience':'Time7',
   'Move Earth':'Halfling6',
   'Nightmare':'Darkness7',
   'Nondetection':'Svirfneblinish3',
@@ -1414,7 +1590,6 @@ Realms.SPELLS_LEVELS = {
   'Project Image':'Illusion7',
   'Protection From Spells':'Dwarf8,Family8',
   'Prying Eyes':'Darkness6,Orc5',
-  'Rage':'Moon4',
   'Refuge':'Family7',
   'Reincarnate':'Renewal4',
   'Remove Disease':'Renewal3',
@@ -1435,6 +1610,8 @@ Realms.SPELLS_LEVELS = {
   'Silent Image':'Gnome1,Illusion1',
   'Sleet Storm':'Storm4',
   'Snare':'Elf3',
+  // 3.0 Emotion => 3.5 Song Of Discord
+  'Song Of Discord':'Hatred4',
   'Sound Burst':'Ocean2',
   'Speak With Dead':'Retribution3',
   'Spell Turning':'Retribution7',
@@ -1451,7 +1628,7 @@ Realms.SPELLS_LEVELS = {
   'Sunburst':'Elf8',
   'Symbol Of Death':'Rune8',
   'Symbol Of Pain':'Suffering8',
-  'Telepathic Bond':'Mentalism6',
+  'Telepathic Bond':'Family5,Mentalism6',
   'Teleport':'Portal5',
   'Teleportation Circle':'Rune9',
   'Time Stop':'Planning9,Time9',
@@ -2090,6 +2267,8 @@ Realms.pathRulesExtra = function(rules, name) {
       ('combatNotes.frenzy.1', 'levels.Cleric', '=', 'source + 4');
   } else if(name == 'Renewal Domain') {
     rules.defineRule('combatNotes.rebound', 'charismaModifier', '=', null);
+  } else if(name == 'Renewal Domain') {
+    rules.defineRule('combatNotes.rebound', 'charismaModifier', '=', null);
   } else if(name == 'Trade Domain') {
     rules.defineRule
       ('magicNotes.insiderKnowledge', 'charismaModifier', '=', null);
@@ -2307,6 +2486,9 @@ Realms.ruleNotes = function() {
     '  <li>\n' +
     '    Quilvyn gives Drow Elves proficiency in both short sword and\n' +
     '    rapier, rather than a choice of the two.\n' +
+    '  </li><li>\n' +
+    '    Quilvyn renames the granted power of the Cavern domain "Stone\n' +
+    '    Affinity", since it stacks with the Dwarf "Stonecunning" feature.\n' +
     '  </li><li>\n' +
     '    Regional languages are not included in character languages lists.\n' +
     '  </li><li>\n' +
