@@ -154,7 +154,7 @@ RealmsPrestige.CLASSES = {
       '"deity =~ \'Chauntea|Mielikki|Mystra\'","features.Ethran",' +
       '"race =~ \'Human\'","region =~ \'Rashemen|Rashemi\'",' +
       '"spellSlots.B2||spellSlots.S2||spellSlots.W2",' +
-      '"spellsSlots.C2||spellSlots.D2||spellSlots.P2||spellSlots.R2" ' +
+      '"spellSlots.C2||spellSlots.D2||spellSlots.P2||spellSlots.R2" ' +
     'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
       // SRD 3.0 => 3.5: Alchemy => Craft (Alchemy), Animal Empathy => null, Intuit Direction => Survival, Scry => null, Wilderness Lore => Survival
@@ -261,7 +261,7 @@ RealmsPrestige.FEATURES = {
   'Divine Perseverance':
     'Section=combat Note="Regain d8+5 HP from negative 1/dy"',
   'Divine Shroud':
-    'Section=save Note="Aura provides DC %V spell reistance for %1 rd 1/dy"',
+    'Section=save Note="Aura provides DC %V spell resistance for %1 rd 1/dy"',
   'Divine Wrath':
     'Section=combat,save ' +
     'Note="+3 attack and damage and DR 5/- for %V rd 1/dy",' +
@@ -296,7 +296,7 @@ RealmsPrestige.FEATURES = {
          '"+2 save vs. chosen opponent 1/dy",' +
          '"+2 checks vs. chosen opponent 1/dy"',
   'Place Magic':
-    'Section=magic Note="Cast spell w/out prepartion when in Rashemen"',
+    'Section=magic Note="Cast spell w/out preparation when in Rashemen"',
   'Rallying Cry':
     'Section=combat Note="R60\' Allies +1 next attack, +5 speed for 1 tn 3/dy"',
   'Reputation':'Section=feature Note="+%V Leadership"',
