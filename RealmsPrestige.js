@@ -248,7 +248,7 @@ RealmsPrestige.FEATURES = {
     'Section=magic ' +
     'Note="+1 caster level on spells from chosen alignment component"',
   'Caster Level Bonus':
-    'Section=magic Note="+%V base class level for spells known/per dy"',
+    'Section=magic Note="+%V base class level for spells known and spells/dy"',
   'Circle Leader':
     'Section=magic ' +
     'Note="1 hr ritual w/2-5 other members raises caster level, gives metamagic feats"',
@@ -303,7 +303,7 @@ RealmsPrestige.FEATURES = {
   'Rune Chant':'Section=magic Note="+3 DC divine spells when tracing rune"',
   'Rune Craft':'Section=skill Note="+%V Craft (inscribing runes)"',
   'Rune Power':'Section=magic Note="+%V DC of runes"',
-  'Sacred Defense':'Section=save Note="+%V vs. divine spells"',
+  'Sacred Defense':'Section=save Note="+%V vs. divine spells and outsiders"',
   'Scribe Tattoo':'Section=magic Note="Induct novices into circle"',
   'Shadow Defense':
     'Section=save ' +
