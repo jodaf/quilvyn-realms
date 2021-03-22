@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.19';
+var REALMS_VERSION = '2.2.1.20';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -235,7 +235,7 @@ Realms.DEITIES = {
     'Alignment=CN Weapon=Longsword Domain=Chaos,Destruction,Strength,War',
   'Gargauth':
     'Alignment=LE ' +
-    'Weapon=Dagger,"Throwing Dagger" ' +
+    'Weapon=Dagger ' +
     'Domain=Charm,Evil,Law,Trickery',
   'Gond':
     'Alignment=N ' +
@@ -354,7 +354,7 @@ Realms.DEITIES = {
   'Nephthys':'Alignment=CG Weapon=Whip Domain=Chaos,Good,Protection,Trade',
   'Osiris':
     'Alignment=LG ' +
-    'Weapon="Heavy Flail","Light Flail" ' +
+    'Weapon=Flail,"Heavy Flail" ' +
     'Domain=Death,Good,Law,Plant,Retribution',
   'Sebek':
     'Alignment=NE ' +

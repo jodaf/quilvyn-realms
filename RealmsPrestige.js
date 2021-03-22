@@ -136,7 +136,7 @@ RealmsPrestige.CLASSES = {
       'Appraise,Bluff,Climb,Craft,Diplomacy,Disguise,"Escape Artist",' +
       '"Gather Information",Hide,Jump,Knowledge,Listen,"Move Silently",' +
       'Perform,Profession,"Sense Motive","Speak Language",Survival,Swim,' +
-      'Tumble" ' +
+      'Tumble ' +
     'Features=' +
       '"1:Armor Proficiency (Light)",' +
       '"1:Weapon Proficiency (Simple)",' +
