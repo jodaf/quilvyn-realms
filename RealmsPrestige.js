@@ -75,7 +75,7 @@ RealmsPrestige.CLASSES = {
       '"1:Armor Proficiency (Medium)",' +
       '"1:Shield Proficiency (Heavy)",' +
       '"1:Weapon Proficiency (Martial)",' +
-      '"1:Lay On Hands","2:Sacred Defense","3:Smite Infidel","5:Divine Wrath"',
+      '"1:Faith Healing","2:Sacred Defense","3:Smite Infidel","5:Divine Wrath"',
   'Divine Disciple':
     'Require=' +
       '"skills.Diplomacy >= 5","skills.Knowledge (Religion) >= 8",' +
@@ -273,6 +273,7 @@ RealmsPrestige.FEATURES = {
          '"+3 saves %V rd 1/dy",',
   'Doublespeak':'Section=skill Note="+2 Bluff/+2 Diplomacy"',
   'Enhanced Specialization':'Section=magic Note="Additional opposition school"',
+  'Faith Healing':'Section=magic Note="Heal followers of %1 %V HP/dy"',
   'Final Stand':
     'Section=combat Note="R10\' %V allies gain 2d10 HP for %1 rd 1/dy"',
   'Freely Enlarge Spell':'Section=magic Note="Cast enlarged spell %V/dy"',
@@ -525,10 +526,14 @@ RealmsPrestige.classRulesExtra = function(rules, name) {
     rules.defineRule('featCount.Fighter',
       'levels.Divine Champion', '+=', 'Math.floor(source / 2)'
     );
-    rules.defineRule('magicNotes.layOnHands',
-      'levels.Divine Champion', '+=', null,
+    rules.defineRule('magicNotes.faithHealing',
+      'levels.Divine Champion', '=', null,
       'charismaModifier', '*', null,
       'charisma', '?', 'source >= 12'
+    );
+    rules.defineRule('magicNotes.faithHealing.1',
+      'features.Faith Healing', '?', null,
+      'deity', '=', null
     );
     rules.defineRule('saveNotes.divineWrath', 'charismaModifier', '=', null);
     rules.defineRule('saveNotes.sacredDefense',
