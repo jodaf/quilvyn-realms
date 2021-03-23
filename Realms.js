@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.21';
+var REALMS_VERSION = '2.2.1.22';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -179,11 +179,6 @@ function Realms() {
     SRD35NPC.identityRules(rules, SRD35NPC.CLASSES);
     SRD35NPC.magicRules(rules, SRD35NPC.SPELLS);
     SRD35NPC.talentRules(rules, SRD35NPC.FEATURES);
-  }
-  if(window.SRD35Prestige != null) {
-    SRD35Prestige.identityRules(rules, SRD35Prestige.CLASSES);
-    SRD35Prestige.magicRules(rules, SRD35Prestige.SPELLS);
-    SRD35Prestige.talentRules(rules, SRD35Prestige.FEATURES);
   }
 
   Quilvyn.addRuleSet(rules);
@@ -670,7 +665,7 @@ Realms.FEATURES_ADDED = {
   'Education':
     'Section=skill ' +
     'Note="All Knowledge is a class skill/+1 any 2 Knowledge skills"',
-  // 3.0 Animal Empathy/Intuit Direction => 3.5 Handle Animal/Survival
+  // 3.0 Animal Empathy, Intuit Direction => 3.5 Handle Animal, Survival
   'Ethran':
     'Section=ability,skill ' +
     'Note="+2 charisma w/Rashemi",' +
