@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.23';
+var REALMS_VERSION = '2.2.1.24';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -2124,7 +2124,7 @@ Realms.featRulesExtra = function(rules, name) {
     rules.defineRule('magicNotes.perniciousMagic',
       'casterLevel', '=', 'source + 11'
     );
-  } else if((matchInfo = name.match(/^Spellcasting\sProdigy\s(.*).$/)) != null) {
+  } else if((matchInfo = name.match(/^Spellcasting\sProdigy\s\((.*)\)$/)) != null) {
     var clas = matchInfo[1];
     var spellCode = clas.charAt(0);
     var ability = {'Bard':'charisma', 'Cleric':'wisdom', 'Druid':'wisdom', 'Sorcerer':'charisma', 'Wizard':'intelligence'}[clas];

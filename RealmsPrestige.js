@@ -143,8 +143,8 @@ RealmsPrestige.CLASSES = {
       '"1:Armor Proficiency (Light)",' +
       '"1:Weapon Proficiency (Simple)",' +
       '"1:Bardic Knowledge","1:Favored Enemy","2:Deneir\'s Eye",' +
-      '"2:Harper Skill Focus","3:Tymora\'s Smile","4:Lliira\'s Heart",' +
-      '"5:Craft Harper Item" ' +
+      '"2:Harper Perform Focus","2:Harper Skill Focus","3:Tymora\'s Smile",' +
+      '"4:Lliira\'s Heart","5:Craft Harper Item" ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
       'Harper1:1=0;2=1,' +
@@ -260,7 +260,7 @@ RealmsPrestige.FEATURES = {
   'Cohort':'Section=feature Note="Gain Hathran or Barbarian follower"',
   'Craft Harper Item':
     'Section=magic Note="Create magic instruments, Harper pins, and potions"',
-  "Deneir's Eye":'Section=save Note="+2 vs. glyphs"',
+  "Deneir's Eye":'Section=save Note="+2 vs. glyphs, runes, and symbols"',
   'Divine Emissary':
     'Section=feature Note="Telepathy w/same-alignment outsider w/in 60\'"',
   'Divine Perseverance':
@@ -271,6 +271,7 @@ RealmsPrestige.FEATURES = {
     'Section=combat,save ' +
     'Note="+3 attack and damage and DR 5/- for %V rd 1/dy",' +
          '"+3 saves %V rd 1/dy",',
+  // 3.0 Innuendo => 3.5 Bluff
   'Doublespeak':'Section=skill Note="+2 Bluff/+2 Diplomacy"',
   'Enhanced Specialization':'Section=magic Note="Additional opposition school"',
   'Faith Healing':'Section=magic Note="Heal followers of %1 %V HP/dy"',
@@ -281,9 +282,12 @@ RealmsPrestige.FEATURES = {
     'Section=magic Note="Lead magic circle w/9 other members"',
   'Greater Shield Of Shadows':
     'Section=save Note="Shield Of Shadows gives %V spell resistance"',
+  'Harper Perform Focus':
+    'Section=feature ' +
+    'Note="+1 General Feat (Skill Focus in chosen Perform)"',
   'Harper Skill Focus':
     'Section=feature ' +
-    'Note="+1 General Feat (Skill Focus in chosen Perform or Harper class skill"',
+    'Note="+1 General Feat (Skill Focus in Harper class skill)"',
   'Heroic Shield':'Section=combat Note="Aid Another action gives +4 AC bonus"',
   'Imbue With Spell Ability':
     'Section=magic ' +
@@ -353,6 +357,7 @@ RealmsPrestige.SPELLS = {
   'Eagle\'s Splendor':'Level=Harper2',
   'Erase':'Level=Harper1',
   'Feather Fall':'Level=Harper1',
+  // Since Flashburst is already a W3 spell, no need to make it Hathran3
   'Greater Command':'Level=Hathran4',
   'Invisibility':'Level=Harper2',
   'Jump':'Level=Harper1',
@@ -363,11 +368,16 @@ RealmsPrestige.SPELLS = {
   'Magic Mouth':'Level=Harper2',
   'Message':'Level=Harper1',
   'Misdirection':'Level=Harper2',
+  'Moon Blade':'Level=Hathran3',
+  'Moon Path':'Level=Hathran5',
+  'Moonbeam':'Level=Hathran2',
   'Mount':'Level=Harper1',
   'Nondetection':'Level=Harper3',
   'Obscure Object':'Level=Seeker3',
   'Read Magic':'Level=Harper1',
   'Sanctuary':'Level=Seeker1',
+  // Making Scratterspray a Hathran1 spell would confuse the acquisition of
+  // Hathran Fear. Since it's already a W1 spell, there's no need.
   'Scatterspray':'Level=Harper1',
   'See Invisibility':'Level=Harper2',
   'Shadow Mask':'Level=Harper2',
@@ -603,6 +613,14 @@ RealmsPrestige.classRulesExtra = function(rules, name) {
       ('skillNotes.bardicKnowledge', 'levels.Harper Scout', '+=', null);
     rules.defineRule('skillNotes.favoredEnemy',
       'levels.Harper Scout', '+=', '1 + Math.floor(source / 4)'
+    );
+    QuilvynRules.prerequisiteRules(
+      rules, 'validation', 'harperSkillFocus', 'features.Harper Skill Focus',
+      'Sum \'features.Skill Focus\' >= 1'
+    );
+    QuilvynRules.prerequisiteRules(
+      rules, 'validation', 'harperPerformFocus','features.Harper Perform Focus',
+      'Sum \'features.Skill Focus .Perform\' >= 1'
     );
 
   } else if(name == 'Hathran') {
