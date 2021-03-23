@@ -41,7 +41,7 @@ RealmsPrestige.CLASSES = {
       '"skills.Spellcraft >= 8","spellSlots.B4||spellSlots.S4||spellSlots.W4" '+
     'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // SRD 3.0 => 3.5: Alchemy => Craft (Alchemy), Scry => null
+      // 3.0 Alchemy, Scry => 3.5 Craft (Alchemy), null
       'Concentration,Craft,Knowledge,Profession,Spellcraft ' +
     'Features=' +
       '"1:Caster Level Bonus","1:Freely Enlarge Spell","2:Alignment Focus",' +
@@ -54,14 +54,16 @@ RealmsPrestige.CLASSES = {
       '"spellSlots.S7||spellSlots.W7 >= 1","level5SpellSchools >= 5" ' +
     'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-       // SRD 3.0 => 3.5: Alchemy => Craft (Alchemy), Scry => null
+       // 3.0 Alchemy, Scry => 3.5 Craft (Alchemy), null
       'Concentration,"Craft (Alchemy)",Knowledge,Profession,Search,' +
       'Spellcraft ' +
     'Features="1:Caster Level Bonus" ' +
     'Selectables=' +
-      '"1:Arcane Fire","1:Arcane Reach","1:Improved Arcane Reach",' +
+      '"1:Arcane Fire","1:Arcane Reach",' +
+      '"features.Arcane Reach ? 1:Improved Arcane Reach",' +
       '"1:Mastery Of Counterspelling","1:Mastery Of Elements",' +
-      '"1:Mastery Of Shaping","1:Spell Power","1:Spell-Like Ability"',
+      '"1:Mastery Of Shaping","1:Spell Power +1","1:Spell Power +2",' +
+      '"Spell Power +3","1:Spell-Like Ability"',
   'Divine Champion':
     'Require=' +
        '"baseAttack >= 7","Sum \'features.Weapon Focus\' >= 1",' +
@@ -80,7 +82,7 @@ RealmsPrestige.CLASSES = {
       '"spellSlots.C4||spellSlots.D4" ' +
     'HitDie=d8 Attack=3/4 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // SRD 3.0 => 3.5: Scry => null, Wilderness Lore => Survival
+      // 3.0 Scry, Wilderness Lore => 3.5 null, Survival
       'Concentration,Craft,Diplomacy,Heal,"Knowledge (Arcana)",' +
       '"Knowledge (Nature)","Knowledge (Religion)",Profession,Spellcraft,' +
       'Survival ' +
@@ -94,7 +96,7 @@ RealmsPrestige.CLASSES = {
       '"skills.Move Silently >= 8","skills.Spot >= 5" ' +
     'HitDie=d6 Attack=3/4 SkillPoints=6 Fortitude=1/3 Reflex=1/2 Will=1/3 ' +
     'Skills=' +
-      // SRD 3.0 => 3.5: Intuit Direction => Survival, Pick Pocket => Sleight Of Hand
+      // 3.0 Intuit Direction, Pick Pocket => 3.5 Survival, Sleight Of Hand
       'Bluff,Climb,Craft,"Decipher Script",Diplomacy,"Disable Device",Jump,' +
       '"Knowledge (Religion)",Listen,"Move Silently","Open Lock",' +
       'Profession,Search,"Sleight Of Hand",Spot,Survival,Tumble,"Use Rope" ' +
@@ -114,7 +116,7 @@ RealmsPrestige.CLASSES = {
       '"skills.Intimidate >= 3","skills.Move Silently >= 3" ' +
     'HitDie=d6 Attack=3/4 SkillPoints=6 Fortitude=1/3 Reflex=1/2 Will=1/3 ' +
     'Skills=' +
-      // SRD 3.0 => 3.5: Innuendo => Bluff, Pick Pocket => Sleight Of Hand
+      // 3.0 Innuendo, Pick Pocket => 3.5 Bluff, Sleight Of Hand
       'Appraise,Bluff,Climb,Craft,Diplomacy,"Disable Device",Forgery,' +
       'Intimidate,Jump,"Knowledge (Local)",Listen,"Move Silently",' +
       '"Open Lock",Profession,Search,"Sense Motive","Sleight Of Hand",Spot,' +
@@ -132,7 +134,7 @@ RealmsPrestige.CLASSES = {
       '"skills.Sense Motive >= 2","skills.Survival >= 2" ' +
     'HitDie=d6 Attack=3/4 SkillPoints=4 Fortitude=1/3 Reflex=1/2 Will=1/2 ' +
     'Skills=' +
-      // SRD 3.0 => 3.5: Intuit Direction => Survival, Pick Pocket => Sleight Of Hand
+      // 3.0 Intuit Direction, Pick Pocket => 3.5 Survival, Sleight Of Hand
       'Appraise,Bluff,Climb,Craft,Diplomacy,Disguise,"Escape Artist",' +
       '"Gather Information",Hide,Jump,Knowledge,Listen,"Move Silently",' +
       'Perform,Profession,"Sense Motive","Speak Language",Survival,Swim,' +
@@ -157,7 +159,8 @@ RealmsPrestige.CLASSES = {
       '"spellSlots.C2||spellSlots.D2||spellSlots.P2||spellSlots.R2" ' +
     'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // SRD 3.0 => 3.5: Alchemy => Craft (Alchemy), Animal Empathy => null, Intuit Direction => Survival, Scry => null, Wilderness Lore => Survival
+      // 3.0 Alchemy, Animal Empathy, Intuit Direction, Scry, Wilderness Lore =>
+      // 3.5 Craft (Alchemy), null, Survival, null, Survival
       'Concentration,Craft,Knowledge,Perform,Profession,"Speak Language",' +
       'Spellcraft,Survival,Swim ' +
     'Features=' +
@@ -174,7 +177,7 @@ RealmsPrestige.CLASSES = {
       '"sumMetamagicFeats > 0" ' +
     'HitDie=d8 Attack=1/2 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // SRD 3.0 => 3.5: Scry => null
+      // 3.0 Scry => 3.5 null
       'Concentration,Craft,Diplomacy,Heal,"Knowledge (Arcana)",' +
       '"Knowledge (Religion)",Profession,Spellcraft ' +
     'Selectables=' +
@@ -207,7 +210,7 @@ RealmsPrestige.CLASSES = {
       '"features.Tattoo Focus","sumItemCreationAndMetamagicFeats >= 3" ' +
     'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // SRD 3.0 => 3.5: Alchemy => Craft (Alchemy), Innuendo => Bluff, Scry => null
+      // 3.0 Alchemy, Innuendo, Scry => 3.5 Craft (Alchemy), Bluff, null
       'Bluff,Concentration,Craft,Intimidate,Knowledge,Profession,Spellcraft ' +
     'Features=' +
       '"1:Caster Level Bonus","1:Enhanced Specialization",' +
@@ -220,7 +223,7 @@ RealmsPrestige.CLASSES = {
       '"spellSlots.C3||spellSlots.D3||spellSlots.P3||spellSlots.R3" ' +
     'HitDie=d8 Attack=3/4 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // SRD 3.0 => 3.5: Scry => null
+      // 3.0 Scry => 3.5 null
       'Concentration,Craft,Diplomacy,Heal,"Knowledge (Arcana)",' +
       '"Knowledge (Religion)",Profession,Spellcraft ' +
     'Features=' +
@@ -234,7 +237,7 @@ RealmsPrestige.CLASSES = {
       '"features.Shadow Weave Magic","sumMetamagicFeats >= 1" ' +
     'HitDie=d8 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
     'Skills=' +
-      // SRD 3.0 => 3.5: Scry => null
+      // 3.0 Scry => 3.5 null
       'Bluff,Concentration,Craft,Disguise,Hide,Knowledge,Profession,' +
       'Spellcraft ' +
     'Features=' +
@@ -247,6 +250,8 @@ RealmsPrestige.FEATURES = {
   'Alignment Focus':
     'Section=magic ' +
     'Note="+1 caster level on spells from chosen alignment component"',
+  'Arcane Fire':'Section=magic Note="Transform arcane spell into bolt of fire"',
+  'Arcane Reach':'Section=magic Note="Use arcane touch spell 30\' away"',
   'Caster Level Bonus':
     'Section=magic Note="+%V base class level for spells known and spells/dy"',
   'Circle Leader':
@@ -282,12 +287,20 @@ RealmsPrestige.FEATURES = {
   'Imbue With Spell Ability':
     'Section=magic ' +
     'Note="<i>Imbue With Spell Ability</i> 1st/2nd level spells at will"',
+  'Improved Arcane Reach':
+    'Section=magic Note="Use arcane touch spell 60\' away"',
   'Improved Runecasting':
     'Section=magic Note="Add charges and triggers to runes"',
   "Knight's Courage":
     'Section=magic ' +
     'Note="Allies +1 attack and damage, +2 charm and fear saves during speech +5 rd %V/dy"',
   "Lliira's Heart":'Section=save Note="+2 vs. compulsion and fear"',
+  'Mastery Of Counterspelling':
+    'Section=magic Note="Counterspell turns effect back on caster"',
+  'Mastery Of Elements':'Section=magic Note="Change energy type of spell"',
+  'Mastery Of Energy':
+    'Section=combat Note="+4 undead turning checks and damage"',
+  'Mastery Of Shaping':'Section=magic Note="Create holes in spell effect area"',
   'Maximize Rune':'Section=magic Note="+5 DC/maximize effects of runes"',
   'New Domain':'Section=feature Note="Choose additional deity domain"',
   'Oath Of Wrath':
@@ -316,8 +329,8 @@ RealmsPrestige.FEATURES = {
     'Note="+%V attack, +%1 damage vs. foe w/different deity 1/dy"',
   'Specialist Defense':
     'Section=save Note="+%V bonus on saves vs. specialist school spells"',
-  'Spell Power':
-    'Section=magic Note="+%V specialist spell DC and resistance checks"',
+  'Spell Power':'Section=magic Note="+%V spell DC and resistance checks"',
+  'Spell-Like Ability':'Section=magic Note="Use spell as ability 2+/dy"',
   'Thwart Glyph':
     'Section=skill Note="+4 Disable Device (glyphs)/+4 Search (glyphs)"',
   'Transcendence':
@@ -432,6 +445,72 @@ RealmsPrestige.classRulesExtra = function(rules, name) {
       ('saveNotes.divineShroud.1', 'charismaModifier', '+=', '5 + source');
     rules.defineRule('saveNotes.sacredDefense',
       'levels.Arcane Devotee', '+=', 'Math.floor(source / 2)'
+    );
+
+  } else if(name == 'Archmage') {
+
+    var allSpells = rules.getChoices('spells');
+    var matchInfo;
+    for(var spell in allSpells) {
+      if((matchInfo = spell.match(/\(\w+5 (\w+)\)/)) != null) {
+        var school = matchInfo[1];
+        rules.defineRule
+          ('level5' + school + 'Spells', 'spells.' + spell, '+=', '1');
+        rules.defineRule
+          ('level5SpellSchools', 'level5' + school + 'Spells', '+=', '1');
+      }
+    }
+    rules.choiceRules
+      (rules, 'Feat', 'Skill Focus (Spellcraft)', 'Type=General');
+    rules.defineRule('features.Spell Power',
+      'archmageFeatures.Spell Power +1', '=', '1',
+      'archmageFeatures.Spell Power +2', '=', '1',
+      'archmageFeatures.Spell Power +3', '=', '1'
+    );
+    rules.defineRule
+      ('magicNotes.casterLevelBonus', 'levels.Archmage', '+=', null);
+    rules.defineRule('magicNotes.spellPower',
+      'archmageFeatures.Spell Power +1', '+=', '1',
+      'archmageFeatures.Spell Power +2', '+=', '2',
+      'archmageFeatures.Spell Power +3', '+=', '3'
+    );
+    rules.defineRule
+      ('selectableFeatureCount.Archmage', 'levels.Archmage', '+=', null);
+    rules.defineRule('spellSlots.S5',
+      'archmageFeatures.Spell Power +1', '+', '-1',
+      'archmageFeatures.Spell-Like Ability', '+', '-1'
+    );
+    rules.defineRule('spellSlots.W5',
+      'archmageFeatures.Spell Power +1', '+', '-1',
+      'archmageFeatures.Spell-Like Ability', '+', '-1'
+    );
+    rules.defineRule
+      ('spellSlots.S6', 'archmageFeatures.Mastery Of Shaping', '+', '-1');
+    rules.defineRule
+      ('spellSlots.W6', 'archmageFeatures.Mastery Of Shaping', '+', '-1');
+    rules.defineRule('spellSlots.S7',
+      'archmageFeatures.Arcane Reach', '+', '-1',
+      'archmageFeatures.Improved Arcane Reach', '+', '-1',
+      'archmageFeatures.Mastery Of Counterspelling', '+', '-1',
+      'archmageFeatures.Spell Power +2', '+', '-1'
+    );
+    rules.defineRule('spellSlots.W7',
+      'archmageFeatures.Arcane Reach', '+', '-1',
+      'archmageFeatures.Improved Arcane Reach', '+', '-1',
+      'archmageFeatures.Mastery Of Counterspelling', '+', '-1',
+      'archmageFeatures.Spell Power +2', '+', '-1'
+    );
+    rules.defineRule
+      ('spellSlots.S8', 'archmageFeatures.Mastery Of Elements', '+', '-1');
+    rules.defineRule
+      ('spellSlots.W8', 'archmageFeatures.Mastery Of Elements', '+', '-1');
+    rules.defineRule('spellSlots.S9',
+      'archmageFeatures.Arcane Fire', '+', '-1',
+      'archmageFeatures.Spell Power +3', '+', '-1'
+    );
+    rules.defineRule('spellSlots.W9',
+      'archmageFeatures.Arcane Fire', '+', '-1',
+      'archmageFeatures.Spell Power +3', '+', '-1'
     );
 
   } else if(name == 'Divine Champion') {
