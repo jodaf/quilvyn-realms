@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.22';
+var REALMS_VERSION = '2.2.1.23';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -2482,7 +2482,7 @@ Realms.ruleNotes = function() {
     '    Quilvyn gives Drow Elves proficiency in both short sword and\n' +
     '    rapier, rather than a choice of the two.\n' +
     '  </li><li>\n' +
-    '    Quilvyn renames the granted power of the Cavern domain "Stone\n' +
+    '    The Cavern Domain granted power "Stonecunning" is renamed "Stone\n' +
     '    Affinity", since it stacks with the Dwarf "Stonecunning" feature.\n' +
     '  </li><li>\n' +
     '    Regional languages are not included in character languages lists.\n' +
@@ -2493,6 +2493,9 @@ Realms.ruleNotes = function() {
     '    The 1st-level Arcane Devotee "Enlarge Spell" feature is renamed\n' +
     '    "Freely Enlarge Spell" to distinguish it from the feat of the same\n' +
     '    name.\n' +
+    '  </li><li>\n' +
+    '    The Divine Champion "Lay On Hands" feature is renamed "Faith\n' +
+    '    Healing" since it differs in detail from the Paladin feature.\n' +
     '  </li><li>\n' +
     '    Harper Scout\'s "Harper Knowledge" feature is renamed "Bardic\n' +
     '    Knowledge", since the two are identical and stack.\n' +
