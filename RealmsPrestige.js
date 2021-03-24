@@ -242,10 +242,13 @@ RealmsPrestige.CLASSES = {
       'Bluff,Concentration,Craft,Disguise,Hide,Knowledge,Profession,' +
       'Spellcraft ' +
     'Features=' +
-      '"1:Insidious Magic","1:Pernicious Magic","1:Tenacious Magic",' +
-      '"2:Low-Light Vision","2:Shadow Defense","3:Spell Power",' +
-      '"4:Shield Of Shadows","7:Darkvision","7:Shadow Walk",' +
-      '"8:Greater Shield Of Shadows","10:Shadow Double"'
+      '"1:Caster Level Bonus","1:Insidious Magic","1:Pernicious Magic",' +
+      '"1:Tenacious Magic","2:Low-Light Vision","2:Shadow Defense",' +
+      '"3:Spell Power","4:Shield Of Shadows","7:Darkvision",' +
+      '"8:Greater Shield Of Shadows","10:Shadow Double" ' +
+    'SpellAbility=intelligence ' +
+    'SpellSlots=' +
+      'Shadow4:7=1'
 };
 RealmsPrestige.FEATURES = {
   'Alignment Focus':
@@ -341,7 +344,7 @@ RealmsPrestige.FEATURES = {
     'Note="+%V vs. Enchantment, Illusion, Necromancy, and Darkness spells"',
   'Shadow Double':'Section=magic Note="Create clone lasting %V rd 1/dy"',
   'Shield Of Shadows':
-    'Section=magic Note="<i>Shield</i> w/30% concealment %V rd/dy"',
+    'Section=magic Note="<i>Shield</i> w/75% concealment %V rd/dy"',
   'Smite Infidel':
     'Section=combat ' +
     'Note="+%V attack, +%1 damage vs. foe w/different deity 1/dy"',
@@ -394,6 +397,7 @@ RealmsPrestige.SPELLS = {
   'Scatterspray':'Level=Harper1',
   'See Invisibility':'Level=Harper2',
   'Shadow Mask':'Level=Harper2',
+  'Shadow Walk':'Level=Shadow4',
   'Sleep':'Level=Harper1',
   'Spider Climb':'Level=Harper1',
   'Suggestion':'Level=Harper3',
