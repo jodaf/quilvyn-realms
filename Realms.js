@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.24';
+var REALMS_VERSION = '2.2.1.25';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -2494,8 +2494,8 @@ Realms.ruleNotes = function() {
     '    "Freely Enlarge Spell" to distinguish it from the feat of the same\n' +
     '    name.\n' +
     '  </li><li>\n' +
-    '    The Divine Champion "Lay On Hands" feature is renamed "Faith\n' +
-    '    Healing" since it differs in detail from the Paladin feature.\n' +
+    '    The Divine Champion "Lay On Hands" feature is renamed "Heal The\n' +
+    '    Flock" since it differs in detail from the Paladin feature.\n' +
     '  </li><li>\n' +
     '    Harper Scout\'s "Harper Knowledge" feature is renamed "Bardic\n' +
     '    Knowledge", since the two are identical and stack.\n' +
