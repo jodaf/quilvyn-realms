@@ -75,7 +75,8 @@ RealmsPrestige.CLASSES = {
       '"1:Armor Proficiency (Medium)",' +
       '"1:Shield Proficiency (Heavy)",' +
       '"1:Weapon Proficiency (Martial)",' +
-      '"1:Faith Healing","2:Sacred Defense","3:Smite Infidel","5:Divine Wrath"',
+      '"1:Heal The Flock","2:Sacred Defense","3:Smite Infidel",' +
+      '"5:Divine Wrath"',
   'Divine Disciple':
     'Require=' +
       '"skills.Diplomacy >= 5","skills.Knowledge (Religion) >= 8",' +
@@ -183,7 +184,7 @@ RealmsPrestige.CLASSES = {
     'Selectables=' +
       '"1:Blast Infidel","1:Divine Reach","1:Faith Healing",' +
       '"1:Gift Of The Divine","1:Improved Divine Reach",' +
-      '"1:Mastery Of Energy","1:Spell Power","1:Spell-Like Ability",' +
+      '"1:Mastery Of Energy","1:Spell Power +2","1:Spell-Like Ability",' +
       '"levels.Druid > 0 ? 1:Power Of Nature"',
   'Purple Dragon Knight':
     'Require=' +
@@ -252,6 +253,9 @@ RealmsPrestige.FEATURES = {
     'Note="+1 caster level on spells from chosen alignment component"',
   'Arcane Fire':'Section=magic Note="Transform arcane spell into bolt of fire"',
   'Arcane Reach':'Section=magic Note="Use arcane touch spell 30\' away"',
+  'Blast Infidel':
+    'Section=magic ' +
+    'Note="Negative energy spells vs. foe w/different deity have max effect"',
   'Caster Level Bonus':
     'Section=magic Note="+%V base class level for spells known and spells/dy"',
   'Circle Leader':
@@ -265,6 +269,7 @@ RealmsPrestige.FEATURES = {
     'Section=feature Note="Telepathy w/same-alignment outsider w/in 60\'"',
   'Divine Perseverance':
     'Section=combat Note="Regain d8+5 HP from negative 1/dy"',
+  'Divine Reach':'Section=magic Note="Use divine touch spell 30\' away"',
   'Divine Shroud':
     'Section=save Note="Aura provides DC %V spell resistance for %1 rd 1/dy"',
   'Divine Wrath':
@@ -274,10 +279,13 @@ RealmsPrestige.FEATURES = {
   // 3.0 Innuendo => 3.5 Bluff
   'Doublespeak':'Section=skill Note="+2 Bluff/+2 Diplomacy"',
   'Enhanced Specialization':'Section=magic Note="Additional opposition school"',
-  'Faith Healing':'Section=magic Note="Heal followers of %1 %V HP/dy"',
+  'Faith Healing':
+    'Section=magic Note="Healing spells on followers of %1 have max effect"',
   'Final Stand':
     'Section=combat Note="R10\' %V allies gain 2d10 HP for %1 rd 1/dy"',
   'Freely Enlarge Spell':'Section=magic Note="Cast enlarged spell %V/dy"',
+  'Gift Of The Divine':
+    'Section=feature Note="Transfer undead turn/rebuke to another 1-10 days"',
   'Great Circle Leader':
     'Section=magic Note="Lead magic circle w/9 other members"',
   'Greater Shield Of Shadows':
@@ -288,12 +296,15 @@ RealmsPrestige.FEATURES = {
   'Harper Skill Focus':
     'Section=feature ' +
     'Note="+1 General Feat (Skill Focus in Harper class skill)"',
+  'Heal The Flock':'Section=magic Note="Heal followers of %1 %V HP/dy"',
   'Heroic Shield':'Section=combat Note="Aid Another action gives +4 AC bonus"',
   'Imbue With Spell Ability':
     'Section=magic ' +
     'Note="<i>Imbue With Spell Ability</i> 1st/2nd level spells at will"',
   'Improved Arcane Reach':
     'Section=magic Note="Use arcane touch spell 60\' away"',
+  'Improved Divine Reach':
+    'Section=magic Note="Use divine touch spell 60\' away"',
   'Improved Runecasting':
     'Section=magic Note="Add charges and triggers to runes"',
   "Knight's Courage":
@@ -315,6 +326,8 @@ RealmsPrestige.FEATURES = {
          '"+2 checks vs. chosen opponent 1/dy"',
   'Place Magic':
     'Section=magic Note="Cast spell w/out preparation when in Rashemen"',
+  'Power Of Nature':
+    'Section=feature Note="Transfer druid feature to another 1-10 days"',
   'Rallying Cry':
     'Section=combat Note="R60\' Allies +1 next attack, +5 speed for 1 tn 3/dy"',
   'Reputation':'Section=feature Note="+%V Leadership"',
@@ -474,16 +487,16 @@ RealmsPrestige.classRulesExtra = function(rules, name) {
     rules.choiceRules
       (rules, 'Feat', 'Skill Focus (Spellcraft)', 'Type=General');
     rules.defineRule('features.Spell Power',
-      'archmageFeatures.Spell Power +1', '=', '1',
-      'archmageFeatures.Spell Power +2', '=', '1',
-      'archmageFeatures.Spell Power +3', '=', '1'
+      'features.Spell Power +1', '=', '1',
+      'features.Spell Power +2', '=', '1',
+      'features.Spell Power +3', '=', '1'
     );
     rules.defineRule
       ('magicNotes.casterLevelBonus', 'levels.Archmage', '+=', null);
     rules.defineRule('magicNotes.spellPower',
-      'archmageFeatures.Spell Power +1', '+=', '1',
-      'archmageFeatures.Spell Power +2', '+=', '2',
-      'archmageFeatures.Spell Power +3', '+=', '3'
+      'features.Spell Power +1', '+=', '1',
+      'features.Spell Power +2', '+=', '2',
+      'features.Spell Power +3', '+=', '3'
     );
     rules.defineRule
       ('selectableFeatureCount.Archmage', 'levels.Archmage', '+=', null);
@@ -536,13 +549,13 @@ RealmsPrestige.classRulesExtra = function(rules, name) {
     rules.defineRule('featCount.Fighter',
       'levels.Divine Champion', '+=', 'Math.floor(source / 2)'
     );
-    rules.defineRule('magicNotes.faithHealing',
+    rules.defineRule('magicNotes.healTheFlock',
       'levels.Divine Champion', '=', null,
       'charismaModifier', '*', null,
       'charisma', '?', 'source >= 12'
     );
-    rules.defineRule('magicNotes.faithHealing.1',
-      'features.Faith Healing', '?', null,
+    rules.defineRule('magicNotes.healTheFlock.1',
+      'features.Heal The Flock', '?', null,
       'deity', '=', null
     );
     rules.defineRule('saveNotes.divineWrath', 'charismaModifier', '=', null);
@@ -627,6 +640,25 @@ RealmsPrestige.classRulesExtra = function(rules, name) {
 
     rules.defineRule
       ('magicNotes.casterLevelBonus', 'levels.Hathran', '+=', null);
+
+  } else if(name == 'Hierophant') {
+
+    rules.defineRule
+      ('selectableFeatureCount.Hierophant', 'levels.Hierophant', '=', null);
+    rules.defineRule('combatNotes.turnUndead.1',
+      'combatNotes.masteryOfEnergy', '+', '4'
+    );
+    rules.defineRule('combatNotes.turnUndead.2',
+      'combatNotes.masteryOfEnergy', '+', '4'
+    );
+    rules.defineRule('magicNotes.faithHealing.1',
+      'features.Faith Healing', '?', null,
+      'deity', '=', null
+    );
+    rules.defineRule
+      ('features.Spell Power', 'features.Spell Power +2', '=', '1');
+    rules.defineRule
+      ('magicNotes.spellPower', 'features.Spell Power +2', '+=', '2');
 
   } else if(name == 'Purple Dragon Knight') {
 
