@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.1.25';
+var REALMS_VERSION = '2.2.1.26';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)

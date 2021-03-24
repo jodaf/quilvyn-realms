@@ -104,13 +104,13 @@ RealmsPrestige.CLASSES = {
     'Features=' +
       '"1:Armor Proficiency (Light)",' +
       '"1:Weapon Proficiency (Simple)",' +
-      '"1:Sanctuary","1:Thwart Glyph","2:Sacred Defense","2:Sneak Attack",' +
+      '"1:Thwart Glyph","2:Sacred Defense","2:Sneak Attack",' +
       '"5:Divine Perseverance" ' +
       'SpellAbility=charisma ' +
       'SpellSlots=' +
         'Seeker1:1=1,' +
-        'Seeker3:1=2,' +
-        'Seeker4:1=1',
+        'Seeker3:3=2,' +
+        'Seeker4:5=1',
   'Guild Thief':
     'Require=' +
       '"skills.Gather Information >= 3","skills.Hide >= 8",' +
@@ -268,7 +268,7 @@ RealmsPrestige.FEATURES = {
   'Divine Emissary':
     'Section=feature Note="Telepathy w/same-alignment outsider w/in 60\'"',
   'Divine Perseverance':
-    'Section=combat Note="Regain d8+5 HP from negative 1/dy"',
+    'Section=combat Note="Regain 1d8+5 HP from negative 1/dy"',
   'Divine Reach':'Section=magic Note="Use divine touch spell 30\' away"',
   'Divine Shroud':
     'Section=save Note="Aura provides DC %V spell resistance for %1 rd 1/dy"',
@@ -321,9 +321,9 @@ RealmsPrestige.FEATURES = {
   'New Domain':'Section=feature Note="Choose additional deity domain"',
   'Oath Of Wrath':
     'Section=combat,save,skill ' +
-    'Note="+2 attack and damage vs. chosen opponent 1/dy",' +
-         '"+2 save vs. chosen opponent 1/dy",' +
-         '"+2 checks vs. chosen opponent 1/dy"',
+    'Note="R60\' +2 attack and damage vs. chosen opponent until encounter ends 1/dy",' +
+         '"R60\' +2 save vs. chosen opponent until encounter ends 1/dy",' +
+         '"R60\' +2 checks vs. chosen opponent until encounter ends 1/dy"',
   'Place Magic':
     'Section=magic Note="Cast spell w/out preparation when in Rashemen"',
   'Power Of Nature':
@@ -350,7 +350,7 @@ RealmsPrestige.FEATURES = {
   'Spell Power':'Section=magic Note="+%V spell DC and resistance checks"',
   'Spell-Like Ability':'Section=magic Note="Use spell as ability 2+/dy"',
   'Thwart Glyph':
-    'Section=skill Note="+4 Disable Device (glyphs)/+4 Search (glyphs)"',
+    'Section=skill Note="+4 Disable Device (glyphs, runes, and symbols)/+4 Search (glyphs, runes, and symbols)"',
   'Transcendence':
     'Section=magic,skill ' +
     'Note="Chosen <i>Protection</i> spell at will",' +
