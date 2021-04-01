@@ -392,7 +392,7 @@ RealmsPrestige.SPELLS = {
   'Obscure Object':'Level=Seeker3',
   'Read Magic':'Level=Harper1',
   'Sanctuary':'Level=Seeker1',
-  // Making Scratterspray a Hathran1 spell would confuse the acquisition of
+  // Making Scatterspray a Hathran1 spell would confuse the acquisition of
   // Hathran Fear. Since it's already a W1 spell, there's no need.
   'Scatterspray':'Level=Harper1',
   'See Invisibility':'Level=Harper2',
