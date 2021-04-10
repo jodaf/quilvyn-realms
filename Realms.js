@@ -2924,6 +2924,9 @@ Realms.pathRulesExtra = function(rules, name) {
   } else if(name == 'Trade Domain') {
     rules.defineRule
       ('magicNotes.insiderKnowledge', 'charismaModifier', '=', null);
+  } else if(name == 'Undeath Domain') {
+    rules.defineRule
+      ('combatNotes.extraTurning', 'clericFeatures.Extra Turning', '+=', '4');
   } else if(Realms.basePlugin.pathRulesExtra) {
     Realms.basePlugin.pathRulesExtra(rules, name);
   }
