@@ -2356,6 +2356,10 @@ Realms.classRules = function(
   // No changes needed to the rules defined by base method
 };
 
+/*
+ * Defines in #rules# the rules associated with class #name# that cannot be
+ * derived directly from the attributes passed to classRules.
+ */
 Realms.classRulesExtra = function(rules, name) {
 
   var allFeats = rules.getChoices('feats');
