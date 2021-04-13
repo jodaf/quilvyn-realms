@@ -1042,7 +1042,7 @@ Realms.FEATURES_ADDED = {
     'Section=ability ' +
     'Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
   'Drow Elf Spell Resistance':'Section=save Note="%V"',
-  'Duergar Alertness':'Section=skill Note="+1 Listen/+1Spot"',
+  'Duergar Alertness':'Section=skill Note="+1 Listen/+1 Spot"',
   'Earth Genasi Ability Adjustment':
     'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
   'Elemental Affinity':'Section=save Note="+%V vs. %1 spells"',
