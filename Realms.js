@@ -1111,7 +1111,7 @@ Realms.FEATURES_ADDED = {
   'Craft Harper Item':
     'Section=magic Note="Create magic instruments, Harper pins, and potions"',
   "Deneir's Eye":'Section=save Note="+2 vs. glyphs, runes, and symbols"',
-  'Devine Champion Bonus Feats':'Section=feature Note="%V Fighter feats"',
+  'Divine Champion Bonus Feats':'Section=feature Note="%V Fighter feats"',
   'Devotee Enlarge Spell':'Section=magic Note="Cast enlarged spell %V/dy"',
   'Divine Emissary':
     'Section=feature Note="Telepathy w/same-alignment outsider w/in 60\'"',
