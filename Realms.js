@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.2.1';
+var REALMS_VERSION = '2.2.2.2';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -69,7 +69,9 @@ function Realms() {
     'feats', 'featCount', 'sanityNotes', 'selectableFeatureCount',
     'validationNotes'
   );
-  rules.defineChoice('preset', 'race', 'levels', 'npc', 'prestige');
+  rules.defineChoice('preset',
+    'race:Race,select-one,races', 'levels:Class Levels,bag,levels',
+    'prestige:Prestige Levels,bag,prestiges', 'npc:NPC Levels,bag,npcs');
 
   Realms.ALIGNMENTS = Object.assign({}, Realms.basePlugin.ALIGNMENTS);
   Realms.ANIMAL_COMPANIONS =
