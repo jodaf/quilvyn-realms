@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.2.2';
+var REALMS_VERSION = '2.2.2.3';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -301,8 +301,8 @@ Realms.PRESTIGE_CLASSES = {
       // 3.0 Intuit Direction, Pick Pocket => 3.5 Survival, Sleight Of Hand
       'Appraise,Bluff,Climb,Craft,Diplomacy,Disguise,"Escape Artist",' +
       '"Gather Information",Hide,Jump,Knowledge,Listen,"Move Silently",' +
-      'Perform,Profession,"Sense Motive","Speak Language",Survival,Swim,' +
-      'Tumble ' +
+      'Perform,Profession,"Sense Motive","Sleight Of Hand","Speak Language",' +
+      'Survival,Swim,Tumble ' +
     'Features=' +
       '"1:Armor Proficiency (Light)",' +
       '"1:Weapon Proficiency (Simple)",' +
