@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.2.3';
+var REALMS_VERSION = '2.2.2.4';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -2089,7 +2089,7 @@ Realms.identityRules = function(
     'race', '+', '-QuilvynUtils.findElement(QuilvynUtils.getKeys(Realms.RACES), source)'
   );
   rules.defineEditorElement
-    ('region', 'Region', 'select-one', 'regions', 'experience');
+    ('region', 'Region', 'select-one', 'regions', 'alignment');
   rules.defineSheetElement('Region', 'Alignment');
 
 };
