@@ -18,7 +18,7 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.2.4';
+var REALMS_VERSION = '2.2.2.5';
 
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
@@ -26,18 +26,20 @@ var REALMS_VERSION = '2.2.2.4';
  * particular parts of the rule book: raceRules for character races, magicRules
  * for spells, etc. These member methods can be called independently in order
  * to use a subset of the Realms rules. Similarly, the constant fields of Realms
- * (DEITIES, FEATS, etc.) can be manipulated to modify the user's choices.
+ * (DEITIES, FEATS, etc.) can be manipulated to modify the user's choices. If
+ * #baseRules# contains "Pathfinder", the Pathfinder plugin is used as the
+ * basis for the Realms rule set; otherwise, the SRD35 plugin is used.
  */
-function Realms() {
+function Realms(baseRules) {
 
   if(window.SRD35 == null) {
     alert('The Realms module requires use of the SRD35 module');
     return;
   }
 
-  if(window.Pathfinder == null || Pathfinder.SRD35_SKILL_MAP == null) {
-    Realms.USE_PATHFINDER = false;
-  }
+  Realms.USE_PATHFINDER =
+    window.Pathfinder != null && Pathfinder.SRD35_SKILL_MAP &&
+    baseRules != null && baseRules.includes('Pathfinder');
   Realms.basePlugin = Realms.USE_PATHFINDER ? Pathfinder : SRD35;
 
   var rules = new QuilvynRules
