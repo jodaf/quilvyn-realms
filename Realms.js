@@ -18,8 +18,6 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 /*jshint esversion: 6 */
 "use strict";
 
-var REALMS_VERSION = '2.2.2.5';
-
 /*
  * This module loads the rules from the Forgotten Realms Campaign Setting (3.0)
  * source book. The Realms function contains methods that load rules for
@@ -43,7 +41,7 @@ function Realms(baseRules) {
   Realms.basePlugin = Realms.USE_PATHFINDER ? Pathfinder : SRD35;
 
   var rules = new QuilvynRules
-    ('Forgotten Realms' + (Realms.USE_PATHFINDER?' - PF':''), REALMS_VERSION);
+    ('Forgotten Realms' + (Realms.USE_PATHFINDER?' - PF':''), Realms.VERSION);
   Realms.rules = rules;
 
   Realms.CHOICES = Realms.basePlugin.CHOICES.concat(Realms.CHOICES_ADDED);
@@ -183,6 +181,8 @@ function Realms(baseRules) {
   Quilvyn.addRuleSet(rules);
 
 }
+
+Realms.VERSION = '2.2.2.5';
 
 // Realms uses SRD35 as its default base ruleset. If USE_PATHFINDER is true,
 // the Realms function will instead use rules taken from the Pathfinder plugin.
@@ -3140,14 +3140,14 @@ Realms.randomizeOneAttribute = function(attributes, attribute) {
 
 /* Returns an array of plugins upon which this one depends. */
 Realms.getPlugins = function() {
-  return [Realms.basePlugin].concat(Realms.basePlugin.rules.getPlugins());
+  return [Realms.basePlugin].concat(Realms.basePlugin.getPlugins());
 };
 
 /* Returns HTML body content for user notes associated with this rule set. */
 Realms.ruleNotes = function() {
   return '' +
     '<h2>Forgotten Realms Quilvyn Module Notes</h2>\n' +
-    'Realms Quilvyn Module Version ' + REALMS_VERSION + '\n' +
+    'Realms Quilvyn Module Version ' + Realms.VERSION + '\n' +
     '\n' +
     '<h3>Usage Notes</h3>\n' +
     '<p>\n' +
