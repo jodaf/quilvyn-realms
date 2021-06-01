@@ -182,7 +182,7 @@ function Realms(baseRules) {
 
 }
 
-Realms.VERSION = '2.2.2.5';
+Realms.VERSION = '2.2.2.6';
 
 // Realms uses SRD35 as its default base ruleset. If USE_PATHFINDER is true,
 // the Realms function will instead use rules taken from the Pathfinder plugin.
@@ -893,22 +893,7 @@ Realms.FEATURES_ADDED = {
   'Forester':'Section=skill Note="+2 Heal/+2 Survival"',
   'Greater Poison Resistance':'Section=save Note="+4 vs. poison"',
   // Identical to SRD35, but +3 DC instead of +1
-  'Greater Spell Focus (Abjuration)':
-    'Section=magic Note="+3 Spell DC (Abjuration)"',
-  'Greater Spell Focus (Conjuration)':
-    'Section=magic Note="+3 Spell DC (Conjuration)"',
-  'Greater Spell Focus (Divination)':
-    'Section=magic Note="+3 Spell DC (Divination)"',
-  'Greater Spell Focus (Enchantment)':
-    'Section=magic Note="+3 Spell DC (Enhancement)"',
-  'Greater Spell Focus (Evocation)':
-    'Section=magic Note="+3 Spell DC (Evocation)"',
-  'Greater Spell Focus (Illusion)':
-    'Section=magic Note="+3 Spell DC (Illusion)"',
-  'Greater Spell Focus (Necromancy)':
-    'Section=magic Note="+3 Spell DC (Necromancy)"',
-  'Greater Spell Focus (Transmutation)':
-    'Section=magic Note="+3 Spell DC (Transmutation)"',
+  'Greater Spell Focus (%school)':'Section=magic Note="+3 Spell DC (%school)"',
   'Horse Nomad':
     'Section=combat,skill ' +
     'Note="Weapon Proficiency (Composite Shortbow)",' +
@@ -2422,8 +2407,6 @@ Realms.classRulesExtra = function(rules, name) {
           ('level5SpellSchools', 'level5' + school + 'Spells', '+=', '1');
       }
     }
-    rules.choiceRules
-      (rules, 'Feat', 'Skill Focus (Spellcraft)', 'Type=General');
     rules.defineRule('features.Spell Power',
       'features.Spell Power +1', '=', '1',
       'features.Spell Power +2', '=', '1',
