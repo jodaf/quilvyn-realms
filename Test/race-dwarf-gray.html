@@ -12,10 +12,10 @@ var attributes = {
   "feats.Shield Proficiency (Heavy)":1, "gender":"Male", "hitPoints":10, "intelligence":17, "languages.Abyssal":1, 
   "languages.Chultan":1, "languages.Goblin":1, "levels.Fighter":1, "name":"Race Dwarf-Gray", 
   "race":"Gray Dwarf", "region":"Western Heartlands", "shield":"None", "skills.Climb":4, 
-  "skills.Craft (Bows)":4, "skills.Disguise":2, "skills.Handle Animal":4, "skills.Heal":1, 
-  "skills.Move Silently":1, "skills.Search":4, "spells.Enlarge Person(Duergaren1 Tran)":1, 
-  "spells.Invisibility(Duergaren2 Illu)":1, "strength":11, "weapons.Greatsword":1, "weapons.Longsword":1, 
-  "weapons.Morningstar":1, "wisdom":10
+  "skills.Craft (Bows)":4, "skills.Disguise":2, "skills.Handle Animal":2, "skills.Heal":1, 
+  "skills.Listen":2, "skills.Move Silently":1, "skills.Search":4, 
+  "spells.Enlarge Person(Duergaren1 Tran)":1, "spells.Invisibility(Duergaren2 Illu)":1, "strength":11, 
+  "weapons.Greatsword":1, "weapons.Longsword":1, "weapons.Morningstar":1, "wisdom":10
 };
   </script>
 </head>
@@ -110,15 +110,15 @@ var attributes = {
       <col width="34%"/>
       <tr align="left">
         <td>Climb: (str) 4 (4)</td>
-        <td>Handle Animal: (cha) 4 (4)</td>
-        <td>Search: (int;cc) 4 (5)</td>
+        <td>Handle Animal: (cha) 2 (2)</td>
+        <td>Move Silently: (dex;cc) 1 (5.5)</td>
       </tr><tr align="left">
         <td>Craft (Bows): (int) 4 (7)</td>
         <td>Heal: (wis;cc) 1 (0.5)</td>
-        <td></td>
+        <td>Search: (int;cc) 4 (5)</td>
       </tr><tr align="left">
         <td>Disguise: (cha;cc) 2 (1)</td>
-        <td>Move Silently: (dex;cc) 1 (5.5)</td>
+        <td>Listen: (wis;cc) 2 (2)</td>
         <td></td>
       </tr></table>
 </td>
@@ -239,16 +239,6 @@ var attributes = {
       <td>Enlarge Person (Duergaren1 Tran): R25' Target humanoid dbl size (+2 Str, -2 Dex, -1 attack, -1 AC) for 1 min (DC 14 Fort neg)</td>
     </tr><tr align="left">
       <td>Invisibility (Duergaren2 Illu): Touched invisible for 1 min or until attacks</td>
-    </tr></table>
-</td>
-  </tr></table>
-</td>
-</tr><tr align="center">
-  <td><b>Notes</b><br/>  <table id="Notes Area" width="100%">
-  <tr align="center">
-    <td>    <table id="ValidationPart" width="100%">
-    <tr align="center">
-      <td><b>Sanity Notes</b>: Duergar Alertness: Implies skills.Listen > 0 || skills.Spot > 0</td>
     </tr></table>
 </td>
   </tr></table>

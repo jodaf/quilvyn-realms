@@ -9,7 +9,7 @@ var attributes = {
   "_path":"ztest/realms/domains/thoth", 
   "alignment":"Neutral", "armor":"Hide", "charisma":11, "constitution":16, "deity":"Thoth", 
   "dexterity":9, "experience":950, "feats.Acrobatic":1, "feats.Spell Focus (Illusion)":1, 
-  "gender":"Male", "hitPoints":8, "intelligence":13, "languages.Infernal":1, 
+  "feats.Still Spell":1, "gender":"Male", "hitPoints":8, "intelligence":13, "languages.Infernal":1, 
   "languages.Untheric":1, "levels.Cleric":1, "name":"Domains-Thoth", "race":"Human", 
   "region":"Tehtyr", "selectableFeatures.Cleric - Craft Domain":1, 
   "selectableFeatures.Cleric - Rune Domain":1, "selectableFeatures.Cleric - Spell Domain":1, "shield":"Light Wooden", 
@@ -86,7 +86,7 @@ var attributes = {
     </tr><tr align="center">
       <td>      <table id="FeatLists" width="100%">
       <tr align="center">
-        <td><b>Feats</b>: Acrobatic; Spell Focus (Illusion)</td>
+        <td><b>Feats</b>: Acrobatic; Spell Focus (Illusion); Still Spell</td>
         <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
         <td><b>Cleric Features</b>: Armor Proficiency (Heavy); Aura; Craft Domain; Creator; Rune Domain; Scribe Scroll; Shield Proficiency; Skilled Caster; Spell Domain; Spontaneous Cleric Spell; Turn Undead; Weapon Proficiency (Simple)</td>
       </tr></table>
@@ -297,6 +297,8 @@ var attributes = {
       <td>Scribe Scroll: Create scroll of any known spell</td>
     </tr><tr align="center">
       <td>Spontaneous Cleric Spell: Cast <i>Cure</i> or <i>Inflict</i> in place of known spell</td>
+    </tr><tr align="center">
+      <td>Still Spell: Cast spell w/out movement uses +1 spell slot</td>
     </tr></table>
 </td>
   </tr></table>
@@ -306,13 +308,7 @@ var attributes = {
   <tr align="center">
     <td>    <table id="ValidationPart" width="100%">
     <tr align="center">
-      <td><b>Validation Notes</b>:       <table id="Validation Notes" width="100%">
-      <tr align="center">
-        <td>Feat Allocation: 3 available vs. 2 allocated</td>
-      </tr><tr align="center">
-        <td>Selectable Feature Allocation: 2 available vs. 3 allocated</td>
-      </tr></table>
-</td>
+      <td><b>Validation Notes</b>: Selectable Feature Allocation: 2 available vs. 3 allocated</td>
     </tr></table>
 </td>
   </tr></table>
