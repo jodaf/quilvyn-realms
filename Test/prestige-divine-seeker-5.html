@@ -11,16 +11,15 @@ var attributes = {
   "dexterity":16, "experience":74823, "feats.Animal Affinity":1, "feats.Athletic":1, 
   "feats.Blind-Fight":1, "feats.Endurance":1, "feats.Improved Unarmed Strike":1, "feats.Toughness":1, 
   "gender":"Female", "hitPoints":48, "intelligence":13, "languages.Auran":1, "languages.Uluik":1, 
-  "levels.Divine Seeker":5, "levels.Rogue":7, "name":"Prestige-Divine Seeker 5", "race":"Human", 
-  "region":"High Forest", "shield":"None", "skills.Climb":2, "skills.Craft (Alchemy)":7, 
-  "skills.Decipher Script":2, "skills.Disguise":2, "skills.Forgery":7, "skills.Hide":10, "skills.Jump":1, 
-  "skills.Knowledge (History)":15, "skills.Knowledge (Religion)":3, "skills.Move Silently":8, 
-  "skills.Open Lock":15, "skills.Perform (String)":7, "skills.Profession (Tanner)":2, 
-  "skills.Ride":9, "skills.Sleight Of Hand":7, "skills.Spellcraft":7, "skills.Spot":7, 
-  "skills.Survival":15, "skills.Swim":2, "skills.Tumble":15, "skills.Use Rope":15, 
-  "spells.Locate Creature(Seeker4 Divi)":1, "spells.Locate Object(Seeker3 Divi)":1, 
-  "spells.Obscure Object(Seeker3 Abju)":1, "spells.Sanctuary(Seeker1 Abju)":1, "strength":10, "weapons.Gauntlet":1, 
-  "weapons.Sling":1, "weapons.Spiked Gauntlet":1, "wisdom":15
+  "levels.Rogue":7, "name":"Prestige-Divine Seeker 5", "prestige.Divine Seeker":5, 
+  "race":"Human", "region":"High Forest", "shield":"None", "skills.Climb":2, 
+  "skills.Craft (Alchemy)":7, "skills.Decipher Script":2, "skills.Disguise":2, "skills.Forgery":7, 
+  "skills.Hide":10, "skills.Jump":1, "skills.Knowledge (History)":15, 
+  "skills.Knowledge (Religion)":3, "skills.Move Silently":8, "skills.Open Lock":15, 
+  "skills.Perform (String)":7, "skills.Profession (Tanner)":2, "skills.Ride":9, "skills.Sleight Of Hand":7, 
+  "skills.Spellcraft":7, "skills.Spot":7, "skills.Survival":15, "skills.Swim":2, "skills.Tumble":15, 
+  "skills.Use Rope":15, "strength":10, "weapons.Gauntlet":1, "weapons.Sling":1, 
+  "weapons.Spiked Gauntlet":1, "wisdom":15
 };
   </script>
 </head>
@@ -79,7 +78,7 @@ var attributes = {
       <tr align="center">
         <td><b>Feats</b>: Animal Affinity; Athletic; Blind-Fight; Endurance; Improved Unarmed Strike; Toughness</td>
         <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
-        <td><b>Divine Seeker Features</b>: Armor Proficiency (Light); Divine Perseverance; Sacred Defense; Sneak Attack; Thwart Glyph; Weapon Proficiency (Simple)</td>
+        <td><b>Divine Seeker Features</b>: Armor Proficiency (Light); Divine Perseverance; Locate Creature; Locate Object; Obscure Object; Sacred Defense; Sanctuary; Sneak Attack; Thwart Glyph; Weapon Proficiency (Simple)</td>
         <td><b>Rogue Features</b>: Armor Proficiency (Light); Evasion; Sneak Attack; Trap Sense; Trapfinding; Uncanny Dodge; Weapon Proficiency (Simple/Hand Crossbow/Rapier/Shortbow/Short Sword)</td>
       </tr></table>
 </td>
@@ -229,30 +228,17 @@ var attributes = {
 </tr><tr align="center">
   <td><b>Magic</b><br/>  <table id="Magic" width="100%">
   <tr align="center">
-    <td>    <table id="SpellPart" width="100%">
+    <td><b>Magic Notes</b>:     <table id="Magic Notes" width="100%">
     <tr align="center">
-      <td>      <table id="SpellStats" width="100%">
-      <tr align="center">
-        <td><b>Spell Slots</b>: Seeker1: 2; Seeker3: 2; Seeker4: 1</td>
-        <td><b>Spell DC</b>: Seeker: 11</td>
-      </tr></table>
-</td>
+      <td>Locate Creature: R600' Sense direction of creature or kind for 5 min 1/dy</td>
+    </tr><tr align="center">
+      <td>Locate Object: R600' Sense direction of object or type for 5 min 1/dy</td>
+    </tr><tr align="center">
+      <td>Obscure Object: Possessions immune to divination for 8 hr (DC 13 Will neg) 1/dy</td>
+    </tr><tr align="center">
+      <td>Sanctuary: Self foes no attack for 5 rd or until attacks (DC 12 Will neg) 1/dy</td>
     </tr></table>
 </td>
-  </tr><tr align="center">
-    <td><b>Spells</b>:     <table id="Spells" width="100%">
-    <tr align="left">
-      <td>Locate Creature (Seeker4 Divi): R600' Sense direction of creature or kind for 50 min</td>
-    </tr><tr align="left">
-      <td>Locate Object (Seeker3 Divi): R600' Sense direction of object or type for 5 min</td>
-    </tr><tr align="left">
-      <td>Obscure Object (Seeker3 Abju): Touched immune to divination for 8 hr (DC 14 Will neg)</td>
-    </tr><tr align="left">
-      <td>Sanctuary (Seeker1 Abju): Touched foes no attack for 5 rd or until attacks (DC 12 Will neg)</td>
-    </tr></table>
-</td>
-  </tr><tr align="center">
-    <td><b>Magic Notes</b>: <i>Charisma Spell Slot Bonus: Spell level 1</i></td>
   </tr></table>
 </td>
 </tr></table>

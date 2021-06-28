@@ -269,13 +269,9 @@ Realms.PRESTIGE_CLASSES = {
     'Features=' +
       '"1:Armor Proficiency (Light)",' +
       '"1:Weapon Proficiency (Simple)",' +
-      '"1:Thwart Glyph","2:Sacred Defense","2:Sneak Attack",' +
-      '"5:Divine Perseverance" ' +
-      'SpellAbility=charisma ' +
-      'SpellSlots=' +
-        'Seeker1:1=1,' +
-        'Seeker3:3=2,' +
-        'Seeker4:5=1',
+      '1:Sanctuary,"1:Thwart Glyph","2:Sacred Defense","2:Sneak Attack",' +
+      '"3:Locate Object","3:Obscure Object","5:Divine Perseverance",' +
+      '"5:Locate Creature"',
   'Guild Thief':
     'Require=' +
       '"skills.Gather Information >= 3","skills.Hide >= 8",' +
@@ -1147,6 +1143,12 @@ Realms.FEATURES_ADDED = {
     'Section=magic ' +
     'Note="Allies +1 attack and damage, +2 charm and fear saves during speech +5 rd %V/dy"',
   "Lliira's Heart":'Section=save Note="+2 vs. compulsion and fear"',
+  'Locate Creature':
+    'Section=magic ' +
+    'Note="R%1\' Sense direction of creature or kind for %V min 1/dy"',
+  'Locate Object':
+    'Section=magic ' +
+    'Note="R%1\' Sense direction of object or type for %V min 1/dy"',
   'Mastery Of Counterspelling':
     'Section=magic Note="Counterspell turns effect back on caster"',
   'Mastery Of Elements':'Section=magic Note="Change energy type of spell"',
@@ -1160,6 +1162,9 @@ Realms.FEATURES_ADDED = {
     'Note="R60\' +2 attack and damage vs. chosen opponent until encounter ends 1/dy",' +
          '"R60\' +2 save vs. chosen opponent until encounter ends 1/dy",' +
          '"R60\' +2 checks vs. chosen opponent until encounter ends 1/dy"',
+  'Obscure Object':
+    'Section=magic ' +
+    'Note="Possessions immune to divination for 8 hr (DC %V Will neg) 1/dy"',
   'Place Magic':
     'Section=magic Note="Cast spell w/out preparation when in Rashemen"',
   'Power Of Nature':
@@ -1172,6 +1177,9 @@ Realms.FEATURES_ADDED = {
   'Rune Craft':'Section=skill Note="+%V Craft (inscribing runes)"',
   'Rune Power':'Section=magic Note="+%V DC of runes"',
   'Sacred Defense':'Section=save Note="+%V vs. divine spells and outsiders"',
+  'Sanctuary':
+    'Section=magic ' +
+    'Note="Self foes no attack for %V rd or until attacks (DC %1 Will neg) 1/dy"',
   'Scribe Tattoo':'Section=magic Note="Induct novices into circle"',
   'Shadow Adept Bonus Feats':'Section=feature Note="%V Metamagic feats"',
   'Shadow Defense':
@@ -1867,8 +1875,7 @@ Realms.SPELLS_LEVELS = {
   'Light':'Aasimaren0,Harper1',
   'Limited Wish':'Spell7',
   'Liveoak':'Elf7',
-  'Locate Creature':'Seeker4',
-  'Locate Object':'Harper2,Seeker3',
+  'Locate Object':'Harper2',
   'Mage Armor':'Spell1',
   'Mage\'s Disjunction':'Spell9',
   'Mage\'s Faithful Hound':'Halfling5',
@@ -1900,7 +1907,6 @@ Realms.SPELLS_LEVELS = {
   'Move Earth':'Halfling6',
   'Nightmare':'Darkness7',
   'Nondetection':'Harper3,Svirfneblinish3',
-  'Obscure Object':'Seeker3',
   'Obscuring Mist':'Darkness1',
   'Pass Without Trace':'Earthen1',
   'Passwall':'Cavern5',
@@ -1927,7 +1933,6 @@ Realms.SPELLS_LEVELS = {
   'Repulsion':'Nobility7',
   'Righteous Might':'Hatred5',
   'Rusting Grasp':'Metal4,Slime4',
-  'Sanctuary':'Seeker1',
   'Scare':'Hatred2',
   'Screen':'Gnome7,Illusion8',
   'Secret Page':'Rune2',
@@ -2496,6 +2501,20 @@ Realms.classRulesExtra = function(rules, name) {
 
     rules.defineRule
       ('combatNotes.sneakAttack', classLevel, '+=', 'Math.floor(source / 2)');
+    rules.defineRule('magicNotes.locateCreature', classLevel, '=', null);
+    rules.defineRule
+      ('magicNotes.locateCreature.1', classLevel, '=', 'source * 40 + 400');
+    rules.defineRule('magicNotes.locateObject', classLevel, '=', null);
+    rules.defineRule
+      ('magicNotes.locateObject.1', classLevel, '=', 'source * 40 + 400');
+    // Unsure of the spell level for Obscure Object
+    rules.defineRule
+      ('magicNotes.obscureObject', 'charismaModifier', '=', '12 + source');
+    rules.defineRule('magicNotes.sanctuary', classLevel, '=', null);
+    rules.defineRule('magicNotes.sanctuary.1',
+      classLevel, '?', null,
+      'charismaModifier', '=', '11 + source'
+    );
     rules.defineRule
       ('saveNotes.sacredDefense', classLevel, '+=', 'Math.floor(source / 2)');
 
