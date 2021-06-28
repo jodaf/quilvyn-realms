@@ -182,7 +182,7 @@ function Realms(baseRules) {
 
 }
 
-Realms.VERSION = '2.2.2.6';
+Realms.VERSION = '2.2.2.7';
 
 // Realms uses SRD35 as its default base ruleset. If USE_PATHFINDER is true,
 // the Realms function will instead use rules taken from the Pathfinder plugin.
@@ -331,11 +331,8 @@ Realms.PRESTIGE_CLASSES = {
       'Spellcraft,Survival,Swim ' +
     'Features=' +
       '"1:Weapon Proficiency (Whip)",' +
-      '"1:Caster Level Bonus","1:Cohort","1:Place Magic","4:Circle Leader" ' +
-    'SpellAbility=charisma ' +
-    'SpellSlots=' +
-      'Hathran1:3=1,' +
-      'Hathran4:10=1',
+      '"1:Caster Level Bonus","1:Cohort","1:Place Magic",3:Fear,' +
+      '"4:Circle Leader","10:Greater Command"',
   'Hierophant':
     'Require=' +
       '"skills.Knowledge (Nature) >= 15||skills.Knowledge (Religion) >= 15",' +
@@ -367,10 +364,7 @@ Realms.PRESTIGE_CLASSES = {
       '"Shield Proficiency (Heavy)",' +
       '"Weapon Proficiency (Simple)",' +
       '"1:Heroic Shield","1:Rallying Cry","2:Inspire Knight\'s Courage",' +
-      '"4:Oath Of Wrath","5:Final Stand" ' +
-    'SpellAbility=charisma ' +
-    'SpellSlots=' +
-      'Purple3:3=1',
+      '"3:Fear","4:Oath Of Wrath","5:Final Stand"',
   'Red Wizard':
     'Require=' +
       '"alignment !~ \'Good\'","race == \'Human\'","region == \'Thay\'",' +
@@ -412,10 +406,8 @@ Realms.PRESTIGE_CLASSES = {
       '"1:Caster Level Bonus","1:Insidious Magic","1:Pernicious Magic",' +
       '"1:Tenacious Magic","2:Low-Light Vision","2:Shadow Defense",' +
       '"3:Spell Power","4:Shield Of Shadows","5:Shadow Adept Bonus Feats",' +
-      '7:Darkvision,"8:Greater Shield Of Shadows","10:Shadow Double" ' +
-    'SpellAbility=intelligence ' +
-    'SpellSlots=' +
-      'Shadow4:7=1'
+      '7:Darkvision,"7:Shadow Walk","8:Greater Shield Of Shadows",' +
+      '"10:Shadow Double"'
 };
 Realms.DEITIES = {
   'None':'',
@@ -1118,12 +1110,18 @@ Realms.FEATURES_ADDED = {
   'Enhanced Specialization':'Section=magic Note="Additional opposition school"',
   'Faith Healing':
     'Section=magic Note="Healing spells on followers of %1 have max effect"',
+  'Fear':
+    'Section=magic ' +
+    'Note="R30\' cone creatures flee for %V rd (DC %1 Will shaken 1 rd) %V/dy"',
   'Final Stand':
     'Section=combat Note="R10\' %V allies gain 2d10 HP for %1 rd 1/dy"',
   'Gift Of The Divine':
     'Section=feature Note="Transfer undead turn/rebuke to another 1-10 days"',
   'Great Circle Leader':
     'Section=magic Note="Lead magic circle w/9 other members"',
+  'Greater Command':
+    'Section=magic ' +
+    'Note="R%1\' %V targets approach/drop/fall/flee/halt for %V rd (DC %2 Will neg) 1/dy"',
   'Greater Shield Of Shadows':
     'Section=save Note="Shield Of Shadows gives %V spell resistance"',
   'Guild Thief Bonus Feats':'Section=feature Note="%V Guild Thief feats"',
@@ -1180,6 +1178,8 @@ Realms.FEATURES_ADDED = {
     'Section=save ' +
     'Note="+%V vs. Enchantment, Illusion, Necromancy, and Darkness spells"',
   'Shadow Double':'Section=magic Note="Create clone lasting %V rd 1/dy"',
+  'Shadow Walk':
+    'Section=magic Note="Travel quickly via Plane of Shadow for %V hr"',
   'Shield Of Shadows':
     'Section=magic Note="<i>Shield</i> w/75% concealment %V rd/dy"',
   'Smite Infidel':
@@ -1626,7 +1626,6 @@ Realms.SPELLS_ADDED = {
     'School=Transmutation ' +
     'Level=W4 ' +
     'Description="Self teleport $RL\' between fires $L times for $L10 min"',
-  // Since Flashburst is already a W3 spell, no need to make it Hathran3
   'Flashburst':
     'School=Evocation ' +
     'Level=W3 ' +
@@ -1673,15 +1672,15 @@ Realms.SPELLS_ADDED = {
     'Description="Animated opening can attack and grapple"',
   'Moon Blade':
     'School=Evocation ' +
-    'Level=Hathran3,Moon3 ' +
+    'Level=Moon3,W3 ' + // W3 for Hathran
     'Description="Moonlight blade touch attack 1d8+$Ldiv2 HP (undead 2d8+$L HP) for $L min"',
   'Moon Path':
     'School=Evocation ' +
-    'Level=Hathran5,Moon5 ' +
+    'Level=Moon5,W5 ' + // W5 for Hathran
     'Description="Glowing pathway 5\'-20\'w by $L15\'l for $L min; <i>Sanctuary</i> on path for $L designed"',
   'Moonbeam':
     'School=Evocation ' +
-    'Level=Hathran2,Moon2 ' +
+    'Level=Moon2,W2 ' + // W2 for Hathran
     'Description="R$RS\' Target lycanthropes become animal for $L min (Will neg)"',
   'Moonfire':
     'School=Evocation ' +
@@ -1689,8 +1688,6 @@ Realms.SPELLS_ADDED = {
     'Description="R$RS\' Cone ${Math.min(Math.floor(lvl/2),10)}d8 HP (undead x2) (Ref half), changed creatures revert (Will neg), marks auras for $L min"',
   'Scatterspray':
     'School=Transmutation ' +
-    // Making Scatterspray a Hathran1 spell would confuse the acquisition of
-    // Hathran Fear. Since it's already a W1 spell, there's no need.
     'Level=Harper1,W1 ' +
     'Description="R$RS\' Little items w/in 1\' radius scatter; creatures w/in 10\' 1d8 HP (Ref neg)"',
   'Shadow Mask':
@@ -1759,7 +1756,7 @@ Realms.SPELLS_LEVELS = {
   'Call Lightning':'Storm3',
   'Calm Emotions':'Charm2',
   'Cat\'s Grace':'Elf2,Halfling2,Harper2',
-  'Cause Fear':'Hathran1,Orc1,Purple3',
+  'Cause Fear':'Orc1',
   'Charm Monster':'Charm5',
   'Charm Person':'Charm1,Harper1,Renewal1',
   'Clairaudience/Clairvoyance':'Drow2,Harper3,Mentalism3,Planning3',
@@ -1833,7 +1830,7 @@ Realms.SPELLS_LEVELS = {
   'Good Hope':'Charm4,Moon4',
   'Grasping Hand':'Tyranny7',
   'Grease':'Slime1',
-  'Greater Command':'Hathran4,Nobility5,Tyranny5',
+  'Greater Command':'Nobility5,Tyranny5',
   'Greater Dispel Magic':'Drow6',
   'Greater Glyph Of Warding':'Rune6',
   'Greater Magic Fang':'Scalykind3',
@@ -1937,7 +1934,7 @@ Realms.SPELLS_LEVELS = {
   'Secure Shelter':'Cavern4',
   'See Invisibility':'Harper2',
   'Sending':'Trade4',
-  'Shadow Walk':'Shadow4,Halfling7',
+  'Shadow Walk':'Halfling7',
   'Shapechange':'Scalykind9',
   'Shield Of Faith':'Retribution1',
   'Shield Other':'Family2',
@@ -2555,6 +2552,22 @@ Realms.classRulesExtra = function(rules, name) {
   } else if(name == 'Hathran') {
 
     rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
+    rules.defineRule
+      ('magicNotes.fear', classLevel, '=', 'source>=8 ? 3 : source>=6 ? 2 : 1');
+    rules.defineRule('magicNotes.fear.1',
+      'magicNotes.fear.2', '?', null,
+      'charismaModifier', '=', '13 + source'
+    );
+    rules.defineRule
+      ('magicNotes.fear.2', classLevel, '=', 'source>=3 ? 1 : null');
+    rules.defineRule('magicNotes.greaterCommand', classLevel, '=', null);
+    rules.defineRule('magicNotes.greaterCommand.1',
+      classLevel, '=', 'source>=3 ? Math.floor(source / 2) * 5 + 25 : null'
+    );
+    rules.defineRule('magicNotes.greaterCommand.2',
+      classLevel, '?', 'source >= 10',
+      'charismaModifier', '=', '15 + source'
+    );
 
   } else if(name == 'Hierophant') {
 
@@ -2588,6 +2601,14 @@ Realms.classRulesExtra = function(rules, name) {
       classLevel, '=', null,
       'charismaModifier', '+', null
     );
+    'Note="R%1\' Target w/up to 5 HD flee for 1d4 rd (DC %2 Will shaken 1 rd) %V/dy"',
+    rules.defineRule('magicNotes.fear', classLevel, '=', '1');
+    rules.defineRule('magicNotes.fear.1',
+      'magicNotes.fear.2', '?', null,
+      'charismaModifier', '=', '13 + source'
+    );
+    rules.defineRule
+      ('magicNotes.fear.2', classLevel, '=', 'source>=3 ? 1 : null');
     rules.defineRule("magicNotes.inspireKnight'sCourage",
       classLevel, '=', 'Math.floor(source / 2)'
     );
@@ -2634,6 +2655,7 @@ Realms.classRulesExtra = function(rules, name) {
       ('magicNotes.shieldOfShadows', 'casterLevel', '=', null);
     rules.defineRule
       ('magicNotes.shadowDouble', 'casterLevel', '=', null);
+    rules.defineRule('magicNotes.shadowWalk', classLevel, '=', null);
     rules.defineRule
       ('magicNotes.spellPower', classLevel, '+=', 'Math.floor(source / 3)');
     rules.defineRule
