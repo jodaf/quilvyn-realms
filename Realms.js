@@ -40,8 +40,10 @@ function Realms(baseRules) {
     baseRules != null && baseRules.includes('Pathfinder');
   Realms.basePlugin = Realms.USE_PATHFINDER ? Pathfinder : SRD35;
 
-  var rules = new QuilvynRules
-    ('Forgotten Realms' + (Realms.USE_PATHFINDER?' - PF':''), Realms.VERSION);
+  var rules = new QuilvynRules(
+    'Forgotten Realms - ' + (Realms.USE_PATHFINDER ? 'PF' : 'SRD'),
+     Realms.VERSION
+  );
   Realms.rules = rules;
 
   Realms.CHOICES = Realms.basePlugin.CHOICES.concat(Realms.CHOICES_ADDED);
