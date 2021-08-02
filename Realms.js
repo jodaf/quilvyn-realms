@@ -41,7 +41,7 @@ function Realms(baseRules) {
   Realms.basePlugin = Realms.USE_PATHFINDER ? Pathfinder : SRD35;
 
   var rules = new QuilvynRules(
-    'Forgotten Realms - ' + (Realms.USE_PATHFINDER ? 'PF' : 'SRD'),
+    'Forgotten Realms - ' + (Realms.USE_PATHFINDER ? 'Pathfinder 1E' : 'D&D v3.5'),
      Realms.VERSION
   );
   Realms.rules = rules;
@@ -158,11 +158,22 @@ function Realms(baseRules) {
   Realms.SCHOOLS = Object.assign({}, Realms.basePlugin.SCHOOLS);
   Realms.SHIELDS = Object.assign({}, Realms.basePlugin.SHIELDS);
   Realms.SKILLS = Object.assign({}, Realms.basePlugin.SKILLS);
-  Realms.SPELLS =
-    Object.assign({}, Realms.basePlugin.SPELLS, Realms.SPELLS_ADDED);
+  Realms.SPELLS = Object.assign
+    ({}, Realms.USE_PATHFINDER ? Pathfinder.SPELLS :
+         window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS,
+     Realms.SPELLS_ADDED);
   for(var s in Realms.SPELLS_LEVELS) {
+    var levels = Realms.SPELLS_LEVELS[s];
+    if(!(s in Realms.SPELLS)) {
+      if(window.PHB35 && PHB35.SPELL_RENAMES && s in PHB35.SPELL_RENAMES) {
+        s = PHB35.SPELL_RENAMES[s];
+      } else {
+        console.log('Missing spell "' + s + '"');
+        continue;
+      }
+    }
     Realms.SPELLS[s] =
-      Realms.SPELLS[s].replace('Level=', 'Level=' + Realms.SPELLS_LEVELS[s] + ',');
+      Realms.SPELLS[s].replace('Level=', 'Level=' + levels + ',');
   }
   Realms.WEAPONS =
     Object.assign({}, Realms.basePlugin.WEAPONS, Realms.WEAPONS_ADDED);
@@ -184,9 +195,9 @@ function Realms(baseRules) {
 
 }
 
-Realms.VERSION = '2.2.2.7';
+Realms.VERSION = '2.2.2.8';
 
-// Realms uses SRD35 as its default base ruleset. If USE_PATHFINDER is true,
+// Realms uses PHB35 as its default base ruleset. If USE_PATHFINDER is true,
 // the Realms function will instead use rules taken from the Pathfinder plugin.
 Realms.USE_PATHFINDER = false;
 
@@ -1737,7 +1748,9 @@ Realms.SPELLS_ADDED = {
     'Level=Ocean7 ' +
     'Description="R$RL\' 10\'w by 80\'h spout moves 30\'/rd, touched creatures 2d6 HP (Ref neg) for $L rd"'
 };
-Realms.SPELLS = Object.assign({}, SRD35.SPELLS, Realms.SPELLS_ADDED);
+Realms.SPELLS = Object.assign(
+  {}, window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS, Realms.SPELLS_ADDED
+);
 Realms.SPELLS_LEVELS = {
   'Acid Arrow':'Slime2',
   'Alter Self':'Harper1',
@@ -1754,7 +1767,7 @@ Realms.SPELLS_LEVELS = {
   'Bane':'Suffering1',
   'Banishment':'Portal6,Retribution6',
   // 3.0 Endurance => 3.5 Bear's Endurance
-  'Bear\'s Endurance':'Dwarf2,Retribution2,Suffering2',
+  "Bear's Endurance":'Dwarf2,Retribution2,Suffering2',
   'Bestow Curse':'Fate3,Hatred3,Suffering3',
   'Black Tentacles':'Slime5',
   'Blade Barrier':'Metal6',
@@ -1765,7 +1778,7 @@ Realms.SPELLS_LEVELS = {
   'Break Enchantment':'Spell5',
   'Call Lightning':'Storm3',
   'Calm Emotions':'Charm2',
-  'Cat\'s Grace':'Elf2,Halfling2,Harper2',
+  "Cat's Grace":'Elf2,Halfling2,Harper2',
   'Cause Fear':'Orc1',
   'Charm Monster':'Charm5',
   'Charm Person':'Charm1,Harper1,Renewal1',
@@ -1804,7 +1817,7 @@ Realms.SPELLS_LEVELS = {
   'Divine Power':'Orc4',
   'Dominate Monster':'Charm9,Tyranny9',
   'Doom':'Hatred1',
-  'Eagle\'s Splendor':'Harper2,Trade3',
+  "Eagle's Splendor":'Harper2,Trade3',
   'Earthquake':'Cavern8',
   'Elemental Swarm':'Dwarf9,Ocean9',
   'Endure Elements':'Ocean1',
@@ -1830,7 +1843,7 @@ Realms.SPELLS_LEVELS = {
   'Foresight':'Fate9,Halfling9,Time8',
   'Freedom':'Renewal9',
   'Freedom Of Movement':'Halfling4,Ocean4,Time4',
-  'Freezing Sphere':'Ocean6',
+  "Freezing Sphere":'Ocean6',
   'Gate':'Drow9,Portal9',
   'Geas/Quest':'Charm6,Fate6,Nobility6,Tyranny6',
   'Gentle Repose':'Time2',
@@ -1854,7 +1867,7 @@ Realms.SPELLS_LEVELS = {
   'Haste':'Time3',
   'Heat Metal':'Metal2',
   'Helping Hand':'Family3',
-  'Heroes\' Feast':'Family6,Planning6,Renewal6',
+  "Heroes' Feast":'Family6,Planning6,Renewal6',
   'Horrid Wilting':'Suffering9',
   'Ice Storm':'Storm5',
   'Imbue With Spell Ability':'Family4',
@@ -1865,7 +1878,7 @@ Realms.SPELLS_LEVELS = {
   'Instant Summons':'Rune7',
   'Invisibility':'Duergaren2,Harper2',
   'Iron Body':'Metal8',
-  'Irresistible Dance':'Gnome8',
+  "Irresistible Dance":'Gnome8',
   'Jump':'Harper1',
   'Keen Edge':'Metal3',
   'Knock':'Harper2',
@@ -1879,9 +1892,9 @@ Realms.SPELLS_LEVELS = {
   'Liveoak':'Elf7',
   'Locate Object':'Harper2',
   'Mage Armor':'Spell1',
-  'Mage\'s Disjunction':'Spell9',
-  'Mage\'s Faithful Hound':'Halfling5',
-  'Mage\'s Magnificent Mansion':'Trade7',
+  "Mage's Disjunction":'Spell9',
+  "Mage's Faithful Hound":'Halfling5',
+  "Mage's Magnificent Mansion":'Trade7',
   'Magic Fang':'Scalykind1',
   'Magic Mouth':'Harper2',
   'Magic Stone':'Halfling1',
@@ -1963,7 +1976,7 @@ Realms.SPELLS_LEVELS = {
   'Suggestion':'Charm3,Drow3,Harper3',
   'Summon Monster I':'Portal1',
   'Summon Monster VI':'Storm6',
-  'Summon Nature\'s Ally IX':'Gnome9',
+  "Summon Nature's Ally IX":'Gnome9',
   'Summon Swarm':'Spider2',
   'Sunburst':'Elf8',
   'Symbol Of Death':'Rune8',
@@ -1992,8 +2005,17 @@ Realms.SPELLS_LEVELS = {
   'Word Of Recall':'Halfling8'
 };
 for(var s in Realms.SPELLS_LEVELS) {
+  var levels = Realms.SPELLS_LEVELS[s];
+  if(!(s in Realms.SPELLS)) {
+    if(window.PHB35 && PHB35.SPELL_RENAMES && s in PHB35.SPELL_RENAMES) {
+      s = PHB35.SPELL_RENAMES[s];
+    } else {
+      console.log('Missing spell "' + s + '"');
+      continue;
+    }
+  }
   Realms.SPELLS[s] =
-    Realms.SPELLS[s].replace('Level=', 'Level=' + Realms.SPELLS_LEVELS[s] + ',');
+    Realms.SPELLS[s].replace('Level=', 'Level=' + levels + ',');
 }
 Realms.WEAPONS_ADDED = {
   'Blade Boot':'Level=3 Category=Li Damage=1d4 Threat=19',
