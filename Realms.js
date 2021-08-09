@@ -3198,7 +3198,6 @@ Realms.ruleNotes = function() {
     'Realms Quilvyn Module Version ' + Realms.VERSION + '\n' +
     '\n' +
     '<h3>Usage Notes</h3>\n' +
-    '<p>\n' +
     '<ul>\n' +
     '  <li>\n' +
     '    Quilvyn gives Drow Elves proficiency in both short sword and\n' +
@@ -3212,6 +3211,5 @@ Realms.ruleNotes = function() {
     '    The "Resist Poison" feat is renamed "Greater Poison Resistance" to\n' +
     '    distinguish it from the racial feature of the same name.\n' +
     '  </li>\n' +
-    '</ul>\n' +
-    '</p>';
+    '</ul>\n';
 };
