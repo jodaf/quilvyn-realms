@@ -11,11 +11,18 @@ quilvyn-core package.
 
 ### Installation
 
-To use quilvyn-realms, unbundle the release package into a plugins/
-subdirectory within the Quilvyn installation directory, then add or uncomment
-the 'plugins/Realms.js' entry in the PLUGINS definition in quilvyn.html.
+To use quilvyn-realms, unbundle the release package into the plugins/
+subdirectory within the Quilvyn installation directory, then append the
+following lines to the file plugins/plugins.js:
+
+    RULESETS['Forgotten Realms Campaign Setting using D&D v3.5 rules'] = {
+      url:'plugins/Realms.js',
+      group:'v3.5',
+      require:'v3.5 (SRD only)'
+    };
 
 ### Usage
 
-Once the Forgotten Realms plugin is installed as described above, start Quilvyn
-and choose Forgotten Realms from the Rules menu in the editor window.
+Once the quilvyn-realms package is installed as described above, start Quilvyn
+and choose 'Forgotten Realms Campaign Setting using D&D v3.5 rules' from the
+rule sets menu in the initial window.

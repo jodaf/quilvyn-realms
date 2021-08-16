@@ -3196,7 +3196,21 @@ Realms.ruleNotes = function() {
   return '' +
     '<h2>Forgotten Realms Quilvyn Module Notes</h2>\n' +
     'Realms Quilvyn Module Version ' + Realms.VERSION + '\n' +
-    '\n' +
+    '<p>\n' +
+    'Quilvyn\'s Forgotten Realms rule set is unofficial Fan Content ' +
+    'permitted under Wizards of the Coast\'s ' +
+    '<a href="https://company.wizards.com/en/legal/fancontentpolicy">Fan Content Policy</a>.\n' +
+    '</p><p>\n' +
+    'Quilvyn is not approved or endorsed by Wizards of the Coast. Portions ' +
+    'of the materials used are property of Wizards of the Coast. ©Wizards of ' +
+    'the Coast LLC.\n' +
+    '</p><p>\n' +
+    'Dungeons & Dragons Forgotten Realms Campaign Setting © 2001 Wizards of ' +
+    'the Coast, Inc.\n' +
+    '</p><p>\n' +
+    'Dungeons & Dragons Player\'s Handbook v3.5 © 2003 Wizards of the Coast, ' +
+    'Inc.\n' +
+    '</p>\n' +
     '<h3>Usage Notes</h3>\n' +
     '<ul>\n' +
     '  <li>\n' +
