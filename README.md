@@ -6,8 +6,8 @@ the Forgotten Realms campaign setting, applying the rules of the
 
 ### Requirements
 
-quilvyn-realms relies on the core and srd35 modules installed by the
-quilvyn-core package.
+quilvyn-realms relies on the PHB35 module installed by the quilvyn-phb35
+package and the core and srd35 modules installed by the quilvyn-core package.
 
 ### Installation
 
