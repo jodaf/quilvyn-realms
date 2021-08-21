@@ -1,6 +1,6 @@
 ## Forgotten Realms plugin for the Quilvyn RPG character sheet generator
 
-The quilvyn-eberron package bundles modules that extend Quilvyn to work with
+The quilvyn-realms package bundles modules that extend Quilvyn to work with
 the Forgotten Realms campaign setting, applying the rules of the
 <a href="https://www.drivethrurpg.com/product/28729/Forgotten-Realms-Campaign-Setting-3e">3rd edition campaign setting rulebook</a>.
 
@@ -16,7 +16,7 @@ subdirectory within the Quilvyn installation directory, then append the
 following lines to the file plugins/plugins.js:
 
     RULESETS['Forgotten Realms Campaign Setting using D&D v3.5 rules'] = {
-      url:'plugins/Realms.js',
+      url:'Realms.js',
       group:'v3.5',
       require:'v3.5 (SRD only)'
     };
@@ -24,5 +24,5 @@ following lines to the file plugins/plugins.js:
 ### Usage
 
 Once the quilvyn-realms package is installed as described above, start Quilvyn
-and choose 'Forgotten Realms Campaign Setting using D&D v3.5 rules' from the
-rule sets menu in the initial window.
+and check the box next to "Forgotten Realms Campaign Setting using D&D v3.5
+rules" from the rule sets menu in the initial window.
