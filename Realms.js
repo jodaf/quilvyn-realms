@@ -1005,7 +1005,7 @@ Realms.FEATURES_ADDED = {
   'Sneaky':'Section=skill Note="+2 Bluff/+2 Hide"',
   'Spurred':
     'Section=skill Note="+%V Climb, Hide, Jump, Move Silently for 10 min 1/dy"',
-  'Stormfriend':'Section=save Note="Electricity resistance 5"',
+  'Stormfriend':'Section=save Note="Resistance 5 to electricity"',
   'Strike Of Vengeance':
     'Section=combat Note="Strike for max damage after foe hit 1/dy"',
   'Turn It On':'Section=ability Note="+4 charisma for 1 min 1/dy"',
@@ -1018,7 +1018,8 @@ Realms.FEATURES_ADDED = {
   // Race
   'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
   'Aasimar Alertness':'Section=skill Note="+2 Listen/+2 Spot"',
-  'Aasimar Resistance':'Section=save Note="5 vs. acid, cold, and electricity"',
+  'Aasimar Resistance':
+    'Section=save Note="Resistance 5 to acid, cold, and electricity"',
   'Amphibious':'Section=feature Note="Breathe water at will"',
   'Air Genasi Ability Adjustment':
     'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Wisdom/-2 Charisma"',
@@ -1031,7 +1032,7 @@ Realms.FEATURES_ADDED = {
   'Drow Elf Ability Adjustment':
     'Section=ability ' +
     'Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
-  'Drow Elf Spell Resistance':'Section=save Note="%V"',
+  'Drow Elf Spell Resistance':'Section=save Note="Spell resistance %V"',
   'Duergar Alertness':'Section=skill Note="+1 Listen/+1 Spot"',
   'Earth Genasi Ability Adjustment':
     'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
@@ -1068,10 +1069,11 @@ Realms.FEATURES_ADDED = {
   'Strongheart Extra Feat':'Section=feature Note="+1 General Feat"',
   'Sun Elf Ability Adjustment':
     'Section=ability Note="+2 Intelligence/-2 Constitution"',
-  'Svirfneblin Spell Resistance':'Section=save Note="%V"',
+  'Svirfneblin Spell Resistance':'Section=save Note="Spell resistance %V"',
   'Tiefling Ability Adjustment':
     'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Charisma"',
-  'Tiefling Resistance':'Section=save Note="5 vs. cold, electricity, and fire"',
+  'Tiefling Resistance':
+    'Section=save Note="Resistance 5 to cold, electricity, and fire"',
   'Undetectable':'Section=magic Note="Continuous <i>Nondetection</i>"',
   'Water Genasi Ability Adjustment':
     'Section=ability Note="+2 Constitution/-2 Charisma"',
@@ -1109,7 +1111,7 @@ Realms.FEATURES_ADDED = {
     'Section=combat Note="Regain 1d8+5 HP from negative 1/dy"',
   'Divine Reach':'Section=magic Note="Use divine touch spell 30\' away"',
   'Divine Shroud':
-    'Section=save Note="Aura provides DC %V spell resistance for %1 rd 1/dy"',
+    'Section=save Note="Aura provides spell resistance %V for %1 rd 1/dy"',
   'Divine Wrath':
     'Section=combat,save ' +
     'Note="+3 attack and damage and DR 5/- for %V rd 1/dy",' +
@@ -1132,7 +1134,7 @@ Realms.FEATURES_ADDED = {
     'Section=magic ' +
     'Note="R%1\' %V targets approach/drop/fall/flee/halt for %V rd (DC %2 Will neg) 1/dy"',
   'Greater Shield Of Shadows':
-    'Section=save Note="Shield Of Shadows gives %V spell resistance"',
+    'Section=save Note="Shield Of Shadows gives spell resistance %V"',
   'Guild Thief Bonus Feats':'Section=feature Note="%V Guild Thief feats"',
   'Harper Perform Focus':
     'Section=feature ' +
@@ -2985,6 +2987,9 @@ Realms.pathRulesExtra = function(rules, name) {
     rules.defineRule('combatNotes.rebound', 'charismaModifier', '=', null);
   } else if(name == 'Renewal Domain') {
     rules.defineRule('combatNotes.rebound', 'charismaModifier', '=', null);
+  } else if(name == 'Storm Domain') {
+    rules.defineRule
+      ('resistance.Electricity', 'saveNotes.stormfriend', '^=', '5');
   } else if(name == 'Trade Domain') {
     rules.defineRule
       ('magicNotes.insiderKnowledge', 'charismaModifier', '=', null);
@@ -3036,9 +3041,18 @@ Realms.raceRulesExtra = function(rules, name) {
       'clericFeatures.' + element + ' Domain', '+', '1'
     );
   }
-  if(name == 'Air Genasi') {
+  if(name == 'Aasimar') {
+    rules.defineRule
+      ('resistance.Acid', 'saveNotes.aasimarResistance', '^=', '5');
+    rules.defineRule
+      ('resistance.Cold', 'saveNotes.aasimarResistance', '^=', '5');
+    rules.defineRule
+      ('resistance.Electricity', 'saveNotes.aasimarResistance', '^=', '5');
+  } else if(name == 'Air Genasi') {
     rules.defineRule('casterLevels.Air Genasi', 'airGenasiLevel', '=', '5');
   } else if(name == 'Deep Gnome') {
+    rules.defineRule
+      ('saveNotes.svirfneblinSpellResistance', 'deepGnomeLevel', '=', 'source + 11');
     // Several web pages say that the DC for Deep Gnome spells is Charisma
     // based with a +4 racial modifier. The FG Campaign Setting says 10 +
     // spell level, so we go with that; otherwise, the value would be
@@ -3046,21 +3060,30 @@ Realms.raceRulesExtra = function(rules, name) {
     rules.defineRule
       ('spellDifficultyClass.Svirfneblinish', 'charismaModifier', '=', '10');
     rules.defineRule
-      ('saveNotes.svirfneblinSpellResistance', 'deepGnomeLevel', '=', 'source + 11');
+      ('spellResistance', 'saveNotes.svirfneblinSpellResistance', '^=', null);
   } else if(name == 'Drow Elf') {
+    rules.defineRule('combatNotes.lightSensitivity', 'drowElfLevel', '=', '1');
     rules.defineRule
       ('saveNotes.drowElfSpellResistance', 'drowElfLevel', '=', 'source + 11');
     rules.defineRule('saveNotes.lightSensitivity', 'drowElfLevel', '=', '1');
     rules.defineRule('skillNotes.lightSensitivity', 'drowElfLevel', '=', '1');
-    rules.defineRule('combatNotes.lightSensitivity', 'drowElfLevel', '=', '1');
+    rules.defineRule
+      ('spellResistance', 'saveNotes.drowElfSpellResistance', '^=', null);
+  } else if(name == 'Earth Genasi') {
+    rules.defineRule('casterLevels.Earth Genasi', 'earthGenasiLevel', '=', '5');
   } else if(name == 'Gray Dwarf') {
     rules.defineRule
       ('casterLevels.Duergar', 'grayDwarfLevel', '=', 'source * 2');
     rules.defineRule('saveNotes.lightSensitivity', 'grayDwarfLevel', '=', '2');
     rules.defineRule('skillNotes.lightSensitivity', 'grayDwarfLevel', '=', '2');
     rules.defineRule('combatNotes.lightSensitivity', 'grayDwarfLevel', '=','2');
-  } else if(name == 'Earth Genasi') {
-    rules.defineRule('casterLevels.Earth Genasi', 'earthGenasiLevel', '=', '5');
+  } else if(name == 'Tiefling') {
+    rules.defineRule
+      ('resistance.Cold', 'saveNotes.tieflingResistance', '^=', '5');
+    rules.defineRule
+      ('resistance.Electricity', 'saveNotes.tieflingResistance', '^=', '5');
+    rules.defineRule
+      ('resistance.Fire', 'saveNotes.tieflingResistance', '^=', '5');
   } else if(name == 'Water Genasi') {
     rules.defineRule('casterLevels.Water Genasi', 'waterGenasiLevel', '=', '5');
   } else if(rules.basePlugin.raceRulesExtra) {
