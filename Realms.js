@@ -1604,39 +1604,39 @@ Realms.SPELLS_ADDED = {
   "Aganazzar's Scorcher":
     'School=Evocation ' +
     'Level=W2 ' +
-    'Description="5\'w by $RS\'l flame ${Math.min(5,Math.floor(lvl/2))}d8 HP (Ref half)"',
+    'Description="Creatures in 5\' by $RS\' path suffer ${Ldiv2min5}d8 HP (Ref half)"',
   'Analyze Portal':
     'School=Divination ' +
     'Level=B3,Portal2,W3 ' +
-    'Description="R60\' cone info on portals for $L rd or conc"',
+    'Description="R60\' quarter circle gives self info on portals for $L rd or conc"',
   'Anyspell':
     'School=Transmutation ' +
     'Level=Spell3 ' +
-    'Description="Self prepare up to 2nd level arcane spell from written source"',
+    'Description="Prepares up to 2nd level arcane spell from written source"',
   'Armor Of Darkness':
     'School=Abjuration ' +
     'Level=Darkness4 ' +
-    'Description="Touched +${Math.min(8,Math.floor(lvl/4)+3)} AC, darkvision for $L10 min"',
+    'Description="Touched gains +$Ldiv4plus3min8 AC and 60\' darkvision for $L10 min"',
   'Blacklight':
     'School=Evocation ' +
     'Level=Darkness3,W3 ' +
-    'Description="R$RS\' Target center 20\' radius darkness only caster can see within for $L rd (Will neg)"',
+    'Description="R$RS\' 20\' radius enveloped in darkness only self can see within for $L rd (Will neg)"',
   'Claws Of Darkness':
     'School=Illusion ' +
    'Level=W2 ' +
-    'Description="Self hands become 6\' extendable claws 1d4 HP cold and slow when grappling (Fort neg) for $L rd"',
+    'Description="Self hands become 6\' extendable claws inflicting 1d4 HP and slowing via grapple (Fort neg) for $L rd"',
   'Cloak Of Dark Power':
     'School=Abjuration ' +
     'Level=Drow1 ' +
-    'Description="Touched protected from sunlight, +4 save vs. light and dark for $L min"',
+    'Description="Touched protected from sunlight, +4 save vs. light and darkness effects for $L min"',
   'Create Magic Tattoo':
     'School=Conjuration ' +
     'Level=W2 ' +
-    'Description="Touched gains tattoo w/variable effects for 1 dy"',
+    'Description="Touched gains magic tattoo w/specified effects for 1 dy"',
   'Darkbolt':
     'School=Evocation ' +
     'Level=Darkness5 ' +
-    'Description="R$RM\' ${Math.min(Math.floor(lvl/2),7)} ranged touch bolts 2d8 HP, dazed (Will neg)"',
+    'Description="R$RM\' Ranged touch with ${Math.min(Math.floor(lvl/2),7)} bolts in 30\' radius inflict 2d8 HP each and daze 1 rd (Will neg)"',
   "Elminster's Evasion":
     'School=Evocation ' +
     'Level=W9 ' +
@@ -1644,111 +1644,111 @@ Realms.SPELLS_ADDED = {
   'Fantastic Machine':
     'School=Illusion ' +
     'Level=Craft6,Gnome6 ' +
-    'Description="Lg machine (HP 22, AC 14, slam +5 1d8+4, rock +3 2d6+4, load 230) obeys commands for $L min"',
+    'Description="Large illusory machine (HP 22, AC 14, slam +5 1d8+4, throw rocks +3 2d6+4, move 40\'/rd, swim and fly 10\'/rd, load 230) obeys self for $L min"',
   'Fire Stride':
     'School=Transmutation ' +
     'Level=W4 ' +
-    'Description="Self teleport $RL\' between fires $L times for $L10 min"',
+    'Description="Self teleports $RL\' between fires $L times for $L10 min"',
   'Flashburst':
     'School=Evocation ' +
     'Level=W3 ' +
-    'Description="R$RL\' Targets in 20\' radius dazzled, all w/in 120\' blinded (Will neg) for 2d8 rd"',
+    'Description="R$RL\' Creatures in 20\' radius dazzled (-1 attack) for 1 rd, those w/in 120\' blinded (Will neg) for 2d8 rd"',
   'Flensing':
     'School=Evocation ' +
     'Level=W8 ' +
-    'Description="R$RS\' Target 2d6 HP (Fort half), lose 1d6 Cha and Con (Fort neg) for 4 rd"',
+    'Description="R$RS\' Target suffers 2d6 HP and -1d6 Charisma and Constitution (Fort half HP only) for 4 rd"',
   'Gate Seal':
     'School=Abjuration ' +
     'Level=B6,C6,D6,W6 ' +
-    'Description="R$RS\' seal target gate or portal"',
+    'Description="R$RS\' Seals magical gate or portal"',
   'Gembomb':
     'School=Conjuration ' +
     'Level=Gnome2,Trade2 ' +
-    'Description="Up to 5 gems become R100\' ranged touch bombs totaling ${Math.min(5,Math.floor(lvl/2))}d8 HP (Ref half)"',
+    'Description="Up to 5 gems become R100\' ranged touch bombs inflicting ${Ldiv2min5}d8 HP total (Ref half)"',
   'Great Shout':
     'School=Evocation ' +
     'Level=B6,W8 ' +
-    'Description="R$RS\' Objects in range 20d6 HP (Ref neg), creatures in cone 10d6 HP, stunned 1 rd, deaf 4d6 rd (Fort half)"',
+    'Description="R$RS\' Objects in range suffer 20d6 HP (Ref neg), creatures in cone suffer 10d6 HP, stun 1 rd, and deaf 4d6 rd (Fort half)"',
   'Greater Anyspell':
     'School=Transmutation ' +
     'Level=Spell6 ' +
-    'Description="Self prepare up to 5th level arcane spell from written source"',
+    'Description="Prepares up to 5th level arcane spell from written source"',
   'Greater Fantastic Machine':
     'School=Illusion ' +
     'Level=Craft9 ' +
-    'Description="Lg machine (HP 88, AC 20, slam +17,+12 1d8+9, rock +12,+7 2d6+9, load 520) obeys commands for $L min"',
+    'Description="Large illusory machine (HP 88, AC 20, slam +17,+12 1d8+9, throw rocks +12,+7 2d6+9, move 60\'/rd, swim and fly 20\'/rd, load 520) obeys self for $L min"',
   "Grimwald's Graymantle":
     'School=Necromancy ' +
     'Level=W5 ' +
-    'Description="R$RM\' Target prevented from heal, restore, regen for $L rd (Fort neg)"',
+    'Description="R$RM\' Touched prevented from healing, restoring, and regenerating for $L rd (Fort neg)"',
   'Lesser Ironguard':
     'School=Abjuration ' +
     'Level=W5 ' +
-    'Description="Touched unaffected by normal metal for $L rd"',
+    'Description="Touched gains immunity to normal metal for $L rd"',
   'Maelstrom':
     'School=Conjuration ' +
     'Level=Ocean8 ' +
-    'Description="R$RL\' Targets in whirlpool 3d8 HP for 2d4 rd (Ref et al neg) for $L rd"',
+    'Description="R$RL\' Creatures in whirlpool suffer 3d8 HP for 2d4 rd (Ref et al neg) for $L rd"',
   'Maw Of Stone':
     'School=Transmutation ' +
     'Level=Cavern7 ' +
-    'Description="Animated opening can attack and grapple"',
+    'Description="Animates natural opening to perform +%{levels.Cleric+wisdomModifier+7} grapple that inflicts 2d6+10 HP"',
   'Moon Blade':
     'School=Evocation ' +
     'Level=Moon3,W3 ' + // W3 for Hathran
-    'Description="Moonlight blade touch attack 1d8+$Ldiv2 HP (undead 2d8+$L HP) for $L min"',
+    'Description="Moonlight blade touch attack inflicts 1d8+$Ldiv2 HP (undead 2d8+$L HP) for $L min"',
   'Moon Path':
     'School=Evocation ' +
     'Level=Moon5,W5 ' + // W5 for Hathran
-    'Description="Glowing pathway 5\'-20\'w by $L15\'l for $L min; <i>Sanctuary</i> on path for $L designed"',
+    'Description="Creates glowing pathway 5\'-20\' by $L15\' for $L min that provides <i>Sanctuary</i> for $L designed creatures"',
   'Moonbeam':
     'School=Evocation ' +
     'Level=Moon2,W2 ' + // W2 for Hathran
-    'Description="R$RS\' Target lycanthropes become animal for $L min (Will neg)"',
+    'Description="R$RS\' Target lycanthropes assume animal form for $L min (Will neg)"',
   'Moonfire':
     'School=Evocation ' +
     'Level=Moon9 ' +
-    'Description="R$RS\' Cone ${Math.min(Math.floor(lvl/2),10)}d8 HP (undead x2) (Ref half), changed creatures revert (Will neg), marks auras for $L min"',
+    'Description="R$RS\' Cone inflicts ${Ldiv2min10}d8 HP (undead dbl) (Ref half), reverts changed creatures to normal form (Will neg), and marks auras for $L min"',
   'Scatterspray':
     'School=Transmutation ' +
     'Level=Harper1,W1 ' +
-    'Description="R$RS\' Little items w/in 1\' radius scatter; creatures w/in 10\' 1d8 HP (Ref neg)"',
+    'Description="R$RS\' Little items in 1\' radius scatter, inflicting 1d8 on creatures w/in 10\' (Ref neg)"',
   'Shadow Mask':
     'School=Illusion ' +
     'Level=Harper2,W2 ' +
-    'Description="Self face hidden, +4 save vs. light and dark, 50% gaze attack for $L10 min"',
+    'Description="Hides self\'s face, gives +4 save vs. light and dark and 50% protection from gaze attacks for $L10 min"',
   'Shadow Spray':
     'School=Illusion ' +
     'Level=W2 ' +
-    'Description="R$RM\' Creatures in 5\' radius lose 2 Str, dazed 1 rd, -2 fear saves for $L rd (Fort neg)"',
+    'Description="R$RM\' Creatures in 5\' radius suffer -2 Strength and fear saves and dazed 1 rd for $L rd (Fort neg)"',
   "Snilloc's Snowball Swarm":
     'School=Evocation ' +
     'Level=W2 ' +
-    'Description="R$RM\' Creatures in 10\' radius ${Math.min(2+Math.floor((lvl-3)/2),5)}d6 HP cold (Ref half)"',
+    'Description="R$RM\' Creatures in 10\' radius suffer ${Lplus1div2min5}d6 HP (Ref half)"',
   'Spider Curse':
     'School=Transmutation ' +
     'Level=Spider6 ' +
-    'Description="R$RM\' Target polymorph to dominated drider for $L dy (Will neg)"',
+    'Description="R$RM\' Target polymorphs into drider and obeys self thoughts for $L dy (Will neg)"',
   'Spider Shapes':
     'School=Transmutation ' +
     'Level=Spider9 ' +
-    'Description="R$RS\' Willing target polymorph to monstrous spider for $L hr"',
+    'Description="R$RS\' Willing target polymorphs into monstrous spider for $L hr"',
   'Spiderform':
     'School=Transmutation ' +
     'Level=Drow5 ' +
-    'Description="Self polymorph to drider or monstrous spider for $L hr"',
+    'Description="Self polymorphs into drider or monstrous spider for $L hr"',
   'Stone Spiders':
     'School=Transmutation ' +
     'Level=Spider7 ' +
-    'Description="R$RS\' Transform 1d3 pebbles into controlled monstrous spiders for $L rd"',
+    'Description="R$RS\' Transforms 1d3 pebbles into monstrous spiders that obey self for $L rd"',
   'Thunderlance':
     'School=Evocation ' +
     'Level=W4 ' +
-    'Description="Self wield shimmering staff (+${Math.floor(1+lvl/2)} 2d6+${Math.floor(1+lvl/2)} x3@20) 1\'-20\' long for $L rd"',
+    'Description="Self wields shimmering staff (+$Ldiv2plus1 attack, 2d6+$Ldiv2plus1 x3@20) 1\' - 20\' long for $L rd"',
   'Waterspout':
     'School=Conjuration ' +
     'Level=Ocean7 ' +
-    'Description="R$RL\' 10\'w by 80\'h spout moves 30\'/rd, touched creatures 2d6 HP (Ref neg) for $L rd"'
+    'Description="R$RL\' Self moves 10\' by 80\' spout 30\'/rd, touched creatures suffer 2d6 HP (Ref neg) for $L rd"'
 };
 Realms.SPELLS = Object.assign(
   {}, window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS, Realms.SPELLS_ADDED
@@ -2013,7 +2013,7 @@ for(var s in Realms.SPELLS_LEVELS) {
       s = PHB35.SPELL_RENAMES[s];
     } else {
       // We might be loading before PHB35 has completed. There will be another
-      // chance to pick this up during Eberron() initialization.
+      // chance to pick this up during Realms() initialization.
       // console.log('Missing spell "' + s + '"');
       continue;
     }
