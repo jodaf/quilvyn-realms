@@ -83,7 +83,7 @@ var attributes = {
       <tr style="text-align:center">
         <td><b>Feats</b>: Acrobatic; Armor Proficiency (Light); Greater Spell Focus (Conjuration); Point-Blank Shot; Shadow Weave Magic; Spell Focus (Conjuration); Still Spell; Twin Spell</td>
         <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
-        <td><b>Shadow Adept Features</b>: Caster Level Bonus; Darkvision; Greater Shield Of Shadows; Insidious Magic; Low-Light Vision; Pernicious Magic; Shadow Adept Bonus Feats; Shadow Defense; Shadow Double; Shadow Walk; Shield Of Shadows; Spell Power; Tenacious Magic</td>
+        <td><b>Shadow Adept Features</b>: Caster Level Bonus; Darkvision; Greater Shield Of Shadows; Low-Light Vision; Shadow Adept Bonus Feats; Shadow Defense; Shadow Double; Shadow Feats; Shadow Walk; Shield Of Shadows; Spell Power</td>
         <td><b>Sorcerer Features</b>: Summon Familiar; Weapon Proficiency (Simple)</td>
       </tr></table>
 </td>
@@ -93,6 +93,8 @@ var attributes = {
         <td><i>Human Feat Bonus: +1 General Feat</i></td>
       </tr><tr style="text-align:center">
         <td><i>Shadow Adept Bonus Feats: 1 Metamagic feats</i></td>
+      </tr><tr style="text-align:center">
+        <td><i>Shadow Feats: Insidious Magic, Pernicious Magic, and Tenacious Magic</i></td>
       </tr><tr style="text-align:center">
         <td>Darkvision: 60' b/w vision in darkness</td>
       </tr><tr style="text-align:center">
@@ -223,7 +225,7 @@ var attributes = {
     <tr style="text-align:center">
       <td>      <table id="SpellStats" style="width:100%">
       <tr style="text-align:center">
-        <td><b>Spell Slots</b>: S0: 6; S1: 7; S2: 6; S3: 4</td>
+        <td><b>Spell Slots</b>: S0: 6; S1: 7; S2: 7; S3: 7; S4: 6; S5: 6; S6: 6; S7: 5; S8: 3</td>
         <td><b>Spell DC</b>: S: 13</td>
       </tr></table>
 </td>
@@ -232,56 +234,58 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Spells</b>:     <table id="Spells" style="width:100%">
     <tr style="text-align:left">
-      <td>Acid Splash (W0 Conj): R40' Ranged touch inflicts 1d3 HP</td>
+      <td>Acid Splash (W0 Conj): R65' Ranged touch inflicts 1d3 HP</td>
     </tr><tr style="text-align:left">
       <td>Arcane Mark (W0 Univ): Permanent personal rune inscribed on object or creature</td>
     </tr><tr style="text-align:left">
-      <td>Arcane Sight (W3 Divi): R120' Self sees auras and spell abilities for 6 min, DC 15+level Spellcraft to know school</td>
+      <td>Arcane Sight (W3 Divi): R120' Self sees auras and spell abilities for 16 min, DC 15+level Spellcraft to know school</td>
     </tr><tr style="text-align:left">
-      <td>Blindness/Deafness (W2 Necr): R160' Target permanently self choice of blind or deaf (DC 15 Fort neg)</td>
+      <td>Blindness/Deafness (W2 Necr): R260' Target permanently self choice of blind or deaf (DC 15 Fort neg)</td>
     </tr><tr style="text-align:left">
-      <td>Cause Fear (W1 Necr): R40' Target w/up to 5 HD flees for 1d4 rd (DC 14 Will shaken for 1 rd)</td>
+      <td>Cause Fear (W1 Necr): R65' Target w/up to 5 HD flees for 1d4 rd (DC 14 Will shaken for 1 rd)</td>
     </tr><tr style="text-align:left">
-      <td>Claws Of Darkness (W2 Illu): Self hands become 6' extendable claws inflicting 1d4 HP and slowing via grapple (DC 15 Fort neg) for 6 rd</td>
+      <td>Claws Of Darkness (W2 Illu): Self hands become 6' extendable claws inflicting 1d4 HP and slowing via grapple (DC 15 Fort neg) for 16 rd</td>
     </tr><tr style="text-align:left">
-      <td>Displacement (W3 Illu): Foes attacking touched suffer 50% miss chance for 6 rd</td>
+      <td>Displacement (W3 Illu): Foes attacking touched suffer 50% miss chance for 16 rd</td>
     </tr><tr style="text-align:left">
-      <td>Eagle's Splendor (W2 Tran): Touched gains +4 Charisma for 6 min</td>
+      <td>Eagle's Splendor (W2 Tran): Touched gains +4 Charisma for 16 min</td>
     </tr><tr style="text-align:left">
-      <td>Greater Magic Weapon (W3 Tran): R40' target weapon gains +1 attack and damage for 6 hr</td>
+      <td>Greater Magic Weapon (W3 Tran): R65' target weapon gains +4 attack and damage for 16 hr</td>
     </tr><tr style="text-align:left">
-      <td>Haste (W3 Tran): R40' 6 targets in 15' radius gain extra attack, +1 attack, AC, and Reflex, and +30' Speed for 6 rd</td>
+      <td>Haste (W3 Tran): R65' 16 targets in 15' radius gain extra attack, +1 attack, AC, and Reflex, and +30' Speed for 16 rd</td>
     </tr><tr style="text-align:left">
-      <td>Hold Portal (W1 Abju): R160' Door, gate, or window magically held shut for 6 min</td>
+      <td>Hold Portal (W1 Abju): R260' Door, gate, or window magically held shut for 16 min</td>
     </tr><tr style="text-align:left">
-      <td>Hypnotism (W1 Ench): R40' Fascinates and makes suggestible 2d4 HD of creatures in 15' radius for 2d4 rd (DC 14 Will neg, +2 during combat, -2 single target)</td>
+      <td>Hypnotism (W1 Ench): R65' Fascinates and makes suggestible 2d4 HD of creatures in 15' radius for 2d4 rd (DC 14 Will neg, +2 during combat, -2 single target)</td>
     </tr><tr style="text-align:left">
-      <td>Levitate (W2 Tran): R40' Self moves willing target up and down 20'/rd for 6 min</td>
+      <td>Levitate (W2 Tran): R65' Self moves willing target up and down 20'/rd for 16 min</td>
     </tr><tr style="text-align:left">
-      <td>Light (W0 Evoc): Touched gives 20' bright light for 60 min</td>
+      <td>Light (W0 Evoc): Touched gives 20' bright light for 160 min</td>
     </tr><tr style="text-align:left">
-      <td>Magic Missile (W1 Evoc): R160' 3 missiles inflict 1d4+1 HP each in 15' radius</td>
+      <td>Magic Missile (W1 Evoc): R260' 5 missiles inflict 1d4+1 HP each in 15' radius</td>
     </tr><tr style="text-align:left">
-      <td>Magic Mouth (W2 Illu): R40' Mouth appears and speaks 25 words upon trigger w/in 90' (DC 15 Will neg)</td>
+      <td>Magic Mouth (W2 Illu): R65' Mouth appears and speaks 25 words upon trigger w/in 240' (DC 15 Will neg)</td>
     </tr><tr style="text-align:left">
       <td>Mending (W0 Tran): R10' Repairs minor damage to 1 lb object</td>
     </tr><tr style="text-align:left">
-      <td>Protection From Chaos (W1 Abju): Touched gains +2 AC and saves, suppresses mental control, and bars contact by nonlawful summoned creatures for 6 min</td>
+      <td>Protection From Chaos (W1 Abju): Touched gains +2 AC and saves, suppresses mental control, and bars contact by nonlawful summoned creatures for 16 min</td>
     </tr><tr style="text-align:left">
-      <td>Protection From Evil (W1 Abju): Touched gains +2 AC and saves, suppresses mental control, and bars contact by nongood summoned creatures for 6 min</td>
+      <td>Protection From Evil (W1 Abju): Touched gains +2 AC and saves, suppresses mental control, and bars contact by nongood summoned creatures for 16 min</td>
     </tr><tr style="text-align:left">
-      <td>Ray Of Frost (W0 Evoc): R40' Ranged touch inflicts 1d3 HP</td>
+      <td>Ray Of Frost (W0 Evoc): R65' Ranged touch inflicts 1d3 HP</td>
     </tr><tr style="text-align:left">
-      <td>Read Magic (W0 Divi): Self reads magical writing for 60 min</td>
+      <td>Read Magic (W0 Divi): Self reads magical writing for 160 min</td>
     </tr><tr style="text-align:left">
-      <td>Scare (W2 Necr): R40' 2 targets w/up to 5 HD in 30' radius flee for 6 rd (DC 15 Will shaken for 1 rd)</td>
+      <td>Scare (W2 Necr): R65' 5 targets w/up to 5 HD in 30' radius flee for 16 rd (DC 15 Will shaken for 1 rd)</td>
     </tr><tr style="text-align:left">
-      <td>Scatterspray (W1 Tran): R40' Little items in 1' radius scatter, inflicting 1d8 on creatures w/in 10' (DC 14 Ref neg)</td>
+      <td>Scatterspray (W1 Tran): R65' Little items in 1' radius scatter, inflicting 1d8 on creatures w/in 10' (DC 14 Ref neg)</td>
     </tr></table>
 </td>
   </tr><tr style="text-align:center">
     <td><b>Magic Notes</b>:     <table id="MagicNotes" style="width:100%">
     <tr style="text-align:center">
+      <td><i>Caster Level Bonus: +10 base class level for spells known and spells/dy</i></td>
+    </tr><tr style="text-align:center">
       <td><i>Charisma Sorcerer Spell Slot Bonus: Spell level S1, S2, S3</i></td>
     </tr><tr style="text-align:center">
       <td><i>Greater Spell Focus (Conjuration): +3 Spell DC (Conjuration)</i></td>
@@ -290,23 +294,23 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Arcane Spell Failure: 10%</td>
     </tr><tr style="text-align:center">
-      <td>Insidious Magic: DC 9+foe level check to detect Weave magic, Foe DC 17 check to detect Shadow Weave spell</td>
+      <td>Insidious Magic: DC 9+foe level check to detect Weave magic, foe DC 27 check to detect Shadow Weave spell</td>
     </tr><tr style="text-align:center">
-      <td>Pernicious Magic: Weave foes DC 17 check to counterspell, DC 9+foe level to counterspell Weave foes</td>
+      <td>Pernicious Magic: Weave foes DC 27 check to counterspell, DC 9+foe level to counterspell Weave foes</td>
     </tr><tr style="text-align:center">
-      <td>Shadow Double: Create clone lasting 6 rd 1/dy</td>
+      <td>Shadow Double: Create clone lasting 16 rd 1/dy</td>
     </tr><tr style="text-align:center">
       <td>Shadow Walk: Travel quickly via Plane of Shadow for 10 hr</td>
     </tr><tr style="text-align:center">
       <td>Shadow Weave Magic: +1 DC and resistance checks on enchantment, illusion, necromancy, and darkness descriptor spells, -1 caster level on evocation and transmutation, no light descriptor spells</td>
     </tr><tr style="text-align:center">
-      <td>Shield Of Shadows: <i>Shield</i> w/75% concealment 6 rd/dy</td>
+      <td>Shield Of Shadows: <i>Shield</i> w/75% concealment 16 rd/dy</td>
     </tr><tr style="text-align:center">
       <td>Spell Power: +3 spell DC and resistance checks</td>
     </tr><tr style="text-align:center">
       <td>Still Spell: Cast spell w/out movement uses +1 spell slot</td>
     </tr><tr style="text-align:center">
-      <td>Tenacious Magic: Weave foes DC 21 to dispel, DC 13+foe level to dispel Weave foes</td>
+      <td>Tenacious Magic: Weave foes DC 31 to dispel, DC 13+foe level to dispel Weave foes</td>
     </tr><tr style="text-align:center">
       <td>Twin Spell: Affect as two spells uses +4 spell slot</td>
     </tr></table>

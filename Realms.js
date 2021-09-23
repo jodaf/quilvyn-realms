@@ -91,6 +91,8 @@ function Realms(baseRules) {
     Object.assign({}, rules.basePlugin.LANGUAGES, Realms.LANGUAGES_ADDED);
   Realms.PATHS =
     Object.assign({}, rules.basePlugin.PATHS, Realms.PATHS_ADDED);
+  Realms.DEITIES['None'] =
+    'Domain=' + QuilvynUtils.getKeys(Realms.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join(',');
   Realms.RACES['Gold Dwarf'] =
     rules.basePlugin.RACES['Dwarf']
       .replace('Dwarf Ability', 'Gold Dwarf Ability')
@@ -195,7 +197,7 @@ function Realms(baseRules) {
 
 }
 
-Realms.VERSION = '2.2.2.9';
+Realms.VERSION = '2.3.1.0';
 
 // Realms uses PHB35 as its default base ruleset. If USE_PATHFINDER is true,
 // the Realms function will instead use rules taken from the Pathfinder plugin.
@@ -250,8 +252,7 @@ Realms.PRESTIGE_CLASSES = {
     'Skills=' +
       'Climb,Craft,"Handle Animal",Jump,"Knowledge (Religion)",Ride,Spot,Swim '+
     'Features=' +
-      '"1:Armor Proficiency (Medium)",' +
-      '"1:Shield Proficiency (Heavy)",' +
+      '"1:Armor Proficiency (Medium)","1:Shield Proficiency",' +
       '"1:Weapon Proficiency (Martial)",' +
       '"1:Champion Lay On Hands","2:Divine Champion Bonus Feats",' +
       '"2:Sacred Defense","3:Smite Infidel","5:Divine Wrath"',
@@ -369,8 +370,7 @@ Realms.PRESTIGE_CLASSES = {
     'Skills=' +
       'Climb,Diplomacy,Intimidate,Jump,Ride,Swim ' +
     'Features=' +
-      '"Armor Proficiency (Medium)",' +
-      '"Shield Proficiency (Heavy)",' +
+      '"Armor Proficiency (Medium)","Shield Proficiency",' +
       '"Weapon Proficiency (Simple)",' +
       '"1:Heroic Shield","1:Rallying Cry","2:Inspire Knight\'s Courage",' +
       '"3:Fear","4:Oath Of Wrath","5:Final Stand"',
@@ -412,14 +412,723 @@ Realms.PRESTIGE_CLASSES = {
       'Bluff,Concentration,Craft,Disguise,Hide,Knowledge,Profession,' +
       'Spellcraft ' +
     'Features=' +
-      '"1:Caster Level Bonus","1:Insidious Magic","1:Pernicious Magic",' +
-      '"1:Tenacious Magic","2:Low-Light Vision","2:Shadow Defense",' +
-      '"3:Spell Power","4:Shield Of Shadows","5:Shadow Adept Bonus Feats",' +
-      '7:Darkvision,"7:Shadow Walk","8:Greater Shield Of Shadows",' +
-      '"10:Shadow Double"'
+      '"1:Caster Level Bonus","1:Shadow Feats","2:Low-Light Vision",' +
+      '"2:Shadow Defense","3:Spell Power","4:Shield Of Shadows",' +
+      '"5:Shadow Adept Bonus Feats",7:Darkvision,"7:Shadow Walk",' +
+      '"8:Greater Shield Of Shadows","10:Shadow Double"'
 };
+Realms.FAMILIARS = Object.assign({}, SRD35.FAMILIARS);
+Realms.FEATS_ADDED = {
+  'Arcane Preparation':'Type=General Require="levels.Bard || levels.Sorcerer"',
+  'Arcane Schooling':
+    'Type=General ' +
+    'Require="region =~ \'Chessenta|Halruaa|Lantan|Mulhorand|Unther\'"',
+  'Artist':
+    'Type=General ' +
+    'Imply="Sum \'skills.Perform\' > 0 || Sum \'skills.Craft\' > 0" ' +
+    'Require="region =~ \'Chessenta|Evermeet|Waterdeep|Rock Gnome\'"',
+  'Blooded':
+    'Type=General ' +
+    'Require="region =~ \'Dalelands|Nelanther Isles|Sembia|Silverymoon|Tethyr|Vaasa\'"',
+  'Bloodline Of Fire':'Type=General Require="region == \'Calimshan\'"',
+  'Bullheaded':
+    'Type=General ' +
+    'Require="region =~ \'Damara|Dragon Coast|Great Dale|Moonshaes|Narfell|Nelanther Isles|Rashemen|Vaasa|Western Heartlands|Gold Dwarf|Gray Dwarf|Shield Dwarf\'"',
+  'Cosmopolitan':'Type=General Require="region =~ \'Amn|Waterdeep\'"',
+  'Courteous Magocracy':
+    'Type=General ' +
+    'Require="skills.Diplomacy||skills.Spellcraft",' +
+            '"region =~ \'Evermeet|Halruaa\'"',
+  'Create Portal':'Type="Item Creation" Require="features.Craft Wondrous Item"',
+  'Daylight Adaptation':
+    'Type=General Require="region =~ \'Drow|Gray Dwarf|Orc\'"',
+  'Delay Spell':
+    'Type=Metamagic Imply="casterLevel >= 1" Require="sumMetamagicFeats >= 1"',
+  'Discipline':
+    'Type=General ' +
+    'Require="region =~ \'Aglarond|Anauroch|Cormyr|Impiltur|Thay|Strongheart Halfling|Sun Elf|Rock Gnome\'"',
+  'Education':
+    'Type=General ' +
+    'Require="region =~ \'Amn|Chessenta|Cormyr|Evermeet|Lantan|Mulhorand|Sembia|Silverymoon|Waterdeep|Moon Elf|Sun Elf\'"',
+  'Ethran':
+    'Type=General ' +
+    'Require="charisma >= 11",' +
+            '"casterLevel >= 1",' +
+            '"gender == \'Female\'",' +
+            '"region == \'Rashemen\'"',
+  'Foe Hunter':
+    'Type=Fighter ' +
+    'Require="region =~ \'Chult|Cormyr|Damara|Lake Of Steam|The North|Moonsea|Tashalar|Thethyr|Vaasa|Shield Dwarf|Wood Elf\'"',
+  'Forester':
+    'Type=General ' +
+    'Require="region =~ \'Chondalwood|Dalelands|Great Dale|High Forest|Ghostwise Halfling|Moon Elf|Wild Elf|Wood Elf\'"',
+  'Horse Nomad':
+    'Type=Fighter Require="region =~ \'Hordelands|The Shaar|Vaasa\'"',
+  'Innate Spell':
+    'Type=General ' +
+    'Require="features.Quicken Spell",' +
+            '"features.Silent Spell",' +
+            '"features.Still Spell"',
+  'Inscribe Rune':
+    'Type="Item Creation" ' +
+    'Require=' +
+      '"intelligence >= 13","casterLevelDivine >= 3",' +
+      // Note Figure any Craft provides "appropriate Craft skill"
+      '"Sum \'skills.Craft\' > 0"',
+  'Insidious Magic':'Type=Metamagic Require="features.Shadow Weave Magic"',
+  'Luck Of Heroes':
+    'Type=General Require="region =~ \'Aglarond|Dalelands|Tethyr|The Vast\'"',
+  'Magical Artisan':
+    'Type=General Imply="casterLevel >= 1" Require="sumItemCreationFeats >= 1"',
+  'Magical Training':
+    'Type=General Require="intelligence >= 10","region == \'Halruaa\'"',
+  'Mercantile Background':
+    'Type=General ' +
+    'Require="skills.Appraise > 0||Sum \'skills.Craft\' > 0||Sum \'skills.Profession\' > 0",' +
+            '"region =~ \'Impiltur|Lake Of Steam|Lantan|Sembia|Tashalar|Tethyr|Thesk|The Vast|Deep Gnome|Gray Dwarf\'"',
+  'Militia':
+    'Type=General ' +
+    'Require="region =~ \'Dalelands|Impiltur|Luiren|Strongheart Halfling\'"',
+  'Mind Over Body':
+    'Type=General ' +
+    'Imply="intelligenceModifier >= constitutionModifier" ' +
+    'Require="region =~ \'Calimshan|Thay|Moon Elf|Sun Elf\'"',
+  'Pernicious Magic':'Type=Metamagic Require="features.Shadow Weave Magic"',
+  'Persistent Spell':'Type=Metamagic Require="features.Extend Spell"',
+  'Resist Poison Feat':
+    'Type=General Require="region =~ \'Gray Dwarf|Half-Orc|Orc\'"',
+  'Saddleback':
+    'Type=Fighter ' +
+    'Require="region =~ \'Cormyr|Hordelands|Narfell|The North|Western Heartlands\'"',
+  'Shadow Weave Magic':
+    'Type=General ' +
+    'Imply="casterLevel >= 1" ' +
+    'Require="wisdom >= 13 || deity == \'Shar\'"',
+  'Signature Spell':'Type=General Require="features.Spell Mastery"',
+  'Silver Palm':
+    'Type=General ' +
+    'Require="region =~ \'Amn|Dragon Coast|Great Dale|Impiltur|Moonsea|Sembia|The Shaar|Thesk|Vilhon Reach|Gold Dwarf|Gray Dwarf\'"',
+  'Smooth Talk':
+    'Type=General ' +
+    'Require="region =~ \'Luiren|Silverymoon|Thesk|Waterdeep|Gold Dwarf|Lightfoot Halfling\'"',
+  'Snake Blood':
+    'Type=General Require="region =~ \'Chult|Tashalar|Vilhon Reach\'"',
+  'Spellcasting Prodigy (Bard)':'Type=General Imply="levels.Bard >= 1"',
+  'Spellcasting Prodigy (Cleric)':'Type=General Imply="levels.Cleric >= 1"',
+  'Spellcasting Prodigy (Druid)':'Type=General Imply="levels.Druid >= 1"',
+  'Spellcasting Prodigy (Sorcerer)':'Type=General Imply="levels.Sorcerer >= 1"',
+  'Spellcasting Prodigy (Wizard)':'Type=General Imply="levels.Wizard >= 1"',
+  'Stealthy':
+    'Type=General ' +
+    'Require="region =~ \'Drow Elf|Half-Orc|Ghostwise Halfling|Lightfoot Halfling|Strongheart Halfling\'"',
+  'Street Smart':
+    'Type=General ' +
+    'Require="region =~ \'Amn|Calimshan|Chessenta|Moonsea|Unther\'"',
+  'Strong Soul':
+    'Type=General ' +
+    'Require="region =~ \'Dalelands|Moonshaes|Deep Gnome|Ghostwise Halfling|Lightfoot Halfling|Moon Elf|Rock Gnome|Strongheart Halfling|Sun Elf|Wild Elf|Wood Elf\'"',
+  'Survivor':
+    'Type=General ' +
+    'Require="region =~ \'Anauroch|Chondalwood|Chult|Damara|Hordelands|Moonshaes|Narfell|The North|The Shaar|Rashemen|Silverymoon|Vaasa|Vilhon Reach|Western Heartlands|Deep Gnome|Drow Elf|Lightfoot Halfling|Ghostwise Halfling|Shield Dwarf|Wild Elf\'"',
+  'Tattoo Focus':
+    'Type=General ' +
+    'Require="levels.Wizard >= 1",' +
+            '"features.School Specialization (None) == 0",' +
+            '"region == \'Thay\'"',
+  'Tenacious Magic':
+    'Type=Metamagic ' +
+    'Imply="casterLevel >= 1" ' +
+    'Require="features.Shadow Weave Magic"',
+  'Thug':
+    'Type=General ' +
+    'Require="region =~ \'Calimshan|Dragon Coast|Moonsea|Nelanther Isles|Unther|The Vast|Vilhon Reach|Waterdeep\'"',
+  'Thunder Twin':'Type=General Require="region =~ \'Gold Dwarf|Shield Dwarf\'"',
+  'Treetopper':
+    'Type=General ' +
+    'Require="region =~ \'Aglarond|Chondalwood|High Forest|Ghostwise Halfling|Wild Elf|Wood Elf\'"',
+  'Twin Spell':
+    'Type=Metamagic Imply="casterLevel >= 1" Require="sumMetamagicFeats >= 1"',
+  'Twin Sword Style':
+    'Type=Fighter ' +
+    'Require="features.Two-Weapon Fighting",' +
+            '"region =~ \'Sembia|Waterdeep|Drow Elf\'"',
+  'Weapon Proficiency (Hand Crossbow)':
+    'Type=General Require="baseAttack >= 1" Imply="weapons.Hand Crossbow"'
+};
+Realms.FEATS = Object.assign({}, SRD35.FEATS, Realms.FEATS_ADDED);
+Realms.FEATURES_ADDED = {
+
+  // Feat
+  'Arcane Preparation':
+    'Section=magic Note="Prepare arcane spell ahead of time"',
+  'Arcane Schooling':'Section=magic Note="Designated arcane class is favored"',
+  'Artist':'Section=skill Note="+2 Perform/+2 chosen Craft"',
+  'Blooded':'Section=combat,skill Note="+2 Initiative","+2 Spot"',
+  'Bloodline Of Fire':
+    'Section=magic,save ' +
+    'Note="+2 DC Sorcerer fire spells","+4 vs. fire effects"',
+  'Bullheaded':'Section=save,skill Note="+1 Will","+2 Intimidate"',
+  'Cosmopolitan':
+    'Section=skill Note="Chosen skill is class skill/+2 chosen skill checks"',
+  'Courteous Magocracy':'Section=skill Note="+2 Diplomacy/+2 Spellcraft"',
+  'Create Portal':'Section=magic Note="Create magical portal"',
+  'Daylight Adaptation':'Section=feature Note="No bright light penalties"',
+  'Delay Spell':'Section=magic Note="Delay effect of spell 1-5 rd"',
+  'Discipline':'Section=save,skill Note="+1 Will","+2 Concentration"',
+  'Education':
+    'Section=skill ' +
+    'Note="All Knowledge is a class skill/+1 choice of 2 Knowledge skills"',
+  // 3.0 Animal Empathy, Intuit Direction => 3.5 Handle Animal, Survival
+  'Ethran':
+    'Section=skill ' +
+    'Note="+2 Handle Animal/+2 Survival/+2 Cha skills with Rashemi"',
+  'Foe Hunter':
+    'Section=combat Note="+1 damage, double critical range w/regional foe"',
+  'Forester':'Section=skill Note="+2 Heal/+2 Survival"',
+  // Identical to SRD35, but +3 DC instead of +1
+  'Greater Spell Focus (%school)':'Section=magic Note="+3 Spell DC (%school)"',
+  'Horse Nomad':
+    'Section=combat,skill ' +
+    'Note="Weapon Proficiency (Composite Shortbow)",' +
+         '"+2 Ride"',
+  'Innate Spell':
+    'Section=magic ' +
+    'Note="Designated spells as spell-like ability 1/rd uses +8 spell slot"',
+  'Inscribe Rune':'Section=magic Note="Cast divine spell via rune"',
+  'Insidious Magic':
+    'Section=magic ' +
+    'Note="DC 9+foe level check to detect Weave magic, foe DC %V check to detect Shadow Weave spell"',
+  'Luck Of Heroes':'Section=save Note="+1 Fortitude/+1 Reflex/+1 Will"',
+  'Magical Artisan':
+    'Section=magic Note="Reduce item creation base price by 25%"',
+  'Magical Training':
+    'Section=magic ' +
+    'Note="<i>Dancing Lights</i>, <i>Daze</i>, <i>Mage Hand</i> 1/dy"',
+  'Mercantile Background':
+    'Section=skill Note="+2 Appraise/+2 choice of Craft or Profession"',
+  'Militia':
+    'Section=combat ' +
+    'Note="Weapon Proficiency (Longbow)/Weapon Proficiency (Longspear)"',
+  'Militia Luiren':
+    'Section=combat ' +
+    'Note="Weapon Proficiency (Shortbow)/Weapon Proficiency (Short Sword)"',
+  'Mind Over Body':
+    'Section=combat ' +
+    'Note="Intelligence modifier adds %1 HP, +%2 HP from Metamagic feats"',
+  'Pernicious Magic':
+    'Section=magic ' +
+    'Note="Weave foes DC %V check to counterspell, DC 9+foe level to counterspell Weave foes"',
+  'Persistent Spell':'Section=magic Note="Fixed-range spell lasts 24 hr"',
+  'Resist Poison Feat':'Section=save Note="+4 vs. poison"',
+  'Saddleback':'Section=skill Note="+3 Ride"',
+  'Shadow Weave Magic':
+    'Section=ability,magic ' +
+    'Note="-2 Wisdom",' +
+         '"+1 DC and resistance checks on enchantment, illusion, necromancy, and darkness descriptor spells, -1 caster level on evocation and transmutation, no light descriptor spells"',
+  'Signature Spell':
+    'Section=magic Note="Convert arcane spells into specified mastered spell"',
+  'Silver Palm':'Section=skill Note="+2 Appraise/+2 Bluff"',
+  'Smooth Talk':'Section=skill Note="+2 Diplomacy/+2 Sense Motive"',
+  'Snake Blood':'Section=save Note="+1 Reflex/+2 vs. poison"',
+  'Spellcasting Prodigy (Bard)':
+    'Section=magic Note="+1 spell DC/+2 charisma for bonus spells"',
+  'Spellcasting Prodigy (Cleric)':
+    'Section=magic Note="+1 spell DC/+2 wisdom for bonus spells"',
+  'Spellcasting Prodigy (Druid)':
+    'Section=magic Note="+1 spell DC/+2 wisdom for bonus spells"',
+  'Spellcasting Prodigy (Sorcerer)':
+    'Section=magic Note="+1 spell DC/+2 charisma for bonus spells"',
+  'Spellcasting Prodigy (Wizard)':
+    'Section=magic Note="+1 spell DC/+2 intelligence for bonus spells"',
+  'Stealthy':'Section=skill Note="+2 Hide/+2 Move Silently"',
+  'Street Smart':'Section=skill Note="+2 Bluff/+2 Gather Information"',
+  'Strong Soul':
+    'Section=save Note="+1 Fortitude/+1 Will/+1 vs. draining and death"',
+  'Survivor':'Section=save,skill Note="+1 Fortitude","+2 Survival"',
+  'Tattoo Focus':
+    'Section=magic ' +
+    'Note="+1 DC and caster level vs. resistance w/specialization school spells"',
+  'Tenacious Magic':
+    'Section=magic ' +
+    'Note="Weave foes DC %V to dispel, DC 13+foe level to dispel Weave foes"',
+  'Thug':'Section=combat,skill Note="+2 Initiative","+2 Intimidate"',
+  'Thunder Twin':
+    'Section=ability,skill ' +
+    'Note="+2 charisma checks",' +
+         '"DC 15 Wisdom check to determine direction of twin"',
+  'Treetopper':'Section=skill Note="+2 Climb"',
+  'Twin Spell':'Section=magic Note="Affect as two spells uses +4 spell slot"',
+  'Twin Sword Style':
+    'Section=combat Note="+2 AC vs. chosen foe when using two swords"',
+
+  // Path
+  'Advanced Illusionist':
+    'Section=magic Note="+1 caster level on Illusion spells"',
+  'Cavern Stonecunning':
+    'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
+  'Compelling Magic':'Section=magic Note="+2 DC compulsion spells"',
+  'Creator':
+    'Section=magic,feature ' +
+    'Note="+1 caster level creation spells",' +
+         '"+1 General Feat (Skill Focus(chosen Craft))"',
+  'Detect Portal':
+    'Section=skill Note="DC 20 Search to detect in/active portals"',
+  'Familial Protection':
+    'Section=magic Note="R10\' %V targets +4 AC for %1 rd 1/dy"',
+  'Hammer Specialist':
+    'Section=feature ' +
+    'Note="+2 General Feat (Weapon Proficiency and Focus w/chosen hammer)"',
+  'Hated Foe':
+    'Section=combat,save ' +
+    'Note="+2 attack, AC vs. one foe for 1 min 1/dy",' +
+         '"+2 saves vs. one foe for 1 min 1/dy"',
+  'Inspire Allies':
+    'Section=magic ' +
+    'Note="+2 allies\' attack, damage, save, skill, and ability rolls for %V rd 1/dy"',
+  'Mental Ward':
+    'Section=magic ' +
+    'Note="Touch to allow target +%V on next Will save for 1 hr 1/dy"',
+  'Pain Touch':
+    'Section=combat ' +
+    'Note="Touch attack causes -2 Strength and Dexterity for 1 min 1/dy"',
+  'Renew Self':
+    'Section=combat Note="Recover 1d8+%V HP points when negative 1/dy"',
+  'Skilled Caster':'Section=skill Note="+2 Concentration/+2 Spellcraft"',
+  'Smite Power':
+    'Section=combat Note="+%V damage (and +4 attack on dwarf or elf) 1/dy"',
+  'Sneaky':'Section=skill Note="+2 Bluff/+2 Hide"',
+  'Sprightly':
+    'Section=skill Note="+%V Climb, Hide, Jump, Move Silently for 10 min 1/dy"',
+  'Stormfriend':'Section=save Note="Resistance 5 to electricity"',
+  'Strike Of Vengeance':
+    'Section=combat Note="Strike for max damage after foe hit 1/dy"',
+  'Trade Secrets':
+    'Section=magic ' +
+    'Note="<i>Detect Thoughts</i> on 1 target for %V min 1/dy (Will neg)"',
+  'Turn On The Charm':'Section=ability Note="+4 charisma for 1 min 1/dy"',
+  'Turn Lycanthropes':'Section=combat Note="Turn lycanthropes as undead"',
+  'Turn Oozes':'Section=combat Note="Turn oozes as undead"',
+  'Turn Reptiles':'Section=combat Note="Turn reptiles as undead"',
+  'Turn Spiders':'Section=combat Note="Turn spiders as undead"',
+  'Water Breathing':'Section=magic Note="Breathe water %V rd/dy"',
+
+  // Race
+  'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
+  'Aasimar Alertness':'Section=skill Note="+2 Listen/+2 Spot"',
+  'Aasimar Resistance':
+    'Section=save Note="Resistance 5 to acid, cold, and electricity"',
+  'Amphibious':'Section=feature Note="Breathe water at will"',
+  'Air Genasi Ability Adjustment':
+    'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Wisdom/-2 Charisma"',
+  'Breathless':
+    'Section=save Note="Immune drowning, suffocation, inhalation effects"',
+  'Control Flame':
+    'Section=magic Note="R10\' Shrink or expand natural fire for 5 min 1/dy"',
+  'Deep Gnome Ability Adjustment':
+    'Section=ability Note="-2 Strength/+2 Dexterity/+2 Wisdom/-4 Charisma"',
+  'Drow Elf Ability Adjustment':
+    'Section=ability ' +
+    'Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
+  'Drow Elf Spell Resistance':'Section=save Note="Spell resistance %V"',
+  'Duergar Alertness':'Section=skill Note="+1 Listen/+1 Spot"',
+  'Earth Genasi Ability Adjustment':
+    'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
+  'Elemental Affinity':'Section=save Note="+%V vs. %1 spells"',
+  'Exceptional Dodge':'Section=combat Note="+4 AC"',
+  'Extended Darkvision':'Section=feature Note="120\' b/w vision in darkness"',
+  'Extra Luck':'Section=save Note="+2 Fortitude/+2 Reflex/+2 Will"',
+  'Fire Genasi Ability Adjustment':
+    'Section=ability Note="+2 Intelligence/-2 Charisma"',
+  'Gold Dwarf Ability Adjustment':
+    'Section=ability Note="+2 Constitution/-2 Dexterity"',
+  'Gold Dwarf Enmity':'Section=combat Note="+1 attack vs. aberrations"',
+  'Gray Dwarf Ability Adjustment':
+    'Section=ability Note="+2 Constitution/-4 Charisma"',
+  'Gray Dwarf Immunities':
+    'Section=save ' +
+    'Note="Immune to paralysis, phantasms, and magic and alchemical poisons"',
+  'Light Blindness':'Section=feature Note="Blind 1 rd from sudden daylight"',
+  'Light Sensitivity':
+    'Section=combat,save,skill ' +
+    'Note="-%V attack in bright light",' +
+         '"-%V saves in bright light",' +
+         '"-%V checks in bright light"',
+  'Native Outsider':
+    'Section=save Note="Affected by outsider target spells, not humanoid"',
+  'Natural Swimmer':'Section=ability Note="Swim 30\'"',
+  'Race Level Adjustment':'Section=ability Note="-%V Level"',
+  'Sly':'Section=skill Note="+2 Hide"',
+  'Shadowed':
+    'Section=skill Note="+2 Hide/+4 Hide in darkened underground areas"',
+  'Speak Without Sound':'Section=feature Note="R20\' Telepathic communication"',
+  'Stealthy Movement':'Section=skill Note="+4 Move Silently"',
+  'Strong Will':'Section=save Note="+2 Will vs. spells"',
+  'Strongheart Extra Feat':'Section=feature Note="+1 General Feat"',
+  'Sun Elf Ability Adjustment':
+    'Section=ability Note="+2 Intelligence/-2 Constitution"',
+  'Svirfneblin Spell Resistance':'Section=save Note="Spell resistance %V"',
+  'Tiefling Ability Adjustment':
+    'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Charisma"',
+  'Tiefling Resistance':
+    'Section=save Note="Resistance 5 to cold, electricity, and fire"',
+  'Undetectable':'Section=magic Note="Continuous <i>Nondetection</i>"',
+  'Water Genasi Ability Adjustment':
+    'Section=ability Note="+2 Constitution/-2 Charisma"',
+  'Wild Elf Ability Adjustment':
+    'Section=ability Note="+2 Dexterity/-2 Intelligence"',
+  'Wood Elf Ability Adjustment':
+    'Section=ability ' +
+    'Note="+2 Strength/+2 Dexterity/-2 Constitution/-2 Intelligence/-2 Charisma"',
+
+  // Prestige classes
+  'Alignment Focus':
+    'Section=magic ' +
+    'Note="+1 caster level on spells from chosen alignment component"',
+  'Arcane Devotee Bonus Feats':'Section=feature Note="%V Arcane Devotee feats"',
+  'Arcane Fire':
+    'Section=magic ' +
+    'Note="R%1\' Convert arcane spell into a ranged touch %Vd6 + 1d6 x spell level bolt of fire"',
+  'Arcane Reach':'Section=magic Note="R30\' Ranged touch with touch spell"',
+  'Blast Infidel':
+    'Section=magic ' +
+    'Note="Negative energy spells vs. foe w/different deity have max effect"',
+  'Caster Level Bonus':
+    'Section=magic Note="+%V base class level for spells known and spells/dy"',
+  'Champion Lay On Hands':'Section=magic Note="Heal followers of %1 %V HP/dy"',
+  'Circle Leader':
+    'Section=magic ' +
+    'Note="1 hr ritual w/2-5 other members raises caster level, gives metamagic feats"',
+  'Cohort':'Section=feature Note="Gain Ethran or Barbarian follower"',
+  'Craft Harper Item':
+    'Section=magic Note="Create magic instruments, Harper pins, and potions"',
+  "Deneir's Eye":'Section=save Note="+2 vs. glyphs, runes, and symbols"',
+  'Divine Champion Bonus Feats':'Section=feature Note="%V Fighter feats"',
+  'Devotee Enlarge Spell':'Section=magic Note="x2 chosen spell range %V/dy"',
+  'Divine Emissary':
+    'Section=feature Note="R60\' Telepathy w/same-alignment outsider"',
+  'Divine Perseverance':
+    'Section=combat Note="Regain 1d8+5 HP from negative 1/dy"',
+  'Divine Reach':'Section=magic Note="R30\' Ranged touch with touch spell"',
+  'Divine Shroud':
+    'Section=save Note="Aura provides spell resistance %V for %1 rd 1/dy"',
+  'Divine Wrath':
+    'Section=combat,save ' +
+    'Note="+3 attack and damage and DR 5/- for %V rd 1/dy",' +
+         '"+3 saves %V rd 1/dy",',
+  // 3.0 Innuendo => 3.5 Bluff
+  'Doublespeak':'Section=skill Note="+2 Bluff/+2 Diplomacy"',
+  'Enhanced Specialization':'Section=magic Note="Additional opposition school"',
+  'Faith Healing':
+    'Section=magic Note="Healing spells on followers of %1 have max effect"',
+  'Fear':
+    'Section=magic ' +
+    'Note="R30\' cone causes creatures to flee for %2 rd %V/dy (DC %1 Will shaken for 1 rd)"',
+  'Final Stand':
+    'Section=combat ' +
+    'Note="R10\' %V allies gain 2d10 temporary HP for %V rd 1/dy"',
+  'Gift Of The Divine':
+    'Section=feature ' +
+    'Note="Transfer some daily uses of turn or rebuke undead to another for 1-10 dy"',
+  'Great Circle Leader':
+    'Section=magic Note="Lead magic circle w/9 other members"',
+  'Greater Command':
+    'Section=magic ' +
+    'Note="R%1\' %V targets in 15\' radius obey self commands to approach, drop, fall, flee, or halt for %V rd 1/dy (DC %2 Will neg)"',
+  'Greater Shield Of Shadows':
+    'Section=save Note="Shield Of Shadows gives spell resistance %V"',
+  'Guild Thief Bonus Feats':'Section=feature Note="%V Guild Thief feats"',
+  'Harper Perform Focus':
+    'Section=feature ' +
+    'Note="+1 General Feat (Skill Focus in chosen Perform)"',
+  'Harper Skill Focus':
+    'Section=feature ' +
+    'Note="+1 General Feat (Skill Focus in Harper class skill)"',
+  'Heroic Shield':'Section=combat Note="Aid Another action gives +4 AC bonus"',
+  'Hierophant Special Abilities':'Section=feature Note="%V selections"',
+  'High Arcana':'Section=feature Note="%V selections"',
+  'Imbue With Spell Ability':
+    'Section=magic ' +
+    'Note="<i>Imbue With Spell Ability</i> 1st and 2nd level spells at will"',
+  'Improved Arcane Reach':'Section=magic Note="R60\' Arcane Reach"',
+  'Improved Divine Reach':'Section=magic Note="R60\' Divine Reach"',
+  'Improved Runecasting':
+    'Section=magic Note="Add charges and triggers to runes"',
+  "Inspire Knight's Courage":
+    'Section=magic ' +
+    'Note="Allies +1 attack and damage, +2 charm and fear saves during speech +5 rd %V/dy"',
+  "Lliira's Heart":'Section=save Note="+2 vs. compulsion and fear"',
+  'Locate Creature':
+    'Section=magic ' +
+    'Note="Self senses direction of creature or kind in %1\' radius for %V min 1/dy"',
+  'Locate Object':
+    'Section=magic ' +
+    'Note="Self senses direction of object or type in %1\' radius for %V min 1/dy"',
+  'Mastery Of Counterspelling':
+    'Section=magic Note="Counterspell turns effect back on caster"',
+  'Mastery Of Elements':'Section=magic Note="Change energy type of spell"',
+  'Mastery Of Energy':
+    'Section=combat Note="+4 undead turning checks and damage"',
+  'Mastery Of Shaping':'Section=magic Note="Create holes in spell effect area"',
+  'Maximize Rune':
+    'Section=magic Note="+5 DC Craft (rune) gives maximized effects"',
+  'New Domain':'Section=feature Note="Choose additional deity domain"',
+  'Oath Of Wrath':
+    'Section=combat,save,skill ' +
+    'Note="R60\' +2 attack and damage vs. chosen opponent until encounter ends 1/dy",' +
+         '"R60\' +2 save vs. chosen opponent until encounter ends 1/dy",' +
+         '"R60\' +2 checks vs. chosen opponent until encounter ends 1/dy"',
+  'Obscure Object':
+    'Section=magic ' +
+    'Note="Touched gains immunity to divination for 8 hr 1/dy (DC %V Will neg)"',
+  'Place Magic':
+    'Section=magic Note="Cast spell w/out preparation when in Rashemen"',
+  'Power Of Nature':
+    'Section=feature Note="Transfer druid feature to another for 1-10 days"',
+  'Rallying Cry':
+    'Section=combat ' +
+    'Note="R60\' Allies +1 next attack, +5\' Speed for 1 tn 3/dy"',
+  'Red Wizard Bonus Feats':'Section=feature Note="%V Wizard feats"',
+  'Reputation':'Section=feature Note="+%V Leadership"',
+  'Rune Chant':'Section=magic Note="Trace rune for +3 DC divine spell"',
+  'Rune Craft':'Section=skill Note="+%V Craft (rune)"',
+  'Rune Power':'Section=magic Note="+%V DC of runes"',
+  'Sacred Defense':'Section=save Note="+%V vs. divine spells and outsiders"',
+  'Sanctuary':
+    'Section=magic ' +
+    'Note="Foes cannot attack self for %V rd or until self attacks 1/dy (DC %1 Will neg)"',
+  'Scribe Tattoo':'Section=magic Note="Induct novices into circle"',
+  'Shadow Adept Bonus Feats':'Section=feature Note="%V Metamagic feats"',
+  'Shadow Defense':
+    'Section=save ' +
+    'Note="+%V vs. Enchantment, Illusion, Necromancy, and Darkness spells"',
+  'Shadow Double':'Section=magic Note="Create clone lasting %V rd 1/dy"',
+  'Shadow Feats':
+    'Section=feature ' +
+    'Note="Insidious Magic, Pernicious Magic, and Tenacious Magic"',
+  'Shadow Walk':
+    'Section=magic Note="Travel quickly via Plane of Shadow for %V hr"',
+  'Shield Of Shadows':
+    'Section=magic Note="<i>Shield</i> w/75% concealment %V rd/dy"',
+  'Smite Infidel':
+    'Section=combat ' +
+    'Note="+%V attack, +%1 damage vs. foe w/different deity 1/dy"',
+  'Specialist Defense':
+    'Section=save Note="+%V bonus on saves vs. specialist school spells"',
+  'Spell Power':'Section=magic Note="+%V spell DC and resistance checks"',
+  'Spell-Like Ability':
+    'Section=magic Note="Allows using spell as ability 2+/dy"',
+  'Thwart Glyph':
+    'Section=skill Note="+4 Disable Device (glyphs, runes, and symbols)/+4 Search (glyphs, runes, and symbols)"',
+  'Transcendence':
+    'Section=magic,skill ' +
+    'Note="Chosen <i>Protection</i> spell at will",' +
+         '"+2 charisma checks w/followers of %V"',
+  "Tymora's Smile":
+    'Section=save Note="+2 luck bonus to any save 1/dy"'
+
+};
+Realms.FEATURES = Object.assign({}, SRD35.FEATURES, Realms.FEATURES_ADDED);
+Realms.GOODIES = Object.assign({}, SRD35.GOODIES);
+Realms.LANGUAGES_ADDED = {
+  'Aglarondan':'',
+  'Alzhedo':'',
+  'Chessentan':'',
+  'Chondathan':'',
+  'Chultan':'',
+  'Damaran':'',
+  'Durpari':'',
+  'Halruaan':'',
+  'Illuskan':'',
+  'Lantanese':'',
+  'Midani':'',
+  'Mulhorandi':'',
+  'Nexalan':'',
+  'Rashemi':'',
+  'Serusan':'',
+  'Shaaran':'',
+  'Shou':'',
+  'Tashalan':'',
+  'Tuigan':'',
+  'Turmic':'',
+  'Uluik':'',
+  'Undercommon':'',
+  'Untheric':''
+};
+Realms.PATHS_ADDED = {
+  'Cavern Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Cavern Stonecunning"',
+  'Charm Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Turn On The Charm"',
+  'Craft Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Creator"',
+  'Darkness Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Blind-Fight"',
+  'Drow Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Lightning Reflexes"',
+  'Dwarf Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Great Fortitude"',
+  'Elf Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Point-Blank Shot"',
+  'Family Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Familial Protection"',
+  'Fate Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Uncanny Dodge"',
+  'Gnome Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Advanced Illusionist"',
+  'Halfling Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Sprightly"',
+  'Hatred Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Hated Foe"',
+  'Illusion Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Advanced Illusionist"',
+  'Mentalism Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Mental Ward"',
+  'Metal Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Hammer Specialist"',
+  'Moon Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Turn Lycanthropes"',
+  'Nobility Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Inspire Allies"',
+  'Ocean Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Water Breathing"',
+  'Orc Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Smite Power"',
+  'Planning Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Extend Spell"',
+  'Portal Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Detect Portal"',
+  'Renewal Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Renew Self"',
+  'Retribution Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Strike Of Vengeance"',
+  'Rune Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Scribe Scroll"',
+  'Scalykind Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Turn Reptiles"',
+  'Slime Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Turn Oozes"',
+  'Spell Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Skilled Caster"',
+  'Spider Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Turn Spiders"',
+  'Storm Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Stormfriend"',
+  'Suffering Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Pain Touch"',
+  'Time Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Improved Initiative"',
+  'Trade Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Trade Secrets"',
+  'Tyranny Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Compelling Magic"',
+  'Undeath Domain':
+    'Group=Cleric ' +
+    'Level=levels.Cleric ' +
+    'Features=' +
+      '"1:Extra Turning"'
+};
+Realms.PATHS = Object.assign({}, SRD35.PATHS, Realms.PATHS_ADDED);
 Realms.DEITIES = {
-  'None':'',
+  'None':'Domain=' + QuilvynUtils.getKeys(Realms.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join(','),
   // Faerun
   'Akadi':
     'Alignment=N Weapon="Heavy Flail" Domain=Air,Illusion,Travel,Trickery',
@@ -724,704 +1433,6 @@ Realms.DEITIES = {
     'Alignment=NE Weapon=Unarmed Domain=Death,Destruction,Evil,Orc,Suffering'
 
 };
-Realms.FAMILIARS = Object.assign({}, SRD35.FAMILIARS);
-Realms.FEATS_ADDED = {
-  'Arcane Preparation':'Type=General Require="levels.Bard || levels.Sorcerer"',
-  'Arcane Schooling':
-    'Type=General ' +
-    'Require="region =~ \'Chessenta|Halruaa|Lantan|Mulhorand|Unther\'"',
-  'Artist':
-    'Type=General ' +
-    'Imply="Sum \'skills.Perform\' > 0 || Sum \'skills.Craft\' > 0" ' +
-    'Require="region =~ \'Chessenta|Evermeet|Waterdeep|Rock Gnome\'"',
-  'Blooded':
-    'Type=General ' +
-    'Require="region =~ \'Dalelands|Nelanther Isles|Sembia|Silverymoon|Tethyr|Vaasa\'"',
-  'Bloodline Of Fire':'Type=General Require="region == \'Calimshan\'"',
-  'Bullheaded':
-    'Type=General ' +
-    'Require="region =~ \'Damara|Dragon Coast|Great Dale|Moonshaes|Narfell|Nelanther Isles|Rashemen|Vaasa|Western Heartlands|Gold Dwarf|Gray Dwarf|Shield Dwarf\'"',
-  'Cosmopolitan':'Type=General Require="region =~ \'Amn|Waterdeep\'"',
-  'Courteous Magocracy':
-    'Type=General ' +
-    'Require="skills.Diplomacy||skills.Spellcraft",' +
-            '"region =~ \'Evermeet|Halruaa\'"',
-  'Create Portal':'Type="Item Creation" Require="features.Craft Wondrous Item"',
-  'Daylight Adaptation':
-    'Type=General Require="region =~ \'Drow|Gray Dwarf|Orc\'"',
-  'Delay Spell':
-    'Type=Metamagic Imply="casterLevel >= 1" Require="sumMetamagicFeats >= 1"',
-  'Discipline':
-    'Type=General ' +
-    'Require="region =~ \'Aglarond|Anauroch|Cormyr|Impiltur|Thay|Strongheart Halfling|Sun Elf|Rock Gnome\'"',
-  'Education':
-    'Type=General ' +
-    'Require="region =~ \'Amn|Chessenta|Cormyr|Evermeet|Lantan|Mulhorand|Sembia|Silverymoon|Waterdeep|Moon Elf|Sun Elf\'"',
-  'Ethran':
-    'Type=General ' +
-    'Require="charisma >= 11",' +
-            '"casterLevel >= 1",' +
-            '"gender == \'Female\'",' +
-            '"region == \'Rashemen\'"',
-  'Foe Hunter':
-    'Type=Fighter ' +
-    'Require="region =~ \'Chult|Cormyr|Damara|Lake Of Steam|The North|Moonsea|Tashalar|Thethyr|Vaasa|Shield Dwarf|Wood Elf\'"',
-  'Forester':
-    'Type=General ' +
-    'Require="region =~ \'Chondalwood|Dalelands|Great Dale|High Forest|Ghostwise Halfling|Moon Elf|Wild Elf|Wood Elf\'"',
-  'Greater Poison Resistance':
-    'Type=General Require="region =~ \'Gray Dwarf|Half-Orc|Orc\'"',
-  'Horse Nomad':
-    'Type=Fighter Require="region =~ \'Hordelands|The Shaar|Vaasa\'"',
-  'Innate Spell':
-    'Type=General ' +
-    'Require="features.Quicken Spell",' +
-            '"features.Silent Spell",' +
-            '"features.Still Spell"',
-  'Inscribe Rune':
-    'Type="Item Creation" ' +
-    'Require=' +
-      '"intelligence >= 13","casterLevelDivine >= 3",' +
-      // Note Figure any Craft provides "appropriate Craft skill"
-      '"Sum \'skills.Craft\' > 0"',
-  'Insidious Magic':'Type=Metamagic Require="features.Shadow Weave Magic"',
-  'Luck Of Heroes':
-    'Type=General Require="region =~ \'Aglarond|Dalelands|Tethyr|The Vast\'"',
-  'Magical Artisan':
-    'Type=General Imply="casterLevel >= 1" Require="sumItemCreationFeats >= 1"',
-  'Magical Training':
-    'Type=General Require="intelligence >= 10","region == \'Halruaa\'"',
-  'Mercantile Background':
-    'Type=General ' +
-    'Require="skills.Appraise > 0||Sum \'skills.Craft\' > 0||Sum \'skills.Profession\' > 0",' +
-            '"region =~ \'Impiltur|Lake Of Steam|Lantan|Sembia|Tashalar|Tethyr|Thesk|The Vast|Deep Gnome|Gray Dwarf\'"',
-  'Militia':
-    'Type=General ' +
-    'Require="region =~ \'Dalelands|Impiltur|Luiren|Strongheart Halfling\'"',
-  'Mind Over Body':
-    'Type=General ' +
-    'Imply="intelligenceModifier >= constitutionModifier" ' +
-    'Require="region =~ \'Calimshan|Thay|Moon Elf|Sun Elf\'"',
-  'Pernicious Magic':'Type=Metamagic Require="features.Shadow Weave Magic"',
-  'Persistent Spell':'Type=Metamagic Require="features.Extend Spell"',
-  'Saddleback':
-    'Type=Fighter ' +
-    'Require="region =~ \'Cormyr|Hordelands|Narfell|The North|Western Heartlands\'"',
-  'Shadow Weave Magic':
-    'Type=General ' +
-    'Imply="casterLevel >= 1" ' +
-    'Require="wisdom >= 13 || deity == \'Shar\'"',
-  'Signature Spell':'Type=General Require="features.Spell Mastery"',
-  'Silver Palm':
-    'Type=General ' +
-    'Require="region =~ \'Amn|Dragon Coast|Great Dale|Impiltur|Moonsea|Sembia|The Shaar|Thesk|Vilhon Reach|Gold Dwarf|Gray Dwarf\'"',
-  'Smooth Talk':
-    'Type=General ' +
-    'Require="region =~ \'Luiren|Silverymoon|Thesk|Waterdeep|Gold Dwarf|Lightfoot Halfling\'"',
-  'Snake Blood':
-    'Type=General Require="region =~ \'Chult|Tashalar|Vilhon Reach\'"',
-  'Spellcasting Prodigy (Bard)':'Type=General Imply="levels.Bard >= 1"',
-  'Spellcasting Prodigy (Cleric)':'Type=General Imply="levels.Cleric >= 1"',
-  'Spellcasting Prodigy (Druid)':'Type=General Imply="levels.Druid >= 1"',
-  'Spellcasting Prodigy (Sorcerer)':'Type=General Imply="levels.Sorcerer >= 1"',
-  'Spellcasting Prodigy (Wizard)':'Type=General Imply="levels.Wizard >= 1"',
-  'Stealthy':
-    'Type=General ' +
-    'Require="region =~ \'Drow Elf|Half-Orc|Ghostwise Halfling|Lightfoot Halfling|Strongheart Halfling\'"',
-  'Street Smart':
-    'Type=General ' +
-    'Require="region =~ \'Amn|Calimshan|Chessenta|Moonsea|Unther\'"',
-  'Strong Soul':
-    'Type=General ' +
-    'Require="region =~ \'Dalelands|Moonshaes|Deep Gnome|Ghostwise Halfling|Lightfoot Halfling|Moon Elf|Rock Gnome|Strongheart Halfling|Sun Elf|Wild Elf|Wood Elf\'"',
-  'Survivor':
-    'Type=General ' +
-    'Require="region =~ \'Anauroch|Chondalwood|Chult|Damara|Hordelands|Moonshaes|Narfell|The North|The Shaar|Rashemen|Silverymoon|Vaasa|Vilhon Reach|Western Heartlands|Deep Gnome|Drow Elf|Lightfoot Halfling|Ghostwise Halfling|Shield Dwarf|Wild Elf\'"',
-  'Tattoo Focus':
-    'Type=General ' +
-    'Require="levels.Wizard >= 1",' +
-            '"features.School Specialization (None) == 0",' +
-            '"region == \'Thay\'"',
-  'Tenacious Magic':
-    'Type=Metamagic ' +
-    'Imply="casterLevel >= 1" ' +
-    'Require="features.Shadow Weave Magic"',
-  'Thug':
-    'Type=General ' +
-    'Require="region =~ \'Calimshan|Dragon Coast|Moonsea|Nelanther Isles|Unther|The Vast|Vilhon Reach|Waterdeep\'"',
-  'Thunder Twin':'Type=General Require="region =~ \'Gold Dwarf|Shield Dwarf\'"',
-  'Treetopper':
-    'Type=General ' +
-    'Require="region =~ \'Aglarond|Chondalwood|High Forest|Ghostwise Halfling|Wild Elf|Wood Elf\'"',
-  'Twin Spell':
-    'Type=Metamagic Imply="casterLevel >= 1" Require="sumMetamagicFeats >= 1"',
-  'Twin Sword Style':
-    'Type=Fighter ' +
-    'Require="features.Two-Weapon Fighting",' +
-            '"region =~ \'Sembia|Waterdeep|Drow Elf\'"',
-  'Weapon Proficiency (Hand Crossbow)':
-    'Type=General Require="baseAttack >= 1" Imply="weapons.Hand Crossbow"'
-};
-Realms.FEATS = Object.assign({}, SRD35.FEATS, Realms.FEATS_ADDED);
-Realms.FEATURES_ADDED = {
-
-  // Feat
-  'Arcane Preparation':
-    'Section=magic Note="Prepare arcane spell ahead of time"',
-  'Arcane Schooling':'Section=magic Note="Designated arcane class is favored"',
-  'Artist':'Section=skill Note="+2 Perform/+2 chosen Craft"',
-  'Blooded':'Section=combat,skill Note="+2 Initiative","+2 Spot"',
-  'Bloodline Of Fire':
-    'Section=magic,save Note="+2 DC Sorcerer fire spells","+4 vs. fire spells"',
-  'Bullheaded':'Section=save,skill Note="+1 Will","+2 Intimidate"',
-  'Cosmopolitan':
-    'Section=skill Note="Chosen skill is class skill/+2 chosen skill checks"',
-  'Courteous Magocracy':'Section=skill Note="+2 Diplomacy/+2 Spellcraft"',
-  'Create Portal':'Section=magic Note="Create magical portal"',
-  'Daylight Adaptation':'Section=feature Note="No bright light penalties"',
-  'Delay Spell':'Section=magic Note="Delay effect of spell 1-5 rd"',
-  'Discipline':'Section=save,skill Note="+1 Will","+2 Concentration"',
-  'Education':
-    'Section=skill ' +
-    'Note="All Knowledge is a class skill/+1 any 2 Knowledge skills"',
-  // 3.0 Animal Empathy, Intuit Direction => 3.5 Handle Animal, Survival
-  'Ethran':
-    'Section=ability,skill ' +
-    'Note="+2 charisma w/Rashemi",' +
-         '"+2 Handle Animal/+2 Survival"',
-  'Foe Hunter':
-    'Section=combat Note="+1 damage, double critical range w/regional foe"',
-  'Forester':'Section=skill Note="+2 Heal/+2 Survival"',
-  'Greater Poison Resistance':'Section=save Note="+4 vs. poison"',
-  // Identical to SRD35, but +3 DC instead of +1
-  'Greater Spell Focus (%school)':'Section=magic Note="+3 Spell DC (%school)"',
-  'Horse Nomad':
-    'Section=combat,skill ' +
-    'Note="Weapon Proficiency (Composite Shortbow)",' +
-         '"+2 Ride"',
-  'Innate Spell':
-    'Section=magic ' +
-    'Note="Designated spells as spell-like ability 1/rd uses +8 spell slot"',
-  'Inscribe Rune':'Section=magic Note="Cast divine spell via rune"',
-  'Insidious Magic':
-    'Section=magic ' +
-    'Note="DC 9+foe level check to detect Weave magic, Foe DC %V check to detect Shadow Weave spell"',
-  'Luck Of Heroes':'Section=save Note="+1 Fortitude/+1 Reflex/+1 Will"',
-  'Magical Artisan':
-    'Section=magic Note="Reduce item creation base price by 25%"',
-  'Magical Training':
-    'Section=magic ' +
-    'Note="<i>Dancing Lights</i>, <i>Daze</i>, <i>Mage Hand</i> 1/dy"',
-  'Mercantile Background':
-    'Section=skill Note="+2 Appraise/chosen Craft/chosen Profession"',
-  'Militia':
-    'Section=combat ' +
-    'Note="Weapon Proficiency (Longbow)/Weapon Proficiency (Longspear)"',
-  'Militia Luiren':
-    'Section=combat ' +
-    'Note="Weapon Proficiency (Shortbow)/Weapon Proficiency (Short Sword)"',
-  'Mind Over Body':
-    'Section=combat ' +
-    'Note="Intelligence modifier adds %1 HP, +%2 HP from Metamagic feats"',
-  'Pernicious Magic':
-    'Section=magic ' +
-    'Note="Weave foes DC %V check to counterspell, DC 9+foe level to counterspell Weave foes"',
-  'Persistent Spell':'Section=magic Note="Fixed-range spell lasts 24 hr"',
-  'Saddleback':'Section=skill Note="+3 Ride"',
-  'Shadow Weave Magic':
-    'Section=ability,magic ' +
-    'Note="-2 Wisdom",' +
-         '"+1 DC and resistance checks on enchantment, illusion, necromancy, and darkness descriptor spells, -1 caster level on evocation and transmutation, no light descriptor spells"',
-  'Signature Spell':
-    'Section=magic Note="Convert arcane spells into specified mastered spell"',
-  'Silver Palm':'Section=skill Note="+2 Appraise/+2 Bluff"',
-  'Smooth Talk':'Section=skill Note="+2 Diplomacy/+2 Sense Motive"',
-  'Snake Blood':'Section=save Note="+1 Reflex/+2 vs. poison"',
-  'Spellcasting Prodigy (Bard)':
-    'Section=magic Note="+1 spell DC/+2 charisma for bonus spells"',
-  'Spellcasting Prodigy (Cleric)':
-    'Section=magic Note="+1 spell DC/+2 wisdom for bonus spells"',
-  'Spellcasting Prodigy (Druid)':
-    'Section=magic Note="+1 spell DC/+2 wisdom for bonus spells"',
-  'Spellcasting Prodigy (Sorcerer)':
-    'Section=magic Note="+1 spell DC/+2 charisma for bonus spells"',
-  'Spellcasting Prodigy (Wizard)':
-    'Section=magic Note="+1 spell DC/+2 intelligence for bonus spells"',
-  'Stealthy':'Section=skill Note="+2 Hide/+2 Move Silently"',
-  'Street Smart':'Section=skill Note="+2 Bluff/+2 Gather Information"',
-  'Strong Soul':
-    'Section=save Note="+1 Fortitude/+1 Will/+1 vs. draining and death"',
-  'Survivor':'Section=save,skill Note="+1 Fortitude","+2 Survival"',
-  'Tattoo Focus':
-    'Section=magic ' +
-    'Note="+1 DC and caster level vs. resistance w/specialization school spells"',
-  'Tenacious Magic':
-    'Section=magic ' +
-    'Note="Weave foes DC %V to dispel, DC 13+foe level to dispel Weave foes"',
-  'Thug':'Section=combat,skill Note="+2 Initiative","+2 Intimidate"',
-  'Thunder Twin':
-    'Section=ability,skill ' +
-    'Note="+2 charisma checks",' +
-         '"DC 15 Wisdom check to determine direction of twin"',
-  'Treetopper':'Section=skill Note="+2 Climb"',
-  'Twin Spell':'Section=magic Note="Affect as two spells uses +4 spell slot"',
-  'Twin Sword Style':
-    'Section=combat Note="+2 AC vs. chosen foe when using two swords"',
-
-  // Path
-  'Advanced Illusionist':'Section=magic Note="+1 caster level illusion spells"',
-  'Cavern Stonecunning':
-    'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
-  'Compelling Magic':'Section=magic Note="+2 DC compulsion spells"',
-  'Creator':
-    'Section=magic,feature ' +
-    'Note="+1 caster level creation spells",' +
-         '"+1 General Feat (Skill Focus(chosen Craft))"',
-  'Detect Portal':
-    'Section=skill Note="DC 20 Search to detect in/active portals"',
-  'Disabling Touch':
-    'Section=combat Note="Touch attack causes -2 Str and Dex for 1 min 1/dy"',
-  'Familial Protection':
-    'Section=magic Note="R10\' %V targets +4 AC for %1 rd 1/dy"',
-  'Frenzy':'Section=combat Note="+%V (+%1 vs. dwarf/elf) smite damage 1/dy"',
-  'Hammer Specialist':
-    'Section=feature ' +
-    'Note="+2 General Feat (Weapon Proficiency and Focus w/chosen hammer)"',
-  'Hated Foe':
-    'Section=combat,save ' +
-    'Note="+2 attack, AC vs. one foe for 1 min 1/dy",' +
-         '"+2 saves vs. one foe for 1 min 1/dy"',
-  'Insider Knowledge':
-    'Section=magic ' +
-    'Note="<i>Detect Thoughts</i> on 1 target for %V min 1/dy (Will neg)"',
-  'Inspire Companions':
-    'Section=magic ' +
-    'Note="+2 allies\' attack, damage, skill, ability rolls for %V rd 1/dy"',
-  'Mental Control':
-    'Section=magic ' +
-    'Note="Touch to allow target +%V on next Will save for 1 hr 1/dy"',
-  'Rebound':'Section=combat Note="Recover 1d8+%V HP points when negative 1/dy"',
-  'Skilled Caster':'Section=skill Note="+2 Concentration/+2 Spellcraft"',
-  'Sneaky':'Section=skill Note="+2 Bluff/+2 Hide"',
-  'Spurred':
-    'Section=skill Note="+%V Climb, Hide, Jump, Move Silently for 10 min 1/dy"',
-  'Stormfriend':'Section=save Note="Resistance 5 to electricity"',
-  'Strike Of Vengeance':
-    'Section=combat Note="Strike for max damage after foe hit 1/dy"',
-  'Turn It On':'Section=ability Note="+4 charisma for 1 min 1/dy"',
-  'Turn Lycanthropes':'Section=combat Note="Turn lycanthropes as undead"',
-  'Turn Oozes':'Section=combat Note="Turn oozes as undead"',
-  'Turn Reptiles':'Section=combat Note="Turn reptiles as undead"',
-  'Turn Spiders':'Section=combat Note="Turn spiders as undead"',
-  'Water Breathing':'Section=magic Note="Breathe water %V rd/dy"',
-
-  // Race
-  'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
-  'Aasimar Alertness':'Section=skill Note="+2 Listen/+2 Spot"',
-  'Aasimar Resistance':
-    'Section=save Note="Resistance 5 to acid, cold, and electricity"',
-  'Amphibious':'Section=feature Note="Breathe water at will"',
-  'Air Genasi Ability Adjustment':
-    'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Wisdom/-2 Charisma"',
-  'Breathless':
-    'Section=save Note="Immune drowning, suffocation, inhalation effects"',
-  'Control Flame':
-    'Section=magic Note="R10\' Shrink or expand natural fire for 5 min 1/dy"',
-  'Deep Gnome Ability Adjustment':
-    'Section=ability Note="-2 Strength/+2 Dexterity/+2 Wisdom/-4 Charisma"',
-  'Drow Elf Ability Adjustment':
-    'Section=ability ' +
-    'Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
-  'Drow Elf Spell Resistance':'Section=save Note="Spell resistance %V"',
-  'Duergar Alertness':'Section=skill Note="+1 Listen/+1 Spot"',
-  'Earth Genasi Ability Adjustment':
-    'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
-  'Elemental Affinity':'Section=save Note="+%V vs. %1 spells"',
-  'Exceptional Dodge':'Section=combat Note="+4 AC"',
-  'Extended Darkvision':'Section=feature Note="120\' b/w vision in darkness"',
-  'Extra Luck':'Section=save Note="+2 Fortitude/+2 Reflex/+2 Will"',
-  'Fire Genasi Ability Adjustment':
-    'Section=ability Note="+2 Intelligence/-2 Charisma"',
-  'Gold Dwarf Ability Adjustment':
-    'Section=ability Note="+2 Constitution/-2 Dexterity"',
-  'Gold Dwarf Enmity':'Section=combat Note="+1 attack vs. aberrations"',
-  'Gray Dwarf Ability Adjustment':
-    'Section=ability Note="+2 Constitution/-4 Charisma"',
-  'Gray Dwarf Immunities':
-    'Section=save ' +
-    'Note="Immune to paralysis, phantasms, and magic and alchemical poisons"',
-  'Light Blindness':'Section=feature Note="Blind 1 rd from sudden daylight"',
-  'Light Sensitivity':
-    'Section=combat,save,skill ' +
-    'Note="-%V attack in bright light",' +
-         '"-%V saves in bright light",' +
-         '"-%V checks in bright light"',
-  'Native Outsider':
-    'Section=save Note="Affected by outsider target spells, not humanoid"',
-  'Natural Swimmer':'Section=ability Note="Swim 30\'"',
-  'Race Level Adjustment':'Section=ability Note="-%V Level"',
-  'Sly':'Section=skill Note="+2 Hide"',
-  'Shadowed':
-    'Section=skill Note="+2 Hide/+4 Hide in darkened underground areas"',
-  'Speak Without Sound':'Section=feature Note="R20\' Telepathic communication"',
-  'Stealthy Movement':'Section=skill Note="+4 Move Silently"',
-  'Strong Will':'Section=save Note="+2 Will vs. spells"',
-  'Strongheart Extra Feat':'Section=feature Note="+1 General Feat"',
-  'Sun Elf Ability Adjustment':
-    'Section=ability Note="+2 Intelligence/-2 Constitution"',
-  'Svirfneblin Spell Resistance':'Section=save Note="Spell resistance %V"',
-  'Tiefling Ability Adjustment':
-    'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Charisma"',
-  'Tiefling Resistance':
-    'Section=save Note="Resistance 5 to cold, electricity, and fire"',
-  'Undetectable':'Section=magic Note="Continuous <i>Nondetection</i>"',
-  'Water Genasi Ability Adjustment':
-    'Section=ability Note="+2 Constitution/-2 Charisma"',
-  'Wild Elf Ability Adjustment':
-    'Section=ability Note="+2 Dexterity/-2 Intelligence"',
-  'Wood Elf Ability Adjustment':
-    'Section=ability ' +
-    'Note="+2 Strength/+2 Dexterity/-2 Constitution/-2 Intelligence/-2 Charisma"',
-
-  // Prestige classes
-  'Alignment Focus':
-    'Section=magic ' +
-    'Note="+1 caster level on spells from chosen alignment component"',
-  'Arcane Devotee Bonus Feats':'Section=feature Note="%V Arcane Devotee feats"',
-  'Arcane Fire':'Section=magic Note="Transform arcane spell into bolt of fire"',
-  'Arcane Reach':'Section=magic Note="Use arcane touch spell 30\' away"',
-  'Blast Infidel':
-    'Section=magic ' +
-    'Note="Negative energy spells vs. foe w/different deity have max effect"',
-  'Caster Level Bonus':
-    'Section=magic Note="+%V base class level for spells known and spells/dy"',
-  'Champion Lay On Hands':'Section=magic Note="Heal followers of %1 %V HP/dy"',
-  'Circle Leader':
-    'Section=magic ' +
-    'Note="1 hr ritual w/2-5 other members raises caster level, gives metamagic feats"',
-  'Cohort':'Section=feature Note="Gain Hathran or Barbarian follower"',
-  'Craft Harper Item':
-    'Section=magic Note="Create magic instruments, Harper pins, and potions"',
-  "Deneir's Eye":'Section=save Note="+2 vs. glyphs, runes, and symbols"',
-  'Divine Champion Bonus Feats':'Section=feature Note="%V Fighter feats"',
-  'Devotee Enlarge Spell':'Section=magic Note="Cast enlarged spell %V/dy"',
-  'Divine Emissary':
-    'Section=feature Note="Telepathy w/same-alignment outsider w/in 60\'"',
-  'Divine Perseverance':
-    'Section=combat Note="Regain 1d8+5 HP from negative 1/dy"',
-  'Divine Reach':'Section=magic Note="Use divine touch spell 30\' away"',
-  'Divine Shroud':
-    'Section=save Note="Aura provides spell resistance %V for %1 rd 1/dy"',
-  'Divine Wrath':
-    'Section=combat,save ' +
-    'Note="+3 attack and damage and DR 5/- for %V rd 1/dy",' +
-         '"+3 saves %V rd 1/dy",',
-  // 3.0 Innuendo => 3.5 Bluff
-  'Doublespeak':'Section=skill Note="+2 Bluff/+2 Diplomacy"',
-  'Enhanced Specialization':'Section=magic Note="Additional opposition school"',
-  'Faith Healing':
-    'Section=magic Note="Healing spells on followers of %1 have max effect"',
-  'Fear':
-    'Section=magic ' +
-    'Note="R30\' cone creatures flee for %V rd (DC %1 Will shaken 1 rd) %V/dy"',
-  'Final Stand':
-    'Section=combat Note="R10\' %V allies gain 2d10 HP for %1 rd 1/dy"',
-  'Gift Of The Divine':
-    'Section=feature Note="Transfer undead turn/rebuke to another 1-10 days"',
-  'Great Circle Leader':
-    'Section=magic Note="Lead magic circle w/9 other members"',
-  'Greater Command':
-    'Section=magic ' +
-    'Note="R%1\' %V targets approach/drop/fall/flee/halt for %V rd (DC %2 Will neg) 1/dy"',
-  'Greater Shield Of Shadows':
-    'Section=save Note="Shield Of Shadows gives spell resistance %V"',
-  'Guild Thief Bonus Feats':'Section=feature Note="%V Guild Thief feats"',
-  'Harper Perform Focus':
-    'Section=feature ' +
-    'Note="+1 General Feat (Skill Focus in chosen Perform)"',
-  'Harper Skill Focus':
-    'Section=feature ' +
-    'Note="+1 General Feat (Skill Focus in Harper class skill)"',
-  'Heroic Shield':'Section=combat Note="Aid Another action gives +4 AC bonus"',
-  'Hierophant Special Abilities':'Section=feature Note="%V selections"',
-  'High Arcana':'Section=feature Note="%V selections"',
-  'Imbue With Spell Ability':
-    'Section=magic ' +
-    'Note="<i>Imbue With Spell Ability</i> 1st/2nd level spells at will"',
-  'Improved Arcane Reach':
-    'Section=magic Note="Use arcane touch spell 60\' away"',
-  'Improved Divine Reach':
-    'Section=magic Note="Use divine touch spell 60\' away"',
-  'Improved Runecasting':
-    'Section=magic Note="Add charges and triggers to runes"',
-  "Inspire Knight's Courage":
-    'Section=magic ' +
-    'Note="Allies +1 attack and damage, +2 charm and fear saves during speech +5 rd %V/dy"',
-  "Lliira's Heart":'Section=save Note="+2 vs. compulsion and fear"',
-  'Locate Creature':
-    'Section=magic ' +
-    'Note="R%1\' Sense direction of creature or kind for %V min 1/dy"',
-  'Locate Object':
-    'Section=magic ' +
-    'Note="R%1\' Sense direction of object or type for %V min 1/dy"',
-  'Mastery Of Counterspelling':
-    'Section=magic Note="Counterspell turns effect back on caster"',
-  'Mastery Of Elements':'Section=magic Note="Change energy type of spell"',
-  'Mastery Of Energy':
-    'Section=combat Note="+4 undead turning checks and damage"',
-  'Mastery Of Shaping':'Section=magic Note="Create holes in spell effect area"',
-  'Maximize Rune':'Section=magic Note="+5 DC/maximize effects of runes"',
-  'New Domain':'Section=feature Note="Choose additional deity domain"',
-  'Oath Of Wrath':
-    'Section=combat,save,skill ' +
-    'Note="R60\' +2 attack and damage vs. chosen opponent until encounter ends 1/dy",' +
-         '"R60\' +2 save vs. chosen opponent until encounter ends 1/dy",' +
-         '"R60\' +2 checks vs. chosen opponent until encounter ends 1/dy"',
-  'Obscure Object':
-    'Section=magic ' +
-    'Note="Possessions immune to divination for 8 hr (DC %V Will neg) 1/dy"',
-  'Place Magic':
-    'Section=magic Note="Cast spell w/out preparation when in Rashemen"',
-  'Power Of Nature':
-    'Section=feature Note="Transfer druid feature to another 1-10 days"',
-  'Rallying Cry':
-    'Section=combat Note="R60\' Allies +1 next attack, +5 speed for 1 tn 3/dy"',
-  'Red Wizard Bonus Feats':'Section=feature Note="%V Wizard feats"',
-  'Reputation':'Section=feature Note="+%V Leadership"',
-  'Rune Chant':'Section=magic Note="+3 DC divine spells when tracing rune"',
-  'Rune Craft':'Section=skill Note="+%V Craft (inscribing runes)"',
-  'Rune Power':'Section=magic Note="+%V DC of runes"',
-  'Sacred Defense':'Section=save Note="+%V vs. divine spells and outsiders"',
-  'Sanctuary':
-    'Section=magic ' +
-    'Note="Self foes no attack for %V rd or until attacks (DC %1 Will neg) 1/dy"',
-  'Scribe Tattoo':'Section=magic Note="Induct novices into circle"',
-  'Shadow Adept Bonus Feats':'Section=feature Note="%V Metamagic feats"',
-  'Shadow Defense':
-    'Section=save ' +
-    'Note="+%V vs. Enchantment, Illusion, Necromancy, and Darkness spells"',
-  'Shadow Double':'Section=magic Note="Create clone lasting %V rd 1/dy"',
-  'Shadow Walk':
-    'Section=magic Note="Travel quickly via Plane of Shadow for %V hr"',
-  'Shield Of Shadows':
-    'Section=magic Note="<i>Shield</i> w/75% concealment %V rd/dy"',
-  'Smite Infidel':
-    'Section=combat ' +
-    'Note="+%V attack, +%1 damage vs. foe w/different deity 1/dy"',
-  'Specialist Defense':
-    'Section=save Note="+%V bonus on saves vs. specialist school spells"',
-  'Spell Power':'Section=magic Note="+%V spell DC and resistance checks"',
-  'Spell-Like Ability':'Section=magic Note="Use spell as ability 2+/dy"',
-  'Thwart Glyph':
-    'Section=skill Note="+4 Disable Device (glyphs, runes, and symbols)/+4 Search (glyphs, runes, and symbols)"',
-  'Transcendence':
-    'Section=magic,skill ' +
-    'Note="Chosen <i>Protection</i> spell at will",' +
-         '"+2 charisma checks w/followers of %V"',
-  "Tymora's Smile":
-    'Section=save Note="+2 luck bonus to any save 1/dy"'
-
-};
-Realms.FEATURES = Object.assign({}, SRD35.FEATURES, Realms.FEATURES_ADDED);
-Realms.GOODIES = Object.assign({}, SRD35.GOODIES);
-Realms.LANGUAGES_ADDED = {
-  'Aglarondan':'',
-  'Alzhedo':'',
-  'Chessentan':'',
-  'Chondathan':'',
-  'Chultan':'',
-  'Damaran':'',
-  'Durpari':'',
-  'Halruaan':'',
-  'Illuskan':'',
-  'Lantanese':'',
-  'Midani':'',
-  'Mulhorandi':'',
-  'Nexalan':'',
-  'Rashemi':'',
-  'Serusan':'',
-  'Shaaran':'',
-  'Shou':'',
-  'Tashalan':'',
-  'Tuigan':'',
-  'Turmic':'',
-  'Uluik':'',
-  'Undercommon':'',
-  'Untheric':''
-};
-Realms.PATHS_ADDED = {
-  'Cavern Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Cavern Stonecunning"',
-  'Charm Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Turn It On"',
-  'Craft Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Creator"',
-  'Darkness Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Blind-Fight"',
-  'Drow Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Lightning Reflexes"',
-  'Dwarf Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Great Fortitude"',
-  'Elf Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Point-Blank Shot"',
-  'Family Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Familial Protection"',
-  'Fate Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Uncanny Dodge"',
-  'Gnome Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Advanced Illusionist"',
-  'Halfling Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Spurred"',
-  'Hatred Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Hated Foe"',
-  'Illusion Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Advanced Illusionist"',
-  'Mentalism Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Mental Control"',
-  'Metal Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Hammer Specialist"',
-  'Moon Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Turn Lycanthropes"',
-  'Nobility Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Inspire Companions"',
-  'Ocean Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Water Breathing"',
-  'Orc Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Frenzy"',
-  'Planning Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Extend Spell"',
-  'Portal Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Detect Portal"',
-  'Renewal Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Rebound"',
-  'Retribution Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Strike Of Vengeance"',
-  'Rune Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Scribe Scroll"',
-  'Scalykind Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Turn Reptiles"',
-  'Slime Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Turn Oozes"',
-  'Spell Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Skilled Caster"',
-  'Spider Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Turn Spiders"',
-  'Storm Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Stormfriend"',
-  'Suffering Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Disabling Touch"',
-  'Time Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Improved Initiative"',
-  'Trade Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Insider Knowledge"',
-  'Tyranny Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Compelling Magic"',
-  'Undeath Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Extra Turning"'
-};
-Realms.PATHS = Object.assign({}, SRD35.PATHS, Realms.PATHS_ADDED);
 Realms.RACES = {
   'Gold Dwarf':
     SRD35.RACES['Dwarf']
@@ -2449,6 +2460,11 @@ Realms.classRulesExtra = function(rules, name) {
       'features.Spell Power +2', '+=', '2',
       'features.Spell Power +3', '+=', '3'
     );
+    rules.defineRule('magicNotes.arcaneFire', 'levels.Archmage', '=', null);
+    rules.defineRule('magicNotes.arcaneFire.1',
+      'features.Arcane Fire', '?', null,
+      'levels.Archmage', '=', '400 + 40 * source'
+    );
     rules.defineRule
       ('selectableFeatureCount.Archmage', 'featureNotes.highArcana', '+=', null);
     rules.defineRule('spellSlots.S5',
@@ -2602,11 +2618,16 @@ Realms.classRulesExtra = function(rules, name) {
     rules.defineRule
       ('magicNotes.fear', classLevel, '=', 'source>=8 ? 3 : source>=6 ? 2 : 1');
     rules.defineRule('magicNotes.fear.1',
-      'magicNotes.fear.2', '?', null,
+      'features.Fear', '?', null,
       'charismaModifier', '=', '13 + source'
     );
-    rules.defineRule
-      ('magicNotes.fear.2', classLevel, '=', 'source>=3 ? 1 : null');
+    rules.defineRule('magicNotes.fear.2',
+      'features.Fear', '?', null,
+      'casterLevels.C', '^=', null,
+      'casterLevels.D', '^=', null,
+      'casterLevels.S', '^=', null,
+      'casterLevels.W', '^=', null
+    );
     rules.defineRule('magicNotes.greaterCommand', classLevel, '=', null);
     rules.defineRule('magicNotes.greaterCommand.1',
       classLevel, '=', 'source>=3 ? Math.floor(source / 2) * 5 + 25 : null'
@@ -2644,18 +2665,12 @@ Realms.classRulesExtra = function(rules, name) {
       classLevel, '=', null,
       'charismaModifier', '+', null
     );
-    rules.defineRule('combatNotes.finalStand.1',
-      classLevel, '=', null,
-      'charismaModifier', '+', null
-    );
-    'Note="R%1\' Target w/up to 5 HD flee for 1d4 rd (DC %2 Will shaken 1 rd) %V/dy"',
     rules.defineRule('magicNotes.fear', classLevel, '=', '1');
     rules.defineRule('magicNotes.fear.1',
-      'magicNotes.fear.2', '?', null,
+      'features.Fear', '?', null,
       'charismaModifier', '=', '13 + source'
     );
-    rules.defineRule
-      ('magicNotes.fear.2', classLevel, '=', 'source>=3 ? 1 : null');
+    rules.defineRule('magicNotes.fear.2', classLevel, '=', null);
     rules.defineRule("magicNotes.inspireKnight'sCourage",
       classLevel, '=', 'Math.floor(source / 2)'
     );
@@ -2692,12 +2707,20 @@ Realms.classRulesExtra = function(rules, name) {
   } else if(name == 'Shadow Adept') {
 
     rules.defineRule
+      ('features.Insidious Magic', 'featureNotes.shadowFeats', '=', null);
+    rules.defineRule
+      ('features.Pernicious Magic', 'featureNotes.shadowFeats', '=', null);
+    rules.defineRule
+      ('features.Tenacious Magic', 'featureNotes.shadowFeats', '=', null);
+    rules.defineRule
       ('featureNotes.shadowAdeptBonusFeats', classLevel, '=', '1');
     rules.defineRule
       ('featCount.Metamagic', 'featureNotes.shadowAdeptBonusFeats', '+=', null);
     rules.defineRule
       ('magicNotes.insidiousMagic', 'casterLevel', '=', 'source + 11');
-    rules.defineRule('magicNotes.perniciousMagic', 'casterLevel', '=', 'source + 11');
+    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
+    rules.defineRule
+      ('magicNotes.perniciousMagic', 'casterLevel', '=', 'source + 11');
     rules.defineRule
       ('magicNotes.shieldOfShadows', 'casterLevel', '=', null);
     rules.defineRule
@@ -2970,29 +2993,24 @@ Realms.pathRulesExtra = function(rules, name) {
     );
     rules.defineRule('magicNotes.familialProtection.1', 'level', '=', null);
   } else if(name == 'Halfling Domain') {
-    rules.defineRule('skillNotes.spurred', 'charismaModifier', '=', null);
+    rules.defineRule('skillNotes.sprightly', 'charismaModifier', '=', null);
   } else if(name == 'Mentalism Domain') {
-    rules.defineRule('magicNotes.mentalControl', 'level', '=', 'source + 2');
+    rules.defineRule('magicNotes.mentalWard', 'level', '=', 'source + 2');
   } else if(name == 'Nobility Domain') {
-    rules.defineRule('magicNotes.inspireCompanions',
+    rules.defineRule('magicNotes.inspireAllies',
       'charismaModifier', '=', 'source >= 1 ? source : null'
     );
   } else if(name == 'Ocean Domain') {
     rules.defineRule('magicNotes.waterBreathing', 'level', '=', '10 * source');
   } else if(name == 'Orc Domain') {
-    rules.defineRule('combatNotes.frenzy', 'levels.Cleric', '=', null);
-    rules.defineRule
-      ('combatNotes.frenzy.1', 'levels.Cleric', '=', 'source + 4');
+    rules.defineRule('combatNotes.smitePower', 'levels.Cleric', '=', null);
   } else if(name == 'Renewal Domain') {
-    rules.defineRule('combatNotes.rebound', 'charismaModifier', '=', null);
-  } else if(name == 'Renewal Domain') {
-    rules.defineRule('combatNotes.rebound', 'charismaModifier', '=', null);
+    rules.defineRule('combatNotes.renewSelf', 'charismaModifier', '=', null);
   } else if(name == 'Storm Domain') {
     rules.defineRule
       ('resistance.Electricity', 'saveNotes.stormfriend', '^=', '5');
   } else if(name == 'Trade Domain') {
-    rules.defineRule
-      ('magicNotes.insiderKnowledge', 'charismaModifier', '=', null);
+    rules.defineRule('magicNotes.tradeSecrets', 'charismaModifier', '=', null);
   } else if(name == 'Undeath Domain') {
     rules.defineRule
       ('combatNotes.extraTurning', 'clericFeatures.Extra Turning', '+=', '4');
@@ -3246,9 +3264,6 @@ Realms.ruleNotes = function() {
     '  </li><li>\n' +
     '    Harper Scout\'s "Harper Knowledge" feature is renamed "Bardic\n' +
     '    Knowledge", since the two are identical and stack.\n' +
-    '  </li><li>\n' +
-    '    The "Resist Poison" feat is renamed "Greater Poison Resistance" to\n' +
-    '    distinguish it from the racial feature of the same name.\n' +
     '  </li>\n' +
     '</ul>\n';
 };
