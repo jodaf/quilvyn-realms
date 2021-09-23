@@ -30,7 +30,7 @@ Militia: Dalelands
 Mind Over Body: Calimshan, Thay
 Pernicious Magic: Nonregional
 Persistent Spell: Nonregional
-Poison Tolerance: Gray Dwarf
+Resist Poison Feat: Gray Dwarf
 Saddleback: Hordelands
 Shadow Weave Magic: Nonregional
 Signature Spell: Nonregional
