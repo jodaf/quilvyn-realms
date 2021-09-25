@@ -18,7 +18,7 @@ following lines to the file plugins/plugins.js:
     RULESETS['Forgotten Realms Campaign Setting using D&D v3.5 rules'] = {
       url:'plugins/Realms.js',
       group:'v3.5',
-      require:'D&D v3.5'
+      require:'PHB35.js'
     };
 
 ### Usage
