@@ -1619,7 +1619,7 @@ Realms.SPELLS_ADDED = {
   'Analyze Portal':
     'School=Divination ' +
     'Level=B3,Portal2,W3 ' +
-    'Description="R60\' quarter circle gives self info on portals for $L rd or conc"',
+    'Description="R60\' QUarter circle gives self info on portals for $L rd or conc"',
   'Anyspell':
     'School=Transmutation ' +
     'Level=Spell3 ' +
@@ -1679,7 +1679,7 @@ Realms.SPELLS_ADDED = {
   'Great Shout':
     'School=Evocation ' +
     'Level=B6,W8 ' +
-    'Description="R$RS\' Objects in range suffer 20d6 HP (Ref neg), creatures in cone suffer 10d6 HP, stun 1 rd, and deaf 4d6 rd (Fort half)"',
+    'Description="R$RS\' Objects in range suffer 20d6 HP (Ref neg), creatures in cone suffer 10d6 HP, stunned for 1 rd, and deafened for 4d6 rd (Fort half)"',
   'Greater Anyspell':
     'School=Transmutation ' +
     'Level=Spell6 ' +
@@ -1727,7 +1727,7 @@ Realms.SPELLS_ADDED = {
   'Shadow Mask':
     'School=Illusion ' +
     'Level=Harper2,W2 ' +
-    'Description="Hides self\'s face, gives +4 save vs. light and dark and 50% protection from gaze attacks for $L10 min"',
+    'Description="Hides self\'s face, gives +4 saves vs. light and dark and 50% protection from gaze attacks for $L10 min"',
   'Shadow Spray':
     'School=Illusion ' +
     'Level=W2 ' +
@@ -1759,7 +1759,7 @@ Realms.SPELLS_ADDED = {
   'Waterspout':
     'School=Conjuration ' +
     'Level=Ocean7 ' +
-    'Description="R$RL\' Self moves 10\' by 80\' spout 30\'/rd, touched creatures suffer 2d6 HP (Ref neg) for $L rd"'
+    'Description="R$RL\' Self moves 10\'x80\' spout 30\'/rd; touched creatures suffer 2d6 HP (Ref neg) for $L rd"'
 };
 Realms.SPELLS = Object.assign(
   {}, window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS, Realms.SPELLS_ADDED
