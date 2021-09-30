@@ -3231,28 +3231,16 @@ Realms.randomizeOneAttribute = function(attributes, attribute) {
 
 /* Returns an array of plugins upon which this one depends. */
 Realms.getPlugins = function() {
-  return [this.basePlugin].concat(this.basePlugin.getPlugins());
+  var base = this.basePlugin == window.SRD35 ? window.PHB35 : this.basePlugin;
+  return [base].concat(base.getPlugins());
 };
 
 /* Returns HTML body content for user notes associated with this rule set. */
 Realms.ruleNotes = function() {
   return '' +
-    '<h2>Forgotten Realms Quilvyn Module Notes</h2>\n' +
-    'Realms Quilvyn Module Version ' + Realms.VERSION + '\n' +
+    '<h2>Quilvyn Forgotten Realms Rule Set Notes</h2>\n' +
     '<p>\n' +
-    'Quilvyn\'s Forgotten Realms rule set is unofficial Fan Content ' +
-    'permitted under Wizards of the Coast\'s ' +
-    '<a href="https://company.wizards.com/en/legal/fancontentpolicy">Fan Content Policy</a>.\n' +
-    '</p><p>\n' +
-    'Quilvyn is not approved or endorsed by Wizards of the Coast. Portions ' +
-    'of the materials used are property of Wizards of the Coast. ©Wizards of ' +
-    'the Coast LLC.\n' +
-    '</p><p>\n' +
-    'Dungeons & Dragons Forgotten Realms Campaign Setting © 2001 Wizards of ' +
-    'the Coast, Inc.\n' +
-    '</p><p>\n' +
-    'Dungeons & Dragons Player\'s Handbook v3.5 © 2003 Wizards of the Coast, ' +
-    'Inc.\n' +
+    'Quilvyn Forgotten Realms Rule Set Version ' + Realms.VERSION + '\n' +
     '</p>\n' +
     '<h3>Usage Notes</h3>\n' +
     '<ul>\n' +
@@ -3265,5 +3253,21 @@ Realms.ruleNotes = function() {
     '    Harper Scout\'s "Harper Knowledge" feature is renamed "Bardic\n' +
     '    Knowledge", since the two are identical and stack.\n' +
     '  </li>\n' +
-    '</ul>\n';
+    '</ul>\n' +
+    '<h3>Copyrights and Licensing</h3>\n' +
+    '<p>\n' +
+    "Quilvyn's Forgotten Realms Rule Set is unofficial Fan Content " +
+    "permitted under Wizards of the Coast's " +
+    '<a href="https://company.wizards.com/en/legal/fancontentpolicy">Fan Content Policy</a>.\n' +
+    '</p><p>\n' +
+    'Quilvyn is not approved or endorsed by Wizards of the Coast. Portions ' +
+    'of the materials used are property of Wizards of the Coast. ©Wizards of ' +
+    'the Coast LLC.\n' +
+    '</p><p>\n' +
+    'Dungeons & Dragons Forgotten Realms Campaign Setting © 2001 Wizards of ' +
+    'the Coast, Inc.\n' +
+    '</p><p>\n' +
+    "Dungeons & Dragons Player's Handbook v3.5 © 2003 Wizards of the Coast, " +
+    'Inc.\n' +
+    '</p>\n';
 };
