@@ -197,7 +197,7 @@ function Realms(baseRules) {
 
 }
 
-Realms.VERSION = '2.3.1.0';
+Realms.VERSION = '2.3.1.1';
 
 // Realms uses PHB35 as its default base ruleset. If USE_PATHFINDER is true,
 // the Realms function will instead use rules taken from the Pathfinder plugin.
@@ -1647,7 +1647,7 @@ Realms.SPELLS_ADDED = {
   'Darkbolt':
     'School=Evocation ' +
     'Level=Darkness5 ' +
-    'Description="R$RM\' Ranged touch with ${Math.min(Math.floor(lvl/2),7)} bolts in 30\' radius inflict 2d8 HP each and daze 1 rd (Will neg)"',
+    'Description="R$RM\' Ranged touch with ${lvl//2<?7} bolts in 30\' radius inflict 2d8 HP each and daze 1 rd (Will neg)"',
   "Elminster's Evasion":
     'School=Evocation ' +
     'Level=W9 ' +
