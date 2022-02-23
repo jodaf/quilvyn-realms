@@ -16,6 +16,8 @@ Place, Suite 330, Boston, MA 02111-1307 USA.
 */
 
 /*jshint esversion: 6 */
+/* jshint forin: false */
+/* globals Quilvyn, QuilvynRules, QuilvynUtils, SRD35, PHB35, Pathfinder */
 "use strict";
 
 /*
@@ -96,7 +98,7 @@ function Realms(baseRules) {
   Realms.RACES['Gold Dwarf'] =
     rules.basePlugin.RACES['Dwarf']
       .replace('Dwarf Ability', 'Gold Dwarf Ability')
-      .replace('Dwarf Enmity', 'Gold Dwarf Enmity'),
+      .replace('Dwarf Enmity', 'Gold Dwarf Enmity');
   Realms.RACES['Gray Dwarf'] =
     rules.basePlugin.RACES['Dwarf']
       .replace('Common', 'Undercommon')
@@ -108,7 +110,7 @@ function Realms(baseRules) {
       'Duergaren1:1=1,' +
       'Duergaren2:1=1';
   Realms.RACES['Shield Dwarf'] =
-    rules.basePlugin.RACES['Dwarf'],
+    rules.basePlugin.RACES['Dwarf'];
   Realms.RACES['Drow Elf'] =
     rules.basePlugin.RACES['Elf']
       .replace('Common', 'Undercommon')
@@ -122,13 +124,13 @@ function Realms(baseRules) {
       '"Drowen1:1=1",' +
       '"Drowen2:1=1"';
   Realms.RACES['Moon Elf'] =
-    rules.basePlugin.RACES['Elf'],
+    rules.basePlugin.RACES['Elf'];
   Realms.RACES['Sun Elf'] =
-    rules.basePlugin.RACES['Elf'].replace('Elf Ability', 'Sun Elf Ability'),
+    rules.basePlugin.RACES['Elf'].replace('Elf Ability', 'Sun Elf Ability');
   Realms.RACES['Wild Elf'] =
-    rules.basePlugin.RACES['Elf'].replace('Elf Ability', 'Wild Elf Ability'),
+    rules.basePlugin.RACES['Elf'].replace('Elf Ability', 'Wild Elf Ability');
   Realms.RACES['Wood Elf'] =
-    rules.basePlugin.RACES['Elf'].replace('Elf Ability', 'Wood Elf Ability'),
+    rules.basePlugin.RACES['Elf'].replace('Elf Ability', 'Wood Elf Ability');
   Realms.RACES['Deep Gnome'] =
     rules.basePlugin.RACES['Gnome']
       .replace('Common', 'Undercommon')
@@ -142,21 +144,21 @@ function Realms(baseRules) {
       'Svirfneblinish2:1=2,' +
       'Svirfneblinish3:1=1';
   Realms.RACES['Rock Gnome'] =
-    rules.basePlugin.RACES['Gnome'],
+    rules.basePlugin.RACES['Gnome'];
   Realms.RACES['Half-Elf'] =
-    rules.basePlugin.RACES['Half-Elf'],
+    rules.basePlugin.RACES['Half-Elf'];
   Realms.RACES['Half-Orc'] =
-    rules.basePlugin.RACES['Half-Orc'],
+    rules.basePlugin.RACES['Half-Orc'];
   Realms.RACES['Ghostwise Halfling'] =
     rules.basePlugin.RACES['Halfling']
-      .replace(/['"]?Fortunate['"]?/, '"Speak Without Sound"'),
+      .replace(/['"]?Fortunate['"]?/, '"Speak Without Sound"');
   Realms.RACES['Lightfoot Halfling'] =
-    rules.basePlugin.RACES['Halfling'],
+    rules.basePlugin.RACES['Halfling'];
   Realms.RACES['Strongheart Halfling'] =
     rules.basePlugin.RACES['Halfling']
-      .replace(/['"]?Fortunate['"]?/, '"Strongheart Extra Feat"'),
+      .replace(/['"]?Fortunate['"]?/, '"Strongheart Extra Feat"');
   Realms.RACES['Human'] =
-    rules.basePlugin.RACES['Human'],
+    rules.basePlugin.RACES['Human'];
   Realms.SCHOOLS = Object.assign({}, rules.basePlugin.SCHOOLS);
   Realms.SHIELDS = Object.assign({}, rules.basePlugin.SHIELDS);
   Realms.SKILLS = Object.assign({}, rules.basePlugin.SKILLS);
@@ -197,7 +199,7 @@ function Realms(baseRules) {
 
 }
 
-Realms.VERSION = '2.3.1.1';
+Realms.VERSION = '2.3.1.2';
 
 // Realms uses PHB35 as its default base ruleset. If USE_PATHFINDER is true,
 // the Realms function will instead use rules taken from the Pathfinder plugin.
@@ -1612,6 +1614,10 @@ Realms.SHIELDS = Object.assign({}, SRD35.SHIELDS);
 Realms.SKILLS = Object.assign({}, SRD35.SKILLS);
 Realms.SPELLS_ADDED = {
 
+  // NOTE: It's unclear which of these spells might be available in potion/oil
+  // form. The source book mentions Potion of Shadow Mask, along with a number
+  // of potions that appear not to be spell-based: Hiding, Sneaking, Charisma,
+  // Vision, Truth, and Love
   "Aganazzar's Scorcher":
     'School=Evocation ' +
     'Level=W2 ' +
@@ -1619,7 +1625,7 @@ Realms.SPELLS_ADDED = {
   'Analyze Portal':
     'School=Divination ' +
     'Level=B3,Portal2,W3 ' +
-    'Description="R60\' QUarter circle gives self info on portals for $L rd or conc"',
+    'Description="R60\' Quarter circle gives self info on portals for $L rd or conc"',
   'Anyspell':
     'School=Transmutation ' +
     'Level=Spell3 ' +
@@ -1727,7 +1733,8 @@ Realms.SPELLS_ADDED = {
   'Shadow Mask':
     'School=Illusion ' +
     'Level=Harper2,W2 ' +
-    'Description="Hides self\'s face, gives +4 saves vs. light and dark and 50% protection from gaze attacks for $L10 min"',
+    'Description="Hides self\'s face, gives +4 saves vs. light and dark and 50% protection from gaze attacks for $L10 min" ' +
+    'Liquid=Potion',
   'Shadow Spray':
     'School=Illusion ' +
     'Level=W2 ' +
@@ -2818,7 +2825,6 @@ Realms.featRules = function(rules, name, requires, implies, types) {
 Realms.featRulesExtra = function(rules, name) {
 
   var matchInfo;
-  var notes;
 
   if(name == 'Artist') {
     rules.defineRule
@@ -2980,7 +2986,7 @@ Realms.pathRules = function(
   if(name.match(/Domain$/))
     QuilvynRules.featureListRules
       (rules, ["deityDomains =~ '" + name.replace(' Domain', '') + "' ? 1:" + name], 'Cleric', 'levels.Cleric', true);
-}
+};
 
 /*
  * Defines in #rules# the rules associated with path #name# that cannot be
