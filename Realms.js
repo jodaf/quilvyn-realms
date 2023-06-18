@@ -104,11 +104,7 @@ function Realms(baseRules) {
       .replace('Common', 'Undercommon')
       .replace('Dwarf Ability Adjustment', 'Gray Dwarf Ability Adjustment')
       .replace(/['"]?Darkvision['"]?/, '"Extended Darkvision"')
-      .replace('Features=', 'Features="Duergar Alertness","Gray Dwarf Immunities","Light Sensitivity","Race Level Adjustment","Stealthy Movement",') + ' ' +
-    'SpellAbility=intelligence ' +
-    'SpellSlots=' +
-      'Duergaren1:1=1,' +
-      'Duergaren2:1=1';
+      .replace('Features=', 'Features="Duergar Alertness","Gray Dwarf Immunities","Gray Dwarf Magic","Light Sensitivity","Race Level Adjustment","Stealthy Movement",'),
   Realms.RACES['Shield Dwarf'] =
     rules.basePlugin.RACES['Dwarf'];
   Realms.RACES['Drow Elf'] =
@@ -117,12 +113,7 @@ function Realms(baseRules) {
       .replace('Elf Ability Adjustment', 'Drow Elf Ability Adjustment')
       .replace('Low-Light Vision', 'Extended Darkvision')
       .replace(/Weapon Proficiency[^'"]*/, 'Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)')
-      .replace('Features=', 'Features="Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Race Level Adjustment","Strong Will",') + ' ' +
-    'SpellAbility=charisma ' +
-    'SpellSlots=' +
-      '"Drowen0:1=1",' +
-      '"Drowen1:1=1",' +
-      '"Drowen2:1=1"';
+      .replace('Features=', 'Features="Drow Elf Magic","Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Race Level Adjustment","Strong Will",'),
   Realms.RACES['Moon Elf'] =
     rules.basePlugin.RACES['Elf'];
   Realms.RACES['Sun Elf'] =
@@ -136,13 +127,9 @@ function Realms(baseRules) {
       .replace('Common', 'Undercommon')
       .replace('Gnome Ability Adjustment', 'Deep Gnome Ability Adjustment')
       .replace('Dodge Giants', 'Exceptional Dodge')
+      .replace('Gnome Magic', 'Svirfneblin Magic')
       .replace('Low-Light Vision', 'Extended Darkvision')
-      .replace('Features=', 'Features="Extra Luck","Know Depth","Race Level Adjustment",Shadowed,Stonecunning,"Svirfneblin Spell Resistance",Undetectable,') + ' ' +
-    'SpellAbility=charisma ' +
-    'SpellSlots=' +
-      'Svirfneblinish1:1=1,' +
-      'Svirfneblinish2:1=2,' +
-      'Svirfneblinish3:1=1';
+      .replace('Features=', 'Features="Extra Luck","Know Depth","Race Level Adjustment",Shadowed,Stonecunning,"Svirfneblin Spell Resistance",Undetectable,'),
   Realms.RACES['Rock Gnome'] =
     rules.basePlugin.RACES['Gnome'];
   Realms.RACES['Half-Elf'] =
@@ -199,7 +186,7 @@ function Realms(baseRules) {
 
 }
 
-Realms.VERSION = '2.3.1.2';
+Realms.VERSION = '2.3.1.3';
 
 // Realms uses PHB35 as its default base ruleset. If USE_PATHFINDER is true,
 // the Realms function will instead use rules taken from the Pathfinder plugin.
@@ -717,11 +704,13 @@ Realms.FEATURES_ADDED = {
   // Race
   'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
   'Aasimar Alertness':'Section=skill Note="+2 Listen/+2 Spot"',
+  'Aasimar Magic':'Section=magic Note="May cast <i>Light</i> 1/dy"',
   'Aasimar Resistance':
     'Section=save Note="Resistance 5 to acid, cold, and electricity"',
   'Amphibious':'Section=feature Note="Breathe water at will"',
   'Air Genasi Ability Adjustment':
     'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Wisdom/-2 Charisma"',
+  'Air Genasi Magic':'Section=magic Note="May cast <i>Levitate</i> 1/dy"',
   'Breathless':
     'Section=save Note="Immune drowning, suffocation, inhalation effects"',
   'Control Flame':
@@ -731,10 +720,15 @@ Realms.FEATURES_ADDED = {
   'Drow Elf Ability Adjustment':
     'Section=ability ' +
     'Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
+  'Drow Elf Magic':
+    'Section=magic ' +
+    'Note="May cast <i>Dancing Lights</i>, <i>Darkness</i>, and <i>Faerie Fire</i> 1/dy"',
   'Drow Elf Spell Resistance':'Section=save Note="Spell resistance %V"',
   'Duergar Alertness':'Section=skill Note="+1 Listen/+1 Spot"',
   'Earth Genasi Ability Adjustment':
     'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
+  'Earth Genasi Magic':
+    'Section=magic Note="May cast <i>Pass Without Trace</i> 1/dy"',
   'Elemental Affinity':'Section=save Note="+%V vs. %1 spells"',
   'Exceptional Dodge':'Section=combat Note="+4 AC"',
   'Extended Darkvision':'Section=feature Note="120\' b/w vision in darkness"',
@@ -749,6 +743,9 @@ Realms.FEATURES_ADDED = {
   'Gray Dwarf Immunities':
     'Section=save ' +
     'Note="Immune to paralysis, phantasms, and magic and alchemical poisons"',
+  'Gray Dwarf Magic':
+    'Section=magic ' +
+    'Note="May cast self <i>Enlarge Person</i> and <i>Invisibility</i> 1/dy"',
   'Light Blindness':'Section=feature Note="Blind 1 rd from sudden daylight"',
   'Light Sensitivity':
     'Section=combat,save,skill ' +
@@ -768,14 +765,19 @@ Realms.FEATURES_ADDED = {
   'Strongheart Extra Feat':'Section=feature Note="+1 General Feat"',
   'Sun Elf Ability Adjustment':
     'Section=ability Note="+2 Intelligence/-2 Constitution"',
+  'Svirfneblin Magic':
+    'Section=magic ' +
+    'Note="Has continuous <i>Nondetection</i> effects/May cast <i>Speak With Animals</i> (burrowing mammals) for 1 min, <i>Blindness/Deafness</i>, <i>Blur</i>, and <i>Disguise Self</i> 1/dy"',
   'Svirfneblin Spell Resistance':'Section=save Note="Spell resistance %V"',
   'Tiefling Ability Adjustment':
     'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Charisma"',
+  'Tiefling Magic':'Section=magic Note="May cast <i>Darkness</i> 1/dy"',
   'Tiefling Resistance':
     'Section=save Note="Resistance 5 to cold, electricity, and fire"',
   'Undetectable':'Section=magic Note="Continuous <i>Nondetection</i>"',
   'Water Genasi Ability Adjustment':
     'Section=ability Note="+2 Constitution/-2 Charisma"',
+  'Water Genasi Magic':'Section=magic Note="May cast <i>Create Water</i> 1/dy"',
   'Wild Elf Ability Adjustment':
     'Section=ability Note="+2 Dexterity/-2 Intelligence"',
   'Wood Elf Ability Adjustment':
@@ -1445,11 +1447,7 @@ Realms.RACES = {
       .replace('Common', 'Undercommon')
       .replace('Dwarf Ability Adjustment', 'Gray Dwarf Ability Adjustment')
       .replace(/['"]?Darkvision['"]?/, '"Extended Darkvision"')
-      .replace('Features=', 'Features="Duergar Alertness","Gray Dwarf Immunities","Light Sensitivity","Race Level Adjustment","Stealthy Movement",') + ' ' +
-    'SpellAbility=intelligence ' +
-    'SpellSlots=' +
-      'Duergaren1:1=1,' +
-      'Duergaren2:1=1',
+      .replace('Features=', 'Features="Duergar Alertness","Gray Dwarf Immunities","Light Sensitivity","Race Level Adjustment","Stealthy Movement",'),
   'Shield Dwarf':
     SRD35.RACES['Dwarf'],
   'Drow Elf':
@@ -1458,12 +1456,7 @@ Realms.RACES = {
       .replace('Elf Ability Adjustment', 'Drow Elf Ability Adjustment')
       .replace('Low-Light Vision', 'Extended Darkvision')
       .replace(/Weapon Proficiency[^'"]*/, 'Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)')
-      .replace('Features=', 'Features="Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Race Level Adjustment","Strong Will",') + ' ' +
-    'SpellAbility=charisma ' +
-    'SpellSlots=' +
-      '"Drowen0:1=1",' +
-      '"Drowen1:1=1",' +
-      '"Drowen2:1=1"',
+      .replace('Features=', 'Features="Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Race Level Adjustment","Strong Will",'),
   'Moon Elf':
     SRD35.RACES['Elf'],
   'Sun Elf':
@@ -1478,12 +1471,7 @@ Realms.RACES = {
       .replace('Gnome Ability Adjustment', 'Deep Gnome Ability Adjustment')
       .replace('Dodge Giants', 'Exceptional Dodge')
       .replace('Low-Light Vision', 'Extended Darkvision')
-      .replace('Features=', 'Features="Extra Luck","Know Depth","Race Level Adjustment",Shadowed,Stonecunning,"Svirfneblin Spell Resistance",Undetectable,') + ' ' +
-    'SpellAbility=charisma ' +
-    'SpellSlots=' +
-      'Svirfneblinish1:1=1,' +
-      'Svirfneblinish2:1=2,' +
-      'Svirfneblinish3:1=1',
+      .replace('Features=', 'Features="Extra Luck","Know Depth","Race Level Adjustment",Shadowed,Stonecunning,"Svirfneblin Magic","Svirfneblin Spell Resistance",Undetectable,'),
   'Rock Gnome':
     SRD35.RACES['Gnome'],
   'Half-Elf':
@@ -1503,28 +1491,21 @@ Realms.RACES = {
   'Aasimar':
     'Features=' +
       '"1:Aasimar Ability Adjustment","1:Aasimar Alertness",' +
-      '"1:Aasimar Resistance",1:Darkvision,"1:Native Outsider",' +
-      '"1:Race Level Adjustment" ' +
-    'Languages=Common ' +
-    'SpellAbility=charisma ' +
-    'SpellSlots=' +
-      'Aasimaren0:1=1',
+      '"1:Aasimar Magic","1:Aasimar Resistance",1:Darkvision,' +
+      '"1:Native Outsider","1:Race Level Adjustment" ' +
+    'Languages=Common',
   'Air Genasi':
     'Features=' +
-      '"1:Air Genasi Ability Adjustment",1:Breathless,1:Darkvision,' +
-      '"1:Elemental Affinity","1:Native Outsider","1:Race Level Adjustment" ' +
-    'Languages=Common ' +
-    'SpellAbility=charisma ' +
-    'SpellSlots=' +
-      'Airen2:1=1',
+      '"1:Air Genasi Ability Adjustment","1:Air Genasi Magic",1:Breathless,' +
+      '1:Darkvision,"1:Elemental Affinity","1:Native Outsider",' +
+      '"1:Race Level Adjustment" ' +
+    'Languages=Common',
   'Earth Genasi':
     'Features=' +
       '1:Darkvision,"1:Earth Genasi Ability Adjustment",' +
-      '"1:Elemental Affinity","1:Native Outsider","1:Race Level Adjustment" ' +
-    'Languages=Common ' +
-    'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Earthen1:1=1',
+      '"1:Earth Genasi Magic","1:Elemental Affinity","1:Native Outsider",' +
+      '"1:Race Level Adjustment" ' +
+    'Languages=Common',
   'Fire Genasi':
     'Features=' +
       '"1:Control Flame",1:Darkvision,"1:Elemental Affinity",' +
@@ -1535,20 +1516,14 @@ Realms.RACES = {
     'Features=' +
       '1:Amphibious,1:Darkvision,"1:Elemental Affinity",' +
       '"1:Native Outsider","1:Natural Swimmer","1:Race Level Adjustment",' +
-      '"1:Water Genasi Ability Adjustment" ' +
-    'Languages=Common ' +
-    'SpellAbility=wisdom ' +
-    'SpellSlots=' +
-      'Wateren0:1=1',
+      '"1:Water Genasi Ability Adjustment","1:Water Genasi Magic" ' +
+    'Languages=Common',
   'Tiefling':
     'Features=' +
       '1:Darkvision,"1:Native Outsider",' +
       '"1:Race Level Adjustment",1:Sneaky,"1:Tiefling Ability Adjustment",' +
-      '"1:Tiefling Resistance" ' +
-    'Languages=Common ' +
-    'SpellAbility=charisma ' +
-    'SpellSlots=' +
-      'Tieflen2:1=1'
+      '"1:Tiefling Magic","1:Tiefling Resistance" ' +
+    'Languages=Common'
 };
 Realms.REGIONS = {
   'Aglarond':'',
@@ -1620,11 +1595,11 @@ Realms.SPELLS_ADDED = {
   // Vision, Truth, and Love
   "Aganazzar's Scorcher":
     'School=Evocation ' +
-    'Level=W2 ' +
+    'Level=S2,W2 ' +
     'Description="Creatures in 5\' by $RS\' path suffer ${Ldiv2min5}d8 HP (Ref half)"',
   'Analyze Portal':
     'School=Divination ' +
-    'Level=B3,Portal2,W3 ' +
+    'Level=B3,Portal2,S3,W3 ' +
     'Description="R60\' Quarter circle gives self info on portals for $L rd or conc"',
   'Anyspell':
     'School=Transmutation ' +
@@ -1636,11 +1611,11 @@ Realms.SPELLS_ADDED = {
     'Description="Touched gains +$Ldiv4plus3min8 AC and 60\' darkvision for $L10 min"',
   'Blacklight':
     'School=Evocation ' +
-    'Level=Darkness3,W3 ' +
+    'Level=Darkness3,S3,W3 ' +
     'Description="R$RS\' 20\' radius enveloped in darkness only self can see within for $L rd (Will neg)"',
   'Claws Of Darkness':
     'School=Illusion ' +
-   'Level=W2 ' +
+   'Level=S2,W2 ' +
     'Description="Self hands become 6\' extendable claws inflicting 1d4 HP and slowing via grapple (Fort neg) for $L rd"',
   'Cloak Of Dark Power':
     'School=Abjuration ' +
@@ -1648,7 +1623,7 @@ Realms.SPELLS_ADDED = {
     'Description="Touched protected from sunlight, +4 save vs. light and darkness effects for $L min"',
   'Create Magic Tattoo':
     'School=Conjuration ' +
-    'Level=W2 ' +
+    'Level=S2,W2 ' +
     'Description="Touched gains magic tattoo w/specified effects for 1 dy"',
   'Darkbolt':
     'School=Evocation ' +
@@ -1656,7 +1631,7 @@ Realms.SPELLS_ADDED = {
     'Description="R$RM\' Ranged touch with ${lvl//2<?7} bolts in 30\' radius inflict 2d8 HP each and daze 1 rd (Will neg)"',
   "Elminster's Evasion":
     'School=Evocation ' +
-    'Level=W9 ' +
+    'Level=S9,W9 ' +
     'Description="Self and up to 50 lb teleport to named locale"',
   'Fantastic Machine':
     'School=Illusion ' +
@@ -1664,19 +1639,19 @@ Realms.SPELLS_ADDED = {
     'Description="Large illusory machine (HP 22, AC 14, slam +5 1d8+4, throw rocks +3 2d6+4, move 40\'/rd, swim and fly 10\'/rd, load 230) obeys self for $L min"',
   'Fire Stride':
     'School=Transmutation ' +
-    'Level=W4 ' +
+    'Level=S4,W4 ' +
     'Description="Self teleports $RL\' between fires $L times for $L10 min"',
   'Flashburst':
     'School=Evocation ' +
-    'Level=W3 ' +
+    'Level=S3,W3 ' +
     'Description="R$RL\' Creatures in 20\' radius dazzled (-1 attack) for 1 rd, those w/in 120\' blinded (Will neg) for 2d8 rd"',
   'Flensing':
     'School=Evocation ' +
-    'Level=W8 ' +
+    'Level=S8,W8 ' +
     'Description="R$RS\' Target suffers 2d6 HP and -1d6 Charisma and Constitution (Fort half HP only) for 4 rd"',
   'Gate Seal':
     'School=Abjuration ' +
-    'Level=B6,C6,D6,W6 ' +
+    'Level=B6,C6,D6,S6,W6 ' +
     'Description="R$RS\' Seals magical gate or portal"',
   'Gembomb':
     'School=Conjuration ' +
@@ -1684,7 +1659,7 @@ Realms.SPELLS_ADDED = {
     'Description="Up to 5 gems become R100\' ranged touch bombs inflicting ${Ldiv2min5}d8 HP total (Ref half)"',
   'Great Shout':
     'School=Evocation ' +
-    'Level=B6,W8 ' +
+    'Level=B6,S8,W8 ' +
     'Description="R$RS\' Objects in range suffer 20d6 HP (Ref neg), creatures in cone suffer 10d6 HP, stunned for 1 rd, and deafened for 4d6 rd (Fort half)"',
   'Greater Anyspell':
     'School=Transmutation ' +
@@ -1696,11 +1671,11 @@ Realms.SPELLS_ADDED = {
     'Description="Large illusory machine (HP 88, AC 20, slam +17,+12 1d8+9, throw rocks +12,+7 2d6+9, move 60\'/rd, swim and fly 20\'/rd, load 520) obeys self for $L min"',
   "Grimwald's Graymantle":
     'School=Necromancy ' +
-    'Level=W5 ' +
+    'Level=S5,W5 ' +
     'Description="R$RM\' Touched prevented from healing, restoring, and regenerating for $L rd (Fort neg)"',
   'Lesser Ironguard':
     'School=Abjuration ' +
-    'Level=W5 ' +
+    'Level=S5,W5 ' +
     'Description="Touched gains immunity to normal metal for $L rd"',
   'Maelstrom':
     'School=Conjuration ' +
@@ -1712,15 +1687,15 @@ Realms.SPELLS_ADDED = {
     'Description="Animates natural opening to perform +%{levels.Cleric+wisdomModifier+7} grapple that inflicts 2d6+10 HP"',
   'Moon Blade':
     'School=Evocation ' +
-    'Level=Moon3,W3 ' + // W3 for Hathran
+    'Level=Moon3,S3,W3 ' + // W3 for Hathran
     'Description="Moonlight blade touch attack inflicts 1d8+$Ldiv2 HP (undead 2d8+$L HP) for $L min"',
   'Moon Path':
     'School=Evocation ' +
-    'Level=Moon5,W5 ' + // W5 for Hathran
+    'Level=Moon5,S5,W5 ' + // W5 for Hathran
     'Description="Creates glowing pathway 5\'-20\' by $L15\' for $L min that provides <i>Sanctuary</i> for $L designed creatures"',
   'Moonbeam':
     'School=Evocation ' +
-    'Level=Moon2,W2 ' + // W2 for Hathran
+    'Level=Moon2,S2,W2 ' + // W2 for Hathran
     'Description="R$RS\' Target lycanthropes assume animal form for $L min (Will neg)"',
   'Moonfire':
     'School=Evocation ' +
@@ -1728,20 +1703,20 @@ Realms.SPELLS_ADDED = {
     'Description="R$RS\' Cone inflicts ${Ldiv2min10}d8 HP (undead dbl) (Ref half), reverts changed creatures to normal form (Will neg), and marks auras for $L min"',
   'Scatterspray':
     'School=Transmutation ' +
-    'Level=Harper1,W1 ' +
+    'Level=Harper1,S1,W1 ' +
     'Description="R$RS\' Little items in 1\' radius scatter, inflicting 1d8 on creatures w/in 10\' (Ref neg)"',
   'Shadow Mask':
     'School=Illusion ' +
-    'Level=Harper2,W2 ' +
+    'Level=Harper2,S2,W2 ' +
     'Description="Hides self\'s face, gives +4 saves vs. light and dark and 50% protection from gaze attacks for $L10 min" ' +
     'Liquid=Potion',
   'Shadow Spray':
     'School=Illusion ' +
-    'Level=W2 ' +
+    'Level=S2,W2 ' +
     'Description="R$RM\' Creatures in 5\' radius suffer -2 Strength and fear saves and dazed 1 rd for $L rd (Fort neg)"',
   "Snilloc's Snowball Swarm":
     'School=Evocation ' +
-    'Level=W2 ' +
+    'Level=S2,W2 ' +
     'Description="R$RM\' Creatures in 10\' radius suffer ${Lplus1div2min5}d6 HP (Ref half)"',
   'Spider Curse':
     'School=Transmutation ' +
@@ -1761,7 +1736,7 @@ Realms.SPELLS_ADDED = {
     'Description="R$RS\' Transforms 1d3 pebbles into monstrous spiders that obey self for $L rd"',
   'Thunderlance':
     'School=Evocation ' +
-    'Level=W4 ' +
+    'Level=S4,W4 ' +
     'Description="Self wields shimmering staff (+$Ldiv2plus1 attack, 2d6+$Ldiv2plus1 x3@20) 1\' - 20\' long for $L rd"',
   'Waterspout':
     'School=Conjuration ' +
@@ -1793,8 +1768,7 @@ Realms.SPELLS_LEVELS = {
   'Blade Barrier':'Metal6',
   'Blasphemy':'Hatred7,Orc7',
   'Bless':'Family1',
-  'Blindness/Deafness':'Darkness2,Svirfneblinish2',
-  'Blur':'Svirfneblinish2',
+  'Blindness/Deafness':'Darkness2',
   'Break Enchantment':'Spell5',
   'Call Lightning':'Storm3',
   'Calm Emotions':'Charm2',
@@ -1812,10 +1786,8 @@ Realms.SPELLS_LEVELS = {
   'Control Weather':'Storm7',
   'Create Greater Undead':'Undeath8',
   'Create Undead':'Undeath6',
-  'Create Water':'Wateren0',
   'Creeping Doom':'Scalykind7,Spider8',
-  'Dancing Lights':'Drowen0',
-  'Darkness':'Cavern2,Drowen2,Tieflen2',
+  'Darkness':'Cavern2',
   'Darkvision':'Harper2',
   'Death Ward':'Undeath4',
   'Deathwatch':'Planning1',
@@ -1831,7 +1803,6 @@ Realms.SPELLS_LEVELS = {
   'Dimensional Anchor':'Portal3',
   'Discern Lies':'Drow4,Nobility4,Tyranny3',
   'Discern Location':'Planning8,Retribution8,Trade9',
-  'Disguise Self':'Svirfneblinish1',
   'Displacement':'Illusion3',
   'Divine Favor':'Nobility1',
   'Divine Power':'Orc4',
@@ -1843,8 +1814,6 @@ Realms.SPELLS_LEVELS = {
   'Endure Elements':'Ocean1',
   'Energy Drain':'Undeath9',
   'Enervation':'Suffering4',
-  // 3.0 Enlarge => 3.5 Enlarge Person
-  'Enlarge Person':'Duergaren1',
   'Enthrall':'Nobility2,Tyranny2',
   'Entropic Shield':'Storm1',
   'Erase':'Harper1,Rune1',
@@ -1852,7 +1821,7 @@ Realms.SPELLS_LEVELS = {
   'Explosive Runes':'Rune4',
   'Eyebite':'Orc6,Scalykind6,Suffering7',
   'Fabricate':'Dwarf5,Trade5',
-  'Faerie Fire':'Drowen1,Moon1',
+  'Faerie Fire':'Moon1',
   'Fear':'Tyranny4',
   'Feather Fall':'Harper1',
   'Feeblemind':'Suffering5',
@@ -1896,7 +1865,7 @@ Realms.SPELLS_LEVELS = {
   'Insanity':'Charm7,Moon7',
   'Insect Plague':'Spider5',
   'Instant Summons':'Rune7',
-  'Invisibility':'Duergaren2,Harper2',
+  'Invisibility':'Harper2',
   'Iron Body':'Metal8',
   "Irresistible Dance":'Gnome8',
   'Jump':'Harper1',
@@ -1906,8 +1875,7 @@ Realms.SPELLS_LEVELS = {
   'Lesser Confusion':'Mentalism1',
   'Lesser Planar Binding':'Rune5',
   'Lesser Restoration':'Renewal2',
-  'Levitate':'Airen2',
-  'Light':'Aasimaren0,Harper1',
+  'Light':'Harper1',
   'Limited Wish':'Spell7',
   'Liveoak':'Elf7',
   'Locate Object':'Harper2',
@@ -1941,9 +1909,8 @@ Realms.SPELLS_LEVELS = {
   'Mount':'Harper1',
   'Move Earth':'Halfling6',
   'Nightmare':'Darkness7',
-  'Nondetection':'Harper3,Svirfneblinish3',
+  'Nondetection':'Harper3',
   'Obscuring Mist':'Darkness1',
-  'Pass Without Trace':'Earthen1',
   'Passwall':'Cavern5',
   'Permanency':'Time5',
   'Permanent Image':'Moon6',
@@ -2040,15 +2007,15 @@ for(var s in Realms.SPELLS_LEVELS) {
     Realms.SPELLS[s].replace('Level=', 'Level=' + levels + ',');
 }
 Realms.WEAPONS_ADDED = {
-  'Blade Boot':'Level=3 Category=Li Damage=1d4 Threat=19',
-  'Chakram':'Level=3 Category=R Damage=1d4 Crit=3 Range=30',
-  'Claw Bracer':'Level=3 Category=1h Damage=1d4 Threat=19',
-  'Cutlass':'Level=2 Category=1h Damage=1d6 Threat=19',
+  'Blade Boot':'Level=3 Category=Li Damage=d4 Threat=19',
+  'Chakram':'Level=3 Category=R Damage=d4 Crit=3 Range=30',
+  'Claw Bracer':'Level=3 Category=1h Damage=d4 Threat=19',
+  'Cutlass':'Level=2 Category=1h Damage=d6 Threat=19',
   'Halfspear':'Level=1 Category=R Damage=d6 Crit=3 Range=20',
-  'Khopesh':'Level=3 Category=1h Damage=1d8 Threat=19',
-  'Saber':'Level=2 Category=1h Damage=1d8 Threat=19',
-  'Maul':'Level=2 Category=2h Damage=1d10 Crit=3 Threat=20',
-  'Scourge':'Level=3 Category=1h Damage=1d8 Threat=20'
+  'Khopesh':'Level=3 Category=1h Damage=d8 Threat=19',
+  'Saber':'Level=2 Category=1h Damage=d8 Threat=19',
+  'Maul':'Level=2 Category=2h Damage=d10 Crit=3 Threat=20',
+  'Scourge':'Level=3 Category=1h Damage=d8 Threat=20'
 };
 Realms.WEAPONS = Object.assign({}, SRD35.WEAPONS, Realms.WEAPONS_ADDED);
 
@@ -2252,9 +2219,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValueArray(attrs, 'Require'),
       QuilvynUtils.getAttrValueArray(attrs, 'Features'),
       QuilvynUtils.getAttrValueArray(attrs, 'Selectables'),
-      QuilvynUtils.getAttrValueArray(attrs, 'Languages'),
-      QuilvynUtils.getAttrValue(attrs, 'SpellAbility'),
-      QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots')
+      QuilvynUtils.getAttrValueArray(attrs, 'Languages')
     );
     Realms.raceRulesExtra(rules, name);
   } else if(type == 'Region')
@@ -3028,18 +2993,13 @@ Realms.pathRulesExtra = function(rules, name) {
 /*
  * Defines in #rules# the rules associated with race #name#, which has the list
  * of hard prerequisites #requires#. #features# and #selectables# list
- * associated features and #languages# any automatic languages. If the race
- * grants spell slots, #spellAbility# names the ability for computing spell
- * difficulty class, and #spellSlots# lists the number of spells per level per
- * day granted.
+ * associated features and #languages# any automatic languages.
  */
 Realms.raceRules = function(
-  rules, name, requires, features, selectables, languages, spellAbility,
-  spellSlots
+  rules, name, requires, features, selectables, languages
 ) {
   rules.basePlugin.raceRules
-    (rules, name, requires, features, selectables, languages, spellAbility,
-     spellSlots);
+    (rules, name, requires, features, selectables, languages);
   // No changes needed to the rules defined by base method
 };
 
@@ -3048,6 +3008,8 @@ Realms.raceRules = function(
  * derived directly from the abilities passed to raceRules.
  */
 Realms.raceRulesExtra = function(rules, name) {
+  let raceLevel =
+    name.charAt(0).toLowerCase() + name.substring(1).replaceAll(' ', '') + 'Level';
   var matchInfo;
   if((matchInfo = name.match(/^(\w+)\sGenasi$/)) != null) {
     var element = matchInfo[1];
@@ -3065,6 +3027,40 @@ Realms.raceRulesExtra = function(rules, name) {
       'clericFeatures.' + element + ' Domain', '+', '1'
     );
   }
+  let racialSpells =
+    name == 'Aasimar' ?  ['Light'] :
+    name == 'Air Genasi' ?  ['Levitate'] :
+    name == 'Deep Gnome' ? 
+      ['Blindness/Deafness', 'Blur', 'Disguise Self', 'Nondetection'] :
+    name == 'Drow Elf' ?  ['Dancing Lights', 'Darkness', 'Faerie Fire'] :
+    name == 'Earth Genasi' ? ['Pass Without Trace'] :
+    // 3.0 Enlarge => 3.5 Enlarge Person
+    name == 'Gray Dwarf' ? ['Enlarge Person', 'Invisibility'] :
+    name == 'Tiefling' ? ['Darkness'] :
+    name == 'Water Genasi' ? ['Create Water'] :
+    null;
+  if(racialSpells) {
+    let group =
+      (name=='Deep Gnome' ? 'Svirfneblin' : name.replaceAll(' ', '')) + 'Magic';
+    racialSpells.forEach(s => {
+      let attrs = SRD35.SPELLS[s];
+      if(attrs) {
+        let description = QuilvynUtils.getAttrValue(attrs, 'Description');
+        let school = QuilvynUtils.getAttrValue(attrs, 'School');
+        let level =
+          QuilvynUtils.getAttrValue(attrs, 'Level').replace(/^\D/, '') - 0;
+        let fullName =
+          s + '(' + group + level + ' ' + (school ? school.substring(0, 4) : 'Univ') + ')';
+        Realms.spellRules
+          (rules, fullName, school, group, level, description, false, []);
+        rules.defineRule
+          ('spells.' + fullName, 'casterLevels.' + group, '=', '1');
+      }
+    });
+    rules.defineRule('casterLevels.' + group,
+      raceLevel, '=', name.includes('Genasi') ? '5' : name == 'Gray Dwarf' ? 'Math.max(source * 2, 3)' : 'source'
+    );
+  }
   if(name == 'Aasimar') {
     rules.defineRule
       ('resistance.Acid', 'saveNotes.aasimarResistance', '^=', '5');
@@ -3072,8 +3068,6 @@ Realms.raceRulesExtra = function(rules, name) {
       ('resistance.Cold', 'saveNotes.aasimarResistance', '^=', '5');
     rules.defineRule
       ('resistance.Electricity', 'saveNotes.aasimarResistance', '^=', '5');
-  } else if(name == 'Air Genasi') {
-    rules.defineRule('casterLevels.Air Genasi', 'airGenasiLevel', '=', '5');
   } else if(name == 'Deep Gnome') {
     rules.defineRule
       ('saveNotes.svirfneblinSpellResistance', 'deepGnomeLevel', '=', 'source + 11');
@@ -3081,8 +3075,10 @@ Realms.raceRulesExtra = function(rules, name) {
     // based with a +4 racial modifier. The FG Campaign Setting says 10 +
     // spell level, so we go with that; otherwise, the value would be
     // 14 + source instead of 10
-    rules.defineRule
-      ('spellDifficultyClass.Svirfneblinish', 'charismaModifier', '=', '10');
+    rules.defineRule('spellDifficultyClass.SvirfneblinMagic',
+      'casterLevels.SvirfneblinMagic', '?', null,
+      'charismaModifier', '=', '10'
+    );
     rules.defineRule
       ('spellResistance', 'saveNotes.svirfneblinSpellResistance', '^=', null);
   } else if(name == 'Drow Elf') {
@@ -3093,14 +3089,15 @@ Realms.raceRulesExtra = function(rules, name) {
     rules.defineRule('skillNotes.lightSensitivity', 'drowElfLevel', '=', '1');
     rules.defineRule
       ('spellResistance', 'saveNotes.drowElfSpellResistance', '^=', null);
-  } else if(name == 'Earth Genasi') {
-    rules.defineRule('casterLevels.Earth Genasi', 'earthGenasiLevel', '=', '5');
   } else if(name == 'Gray Dwarf') {
-    rules.defineRule
-      ('casterLevels.Duergar', 'grayDwarfLevel', '=', 'source * 2');
+    rules.defineRule('combatNotes.lightSensitivity', 'grayDwarfLevel', '=','2');
     rules.defineRule('saveNotes.lightSensitivity', 'grayDwarfLevel', '=', '2');
     rules.defineRule('skillNotes.lightSensitivity', 'grayDwarfLevel', '=', '2');
-    rules.defineRule('combatNotes.lightSensitivity', 'grayDwarfLevel', '=','2');
+    // Spell DC for self spell is N/A, but they're part of spell description
+    rules.defineRule('spellDifficultyClass.GrayDwarfMagic',
+      'casterLevels.GrayDwarfMagic', '?', null,
+      'intelligenceModifier', '=', '10 + source'
+    );
   } else if(name == 'Tiefling') {
     rules.defineRule
       ('resistance.Cold', 'saveNotes.tieflingResistance', '^=', '5');
@@ -3108,8 +3105,6 @@ Realms.raceRulesExtra = function(rules, name) {
       ('resistance.Electricity', 'saveNotes.tieflingResistance', '^=', '5');
     rules.defineRule
       ('resistance.Fire', 'saveNotes.tieflingResistance', '^=', '5');
-  } else if(name == 'Water Genasi') {
-    rules.defineRule('casterLevels.Water Genasi', 'waterGenasiLevel', '=', '5');
   } else if(rules.basePlugin.raceRulesExtra) {
     rules.basePlugin.raceRulesExtra(rules, name);
   }
