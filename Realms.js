@@ -41,7 +41,7 @@ function Realms(baseRules) {
     window.Pathfinder != null && Pathfinder.SRD35_SKILL_MAP &&
     baseRules != null && baseRules.includes('Pathfinder');
 
-  var rules = new QuilvynRules(
+  let rules = new QuilvynRules(
     'Forgotten Realms - ' + (Realms.USE_PATHFINDER ? 'Pathfinder 1E' : 'D&D v3.5'),
      Realms.VERSION
   );
@@ -64,8 +64,8 @@ function Realms(baseRules) {
   rules.ruleNotes = Realms.ruleNotes;
 
   if(rules.basePlugin == window.Pathfinder) {
-    SRD35.ABBREVIATIONS['CMB'] = 'Combat Maneuver Bonus';
-    SRD35.ABBREVIATIONS['CMD'] = 'Combat Maneuver Defense';
+    SRD35.ABBREVIATIONS.CMB = 'Combat Maneuver Bonus';
+    SRD35.ABBREVIATIONS.CMD = 'Combat Maneuver Defense';
   }
 
   SRD35.createViewers(rules, SRD35.VIEWERS);
@@ -83,6 +83,27 @@ function Realms(baseRules) {
   Realms.ARMORS = Object.assign({}, rules.basePlugin.ARMORS);
   Realms.CLASSES = Object.assign({}, rules.basePlugin.CLASSES);
   Realms.NPC_CLASSES = Object.assign({}, rules.basePlugin.NPC_CLASSES);
+  for(let c in Realms.CLASS_FEATURES_ADDED) {
+    let features =
+      QuilvynUtils.getAttrValueArray(Realms.CLASS_FEATURES_ADDED[c],'Features');
+    let selectables =
+      QuilvynUtils.getAttrValueArray(Realms.CLASS_FEATURES_ADDED[c], 'Selectables');
+    if(c in Realms.CLASSES) {
+      Realms.CLASSES[c] =
+        Realms.CLASSES[c].replace(
+          'Features=', 'Features="' + features.join('","') + '",'
+        ).replace(
+          'Selectables=', 'Selectables="' + selectables.join('","') + '",'
+        );
+    } else if(c in Realms.NPC_CLASSES) {
+      Realms.NPC_CLASSES[c] =
+        Realms.NPC_CLASSES[c].replace(
+          'Features=', 'Features="' + features.join('","') + '",'
+        ).replace(
+          'Selectables=', 'Selectables="' + selectables.join('","') + '",'
+        );
+    }
+  }
   Realms.FAMILIARS = Object.assign({}, rules.basePlugin.FAMILIARS);
   Realms.FEATS =
     Object.assign({}, rules.basePlugin.FEATS, Realms.FEATS_ADDED);
@@ -93,59 +114,49 @@ function Realms(baseRules) {
     Object.assign({}, rules.basePlugin.LANGUAGES, Realms.LANGUAGES_ADDED);
   Realms.PATHS =
     Object.assign({}, rules.basePlugin.PATHS, Realms.PATHS_ADDED);
-  Realms.DEITIES['None'] =
-    'Domain=' + QuilvynUtils.getKeys(Realms.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join(',');
   Realms.RACES['Gold Dwarf'] =
-    rules.basePlugin.RACES['Dwarf']
+    rules.basePlugin.RACES.Dwarf
       .replace('Dwarf Ability', 'Gold Dwarf Ability')
       .replace('Dwarf Enmity', 'Gold Dwarf Enmity');
   Realms.RACES['Gray Dwarf'] =
-    rules.basePlugin.RACES['Dwarf']
+    rules.basePlugin.RACES.Dwarf
       .replace('Common', 'Undercommon')
       .replace('Dwarf Ability Adjustment', 'Gray Dwarf Ability Adjustment')
       .replace(/['"]?Darkvision['"]?/, '"Extended Darkvision"')
-      .replace('Features=', 'Features="Duergar Alertness","Gray Dwarf Immunities","Gray Dwarf Magic","Light Sensitivity","Race Level Adjustment","Stealthy Movement",'),
-  Realms.RACES['Shield Dwarf'] =
-    rules.basePlugin.RACES['Dwarf'];
-  Realms.RACES['Drow Elf'] =
-    rules.basePlugin.RACES['Elf']
+      .replace('Features=', 'Features="Duergar Alertness","Gray Dwarf Immunities","Gray Dwarf Magic","Light Sensitivity","Race Level Adjustment","Stealthy Movement",');
+  Realms.RACES['Shield Dwarf'] = rules.basePlugin.RACES.Dwarf;
+  Realms.RACES['Drow Elf'] = rules.basePlugin.RACES.Elf
       .replace('Common', 'Undercommon')
       .replace('Elf Ability Adjustment', 'Drow Elf Ability Adjustment')
       .replace('Low-Light Vision', 'Extended Darkvision')
       .replace(/Weapon Proficiency[^'"]*/, 'Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)')
-      .replace('Features=', 'Features="Drow Elf Magic","Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Race Level Adjustment","Strong Will",'),
-  Realms.RACES['Moon Elf'] =
-    rules.basePlugin.RACES['Elf'];
+      .replace('Features=', 'Features="Drow Elf Magic","Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Race Level Adjustment","Strong Will",');
+  Realms.RACES['Moon Elf'] = rules.basePlugin.RACES.Elf;
   Realms.RACES['Sun Elf'] =
-    rules.basePlugin.RACES['Elf'].replace('Elf Ability', 'Sun Elf Ability');
+    rules.basePlugin.RACES.Elf.replace('Elf Ability', 'Sun Elf Ability');
   Realms.RACES['Wild Elf'] =
-    rules.basePlugin.RACES['Elf'].replace('Elf Ability', 'Wild Elf Ability');
+    rules.basePlugin.RACES.Elf.replace('Elf Ability', 'Wild Elf Ability');
   Realms.RACES['Wood Elf'] =
-    rules.basePlugin.RACES['Elf'].replace('Elf Ability', 'Wood Elf Ability');
+    rules.basePlugin.RACES.Elf.replace('Elf Ability', 'Wood Elf Ability');
   Realms.RACES['Deep Gnome'] =
-    rules.basePlugin.RACES['Gnome']
+    rules.basePlugin.RACES.Gnome
       .replace('Common', 'Undercommon')
       .replace('Gnome Ability Adjustment', 'Deep Gnome Ability Adjustment')
       .replace('Dodge Giants', 'Exceptional Dodge')
       .replace('Gnome Magic', 'Svirfneblin Magic')
       .replace('Low-Light Vision', 'Extended Darkvision')
-      .replace('Features=', 'Features="Extra Luck","Know Depth","Race Level Adjustment",Shadowed,Stonecunning,"Svirfneblin Spell Resistance",Undetectable,'),
-  Realms.RACES['Rock Gnome'] =
-    rules.basePlugin.RACES['Gnome'];
-  Realms.RACES['Half-Elf'] =
-    rules.basePlugin.RACES['Half-Elf'];
-  Realms.RACES['Half-Orc'] =
-    rules.basePlugin.RACES['Half-Orc'];
+      .replace('Features=', 'Features="Extra Luck","Know Depth","Race Level Adjustment",Shadowed,Stonecunning,"Svirfneblin Spell Resistance",Undetectable,');
+  Realms.RACES['Rock Gnome'] = rules.basePlugin.RACES.Gnome;
+  Realms.RACES['Half-Elf'] = rules.basePlugin.RACES['Half-Elf'];
+  Realms.RACES['Half-Orc'] = rules.basePlugin.RACES['Half-Orc'];
   Realms.RACES['Ghostwise Halfling'] =
-    rules.basePlugin.RACES['Halfling']
+    rules.basePlugin.RACES.Halfling
       .replace(/['"]?Fortunate['"]?/, '"Speak Without Sound"');
-  Realms.RACES['Lightfoot Halfling'] =
-    rules.basePlugin.RACES['Halfling'];
+  Realms.RACES['Lightfoot Halfling'] = rules.basePlugin.RACES.Halfling;
   Realms.RACES['Strongheart Halfling'] =
-    rules.basePlugin.RACES['Halfling']
+    rules.basePlugin.RACES.Halfling
       .replace(/['"]?Fortunate['"]?/, '"Strongheart Extra Feat"');
-  Realms.RACES['Human'] =
-    rules.basePlugin.RACES['Human'];
+  Realms.RACES.Human = rules.basePlugin.RACES.Human;
   Realms.SCHOOLS = Object.assign({}, rules.basePlugin.SCHOOLS);
   Realms.SHIELDS = Object.assign({}, rules.basePlugin.SHIELDS);
   Realms.SKILLS = Object.assign({}, rules.basePlugin.SKILLS);
@@ -153,8 +164,8 @@ function Realms(baseRules) {
     ({}, Realms.USE_PATHFINDER ? Pathfinder.SPELLS :
          window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS,
      Realms.SPELLS_ADDED);
-  for(var s in Realms.SPELLS_LEVELS) {
-    var levels = Realms.SPELLS_LEVELS[s];
+  for(let s in Realms.SPELLS_LEVELS) {
+    let levels = Realms.SPELLS_LEVELS[s];
     if(!(s in Realms.SPELLS)) {
       if(window.PHB35 && PHB35.SPELL_RENAMES && s in PHB35.SPELL_RENAMES) {
         s = PHB35.SPELL_RENAMES[s];
@@ -186,7 +197,7 @@ function Realms(baseRules) {
 
 }
 
-Realms.VERSION = '2.3.1.3';
+Realms.VERSION = '2.3.1.4';
 
 // Realms uses PHB35 as its default base ruleset. If USE_PATHFINDER is true,
 // the Realms function will instead use rules taken from the Pathfinder plugin.
@@ -203,6 +214,27 @@ Realms.ANIMAL_COMPANIONS = Object.assign({}, SRD35.ANIMAL_COMPANIONS);
 Realms.ARMORS = Object.assign({}, SRD35.ARMORS);
 Realms.CLASSES = Object.assign({}, SRD35.CLASSES);
 Realms.NPC_CLASSES = Object.assign({}, SRD35.NPC_CLASSES);
+for(let c in Realms.CLASS_FEATURES_ADDED) {
+  let features =
+    QuilvynUtils.getAttrValueArray(Realms.CLASS_FEATURES_ADDED[c], 'Features');
+  let selectables =
+    QuilvynUtils.getAttrValueArray(Realms.CLASS_FEATURES_ADDED[c], 'Selectables');
+  if(c in Realms.CLASSES) {
+    Realms.CLASSES[c] =
+      Realms.CLASSES[c].replace(
+        'Features=', 'Features="' + features.join('","') + '",'
+      ).replace(
+        'Selectables=', 'Selectables="' + selectables.join('","') + '",'
+      );
+  } else if(c in Realms.NPC_CLASSES) {
+    Realms.NPC_CLASSES[c] =
+      Realms.NPC_CLASSES[c].replace(
+        'Features=', 'Features="' + features.join('","') + '",'
+      ).replace(
+        'Selectables=', 'Selectables="' + selectables.join('","') + '",'
+      );
+  }
+}
 Realms.PRESTIGE_CLASSES = {
   'Arcane Devotee':
     'Require=' +
@@ -228,11 +260,16 @@ Realms.PRESTIGE_CLASSES = {
       'Spellcraft ' +
     'Features="1:Caster Level Bonus","1:High Arcana" ' +
     'Selectables=' +
-      '"1:Arcane Fire","1:Arcane Reach",' +
-      '"features.Arcane Reach ? 1:Improved Arcane Reach",' +
-      '"1:Mastery Of Counterspelling","1:Mastery Of Elements",' +
-      '"1:Mastery Of Shaping","1:Spell Power +1","1:Spell Power +2",' +
-      '"Spell Power +3","1:Spell-Like Ability"',
+      '"1:Arcane Fire:High Arcana",' +
+      '"1:Arcane Reach:High Arcana",' +
+      '"features.Arcane Reach ? 1:Improved Arcane Reach:High Arcana",' +
+      '"1:Mastery Of Counterspelling:High Arcana",' +
+      '"1:Mastery Of Elements:High Arcana",' +
+      '"1:Mastery Of Shaping:High Arcana",' +
+      '"1:Spell Power +1:High Arcana",' +
+      '"1:Spell Power +2:High Arcana",' +
+      '"1:Spell Power +3:High Arcana",' +
+      '"1:Spell-Like Ability:High Arcana"',
   'Divine Champion':
     'Require=' +
        '"baseAttack >= 7","Sum \'features.Weapon Focus\' >= 1",' +
@@ -345,10 +382,15 @@ Realms.PRESTIGE_CLASSES = {
     'Features=' +
       '"1:Hierophant Special Abilities" ' +
     'Selectables=' +
-      '"1:Blast Infidel","1:Divine Reach","1:Faith Healing",' +
-      '"1:Gift Of The Divine","1:Improved Divine Reach",' +
-      '"1:Mastery Of Energy","1:Spell Power +2","1:Spell-Like Ability",' +
-      '"levels.Druid > 0 ? 1:Power Of Nature"',
+      '"1:Blast Infidel:Special Ability",' +
+      '"1:Divine Reach:Special Ability",' +
+      '"1:Faith Healing:Special Ability",' +
+      '"1:Gift Of The Divine:Special Ability",' +
+      '"1:Improved Divine Reach:Special Ability",' +
+      '"1:Mastery Of Energy:Special Ability",' +
+      '"1:Spell Power +2:Special Ability",' +
+      '"1:Spell-Like Ability:Special Ability",' +
+      '"levels.Druid > 0 ? 1:Power Of Nature:Special Ability"',
   'Purple Dragon Knight':
     'Require=' +
       '"alignment !~ \'Chaotic|Evil\'","baseAttack >= 4",' +
@@ -958,181 +1000,82 @@ Realms.LANGUAGES_ADDED = {
   'Undercommon':'',
   'Untheric':''
 };
-Realms.PATHS_ADDED = {
-  'Cavern Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
+Realms.CLASS_FEATURES_ADDED = {
+  'Cleric':
     'Features=' +
-      '"1:Cavern Stonecunning"',
-  'Charm Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Turn On The Charm"',
-  'Craft Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Creator"',
-  'Darkness Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Blind-Fight"',
-  'Drow Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Lightning Reflexes"',
-  'Dwarf Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Great Fortitude"',
-  'Elf Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Point-Blank Shot"',
-  'Family Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Familial Protection"',
-  'Fate Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Uncanny Dodge"',
-  'Gnome Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Advanced Illusionist"',
-  'Halfling Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Sprightly"',
-  'Hatred Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Hated Foe"',
-  'Illusion Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Advanced Illusionist"',
-  'Mentalism Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Mental Ward"',
-  'Metal Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Hammer Specialist"',
-  'Moon Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Turn Lycanthropes"',
-  'Nobility Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Inspire Allies"',
-  'Ocean Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Water Breathing"',
-  'Orc Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Smite Power"',
-  'Planning Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Extend Spell"',
-  'Portal Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Detect Portal"',
-  'Renewal Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Renew Self"',
-  'Retribution Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Strike Of Vengeance"',
-  'Rune Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Scribe Scroll"',
-  'Scalykind Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Turn Reptiles"',
-  'Slime Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Turn Oozes"',
-  'Spell Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Skilled Caster"',
-  'Spider Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Turn Spiders"',
-  'Storm Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Stormfriend"',
-  'Suffering Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Pain Touch"',
-  'Time Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Improved Initiative"',
-  'Trade Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Trade Secrets"',
-  'Tyranny Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Compelling Magic"',
-  'Undeath Domain':
-    'Group=Cleric ' +
-    'Level=levels.Cleric ' +
-    'Features=' +
-      '"1:Extra Turning"'
+      '"features.Cavern Domain ? 1:Cavern Stonecunning",' +
+      '"features.Charm Domain ? 1:Turn On The Charm",' +
+      '"features.Craft Domain ? 1:Creator",' +
+      '"features.Darkness Domain ? 1:Blind-Fight",' +
+      '"features.Drow Domain ? 1:Lightning Reflexes",' +
+      '"features.Dwarf Domain ? 1:Great Fortitude",' +
+      '"features.Elf Domain ? 1:Point-Blank Shot",' +
+      '"features.Family Domain ? 1:Familial Protection",' +
+      '"features.Fate Domain ? 1:Uncanny Dodge",' +
+      '"features.Gnome || features.Illusion Domain ? 1:Advanced Illusionist",' +
+      '"features.Halfling Domain ? 1:Sprightly",' +
+      '"features.Hatred Domain ? 1:Hated Foe",' +
+      // Handled above '"features.Illusion Domain ? 1:Advanced Illusionist",' +
+      '"features.Mentalism Domain ? 1:Mental Ward",' +
+      '"features.Metal Domain ? 1:Hammer Specialist",' +
+      '"features.Moon Domain ? 1:Turn Lycanthropes",' +
+      '"features.Nobility Domain ? 1:Inspire Allies",' +
+      '"features.Ocean Domain ? 1:Water Breathing",' +
+      '"features.Orc Domain ? 1:Smite Power",' +
+      '"features.Planning Domain ? 1:Extend Spell",' +
+      '"features.Portal Domain ? 1:Detect Portal",' +
+      '"features.Renewal Domain ? 1:Renew Self",' +
+      '"features.Retribution Domain ? 1:Strike Of Vengeance",' +
+      '"features.Rune Domain ? 1:Scribe Scroll",' +
+      '"features.Scalykind Domain ? 1:Turn Reptiles",' +
+      '"features.Slime Domain ? 1:Turn Oozes",' +
+      '"features.Spell Domain ? 1:Skilled Caster",' +
+      '"features.Spider Domain ? 1:Turn Spiders",' +
+      '"features.Storm Domain ? 1:Stormfriend",' +
+      '"features.Suffering Domain ? 1:Pain Touch",' +
+      '"features.Time Domain ? 1:Improved Initiative",' +
+      '"features.Trade Domain ? 1:Trade Secrets",' +
+      '"features.Tyranny Domain ? 1:Compelling Magic",' +
+      '"features.Undeath Domain ? 1:Extra Turning" ' +
+    'Selectables=' +
+      '"deityDomains =~ \'Cavern\' ? 1:Cavern Domain:Domain",' +
+      '"deityDomains =~ \'Charm\' ? 1:Charm Domain:Domain",' +
+      '"deityDomains =~ \'Craft\' ? 1:Craft Domain:Domain",' +
+      '"deityDomains =~ \'Darkness\' ? 1:Darkness Domain:Domain",' +
+      '"deityDomains =~ \'Drow\' ? 1:Drow Domain:Domain",' +
+      '"deityDomains =~ \'Dwarf\' ? 1:Dwarf Domain:Domain",' +
+      '"deityDomains =~ \'Elf\' ? 1:Elf Domain:Domain",' +
+      '"deityDomains =~ \'Family\' ? 1:Family Domain:Domain",' +
+      '"deityDomains =~ \'Fate\' ? 1:Fate Domain:Domain",' +
+      '"deityDomains =~ \'Gnome\' ? 1:Gnome Domain:Domain",' +
+      '"deityDomains =~ \'Halfling\' ? 1:Halfling Domain:Domain",' +
+      '"deityDomains =~ \'Hatred\' ? 1:Hatred Domain:Domain",' +
+      '"deityDomains =~ \'Illusion\' ? 1:Illusion Domain:Domain",' +
+      '"deityDomains =~ \'Mentalism\' ? 1:Mentalism Domain:Domain",' +
+      '"deityDomains =~ \'Metal\' ? 1:Metal Domain:Domain",' +
+      '"deityDomains =~ \'Moon\' ? 1:Moon Domain:Domain",' +
+      '"deityDomains =~ \'Nobility\' ? 1:Nobility Domain:Domain",' +
+      '"deityDomains =~ \'Ocean\' ? 1:Ocean Domain:Domain",' +
+      '"deityDomains =~ \'Orc\' ? 1:Orc Domain:Domain",' +
+      '"deityDomains =~ \'Planning\' ? 1:Planning Domain:Domain",' +
+      '"deityDomains =~ \'Portal\' ? 1:Portal Domain:Domain",' +
+      '"deityDomains =~ \'Renewal\' ? 1:Renewal Domain:Domain",' +
+      '"deityDomains =~ \'Retribution\' ? 1:Retribution Domain:Domain",' +
+      '"deityDomains =~ \'Rune\' ? 1:Rune Domain:Domain",' +
+      '"deityDomains =~ \'Scalykind\' ? 1:Scalykind Domain:Domain",' +
+      '"deityDomains =~ \'Slime\' ? 1:Slime Domain:Domain",' +
+      '"deityDomains =~ \'Spell\' ? 1:Spell Domain:Domain",' +
+      '"deityDomains =~ \'Spider\' ? 1:Spider Domain:Domain",' +
+      '"deityDomains =~ \'Storm\' ? 1:Storm Domain:Domain",' +
+      '"deityDomains =~ \'Suffering\' ? 1:Suffering Domain:Domain",' +
+      '"deityDomains =~ \'Time\' ? 1:Time Domain:Domain",' +
+      '"deityDomains =~ \'Trade\' ? 1:Trade Domain:Domain",' +
+      '"deityDomains =~ \'Tyranny\' ? 1:Tyranny Domain:Domain",' +
+      '"deityDomains =~ \'Undeath\' ? 1:Undeath Domain:Domain"'
 };
-Realms.PATHS = Object.assign({}, SRD35.PATHS, Realms.PATHS_ADDED);
+Realms.PATHS = {};
 Realms.DEITIES = {
-  'None':'Domain=' + QuilvynUtils.getKeys(Realms.PATHS).filter(x => x.match(/Domain$/)).map(x => x.replace(' Domain', '')).join(','),
+  'None':'',
   // Faerun
   'Akadi':
     'Alignment=N Weapon="Heavy Flail" Domain=Air,Illusion,Travel,Trickery',
@@ -1439,55 +1382,45 @@ Realms.DEITIES = {
 };
 Realms.RACES = {
   'Gold Dwarf':
-    SRD35.RACES['Dwarf']
+    SRD35.RACES.Dwarf
       .replace('Dwarf Ability', 'Gold Dwarf Ability')
       .replace('Dwarf Enmity', 'Gold Dwarf Enmity'),
   'Gray Dwarf':
-    SRD35.RACES['Dwarf']
+    SRD35.RACES.Dwarf
       .replace('Common', 'Undercommon')
       .replace('Dwarf Ability Adjustment', 'Gray Dwarf Ability Adjustment')
       .replace(/['"]?Darkvision['"]?/, '"Extended Darkvision"')
       .replace('Features=', 'Features="Duergar Alertness","Gray Dwarf Immunities","Light Sensitivity","Race Level Adjustment","Stealthy Movement",'),
-  'Shield Dwarf':
-    SRD35.RACES['Dwarf'],
+  'Shield Dwarf': SRD35.RACES.Dwarf,
   'Drow Elf':
-    SRD35.RACES['Elf']
+    SRD35.RACES.Elf
       .replace('Common', 'Undercommon')
       .replace('Elf Ability Adjustment', 'Drow Elf Ability Adjustment')
       .replace('Low-Light Vision', 'Extended Darkvision')
       .replace(/Weapon Proficiency[^'"]*/, 'Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)')
       .replace('Features=', 'Features="Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Race Level Adjustment","Strong Will",'),
-  'Moon Elf':
-    SRD35.RACES['Elf'],
-  'Sun Elf':
-    SRD35.RACES['Elf'].replace('Elf Ability', 'Sun Elf Ability'),
-  'Wild Elf':
-    SRD35.RACES['Elf'].replace('Elf Ability', 'Wild Elf Ability'),
-  'Wood Elf':
-    SRD35.RACES['Elf'].replace('Elf Ability', 'Wood Elf Ability'),
+  'Moon Elf': SRD35.RACES.Elf,
+  'Sun Elf': SRD35.RACES.Elf.replace('Elf Ability', 'Sun Elf Ability'),
+  'Wild Elf': SRD35.RACES.Elf.replace('Elf Ability', 'Wild Elf Ability'),
+  'Wood Elf': SRD35.RACES.Elf.replace('Elf Ability', 'Wood Elf Ability'),
   'Deep Gnome':
-    SRD35.RACES['Gnome']
+    SRD35.RACES.Gnome
       .replace('Common', 'Undercommon')
       .replace('Gnome Ability Adjustment', 'Deep Gnome Ability Adjustment')
       .replace('Dodge Giants', 'Exceptional Dodge')
       .replace('Low-Light Vision', 'Extended Darkvision')
       .replace('Features=', 'Features="Extra Luck","Know Depth","Race Level Adjustment",Shadowed,Stonecunning,"Svirfneblin Magic","Svirfneblin Spell Resistance",Undetectable,'),
-  'Rock Gnome':
-    SRD35.RACES['Gnome'],
-  'Half-Elf':
-    SRD35.RACES['Half-Elf'],
-  'Half-Orc':
-    SRD35.RACES['Half-Orc'],
+  'Rock Gnome': SRD35.RACES.Gnome,
+  'Half-Elf': SRD35.RACES['Half-Elf'],
+  'Half-Orc': SRD35.RACES['Half-Orc'],
   'Ghostwise Halfling':
-    SRD35.RACES['Halfling']
+    SRD35.RACES.Halfling
       .replace('Fortunate', '"Speak Without Sound"'),
-  'Lightfoot Halfling':
-    SRD35.RACES['Halfling'],
+  'Lightfoot Halfling': SRD35.RACES.Halfling,
   'Strongheart Halfling':
-    SRD35.RACES['Halfling']
+    SRD35.RACES.Halfling
       .replace('Fortunate', '"Strongheart Extra Feat"'),
-  'Human':
-    SRD35.RACES['Human'],
+  'Human': SRD35.RACES.Human,
   'Aasimar':
     'Features=' +
       '"1:Aasimar Ability Adjustment","1:Aasimar Alertness",' +
@@ -1991,8 +1924,8 @@ Realms.SPELLS_LEVELS = {
   'Word Of Chaos':'Drow7',
   'Word Of Recall':'Halfling8'
 };
-for(var s in Realms.SPELLS_LEVELS) {
-  var levels = Realms.SPELLS_LEVELS[s];
+for(let s in Realms.SPELLS_LEVELS) {
+  let levels = Realms.SPELLS_LEVELS[s];
   if(!(s in Realms.SPELLS)) {
     if(window.PHB35 && PHB35.SPELL_RENAMES && s in PHB35.SPELL_RENAMES) {
       s = PHB35.SPELL_RENAMES[s];
@@ -2007,15 +1940,15 @@ for(var s in Realms.SPELLS_LEVELS) {
     Realms.SPELLS[s].replace('Level=', 'Level=' + levels + ',');
 }
 Realms.WEAPONS_ADDED = {
-  'Blade Boot':'Level=3 Category=Li Damage=d4 Threat=19',
-  'Chakram':'Level=3 Category=R Damage=d4 Crit=3 Range=30',
-  'Claw Bracer':'Level=3 Category=1h Damage=d4 Threat=19',
-  'Cutlass':'Level=2 Category=1h Damage=d6 Threat=19',
-  'Halfspear':'Level=1 Category=R Damage=d6 Crit=3 Range=20',
-  'Khopesh':'Level=3 Category=1h Damage=d8 Threat=19',
-  'Saber':'Level=2 Category=1h Damage=d8 Threat=19',
-  'Maul':'Level=2 Category=2h Damage=d10 Crit=3 Threat=20',
-  'Scourge':'Level=3 Category=1h Damage=d8 Threat=20'
+  'Blade Boot':'Level=Exotic Category=Light Damage=d4 Threat=19',
+  'Chakram':'Level=Exotic Category=Ranged Damage=d4 Crit=3 Range=30',
+  'Claw Bracer':'Level=Exotic Category=One-Handed Damage=d4 Threat=19',
+  'Cutlass':'Level=Martial Category=One-Handed Damage=d6 Threat=19',
+  'Halfspear':'Level=Simple Category=R Damage=d6 Crit=3 Range=20',
+  'Khopesh':'Level=Exotic Category=One-Handed Damage=d8 Threat=19',
+  'Saber':'Level=Martial Category=One-Handed Damage=d8 Threat=19',
+  'Maul':'Level=Martial Category=Two-Handed Damage=d10 Crit=3 Threat=20',
+  'Scourge':'Level=Exotic Category=One-Handed Damage=d8 Threat=20'
 };
 Realms.WEAPONS = Object.assign({}, SRD35.WEAPONS, Realms.WEAPONS_ADDED);
 
@@ -2056,7 +1989,7 @@ Realms.identityRules = function(
       npcClasses
     );
 
-  for(var region in regions) {
+  for(let region in regions) {
     rules.choiceRules(rules, 'Region', region, regions[region]);
   }
 
@@ -2070,8 +2003,8 @@ Realms.identityRules = function(
     'abilityNotes.raceLevelAdjustment', '+', null
   );
   if(rules.basePlugin == window.Pathfinder) {
-    for(var track in Pathfinder.TRACKS) {
-      var progression =
+    for(let track in Pathfinder.TRACKS) {
+      let progression =
         QuilvynUtils.getAttrValueArray(Pathfinder.TRACKS[track], 'Progression');
       rules.defineRule(track + 'Needed',
         'experienceNeededLevel', '=', 'source < ' + progression.length + ' ? [' + progression + '][source] * 1000 : ' + (progression[progression.length - 1] * 1000 + 1)
@@ -2141,7 +2074,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'Skill'),
       QuilvynUtils.getAttrValue(attrs, 'Spell')
     );
-  else if(type == 'Class' || type == 'Npc' || type == 'Prestige') {
+  else if(type == 'Class' || type.match(/npc/i) || type == 'Prestige') {
     Realms.classRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Require'),
       QuilvynUtils.getAttrValue(attrs, 'HitDie'),
@@ -2238,7 +2171,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'Spell')
     );
   else if(type == 'Skill') {
-    var untrained = QuilvynUtils.getAttrValue(attrs, 'Untrained');
+    let untrained = QuilvynUtils.getAttrValue(attrs, 'Untrained');
     Realms.skillRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Ability'),
       untrained != 'n' && untrained != 'N',
@@ -2248,21 +2181,23 @@ Realms.choiceRules = function(rules, type, name, attrs) {
     if(rules.basePlugin.skillRulesExtra)
       rules.basePlugin.skillRulesExtra(rules, name);
   } else if(type == 'Spell') {
-    var description = QuilvynUtils.getAttrValue(attrs, 'Description');
-    var groupLevels = QuilvynUtils.getAttrValueArray(attrs, 'Level');
-    var school = QuilvynUtils.getAttrValue(attrs, 'School');
-    var schoolAbbr = (school || 'Universal').substring(0, 4);
-    for(var i = 0; i < groupLevels.length; i++) {
-      var matchInfo = groupLevels[i].match(/^(\D+)(\d+)$/);
+    let description = QuilvynUtils.getAttrValue(attrs, 'Description');
+    let groupLevels = QuilvynUtils.getAttrValueArray(attrs, 'Level');
+    let school = QuilvynUtils.getAttrValue(attrs, 'School');
+    let schoolAbbr = (school || 'Universal').substring(0, 4);
+    for(let i = 0; i < groupLevels.length; i++) {
+      let matchInfo = groupLevels[i].match(/^(\D+)(\d+)$/);
       if(!matchInfo) {
         console.log('Bad level "' + groupLevels[i] + '" for spell ' + name);
         continue;
       }
-      var group = matchInfo[1];
-      var level = matchInfo[2] * 1;
-      var fullName = name + '(' + group + level + ' ' + schoolAbbr + ')';
-      // TODO indicate domain spells in attributes?
-      var domainSpell = Realms.PATHS[group + ' Domain'] != null;
+      let group = matchInfo[1];
+      let level = matchInfo[2] * 1;
+      let fullName = name + '(' + group + level + ' ' + schoolAbbr + ')';
+      let domainSpell =
+        (rules.getChoices('selectableFeatures') != null &&
+         ('Cleric - ' + group + ' Domain') in rules.getChoices('selectableFeatures')) ||
+        Realms.CLASSES.Cleric.includes(group + ' Domain');
       Realms.spellRules
         (rules, fullName, school, group, level, description, domainSpell);
       rules.addChoice('spells', fullName, attrs);
@@ -2291,9 +2226,8 @@ Realms.choiceRules = function(rules, type, name, attrs) {
     console.log('Unknown choice type "' + type + '"');
     return;
   }
-  if(type != 'Feature' && type != 'Path' && type != 'Spell') {
+  if(type != 'Spell') {
     type = type == 'Class' ? 'levels' :
-    type = type == 'Deity' ? 'deities' :
     (type.substring(0,1).toLowerCase() + type.substring(1).replaceAll(' ', '') + 's');
     rules.addChoice(type, name, attrs);
   }
@@ -2344,14 +2278,14 @@ Realms.classRules = function(
   casterLevelDivine, spellAbility, spellSlots
 ) {
   if(rules.basePlugin == window.Pathfinder) {
-    for(var i = 0; i < requires.length; i++) {
-      for(var skill in Pathfinder.SRD35_SKILL_MAP) {
+    for(let i = 0; i < requires.length; i++) {
+      for(let skill in Pathfinder.SRD35_SKILL_MAP) {
         requires[i] =
           requires[i].replaceAll(skill, Pathfinder.SRD35_SKILL_MAP[skill]);
       }
     }
-    for(var i = skills.length - 1; i >= 0; i--) {
-      var skill = skills[i];
+    for(let i = skills.length - 1; i >= 0; i--) {
+      let skill = skills[i];
       if(!(skill in Pathfinder.SRD35_SKILL_MAP))
         continue;
       if(Pathfinder.SRD35_SKILL_MAP[skill] == '')
@@ -2374,9 +2308,9 @@ Realms.classRules = function(
  */
 Realms.classRulesExtra = function(rules, name) {
 
-  var allFeats = rules.getChoices('feats');
-  var classLevel = 'levels.' + name;
-  var feats = null;
+  let allFeats = rules.getChoices('feats');
+  let classLevel = 'levels.' + name;
+  let feats = null;
 
   if(name == 'Arcane Devotee') {
 
@@ -2409,11 +2343,11 @@ Realms.classRulesExtra = function(rules, name) {
 
   } else if(name == 'Archmage') {
 
-    var allSpells = rules.getChoices('spells');
-    var matchInfo;
-    for(var spell in allSpells) {
+    let allSpells = rules.getChoices('spells');
+    let matchInfo;
+    for(let spell in allSpells) {
       if((matchInfo = spell.match(/\(\w+5 (\w+)\)/)) != null) {
-        var school = matchInfo[1];
+        let school = matchInfo[1];
         rules.defineRule
           ('level5' + school + 'Spells', 'spells.' + spell, '+=', '1');
         rules.defineRule
@@ -2437,8 +2371,9 @@ Realms.classRulesExtra = function(rules, name) {
       'features.Arcane Fire', '?', null,
       'levels.Archmage', '=', '400 + 40 * source'
     );
-    rules.defineRule
-      ('selectableFeatureCount.Archmage', 'featureNotes.highArcana', '+=', null);
+    rules.defineRule('selectableFeatureCount.Archmage (High Arcana)',
+      'featureNotes.highArcana', '+=', null
+    );
     rules.defineRule('spellSlots.S5',
       'archmageFeatures.Spell Power +1', '+', '-1',
       'archmageFeatures.Spell-Like Ability', '+', '-1'
@@ -2504,8 +2439,9 @@ Realms.classRulesExtra = function(rules, name) {
 
   } else if(name == 'Divine Disciple') {
 
-    rules.defineRule
-      ('selectableFeatureCount.Cleric', 'featureNotes.newDomain', '+=', '1');
+    rules.defineRule('selectableFeatureCount.Cleric (Domain)',
+      'featureNotes.newDomain', '+=', '1'
+    );
     rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
     rules.defineRule
       ('saveNotes.sacredDefense', classLevel, '+=', 'Math.floor(source / 2)');
@@ -2613,7 +2549,7 @@ Realms.classRulesExtra = function(rules, name) {
 
     rules.defineRule
       ('featureNotes.hierophantSpecialAbilities', classLevel, '=', null);
-    rules.defineRule('selectableFeatureCount.Hierophant',
+    rules.defineRule('selectableFeatureCount.Hierophant (Special Ability)',
       'featureNotes.hierophantSpecialAbilities', '+=', null
     );
     rules.defineRule('combatNotes.turnUndead.1',
@@ -2662,7 +2598,7 @@ Realms.classRulesExtra = function(rules, name) {
     rules.defineRule('saveNotes.specialistDefense',
       classLevel, '+=', 'Math.floor((source + 1) / 2) - (source >= 5 ? 1 : 0)'
     );
-    rules.defineRule('selectableFeatureCount.Wizard',
+    rules.defineRule('selectableFeatureCount.Wizard (Opposition)',
       'magicNotes.enhancedSpecialization', '+', '1'
     );
 
@@ -2708,15 +2644,47 @@ Realms.classRulesExtra = function(rules, name) {
       classLevel, '=', 'Math.floor((source + 1) / 3)'
     );
 
-  } else if(rules.basePlugin.classRulesExtra) {
+  } else if(name == 'Cleric') {
 
-    rules.basePlugin.classRulesExtra(rules, name);
+    // Family Domain
+    rules.defineRule('magicNotes.familialProtection',
+      'charismaModifier', '=', 'source > 1 ? source : 1'
+    );
+    rules.defineRule('magicNotes.familialProtection.1',
+      'features.Familial Protection', '?', null,
+      'level', '=', null
+    );
+    // Halfling Domain
+    rules.defineRule('skillNotes.sprightly', 'charismaModifier', '=', null);
+    // Mentalism Domain
+    rules.defineRule('magicNotes.mentalWard', 'level', '=', 'source + 2');
+    // Nobility Domain
+    rules.defineRule('magicNotes.inspireAllies',
+      'charismaModifier', '=', 'source >= 1 ? source : null'
+    );
+    // Ocean Domain
+    rules.defineRule('magicNotes.waterBreathing', 'level', '=', '10 * source');
+    // Orc Domain
+    rules.defineRule('combatNotes.smitePower', classLevel, '=', null);
+    // Renewal Domain
+    rules.defineRule('combatNotes.renewSelf', 'charismaModifier', '=', null);
+    // Storm Domain
+    rules.defineRule
+      ('resistance.Electricity', 'saveNotes.stormfriend', '^=', '5');
+    // Trade Domain
+    rules.defineRule('magicNotes.tradeSecrets', 'charismaModifier', '=', null);
+    // Undeath Domain
+    rules.defineRule
+      ('combatNotes.extraTurning', 'clericFeatures.Extra Turning', '+=', '4');
 
   }
 
+  if(rules.basePlugin.classRulesExtra)
+    rules.basePlugin.classRulesExtra(rules, name);
+
   if(feats != null && allFeats != null) {
-    for(var j = 0; j < feats.length; j++) {
-      var feat = feats[j];
+    for(let j = 0; j < feats.length; j++) {
+      let feat = feats[j];
       if(!(feat in allFeats)) {
         console.log('Feat "' + feat + '" undefined for class "' + name + '"');
         continue;
@@ -2789,7 +2757,7 @@ Realms.featRules = function(rules, name, requires, implies, types) {
  */
 Realms.featRulesExtra = function(rules, name) {
 
-  var matchInfo;
+  let matchInfo;
 
   if(name == 'Artist') {
     rules.defineRule
@@ -2842,9 +2810,9 @@ Realms.featRulesExtra = function(rules, name) {
       'casterLevel', '=', 'source + 11'
     );
   } else if((matchInfo = name.match(/^Spellcasting\sProdigy\s\((.*)\)$/)) != null) {
-    var clas = matchInfo[1];
-    var spellCode = clas.charAt(0);
-    var ability = {'Bard':'charisma', 'Cleric':'wisdom', 'Druid':'wisdom', 'Sorcerer':'charisma', 'Wizard':'intelligence'}[clas];
+    let clas = matchInfo[1];
+    let spellCode = clas.charAt(0);
+    let ability = {'Bard':'charisma', 'Cleric':'wisdom', 'Druid':'wisdom', 'Sorcerer':'charisma', 'Wizard':'intelligence'}[clas];
     rules.defineRule('spellDifficultyClass.' + clas,
       'magicNotes.spellcastingProdigy(' + clas + ')', '+', '1'
     );
@@ -2852,7 +2820,7 @@ Realms.featRulesExtra = function(rules, name) {
       'magicNotes.spellcastingProdigy(' + clas + ')', '?', null,
       ability + 'Modifier', '=', 'source + 1'
     );
-    for(var spellLevel = 1; spellLevel <= 5; spellLevel++) {
+    for(let spellLevel = 1; spellLevel <= 5; spellLevel++) {
       rules.defineRule('spellSlots.' + spellCode + spellLevel,
         'prodigyAbility' + clas, '+', 'source == ' + spellLevel + ' ? 1 : null'
       );
@@ -2861,7 +2829,7 @@ Realms.featRulesExtra = function(rules, name) {
     rules.defineRule
       ('magicNotes.tenaciousMagic', 'casterLevel', '=', '15 + source');
   } else if(name == 'Tattoo Focus') {
-    for(var school in rules.getChoices('schools')) {
+    for(let school in rules.getChoices('schools')) {
       rules.defineRule
         ('spellDCSchoolBonus.' + school, 'magicNotes.tattooFocus', '+', '1');
     }
@@ -2878,14 +2846,14 @@ Realms.featRulesExtra = function(rules, name) {
  */
 Realms.featureRules = function(rules, name, sections, notes) {
   if(rules.basePlugin == window.Pathfinder) {
-    for(var i = 0; i < sections.length; i++) {
+    for(let i = 0; i < sections.length; i++) {
       if(sections[i] != 'skill')
         continue;
-      var note = notes[i];
-      for(var skill in Pathfinder.SRD35_SKILL_MAP) {
+      let note = notes[i];
+      for(let skill in Pathfinder.SRD35_SKILL_MAP) {
         if(note.indexOf(skill) < 0)
           continue;
-        var pfSkill = Pathfinder.SRD35_SKILL_MAP[skill];
+        let pfSkill = Pathfinder.SRD35_SKILL_MAP[skill];
         if(pfSkill == '' || note.indexOf(pfSkill) >= 0) {
           note = note.replace(new RegExp('[,/]?[^,/:]*' + skill + '[^,/]*', 'g'), '');
         } else {
@@ -2958,36 +2926,6 @@ Realms.pathRules = function(
  * derived directly from the abilities passed to pathRules.
  */
 Realms.pathRulesExtra = function(rules, name) {
-  if(name == 'Family Domain') {
-    rules.defineRule('magicNotes.familialProtection',
-      'charismaModifier', '=', 'source > 1 ? source : 1'
-    );
-    rules.defineRule('magicNotes.familialProtection.1', 'level', '=', null);
-  } else if(name == 'Halfling Domain') {
-    rules.defineRule('skillNotes.sprightly', 'charismaModifier', '=', null);
-  } else if(name == 'Mentalism Domain') {
-    rules.defineRule('magicNotes.mentalWard', 'level', '=', 'source + 2');
-  } else if(name == 'Nobility Domain') {
-    rules.defineRule('magicNotes.inspireAllies',
-      'charismaModifier', '=', 'source >= 1 ? source : null'
-    );
-  } else if(name == 'Ocean Domain') {
-    rules.defineRule('magicNotes.waterBreathing', 'level', '=', '10 * source');
-  } else if(name == 'Orc Domain') {
-    rules.defineRule('combatNotes.smitePower', 'levels.Cleric', '=', null);
-  } else if(name == 'Renewal Domain') {
-    rules.defineRule('combatNotes.renewSelf', 'charismaModifier', '=', null);
-  } else if(name == 'Storm Domain') {
-    rules.defineRule
-      ('resistance.Electricity', 'saveNotes.stormfriend', '^=', '5');
-  } else if(name == 'Trade Domain') {
-    rules.defineRule('magicNotes.tradeSecrets', 'charismaModifier', '=', null);
-  } else if(name == 'Undeath Domain') {
-    rules.defineRule
-      ('combatNotes.extraTurning', 'clericFeatures.Extra Turning', '+=', '4');
-  } else if(rules.basePlugin.pathRulesExtra) {
-    rules.basePlugin.pathRulesExtra(rules, name);
-  }
 };
 
 /*
@@ -3010,10 +2948,10 @@ Realms.raceRules = function(
 Realms.raceRulesExtra = function(rules, name) {
   let raceLevel =
     name.charAt(0).toLowerCase() + name.substring(1).replaceAll(' ', '') + 'Level';
-  var matchInfo;
+  let matchInfo;
   if((matchInfo = name.match(/^(\w+)\sGenasi$/)) != null) {
-    var element = matchInfo[1];
-    var elementLowered = element.toLowerCase();
+    let element = matchInfo[1];
+    let elementLowered = element.toLowerCase();
     rules.defineRule('saveNotes.elementalAffinity',
       'level', '=', '1 + Math.floor(source / 5)'
     );
@@ -3204,10 +3142,10 @@ Realms.choiceEditorElements = function(rules, type) {
 /* Sets #attributes#'s #attribute# attribute to a random value. */
 Realms.randomizeOneAttribute = function(attributes, attribute) {
   if(attribute == 'region') {
-    var choices = [];
-    var races = this.getChoices('races');
-    var regions = this.getChoices('regions');
-    for(var region in regions) {
+    let choices = [];
+    let races = this.getChoices('races');
+    let regions = this.getChoices('regions');
+    for(let region in regions) {
       if(races[region] == null || region == attributes.race) {
         choices[choices.length] = region;
       }
@@ -3217,12 +3155,12 @@ Realms.randomizeOneAttribute = function(attributes, attribute) {
     this.basePlugin.randomizeOneAttribute.apply(this, [attributes, attribute]);
     if(attribute == 'levels') {
       // Recompute experience to account for level offset for some races
-      var attrs = this.applyRules(attributes);
+      let attrs = this.applyRules(attributes);
       if(QuilvynUtils.sumMatching(attrs, /LevelAdjustment/) > 0) {
-        var level = QuilvynUtils.sumMatching(attrs, /^levels\./) +
+        let level = QuilvynUtils.sumMatching(attrs, /^levels\./) +
                     QuilvynUtils.sumMatching(attrs, /LevelAdjustment/);
-        var max = level * (level + 1) * 1000 / 2 - 1;
-        var min = level * (level - 1) * 1000 / 2;
+        let max = level * (level + 1) * 1000 / 2 - 1;
+        let min = level * (level - 1) * 1000 / 2;
         if(!attributes.experience || attributes.experience < min)
           attributes.experience = QuilvynUtils.random(min, max);
       }
@@ -3232,7 +3170,7 @@ Realms.randomizeOneAttribute = function(attributes, attribute) {
 
 /* Returns an array of plugins upon which this one depends. */
 Realms.getPlugins = function() {
-  var base = this.basePlugin == window.SRD35 ? window.PHB35 : this.basePlugin;
+  let base = this.basePlugin == window.SRD35 ? window.PHB35 : this.basePlugin;
   return [base].concat(base.getPlugins());
 };
 
