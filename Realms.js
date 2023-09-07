@@ -197,7 +197,7 @@ function Realms(baseRules) {
 
 }
 
-Realms.VERSION = '2.3.1.4';
+Realms.VERSION = '2.3.1.5';
 
 // Realms uses PHB35 as its default base ruleset. If USE_PATHFINDER is true,
 // the Realms function will instead use rules taken from the Pathfinder plugin.
@@ -1944,7 +1944,7 @@ Realms.WEAPONS_ADDED = {
   'Chakram':'Level=Exotic Category=Ranged Damage=d4 Crit=3 Range=30',
   'Claw Bracer':'Level=Exotic Category=One-Handed Damage=d4 Threat=19',
   'Cutlass':'Level=Martial Category=One-Handed Damage=d6 Threat=19',
-  'Halfspear':'Level=Simple Category=R Damage=d6 Crit=3 Range=20',
+  'Halfspear':'Level=Simple Category=Ranged Damage=d6 Crit=3 Range=20',
   'Khopesh':'Level=Exotic Category=One-Handed Damage=d8 Threat=19',
   'Saber':'Level=Martial Category=One-Handed Damage=d8 Threat=19',
   'Maul':'Level=Martial Category=Two-Handed Damage=d10 Crit=3 Threat=20',
