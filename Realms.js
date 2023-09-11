@@ -1,5 +1,5 @@
 /*
-Copyright 2021, James J. Hayes
+Copyright 2023, James J. Hayes
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -45,6 +45,7 @@ function Realms(baseRules) {
     'Forgotten Realms - ' + (Realms.USE_PATHFINDER ? 'Pathfinder 1E' : 'D&D v3.5'),
      Realms.VERSION
   );
+  rules.plugin = Realms;
   rules.basePlugin = Realms.USE_PATHFINDER ? Pathfinder : SRD35;
   Realms.rules = rules;
 
@@ -52,6 +53,7 @@ function Realms(baseRules) {
   rules.defineChoice('choices', Realms.CHOICES);
   rules.choiceEditorElements = Realms.choiceEditorElements;
   rules.choiceRules = Realms.choiceRules;
+  rules.removeChoice = SRD35.removeChoice;
   rules.editorElements = SRD35.initialEditorElements();
   rules.getFormats = SRD35.getFormats;
   rules.getPlugins = Realms.getPlugins;
@@ -61,6 +63,7 @@ function Realms(baseRules) {
     rules.basePlugin.RANDOMIZABLE_ATTRIBUTES.concat
     (Realms.RANDOMIZABLE_ATTRIBUTES_ADDED);
   rules.defineChoice('random', Realms.RANDOMIZABLE_ATTRIBUTES);
+  rules.getChoices = SRD35.getChoices;
   rules.ruleNotes = Realms.ruleNotes;
 
   if(rules.basePlugin == window.Pathfinder) {
@@ -112,8 +115,6 @@ function Realms(baseRules) {
   Realms.GOODIES = Object.assign({}, rules.basePlugin.GOODIES);
   Realms.LANGUAGES =
     Object.assign({}, rules.basePlugin.LANGUAGES, Realms.LANGUAGES_ADDED);
-  Realms.PATHS =
-    Object.assign({}, rules.basePlugin.PATHS, Realms.PATHS_ADDED);
   Realms.RACES['Gold Dwarf'] =
     rules.basePlugin.RACES.Dwarf
       .replace('Dwarf Ability', 'Gold Dwarf Ability')
@@ -197,7 +198,7 @@ function Realms(baseRules) {
 
 }
 
-Realms.VERSION = '2.3.1.5';
+Realms.VERSION = '2.4.1.0';
 
 // Realms uses PHB35 as its default base ruleset. If USE_PATHFINDER is true,
 // the Realms function will instead use rules taken from the Pathfinder plugin.
@@ -245,8 +246,9 @@ Realms.PRESTIGE_CLASSES = {
       // 3.0 Alchemy, Scry => 3.5 Craft (Alchemy), null
       'Concentration,Craft,Knowledge,Profession,Spellcraft ' +
     'Features=' +
-      '"1:Caster Level Bonus","1:Devotee Enlarge Spell","2:Alignment Focus",' +
-      '"2:Sacred Defense","3:Arcane Devotee Bonus Feats","5:Divine Shroud"',
+      '"1:Caster Level Bonus","1:Enlarge Spell (Arcane Devotee)",' +
+      '"2:Alignment Focus","2:Sacred Defense","3:Arcane Devotee Bonus Feats",' +
+      '"5:Divine Shroud"',
   'Archmage':
     'Require=' +
       '"features.Skill Focus (Spellcraft)",' +
@@ -280,7 +282,7 @@ Realms.PRESTIGE_CLASSES = {
     'Features=' +
       '"1:Armor Proficiency (Medium)","1:Shield Proficiency",' +
       '"1:Weapon Proficiency (Martial)",' +
-      '"1:Champion Lay On Hands","2:Divine Champion Bonus Feats",' +
+      '"1:Lay On Hands (Divine Champion)","2:Divine Champion Bonus Feats",' +
       '"2:Sacred Defense","3:Smite Infidel","5:Divine Wrath"',
   'Divine Disciple':
     'Require=' +
@@ -403,8 +405,9 @@ Realms.PRESTIGE_CLASSES = {
     'Features=' +
       '"Armor Proficiency (Medium)","Shield Proficiency",' +
       '"Weapon Proficiency (Simple)",' +
-      '"1:Heroic Shield","1:Rallying Cry","2:Inspire Knight\'s Courage",' +
-      '"3:Fear","4:Oath Of Wrath","5:Final Stand"',
+      '"1:Heroic Shield","1:Rallying Cry",' +
+      '"2:Inspire Courage (Purple Dragon Knight)","3:Fear",' +
+      '"4:Oath Of Wrath","5:Final Stand"',
   'Red Wizard':
     'Require=' +
       '"alignment !~ \'Good\'","race == \'Human\'","region == \'Thay\'",' +
@@ -591,20 +594,22 @@ Realms.FEATURES_ADDED = {
 
   // Feat
   'Arcane Preparation':
-    'Section=magic Note="Prepare arcane spell ahead of time"',
-  'Arcane Schooling':'Section=magic Note="Designated arcane class is favored"',
+    'Section=magic Note="May prepare an arcane spell ahead of time"',
+  'Arcane Schooling':
+    'Section=magic Note="Chosen arcane class is a favored class"',
   'Artist':'Section=skill Note="+2 Perform/+2 chosen Craft"',
   'Blooded':'Section=combat,skill Note="+2 Initiative","+2 Spot"',
   'Bloodline Of Fire':
     'Section=magic,save ' +
-    'Note="+2 DC Sorcerer fire spells","+4 vs. fire effects"',
+    'Note="+2 spell DC (Sorcerer fire spells)","+4 vs. fire effects"',
   'Bullheaded':'Section=save,skill Note="+1 Will","+2 Intimidate"',
   'Cosmopolitan':
     'Section=skill Note="Chosen skill is class skill/+2 chosen skill checks"',
   'Courteous Magocracy':'Section=skill Note="+2 Diplomacy/+2 Spellcraft"',
-  'Create Portal':'Section=magic Note="Create magical portal"',
-  'Daylight Adaptation':'Section=feature Note="No bright light penalties"',
-  'Delay Spell':'Section=magic Note="Delay effect of spell 1-5 rd"',
+  'Create Portal':'Section=magic Note="May create a magical portal"',
+  'Daylight Adaptation':
+    'Section=feature Note="Suffers no penalties from bright light"',
+  'Delay Spell':'Section=magic Note="May delay effect of a spell 1-5 rd"',
   'Discipline':'Section=save,skill Note="+1 Will","+2 Concentration"',
   'Education':
     'Section=skill ' +
@@ -614,7 +619,7 @@ Realms.FEATURES_ADDED = {
     'Section=skill ' +
     'Note="+2 Handle Animal/+2 Survival/+2 Cha skills with Rashemi"',
   'Foe Hunter':
-    'Section=combat Note="+1 damage, double critical range w/regional foe"',
+    'Section=combat Note="+1 damage and dbl critical range vs. regional foe"',
   'Forester':'Section=skill Note="+2 Heal/+2 Survival"',
   // Identical to SRD35, but +3 DC instead of +1
   'Greater Spell Focus (%school)':'Section=magic Note="+3 Spell DC (%school)"',
@@ -624,17 +629,17 @@ Realms.FEATURES_ADDED = {
          '"+2 Ride"',
   'Innate Spell':
     'Section=magic ' +
-    'Note="Designated spells as spell-like ability 1/rd uses +8 spell slot"',
-  'Inscribe Rune':'Section=magic Note="Cast divine spell via rune"',
+    'Note="May use +8 spell slot to use chosen spells as a spell-like ability 1/rd"',
+  'Inscribe Rune':'Section=magic Note="May cast chosen divine spell via rune"',
   'Insidious Magic':
     'Section=magic ' +
-    'Note="DC 9+foe level check to detect Weave magic, foe DC %V check to detect Shadow Weave spell"',
+    'Note="Weave casters require successful DC %{11+(casterLevel||0)} caster level check to detect self spells other than evocation and transmutation; self requires successful DC 9 + casterLevel caster level check to detect Weave spells other than enchantment, illusion, and necromancy"',
   'Luck Of Heroes':'Section=save Note="+1 Fortitude/+1 Reflex/+1 Will"',
   'Magical Artisan':
-    'Section=magic Note="Reduce item creation base price by 25%"',
+    'Section=magic Note="Reduces item creation base price by 25%"',
   'Magical Training':
     'Section=magic ' +
-    'Note="<i>Dancing Lights</i>, <i>Daze</i>, <i>Mage Hand</i> 1/dy"',
+    'Note="May cast <i>Dancing Lights</i>, <i>Daze</i>, and <i>Mage Hand</i> 1/dy"',
   'Mercantile Background':
     'Section=skill Note="+2 Appraise/+2 choice of Craft or Profession"',
   'Militia':
@@ -648,29 +653,33 @@ Realms.FEATURES_ADDED = {
     'Note="Intelligence modifier adds %1 HP, +%2 HP from Metamagic feats"',
   'Pernicious Magic':
     'Section=magic ' +
-    'Note="Weave foes DC %V check to counterspell, DC 9+foe level to counterspell Weave foes"',
-  'Persistent Spell':'Section=magic Note="Fixed-range spell lasts 24 hr"',
+    'Note="Weave casters require successful DC %{11+(casterLevel||0)} caster level check to counter self spells other than evocation and transmutation; self requires successful DC 9 + casterLevel caster level check to counter Weave spells other than enchantment, illusion, and necromancy"',
+  'Persistent Spell':
+    'Section=magic ' +
+    'Note="May use +4 spell slot to extend duration of a personal or ranged spell to 1 dy"',
   'Resist Poison Feat':'Section=save Note="+4 vs. poison"',
   'Saddleback':'Section=skill Note="+3 Ride"',
   'Shadow Weave Magic':
     'Section=ability,magic ' +
     'Note="-2 Wisdom",' +
-         '"+1 DC and resistance checks on enchantment, illusion, necromancy, and darkness descriptor spells, -1 caster level on evocation and transmutation, no light descriptor spells"',
+         '"+1 DC and resistance checks on enchantment, illusion, necromancy, and darkness descriptor spells/-1 caster level on evocation and transmutation spells/May not cast light descriptor spells"',
   'Signature Spell':
-    'Section=magic Note="Convert arcane spells into specified mastered spell"',
+    'Section=magic ' +
+    'Note="May cast chosen mastered spell in place of prepared arcane spell"',
   'Silver Palm':'Section=skill Note="+2 Appraise/+2 Bluff"',
   'Smooth Talk':'Section=skill Note="+2 Diplomacy/+2 Sense Motive"',
   'Snake Blood':'Section=save Note="+1 Reflex/+2 vs. poison"',
   'Spellcasting Prodigy (Bard)':
-    'Section=magic Note="+1 spell DC/+2 charisma for bonus spells"',
+    'Section=magic Note="+1 spell DC/+2 Charisma for acquiring bonus spells"',
   'Spellcasting Prodigy (Cleric)':
-    'Section=magic Note="+1 spell DC/+2 wisdom for bonus spells"',
+    'Section=magic Note="+1 spell DC/+2 Wisdom for acquiring bonus spells"',
   'Spellcasting Prodigy (Druid)':
-    'Section=magic Note="+1 spell DC/+2 wisdom for bonus spells"',
+    'Section=magic Note="+1 spell DC/+2 Wisdom for acquiring bonus spells"',
   'Spellcasting Prodigy (Sorcerer)':
-    'Section=magic Note="+1 spell DC/+2 charisma for bonus spells"',
+    'Section=magic Note="+1 spell DC/+2 Charisma for acquiring bonus spells"',
   'Spellcasting Prodigy (Wizard)':
-    'Section=magic Note="+1 spell DC/+2 intelligence for bonus spells"',
+    'Section=magic ' +
+    'Note="+1 spell DC/+2 Intelligence for acquiring bonus spells"',
   'Stealthy':'Section=skill Note="+2 Hide/+2 Move Silently"',
   'Street Smart':'Section=skill Note="+2 Bluff/+2 Gather Information"',
   'Strong Soul':
@@ -678,70 +687,77 @@ Realms.FEATURES_ADDED = {
   'Survivor':'Section=save,skill Note="+1 Fortitude","+2 Survival"',
   'Tattoo Focus':
     'Section=magic ' +
-    'Note="+1 DC and caster level vs. resistance w/specialization school spells"',
+    'Note="+1 DC and caster level vs. resistance w/specialized school spells"',
   'Tenacious Magic':
     'Section=magic ' +
-    'Note="Weave foes DC %V to dispel, DC 13+foe level to dispel Weave foes"',
+    'Note="Weave casters require successful DC %{15+(casterLevel||0)} caster level check to dispel self spells other than evocation and transmutation; self requires successful DC 13 + casterLevel caster level check to dispel Weave spells other than enchantment, illusion, and necromancy"',
   'Thug':'Section=combat,skill Note="+2 Initiative","+2 Intimidate"',
   'Thunder Twin':
     'Section=ability,skill ' +
     'Note="+2 charisma checks",' +
-         '"DC 15 Wisdom check to determine direction of twin"',
+         '"Successful DC 15 Wisdom check determines direction of twin"',
   'Treetopper':'Section=skill Note="+2 Climb"',
-  'Twin Spell':'Section=magic Note="Affect as two spells uses +4 spell slot"',
+  'Twin Spell':
+    'Section=magic ' +
+    'Note="May use +4 spell slot to cause spell to take effect twice"',
   'Twin Sword Style':
     'Section=combat Note="+2 AC vs. chosen foe when using two swords"',
 
-  // Path
+  // Domain
   'Advanced Illusionist':
     'Section=magic Note="+1 caster level on Illusion spells"',
   'Cavern Stonecunning':
     'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
-  'Compelling Magic':'Section=magic Note="+2 DC compulsion spells"',
+  'Compelling Magic':'Section=magic Note="+2 DC on compulsion spells"',
   'Creator':
     'Section=magic,feature ' +
-    'Note="+1 caster level creation spells",' +
+    'Note="+1 caster level on Creation spells",' +
          '"+1 General Feat (Skill Focus(chosen Craft))"',
   'Detect Portal':
-    'Section=skill Note="DC 20 Search to detect in/active portals"',
+    'Section=skill ' +
+    'Note="Successful DC 20 Search detects active and inactive portals"',
   'Familial Protection':
-    'Section=magic Note="R10\' %V targets +4 AC for %1 rd 1/dy"',
+    'Section=magic ' +
+    'Note="R10\' %{charismaModifier>?1} targets gain +4 AC for %{level} rd 1/dy"',
   'Hammer Specialist':
     'Section=feature ' +
     'Note="+2 General Feat (Weapon Proficiency and Focus w/chosen hammer)"',
   'Hated Foe':
     'Section=combat,save ' +
-    'Note="+2 attack, AC vs. one foe for 1 min 1/dy",' +
-         '"+2 saves vs. one foe for 1 min 1/dy"',
+    'Note="+2 attack and AC vs. chosen foe for 1 min 1/dy",' +
+         '"+2 saves vs. chosen foe for 1 min 1/dy"',
   'Inspire Allies':
     'Section=magic ' +
-    'Note="+2 allies\' attack, damage, save, skill, and ability rolls for %V rd 1/dy"',
+    'Note="Allies gain +2 attack, damage, save, skill, and ability rolls for %{charismaModifier>?1} rd 1/dy"',
   'Mental Ward':
     'Section=magic ' +
-    'Note="Touch to allow target +%V on next Will save for 1 hr 1/dy"',
+    'Note="Touch gives target +%{level+2} on next Will save for 1 hr 1/dy"',
   'Pain Touch':
     'Section=combat ' +
-    'Note="Touch attack causes -2 Strength and Dexterity for 1 min 1/dy"',
+    'Note="Touch inflicts -2 Strength and Dexterity for 1 min 1/dy"',
   'Renew Self':
-    'Section=combat Note="Recover 1d8+%V HP points when negative 1/dy"',
+    'Section=combat ' +
+    'Note="Immediately recovers 1d8+%{charismaModifier} HP when at negative HP 1/dy"',
   'Skilled Caster':'Section=skill Note="+2 Concentration/+2 Spellcraft"',
   'Smite Power':
-    'Section=combat Note="+%V damage (and +4 attack on dwarf or elf) 1/dy"',
-  'Sneaky':'Section=skill Note="+2 Bluff/+2 Hide"',
+    'Section=combat ' +
+    'Note="+%{levels.Cleric} damage, plus +4 attack vs. dwarf or elf, 1/dy"',
   'Sprightly':
-    'Section=skill Note="+%V Climb, Hide, Jump, Move Silently for 10 min 1/dy"',
+    'Section=skill ' +
+    'Note="+%{charismaModifier} Climb, Hide, Jump, and Move Silently for 10 min 1/dy"',
   'Stormfriend':'Section=save Note="Resistance 5 to electricity"',
   'Strike Of Vengeance':
-    'Section=combat Note="Strike for max damage after foe hit 1/dy"',
+    'Section=combat ' +
+    'Note="May make immediate attack after taking damage from foe hit, inflicting maximum damage if successful, 1/dy"',
   'Trade Secrets':
     'Section=magic ' +
-    'Note="<i>Detect Thoughts</i> on 1 target for %V min 1/dy (Will neg)"',
+    'Note="May cast <i>Detect Thoughts</i> on 1 target for %{charismaModifier} min 1/dy (Will neg)"',
   'Turn On The Charm':'Section=ability Note="+4 charisma for 1 min 1/dy"',
-  'Turn Lycanthropes':'Section=combat Note="Turn lycanthropes as undead"',
-  'Turn Oozes':'Section=combat Note="Turn oozes as undead"',
-  'Turn Reptiles':'Section=combat Note="Turn reptiles as undead"',
-  'Turn Spiders':'Section=combat Note="Turn spiders as undead"',
-  'Water Breathing':'Section=magic Note="Breathe water %V rd/dy"',
+  'Turn Lycanthropes':'Section=combat Note="May turn lycanthropes"',
+  'Turn Oozes':'Section=combat Note="May turn oozes"',
+  'Turn Reptiles':'Section=combat Note="May turn reptiles"',
+  'Turn Spiders':'Section=combat Note="May turn spiders"',
+  'Water Breathing':'Section=magic Note="May breathe water %{level*10} rd/dy"',
 
   // Race
   'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
@@ -749,14 +765,16 @@ Realms.FEATURES_ADDED = {
   'Aasimar Magic':'Section=magic Note="May cast <i>Light</i> 1/dy"',
   'Aasimar Resistance':
     'Section=save Note="Resistance 5 to acid, cold, and electricity"',
-  'Amphibious':'Section=feature Note="Breathe water at will"',
+  'Amphibious':'Section=feature Note="May breathe water"',
   'Air Genasi Ability Adjustment':
     'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Wisdom/-2 Charisma"',
   'Air Genasi Magic':'Section=magic Note="May cast <i>Levitate</i> 1/dy"',
   'Breathless':
-    'Section=save Note="Immune drowning, suffocation, inhalation effects"',
+    'Section=save ' +
+    'Note="Immune to drowning, suffocation, and inhalation effects"',
   'Control Flame':
-    'Section=magic Note="R10\' Shrink or expand natural fire for 5 min 1/dy"',
+    'Section=magic ' +
+    'Note="R10\' May shrink or expand natural fire for 5 min 1/dy"',
   'Deep Gnome Ability Adjustment':
     'Section=ability Note="-2 Strength/+2 Dexterity/+2 Wisdom/-4 Charisma"',
   'Drow Elf Ability Adjustment':
@@ -771,7 +789,7 @@ Realms.FEATURES_ADDED = {
     'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
   'Earth Genasi Magic':
     'Section=magic Note="May cast <i>Pass Without Trace</i> 1/dy"',
-  'Elemental Affinity':'Section=save Note="+%V vs. %1 spells"',
+  'Elemental Affinity':'Section=save Note="+%{level//5+1} vs. %V spells"',
   'Exceptional Dodge':'Section=combat Note="+4 AC"',
   'Extended Darkvision':'Section=feature Note="120\' b/w vision in darkness"',
   'Extra Luck':'Section=save Note="+2 Fortitude/+2 Reflex/+2 Will"',
@@ -788,20 +806,23 @@ Realms.FEATURES_ADDED = {
   'Gray Dwarf Magic':
     'Section=magic ' +
     'Note="May cast self <i>Enlarge Person</i> and <i>Invisibility</i> 1/dy"',
-  'Light Blindness':'Section=feature Note="Blind 1 rd from sudden daylight"',
+  'Light Blindness':
+    'Section=feature Note="Blinded by sudden daylight for 1 rd"',
   'Light Sensitivity':
     'Section=combat,save,skill ' +
     'Note="-%V attack in bright light",' +
          '"-%V saves in bright light",' +
          '"-%V checks in bright light"',
   'Native Outsider':
-    'Section=save Note="Affected by outsider target spells, not humanoid"',
+    'Section=save Note="Affected by outsider, not humanoid, target spells"',
   'Natural Swimmer':'Section=ability Note="Swim 30\'"',
   'Race Level Adjustment':'Section=ability Note="-%V Level"',
   'Sly':'Section=skill Note="+2 Hide"',
   'Shadowed':
-    'Section=skill Note="+2 Hide/+4 Hide in darkened underground areas"',
-  'Speak Without Sound':'Section=feature Note="R20\' Telepathic communication"',
+    'Section=skill Note="+2 Hide/+4 Hide (darkened underground areas)"',
+  'Sneaky':'Section=skill Note="+2 Bluff/+2 Hide"',
+  'Speak Without Sound':
+    'Section=feature Note="R20\' May communicate telepathically"',
   'Stealthy Movement':'Section=skill Note="+4 Move Silently"',
   'Strong Will':'Section=save Note="+2 Will vs. spells"',
   'Strongheart Extra Feat':'Section=feature Note="+1 General Feat"',
@@ -816,7 +837,8 @@ Realms.FEATURES_ADDED = {
   'Tiefling Magic':'Section=magic Note="May cast <i>Darkness</i> 1/dy"',
   'Tiefling Resistance':
     'Section=save Note="Resistance 5 to cold, electricity, and fire"',
-  'Undetectable':'Section=magic Note="Continuous <i>Nondetection</i>"',
+  'Undetectable':
+    'Section=magic Note="Has continuous <i>Nondetection</i> effects"',
   'Water Genasi Ability Adjustment':
     'Section=ability Note="+2 Constitution/-2 Charisma"',
   'Water Genasi Magic':'Section=magic Note="May cast <i>Create Water</i> 1/dy"',
@@ -833,55 +855,65 @@ Realms.FEATURES_ADDED = {
   'Arcane Devotee Bonus Feats':'Section=feature Note="%V Arcane Devotee feats"',
   'Arcane Fire':
     'Section=magic ' +
-    'Note="R%1\' Convert arcane spell into a ranged touch %Vd6 + 1d6 x spell level bolt of fire"',
-  'Arcane Reach':'Section=magic Note="R30\' Ranged touch with touch spell"',
+    'Note="R%{400+40*levels.Archmage}\' May convert an arcane spell into a ranged touch %{levels.Archmage}d6 + 1d6 x spell level bolt of fire"',
+  'Arcane Reach':
+    'Section=magic Note="R30\' May cast arcane touch spell using ranged touch"',
   'Blast Infidel':
     'Section=magic ' +
-    'Note="Negative energy spells vs. foe w/different deity have max effect"',
+    'Note="Negative energy spells vs. foe w/different deity have maximum effect"',
   'Caster Level Bonus':
     'Section=magic Note="+%V base class level for spells known and spells/dy"',
-  'Champion Lay On Hands':'Section=magic Note="Heal followers of %1 %V HP/dy"',
   'Circle Leader':
     'Section=magic ' +
-    'Note="1 hr ritual w/2-5 other members raises caster level, gives metamagic feats"',
-  'Cohort':'Section=feature Note="Gain Ethran or Barbarian follower"',
+    'Note="1 hr ritual w/2-5 other members raises caster level and gives metamagic feats"',
+  'Cohort':'Section=feature Note="Gains Ethran or Barbarian follower"',
   'Craft Harper Item':
-    'Section=magic Note="Create magic instruments, Harper pins, and potions"',
+    'Section=magic ' +
+    'Note="May create magic instruments, Harper pins, and potions"',
   "Deneir's Eye":'Section=save Note="+2 vs. glyphs, runes, and symbols"',
   'Divine Champion Bonus Feats':'Section=feature Note="%V Fighter feats"',
-  'Devotee Enlarge Spell':'Section=magic Note="x2 chosen spell range %V/dy"',
   'Divine Emissary':
-    'Section=feature Note="R60\' Telepathy w/same-alignment outsider"',
+    'Section=feature ' +
+    'Note="R60\' May communicate telepathically w/outsider who is %V or who serves %{deity}"',
   'Divine Perseverance':
-    'Section=combat Note="Regain 1d8+5 HP from negative 1/dy"',
-  'Divine Reach':'Section=magic Note="R30\' Ranged touch with touch spell"',
+    'Section=combat ' +
+    'Note="Immediately recovers 1d8+5 HP when at negative HP 1/dy"',
+  'Divine Reach':
+    'Section=magic Note="R30\' May cast divine touch spell using ranged touch"',
   'Divine Shroud':
-    'Section=save Note="Aura provides spell resistance %V for %1 rd 1/dy"',
+    'Section=save ' +
+    'Note="Aura provides SR %{casterLevelArcane+12} for %{charismaModifier+5} rd 1/dy"',
   'Divine Wrath':
     'Section=combat,save ' +
-    'Note="+3 attack and damage and DR 5/- for %V rd 1/dy",' +
-         '"+3 saves %V rd 1/dy",',
+    'Note="+3 attack and damage and DR 5/- for %{charismaModifier} rd 1/dy",' +
+         '"+3 saves %{charismaModifier} rd 1/dy",',
   // 3.0 Innuendo => 3.5 Bluff
   'Doublespeak':'Section=skill Note="+2 Bluff/+2 Diplomacy"',
-  'Enhanced Specialization':'Section=magic Note="Additional opposition school"',
+  'Enhanced Specialization':
+    'Section=magic Note="Has additional opposition school"',
+  'Enlarge Spell (Arcane Devotee)':
+    'Section=magic ' +
+    'Note="May cast chosen spell at dbl range %{(charismaModifier+1)>?1}/dy"',
   'Faith Healing':
-    'Section=magic Note="Healing spells on followers of %1 have max effect"',
+    'Section=magic ' +
+    'Note="Healing spells on followers of %{deity} have maximum effect"',
   'Fear':
     'Section=magic ' +
     'Note="R30\' cone causes creatures to flee for %2 rd %V/dy (DC %1 Will shaken for 1 rd)"',
   'Final Stand':
     'Section=combat ' +
-    'Note="R10\' %V allies gain 2d10 temporary HP for %V rd 1/dy"',
+    'Note="R10\' %{$\'levels.Purple Dragon Knight\'+charismaModifier} allies gain 2d10 temporary HP for %{$\'levels.Purple Dragon Knight\'+charismaModifier} rd 1/dy"',
   'Gift Of The Divine':
     'Section=feature ' +
-    'Note="Transfer some daily uses of turn or rebuke undead to another for 1-10 dy"',
+    'Note="May transfer some daily uses of turn undead to another for 1-10 dy"',
   'Great Circle Leader':
-    'Section=magic Note="Lead magic circle w/9 other members"',
+    'Section=magic Note="Leads magic circle w/9 other members"',
   'Greater Command':
     'Section=magic ' +
-    'Note="R%1\' %V targets in 15\' radius obey self commands to approach, drop, fall, flee, or halt for %V rd 1/dy (DC %2 Will neg)"',
+    'Note="R%{levels.Hathran//2*5+25}\' %{levels.Hathran} targets in 15\' radius obey self commands to approach, drop, fall, flee, or halt for %{levels.Hathran} rd 1/dy (DC %{charismaModifier+15} Will neg)"',
   'Greater Shield Of Shadows':
-    'Section=save Note="Shield Of Shadows gives spell resistance %V"',
+    'Section=save ' +
+    'Note="Shield Of Shadows gives SR %{$\'levels.Shadow Adept\'+12}"',
   'Guild Thief Bonus Feats':'Section=feature Note="%V Guild Thief feats"',
   'Harper Perform Focus':
     'Section=feature ' +
@@ -894,30 +926,34 @@ Realms.FEATURES_ADDED = {
   'High Arcana':'Section=feature Note="%V selections"',
   'Imbue With Spell Ability':
     'Section=magic ' +
-    'Note="<i>Imbue With Spell Ability</i> 1st and 2nd level spells at will"',
+    'Note="May use <i>Imbue With Spell Ability</i> w/1st and 2nd level spells at will"',
   'Improved Arcane Reach':'Section=magic Note="R60\' Arcane Reach"',
   'Improved Divine Reach':'Section=magic Note="R60\' Divine Reach"',
   'Improved Runecasting':
-    'Section=magic Note="Add charges and triggers to runes"',
-  "Inspire Knight's Courage":
+    'Section=magic Note="May add charges and triggers to runes"',
+  "Inspire Courage (Purple Dragon Knight)":
     'Section=magic ' +
-    'Note="Allies +1 attack and damage, +2 charm and fear saves during speech +5 rd %V/dy"',
+    'Note="Allies gain +1 attack, +1 damage, and +2 charm and fear saves during speech +5 rd %{$\'levels.Purple Dragon Knight\'//2}/dy"',
+  'Lay On Hands (Divine Champion)':
+    'Section=magic Note="May heal followers of %{deity} %{charismaModifier*$\'levels.Divine Champion\'} HP/dy"',
   "Lliira's Heart":'Section=save Note="+2 vs. compulsion and fear"',
   'Locate Creature':
     'Section=magic ' +
-    'Note="Self senses direction of creature or kind in %1\' radius for %V min 1/dy"',
+    'Note="Self may sense direction of creature or kind in %{($\'levels.Divine Seeker\'+charismaModifier)*40+400}\' radius for %{($\'levels.Divine Seeker\'+charismaModifier)*10} min 1/dy"',
   'Locate Object':
     'Section=magic ' +
-    'Note="Self senses direction of object or type in %1\' radius for %V min 1/dy"',
+    'Note="Self may sense direction of object or type in %{($\'levels.Divine Seeker\'+charismaModifier)*40+400}\' radius for %{$\'levels.Divine Seeker\'+charismaModifier} min 1/dy"',
   'Mastery Of Counterspelling':
     'Section=magic Note="Counterspell turns effect back on caster"',
-  'Mastery Of Elements':'Section=magic Note="Change energy type of spell"',
+  'Mastery Of Elements':'Section=magic Note="May change energy type of spell"',
   'Mastery Of Energy':
     'Section=combat Note="+4 undead turning checks and damage"',
-  'Mastery Of Shaping':'Section=magic Note="Create holes in spell effect area"',
+  'Mastery Of Shaping':
+    'Section=magic Note="May create holes in spell effect area"',
   'Maximize Rune':
-    'Section=magic Note="+5 DC Craft (rune) gives maximized effects"',
-  'New Domain':'Section=feature Note="Choose additional deity domain"',
+    'Section=magic ' +
+    'Note="Successful +5 DC Craft (rune) gives maximized effects"',
+  'New Domain':'Section=feature Note="May choose an additional deity domain"',
   'Oath Of Wrath':
     'Section=combat,save,skill ' +
     'Note="R60\' +2 attack and damage vs. chosen opponent until encounter ends 1/dy",' +
@@ -925,52 +961,61 @@ Realms.FEATURES_ADDED = {
          '"R60\' +2 checks vs. chosen opponent until encounter ends 1/dy"',
   'Obscure Object':
     'Section=magic ' +
-    'Note="Touched gains immunity to divination for 8 hr 1/dy (DC %V Will neg)"',
+    'Note="Touched gains immunity to divination for 8 hr 1/dy (DC %{charismaModifier+13} Will neg)"',
   'Place Magic':
-    'Section=magic Note="Cast spell w/out preparation when in Rashemen"',
+    'Section=magic Note="May cast spells w/out preparation when in Rashemen"',
   'Power Of Nature':
-    'Section=feature Note="Transfer druid feature to another for 1-10 days"',
+    'Section=feature ' +
+    'Note="May transfer druid feature to another for 1-10 days"',
   'Rallying Cry':
     'Section=combat ' +
-    'Note="R60\' Allies +1 next attack, +5\' Speed for 1 tn 3/dy"',
+    'Note="R60\' Allies gain +1 next attack, +5\' Speed for 1 tn 3/dy"',
   'Red Wizard Bonus Feats':'Section=feature Note="%V Wizard feats"',
   'Reputation':'Section=feature Note="+%V Leadership"',
-  'Rune Chant':'Section=magic Note="Trace rune for +3 DC divine spell"',
-  'Rune Craft':'Section=skill Note="+%V Craft (rune)"',
-  'Rune Power':'Section=magic Note="+%V DC of runes"',
-  'Sacred Defense':'Section=save Note="+%V vs. divine spells and outsiders"',
+  'Rune Chant':'Section=magic Note="May trace rune for a +3 DC divine spell"',
+  'Rune Craft':
+    'Section=skill Note="+%{(levels.Runecaster+2)//3<?3} Craft (rune)"',
+  'Rune Power':
+    'Section=magic ' +
+    'Note="+%{levels.Runecaster>=9 ? 3 : levels.Runecaster>=5 ? 2 : 1} DC of runes"',
+  'Sacred Defense':
+    'Section=save ' +
+    'Note="+%V vs. divine spells and spell-like effects of outsiders"',
   'Sanctuary':
     'Section=magic ' +
-    'Note="Foes cannot attack self for %V rd or until self attacks 1/dy (DC %1 Will neg)"',
-  'Scribe Tattoo':'Section=magic Note="Induct novices into circle"',
+    'Note="Foes cannot attack self for %{$\'levels.Divine Seeker\'} rd or until self attacks 1/dy (DC %{charismaModifier+11} Will neg)"',
+  'Scribe Tattoo':'Section=magic Note="May induct novices into circle"',
   'Shadow Adept Bonus Feats':'Section=feature Note="%V Metamagic feats"',
   'Shadow Defense':
     'Section=save ' +
-    'Note="+%V vs. Enchantment, Illusion, Necromancy, and Darkness spells"',
-  'Shadow Double':'Section=magic Note="Create clone lasting %V rd 1/dy"',
+    'Note="+%{($\'levels.Shadow Adept\'+1)//3} vs. enchantment, illusion, necromancy, and darkness spells"',
+  'Shadow Double':
+    'Section=magic Note="May create clone lasting %{casterLevel} rd 1/dy"',
   'Shadow Feats':
     'Section=feature ' +
-    'Note="Insidious Magic, Pernicious Magic, and Tenacious Magic"',
+    'Note="Has Insidious Magic, Pernicious Magic, and Tenacious Magic features"',
   'Shadow Walk':
-    'Section=magic Note="Travel quickly via Plane of Shadow for %V hr"',
+    'Section=magic ' +
+    'Note="May travel quickly via Plane of Shadow for %{$\'levels.Shadow Adept\'} hr"',
   'Shield Of Shadows':
-    'Section=magic Note="<i>Shield</i> w/75% concealment %V rd/dy"',
+    'Section=magic ' +
+    'Note="May use <i>Shield</i> effects w/75% concealment %{casterLevel} rd/dy"',
   'Smite Infidel':
     'Section=combat ' +
-    'Note="+%V attack, +%1 damage vs. foe w/different deity 1/dy"',
+    'Note="+%{charismaModifier} attack, +%{$\'levels.Divine Champion\'} damage vs. foe w/different deity 1/dy"',
   'Specialist Defense':
-    'Section=save Note="+%V bonus on saves vs. specialist school spells"',
+    'Section=save ' +
+    'Note="+%{($\'levels.Red Wizard\'+1)//2 - ($\'levels.Red Wizard\'>=5 ? 1 : 0)} saves vs. specialized school spells"',
   'Spell Power':'Section=magic Note="+%V spell DC and resistance checks"',
   'Spell-Like Ability':
-    'Section=magic Note="Allows using spell as ability 2+/dy"',
+    'Section=magic Note="May use chosen spell as a spell-like ability 2+/dy"',
   'Thwart Glyph':
     'Section=skill Note="+4 Disable Device (glyphs, runes, and symbols)/+4 Search (glyphs, runes, and symbols)"',
   'Transcendence':
     'Section=magic,skill ' +
-    'Note="Chosen <i>Protection</i> spell at will",' +
-         '"+2 charisma checks w/followers of %V"',
-  "Tymora's Smile":
-    'Section=save Note="+2 luck bonus to any save 1/dy"'
+    'Note="May cast chosen <i>Protection</i> spell at will",' +
+         '"+2 Charisma checks w/followers of %{deity}"',
+  "Tymora's Smile":'Section=save Note="May apply +2 to any save 1/dy"'
 
 };
 Realms.FEATURES = Object.assign({}, SRD35.FEATURES, Realms.FEATURES_ADDED);
@@ -1529,11 +1574,11 @@ Realms.SPELLS_ADDED = {
   "Aganazzar's Scorcher":
     'School=Evocation ' +
     'Level=S2,W2 ' +
-    'Description="Creatures in 5\' by $RS\' path suffer ${Ldiv2min5}d8 HP (Ref half)"',
+    'Description="5\' by %{lvl//2*5+25}\' path inflicts %{lvl//2<?5}d8 HP (Ref half)"',
   'Analyze Portal':
     'School=Divination ' +
     'Level=B3,Portal2,S3,W3 ' +
-    'Description="R60\' Quarter circle gives self info on portals for $L rd or conc"',
+    'Description="R60\' Quarter circle gives self info on portals for %{lvl} rd or conc"',
   'Anyspell':
     'School=Transmutation ' +
     'Level=Spell3 ' +
@@ -1541,19 +1586,19 @@ Realms.SPELLS_ADDED = {
   'Armor Of Darkness':
     'School=Abjuration ' +
     'Level=Darkness4 ' +
-    'Description="Touched gains +$Ldiv4plus3min8 AC and 60\' darkvision for $L10 min"',
+    'Description="Touched gains +%{3+lvl//4<?8} AC and 60\' darkvision for %{lvl*10} min"',
   'Blacklight':
     'School=Evocation ' +
     'Level=Darkness3,S3,W3 ' +
-    'Description="R$RS\' 20\' radius enveloped in darkness only self can see within for $L rd (Will neg)"',
+    'Description="R%{lvl//2*5+25}\' 20\' radius enveloped in darkness that only self can see within for %{lvl} rd (Will neg)"',
   'Claws Of Darkness':
     'School=Illusion ' +
    'Level=S2,W2 ' +
-    'Description="Self hands become 6\' extendable claws inflicting 1d4 HP and slowing via grapple (Fort neg) for $L rd"',
+    'Description="Self hands become 6\' extendable claws that inflict 1d4 HP and slow via grapple (Fort neg) for %{lvl} rd"',
   'Cloak Of Dark Power':
     'School=Abjuration ' +
     'Level=Drow1 ' +
-    'Description="Touched protected from sunlight, +4 save vs. light and darkness effects for $L min"',
+    'Description="Touched protected from sunlight and gains +4 save vs. light and darkness effects for %{lvl} min"',
   'Create Magic Tattoo':
     'School=Conjuration ' +
     'Level=S2,W2 ' +
@@ -1561,39 +1606,39 @@ Realms.SPELLS_ADDED = {
   'Darkbolt':
     'School=Evocation ' +
     'Level=Darkness5 ' +
-    'Description="R$RM\' Ranged touch with ${lvl//2<?7} bolts in 30\' radius inflict 2d8 HP each and daze 1 rd (Will neg)"',
+    'Description="R%{lvl*10+100}\' Ranged touch with ${lvl//2<?7} bolts in 30\' radius inflict 2d8 HP each and daze 1 rd (Will neg)"',
   "Elminster's Evasion":
     'School=Evocation ' +
     'Level=S9,W9 ' +
-    'Description="Self and up to 50 lb teleport to named locale"',
+    'Description="Teleports self and up to 50 lb to named locale"',
   'Fantastic Machine':
     'School=Illusion ' +
     'Level=Craft6,Gnome6 ' +
-    'Description="Large illusory machine (HP 22, AC 14, slam +5 1d8+4, throw rocks +3 2d6+4, move 40\'/rd, swim and fly 10\'/rd, load 230) obeys self for $L min"',
+    'Description="Large illusory machine (HP 22, AC 14, slam +5 1d8+4, throw rocks +3 2d6+4, move 40\'/rd, swim and fly 10\'/rd, load 230) obeys self for %{lvl} min"',
   'Fire Stride':
     'School=Transmutation ' +
     'Level=S4,W4 ' +
-    'Description="Self teleports $RL\' between fires $L times for $L10 min"',
+    'Description="Self may teleport %{lvl*40+400}\' between fires %{lvl} times for %{lvl*10} min"',
   'Flashburst':
     'School=Evocation ' +
     'Level=S3,W3 ' +
-    'Description="R$RL\' Creatures in 20\' radius dazzled (-1 attack) for 1 rd, those w/in 120\' blinded (Will neg) for 2d8 rd"',
+    'Description="R%{lvl*40+400}\' Creatures in 20\' radius dazzled (-1 attack) for 1 rd; creatures w/in 120\' blinded (Will neg) for 2d8 rd"',
   'Flensing':
     'School=Evocation ' +
     'Level=S8,W8 ' +
-    'Description="R$RS\' Target suffers 2d6 HP and -1d6 Charisma and Constitution (Fort half HP only) for 4 rd"',
+    'Description="R%{lvl//2*5+25}\' Target suffers 2d6 HP and -1d6 Charisma and Constitution (Fort half HP only) for 4 rd"',
   'Gate Seal':
     'School=Abjuration ' +
     'Level=B6,C6,D6,S6,W6 ' +
-    'Description="R$RS\' Seals magical gate or portal"',
+    'Description="R%{lvl//2*5+25}\' Seals magical gate or portal"',
   'Gembomb':
     'School=Conjuration ' +
     'Level=Gnome2,Trade2 ' +
-    'Description="Up to 5 gems become R100\' ranged touch bombs inflicting ${Ldiv2min5}d8 HP total (Ref half)"',
+    'Description="Up to 5 gems become R100\' ranged touch bombs that inflict ${lvl//2<?5}d8 HP total (Ref half)"',
   'Great Shout':
     'School=Evocation ' +
     'Level=B6,S8,W8 ' +
-    'Description="R$RS\' Objects in range suffer 20d6 HP (Ref neg), creatures in cone suffer 10d6 HP, stunned for 1 rd, and deafened for 4d6 rd (Fort half)"',
+    'Description="R%{lvl//2*5+25}\' Objects in range suffer 20d6 HP (Ref neg); creatures in cone suffer 10d6 HP, stunned for 1 rd, and deafened for 4d6 rd (Fort half)"',
   'Greater Anyspell':
     'School=Transmutation ' +
     'Level=Spell6 ' +
@@ -1601,80 +1646,80 @@ Realms.SPELLS_ADDED = {
   'Greater Fantastic Machine':
     'School=Illusion ' +
     'Level=Craft9 ' +
-    'Description="Large illusory machine (HP 88, AC 20, slam +17,+12 1d8+9, throw rocks +12,+7 2d6+9, move 60\'/rd, swim and fly 20\'/rd, load 520) obeys self for $L min"',
+    'Description="Large illusory machine (HP 88, AC 20, slam +17,+12 1d8+9, throw rocks +12,+7 2d6+9, move 60\'/rd, swim and fly 20\'/rd, load 520) obeys self for %{lvl} min"',
   "Grimwald's Graymantle":
     'School=Necromancy ' +
     'Level=S5,W5 ' +
-    'Description="R$RM\' Touched prevented from healing, restoring, and regenerating for $L rd (Fort neg)"',
+    'Description="R%{lvl*10+100}\' Touched prevented from healing, restoring, and regenerating for %{lvl} rd (Fort neg)"',
   'Lesser Ironguard':
     'School=Abjuration ' +
     'Level=S5,W5 ' +
-    'Description="Touched gains immunity to normal metal for $L rd"',
+    'Description="Touched gains immunity to normal metal for %{lvl} rd"',
   'Maelstrom':
     'School=Conjuration ' +
     'Level=Ocean8 ' +
-    'Description="R$RL\' Creatures in whirlpool suffer 3d8 HP for 2d4 rd (Ref et al neg) for $L rd"',
+    'Description="R%{lvl*40+400}\' Creatures in whirlpool suffer 3d8 HP for 2d4 rd (Ref et al neg) for %{lvl} rd"',
   'Maw Of Stone':
     'School=Transmutation ' +
     'Level=Cavern7 ' +
-    'Description="Animates natural opening to perform +%{levels.Cleric+wisdomModifier+7} grapple that inflicts 2d6+10 HP"',
+    'Description="Animates natural opening to perform +%{lvl+wisdomModifier+7} grapple that inflicts 2d6+10 HP"',
   'Moon Blade':
     'School=Evocation ' +
     'Level=Moon3,S3,W3 ' + // W3 for Hathran
-    'Description="Moonlight blade touch attack inflicts 1d8+$Ldiv2 HP (undead 2d8+$L HP) for $L min"',
+    'Description="Touch attack inflicts 1d8+%{lvl//2} HP (undead 2d8+%{lvl} HP) for %{lvl} min"',
   'Moon Path':
     'School=Evocation ' +
     'Level=Moon5,S5,W5 ' + // W5 for Hathran
-    'Description="Creates glowing pathway 5\'-20\' by $L15\' for $L min that provides <i>Sanctuary</i> for $L designed creatures"',
+    'Description="Creates glowing pathway 5\'-20\' by %{lvl*15}\' for %{lvl} min that provides <i>Sanctuary</i> for %{lvl} designed creatures"',
   'Moonbeam':
     'School=Evocation ' +
     'Level=Moon2,S2,W2 ' + // W2 for Hathran
-    'Description="R$RS\' Target lycanthropes assume animal form for $L min (Will neg)"',
+    'Description="R%{lvl//2*5+25}\' Target lycanthropes assume animal form for %{lvl} min (Will neg)"',
   'Moonfire':
     'School=Evocation ' +
     'Level=Moon9 ' +
-    'Description="R$RS\' Cone inflicts ${Ldiv2min10}d8 HP (undead dbl) (Ref half), reverts changed creatures to normal form (Will neg), and marks auras for $L min"',
+    'Description="R%{lvl//2*5+25}\' Cone inflicts %{lvl//2<?10}d8 HP (undead dbl) (Ref half), reverts changed creatures to normal form (Will neg), and marks auras for %{lvl} min"',
   'Scatterspray':
     'School=Transmutation ' +
     'Level=Harper1,S1,W1 ' +
-    'Description="R$RS\' Little items in 1\' radius scatter, inflicting 1d8 on creatures w/in 10\' (Ref neg)"',
+    'Description="R%{lvl//2*5+25}\' Little items in 1\' radius scatter, inflicting 1d8 on creatures w/in 10\' (Ref neg)"',
   'Shadow Mask':
     'School=Illusion ' +
     'Level=Harper2,S2,W2 ' +
-    'Description="Hides self\'s face, gives +4 saves vs. light and dark and 50% protection from gaze attacks for $L10 min" ' +
+    'Description="Hides self face and gives +4 saves vs. light and dark and 50% protection from gaze attacks for %{lvl*10} min" ' +
     'Liquid=Potion',
   'Shadow Spray':
     'School=Illusion ' +
     'Level=S2,W2 ' +
-    'Description="R$RM\' Creatures in 5\' radius suffer -2 Strength and fear saves and dazed 1 rd for $L rd (Fort neg)"',
+    'Description="R%{lvl*10+100}\' Creatures in 5\' radius suffer -2 Strength and fear saves and dazed 1 rd for %{lvl} rd (Fort neg)"',
   "Snilloc's Snowball Swarm":
     'School=Evocation ' +
     'Level=S2,W2 ' +
-    'Description="R$RM\' Creatures in 10\' radius suffer ${Lplus1div2min5}d6 HP (Ref half)"',
+    'Description="R%{lvl*10+100}\' Creatures in 10\' radius suffer %{(lvl+1)//2<?5}d6 HP (Ref half)"',
   'Spider Curse':
     'School=Transmutation ' +
     'Level=Spider6 ' +
-    'Description="R$RM\' Target polymorphs into drider and obeys self thoughts for $L dy (Will neg)"',
+    'Description="R%{lvl*10+100}\' Target polymorphs into drider that obeys self thoughts for %{lvl} dy (Will neg)"',
   'Spider Shapes':
     'School=Transmutation ' +
     'Level=Spider9 ' +
-    'Description="R$RS\' Willing target polymorphs into monstrous spider for $L hr"',
+    'Description="R%{lvl//2*5+25}\' Willing target polymorphs into monstrous spider for %{lvl} hr"',
   'Spiderform':
     'School=Transmutation ' +
     'Level=Drow5 ' +
-    'Description="Self polymorphs into drider or monstrous spider for $L hr"',
+    'Description="Self polymorphs into drider or monstrous spider for %{lvl} hr"',
   'Stone Spiders':
     'School=Transmutation ' +
     'Level=Spider7 ' +
-    'Description="R$RS\' Transforms 1d3 pebbles into monstrous spiders that obey self for $L rd"',
+    'Description="R%{lvl//2*5+25}\' Transforms 1d3 pebbles into obedient monstrous spiders for %{lvl} rd"',
   'Thunderlance':
     'School=Evocation ' +
     'Level=S4,W4 ' +
-    'Description="Self wields shimmering staff (+$Ldiv2plus1 attack, 2d6+$Ldiv2plus1 x3@20) 1\' - 20\' long for $L rd"',
+    'Description="Self wields shimmering staff (+%{lvl//2+1} attack, 2d6+%{lvl//2+1} x3@20) 1\' - 20\' long for %{lvl} rd"',
   'Waterspout':
     'School=Conjuration ' +
     'Level=Ocean7 ' +
-    'Description="R$RL\' Self moves 10\'x80\' spout 30\'/rd; touched creatures suffer 2d6 HP (Ref neg) for $L rd"'
+    'Description="R%{lvl*40+400}\' Self moves 10\'x80\' spout 30\'/rd; touched creatures suffer 2d6 HP (Ref neg) for %{lvl} rd"'
 };
 Realms.SPELLS = Object.assign(
   {}, window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS, Realms.SPELLS_ADDED
@@ -2137,7 +2182,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
     );
   else if(type == 'Language')
     Realms.languageRules(rules, name);
-  else if(type == 'Path') {
+  else if(type == 'Path')
     Realms.pathRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Group'),
       QuilvynUtils.getAttrValue(attrs, 'Level'),
@@ -2146,8 +2191,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'SpellAbility'),
       QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots')
     );
-    Realms.pathRulesExtra(rules, name);
-  } else if(type == 'Race') {
+  else if(type == 'Race') {
     Realms.raceRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Require'),
       QuilvynUtils.getAttrValueArray(attrs, 'Features'),
@@ -2331,13 +2375,6 @@ Realms.classRulesExtra = function(rules, name) {
       'featureNotes.arcaneDevoteeBonusFeats', '=', null
     );
     rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
-    rules.defineRule('magicNotes.devoteeEnlargeSpell',
-      'charismaModifier', '+=', 'source > 0 ? source + 1 : 1'
-    );
-    rules.defineRule
-      ('saveNotes.divineShroud', 'casterLevelArcane', '+=', '12 + source');
-    rules.defineRule
-      ('saveNotes.divineShroud.1', 'charismaModifier', '+=', '5 + source');
     rules.defineRule
       ('saveNotes.sacredDefense', classLevel, '+=', 'Math.floor(source / 2)');
 
@@ -2365,11 +2402,6 @@ Realms.classRulesExtra = function(rules, name) {
       'features.Spell Power +1', '+=', '1',
       'features.Spell Power +2', '+=', '2',
       'features.Spell Power +3', '+=', '3'
-    );
-    rules.defineRule('magicNotes.arcaneFire', 'levels.Archmage', '=', null);
-    rules.defineRule('magicNotes.arcaneFire.1',
-      'features.Arcane Fire', '?', null,
-      'levels.Archmage', '=', '400 + 40 * source'
     );
     rules.defineRule('selectableFeatureCount.Archmage (High Arcana)',
       'featureNotes.highArcana', '+=', null
@@ -2413,27 +2445,12 @@ Realms.classRulesExtra = function(rules, name) {
 
   } else if(name == 'Divine Champion') {
 
-    rules.defineRule('combatNotes.divineWrath', 'charismaModifier', '=', null);
-    rules.defineRule('combatNotes.smiteInfidel',
-      'charismaModifier', '=', 'source > 0 ? source : 0'
-    );
-    rules.defineRule('combatNotes.smiteInfidel.1', classLevel, '=', null);
     rules.defineRule('featureNotes.divineChampionBonusFeats',
       classLevel, '=', 'Math.floor(source / 2)'
     );
     rules.defineRule('featCount.Fighter',
       'featureNotes.divineChampionBonusFeats', '+=', null
     );
-    rules.defineRule('magicNotes.championLayOnHands',
-      classLevel, '=', null,
-      'charismaModifier', '*', null,
-      'charisma', '?', 'source >= 12'
-    );
-    rules.defineRule('magicNotes.championLayOnHands.1',
-      'features.Champion Lay On Hands', '?', null,
-      'deity', '=', null
-    );
-    rules.defineRule('saveNotes.divineWrath', 'charismaModifier', '=', null);
     rules.defineRule
       ('saveNotes.sacredDefense', classLevel, '+=', 'Math.floor(source / 2)');
 
@@ -2442,31 +2459,16 @@ Realms.classRulesExtra = function(rules, name) {
     rules.defineRule('selectableFeatureCount.Cleric (Domain)',
       'featureNotes.newDomain', '+=', '1'
     );
+    rules.defineRule
+      ('featureNotes.divineEmissary', 'alignment', '=', 'source.toLowerCase()');
     rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
     rules.defineRule
       ('saveNotes.sacredDefense', classLevel, '+=', 'Math.floor(source / 2)');
-    rules.defineRule('skillNotes.transcendence',
-      'deity', '=', 'source.replace(/\\s*\\(.*\\)/, "")'
-    );
 
   } else if(name == 'Divine Seeker') {
 
     rules.defineRule
       ('combatNotes.sneakAttack', classLevel, '+=', 'Math.floor(source / 2)');
-    rules.defineRule('magicNotes.locateCreature', classLevel, '=', null);
-    rules.defineRule
-      ('magicNotes.locateCreature.1', classLevel, '=', 'source * 40 + 400');
-    rules.defineRule('magicNotes.locateObject', classLevel, '=', null);
-    rules.defineRule
-      ('magicNotes.locateObject.1', classLevel, '=', 'source * 40 + 400');
-    // Unsure of the spell level for Obscure Object
-    rules.defineRule
-      ('magicNotes.obscureObject', 'charismaModifier', '=', '12 + source');
-    rules.defineRule('magicNotes.sanctuary', classLevel, '=', null);
-    rules.defineRule('magicNotes.sanctuary.1',
-      classLevel, '?', null,
-      'charismaModifier', '=', '11 + source'
-    );
     rules.defineRule
       ('saveNotes.sacredDefense', classLevel, '+=', 'Math.floor(source / 2)');
 
@@ -2536,14 +2538,6 @@ Realms.classRulesExtra = function(rules, name) {
       'casterLevels.S', '^=', null,
       'casterLevels.W', '^=', null
     );
-    rules.defineRule('magicNotes.greaterCommand', classLevel, '=', null);
-    rules.defineRule('magicNotes.greaterCommand.1',
-      classLevel, '=', 'source>=3 ? Math.floor(source / 2) * 5 + 25 : null'
-    );
-    rules.defineRule('magicNotes.greaterCommand.2',
-      classLevel, '?', 'source >= 10',
-      'charismaModifier', '=', '15 + source'
-    );
 
   } else if(name == 'Hierophant') {
 
@@ -2558,10 +2552,6 @@ Realms.classRulesExtra = function(rules, name) {
     rules.defineRule('combatNotes.turnUndead.2',
       'combatNotes.masteryOfEnergy', '+', '4'
     );
-    rules.defineRule('magicNotes.faithHealing.1',
-      'features.Faith Healing', '?', null,
-      'deity', '=', null
-    );
     rules.defineRule
       ('features.Spell Power', 'features.Spell Power +2', '=', '1');
     rules.defineRule
@@ -2569,19 +2559,12 @@ Realms.classRulesExtra = function(rules, name) {
 
   } else if(name == 'Purple Dragon Knight') {
 
-    rules.defineRule('combatNotes.finalStand',
-      classLevel, '=', null,
-      'charismaModifier', '+', null
-    );
     rules.defineRule('magicNotes.fear', classLevel, '=', '1');
     rules.defineRule('magicNotes.fear.1',
       'features.Fear', '?', null,
       'charismaModifier', '=', '13 + source'
     );
     rules.defineRule('magicNotes.fear.2', classLevel, '=', null);
-    rules.defineRule("magicNotes.inspireKnight'sCourage",
-      classLevel, '=', 'Math.floor(source / 2)'
-    );
 
   } else if(name == 'Red Wizard') {
 
@@ -2595,9 +2578,6 @@ Realms.classRulesExtra = function(rules, name) {
     rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
     rules.defineRule
       ('magicNotes.spellPower', classLevel, '+=', 'Math.floor(source / 2)');
-    rules.defineRule('saveNotes.specialistDefense',
-      classLevel, '+=', 'Math.floor((source + 1) / 2) - (source >= 5 ? 1 : 0)'
-    );
     rules.defineRule('selectableFeatureCount.Wizard (Opposition)',
       'magicNotes.enhancedSpecialization', '+', '1'
     );
@@ -2605,12 +2585,6 @@ Realms.classRulesExtra = function(rules, name) {
   } else if(name == 'Runecaster') {
 
     rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
-    rules.defineRule('magicNotes.runePower',
-      classLevel, '=', 'source >= 9 ? 3 : source >= 5 ? 2 : 1'
-    );
-    rules.defineRule('skillNotes.runeCraft',
-      classLevel, '=', 'source>=7 ? 3 : Math.floor((source + 2) / 3)'
-    );
 
   } else if(name == 'Shadow Adept') {
 
@@ -2624,63 +2598,23 @@ Realms.classRulesExtra = function(rules, name) {
       ('featureNotes.shadowAdeptBonusFeats', classLevel, '=', '1');
     rules.defineRule
       ('featCount.Metamagic', 'featureNotes.shadowAdeptBonusFeats', '+=', null);
-    rules.defineRule
-      ('magicNotes.insidiousMagic', 'casterLevel', '=', 'source + 11');
     rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
     rules.defineRule
-      ('magicNotes.perniciousMagic', 'casterLevel', '=', 'source + 11');
-    rules.defineRule
-      ('magicNotes.shieldOfShadows', 'casterLevel', '=', null);
-    rules.defineRule
-      ('magicNotes.shadowDouble', 'casterLevel', '=', null);
-    rules.defineRule('magicNotes.shadowWalk', classLevel, '=', null);
-    rules.defineRule
       ('magicNotes.spellPower', classLevel, '+=', 'Math.floor(source / 3)');
-    rules.defineRule
-      ('magicNotes.tenaciousMagic', 'casterLevel', '=', '15 + source');
-    rules.defineRule
-      ('saveNotes.greaterShieldOfShadows', classLevel, '=', 'source + 12');
-    rules.defineRule('saveNotes.shadowDefense',
-      classLevel, '=', 'Math.floor((source + 1) / 3)'
-    );
 
-  } else if(name == 'Cleric') {
+  } else {
 
-    // Family Domain
-    rules.defineRule('magicNotes.familialProtection',
-      'charismaModifier', '=', 'source > 1 ? source : 1'
-    );
-    rules.defineRule('magicNotes.familialProtection.1',
-      'features.Familial Protection', '?', null,
-      'level', '=', null
-    );
-    // Halfling Domain
-    rules.defineRule('skillNotes.sprightly', 'charismaModifier', '=', null);
-    // Mentalism Domain
-    rules.defineRule('magicNotes.mentalWard', 'level', '=', 'source + 2');
-    // Nobility Domain
-    rules.defineRule('magicNotes.inspireAllies',
-      'charismaModifier', '=', 'source >= 1 ? source : null'
-    );
-    // Ocean Domain
-    rules.defineRule('magicNotes.waterBreathing', 'level', '=', '10 * source');
-    // Orc Domain
-    rules.defineRule('combatNotes.smitePower', classLevel, '=', null);
-    // Renewal Domain
-    rules.defineRule('combatNotes.renewSelf', 'charismaModifier', '=', null);
-    // Storm Domain
-    rules.defineRule
-      ('resistance.Electricity', 'saveNotes.stormfriend', '^=', '5');
-    // Trade Domain
-    rules.defineRule('magicNotes.tradeSecrets', 'charismaModifier', '=', null);
-    // Undeath Domain
-    rules.defineRule
-      ('combatNotes.extraTurning', 'clericFeatures.Extra Turning', '+=', '4');
+    if(rules.basePlugin.classRulesExtra)
+      rules.basePlugin.classRulesExtra(rules, name);
+
+    if(name == 'Cleric') {
+      rules.defineRule
+        ('resistance.Electricity', 'saveNotes.stormfriend', '^=', '5');
+      rules.defineRule
+        ('combatNotes.extraTurning', 'clericFeatures.Extra Turning', '+=', '4');
+    }
 
   }
-
-  if(rules.basePlugin.classRulesExtra)
-    rules.basePlugin.classRulesExtra(rules, name);
 
   if(feats != null && allFeats != null) {
     for(let j = 0; j < feats.length; j++) {
@@ -2769,9 +2703,6 @@ Realms.featRulesExtra = function(rules, name) {
     rules.defineRule('features.Weapon Proficiency (Composite Shortbow)',
       'combatNotes.horseNomad', '=', '1'
     );
-  } else if(name == 'Insidious Magic') {
-    rules.defineRule
-      ('magicNotes.insidiousMagic', 'casterLevel', '=', 'source + 11');
   } else if(name == 'Militia') {
     rules.defineRule
       ('combatNotes.militia', 'region', '?', 'source != "Luiren"');
@@ -2798,16 +2729,13 @@ Realms.featRulesExtra = function(rules, name) {
       'constitutionModifier', '+', '-source'
     );
     rules.defineRule('combatNotes.mindOverBody.2',
+      'combatNotes.mindOverBody', '?', null,
       'combatNotes.mindOverBody', '=', '0',
       'sumMetamagicFeats', '+', null
     );
     rules.defineRule('hitPoints',
       'combatNotes.mindOverBody.1', '+', null,
       'combatNotes.mindOverBody.2', '+', null
-    );
-  } else if(name == 'Pernicious Magic') {
-    rules.defineRule('magicNotes.perniciousMagic',
-      'casterLevel', '=', 'source + 11'
     );
   } else if((matchInfo = name.match(/^Spellcasting\sProdigy\s\((.*)\)$/)) != null) {
     let clas = matchInfo[1];
@@ -2825,9 +2753,6 @@ Realms.featRulesExtra = function(rules, name) {
         'prodigyAbility' + clas, '+', 'source == ' + spellLevel + ' ? 1 : null'
       );
     }
-  } else if(name == 'Tenacious Magic') {
-    rules.defineRule
-      ('magicNotes.tenaciousMagic', 'casterLevel', '=', '15 + source');
   } else if(name == 'Tattoo Focus') {
     for(let school in rules.getChoices('schools')) {
       rules.defineRule
@@ -2915,17 +2840,6 @@ Realms.pathRules = function(
       rules, name, group, levelAttr, features, selectables, spellAbility,
       spellSlots
     );
-  // Add new domains to Cleric selections
-  if(name.match(/Domain$/))
-    QuilvynRules.featureListRules
-      (rules, ["deityDomains =~ '" + name.replace(' Domain', '') + "' ? 1:" + name], 'Cleric', 'levels.Cleric', true);
-};
-
-/*
- * Defines in #rules# the rules associated with path #name# that cannot be
- * derived directly from the abilities passed to pathRules.
- */
-Realms.pathRulesExtra = function(rules, name) {
 };
 
 /*
@@ -2953,9 +2867,6 @@ Realms.raceRulesExtra = function(rules, name) {
     let element = matchInfo[1];
     let elementLowered = element.toLowerCase();
     rules.defineRule('saveNotes.elementalAffinity',
-      'level', '=', '1 + Math.floor(source / 5)'
-    );
-    rules.defineRule('saveNotes.elementalAffinity.1',
       elementLowered + 'GenasiLevel', '=', '"' + element + '"'
     );
     rules.defineChoice('notes', 'validationNotes.' + elementLowered + 'GenasiCleric:Requires ' + element + ' Domain');
@@ -3191,6 +3102,11 @@ Realms.ruleNotes = function() {
     '  </li><li>\n' +
     '    Harper Scout\'s "Harper Knowledge" feature is renamed "Bardic\n' +
     '    Knowledge", since the two are identical and stack.\n' +
+    '  </li><li>\n' +
+    '    The Forgotten Realms rule set allows you to add homebrew choices\n' +
+    '    for all of the same types discussed in the <a href="plugins/homebrew-srd35.html">SRD v3.5 Homebrew Examples document</a>.\n' +
+    '    In addition, the FR rule set allows adding homebrew regions, which\n' +
+    '    require specifying only the region name.\n' +
     '  </li>\n' +
     '</ul>\n' +
     '<h3>Copyrights and Licensing</h3>\n' +
