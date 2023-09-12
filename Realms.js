@@ -198,7 +198,7 @@ function Realms(baseRules) {
 
 }
 
-Realms.VERSION = '2.4.1.0';
+Realms.VERSION = '2.4.1.1';
 
 // Realms uses PHB35 as its default base ruleset. If USE_PATHFINDER is true,
 // the Realms function will instead use rules taken from the Pathfinder plugin.
@@ -2227,6 +2227,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
   } else if(type == 'Spell') {
     let description = QuilvynUtils.getAttrValue(attrs, 'Description');
     let groupLevels = QuilvynUtils.getAttrValueArray(attrs, 'Level');
+    let liquids = QuilvynUtils.getAttrValueArray(attrs, 'Liquid');
     let school = QuilvynUtils.getAttrValue(attrs, 'School');
     let schoolAbbr = (school || 'Universal').substring(0, 4);
     for(let i = 0; i < groupLevels.length; i++) {
@@ -2243,7 +2244,8 @@ Realms.choiceRules = function(rules, type, name, attrs) {
          ('Cleric - ' + group + ' Domain') in rules.getChoices('selectableFeatures')) ||
         Realms.CLASSES.Cleric.includes(group + ' Domain');
       Realms.spellRules
-        (rules, fullName, school, group, level, description, domainSpell);
+        (rules, fullName, school, group, level, description, domainSpell,
+         liquids);
       rules.addChoice('spells', fullName, attrs);
     }
   } else if(type == 'Track')
@@ -3012,13 +3014,15 @@ Realms.skillRules = function(
  * Defines in #rules# the rules associated with spell #name#, which is from
  * magic school #school#. #casterGroup# and #level# are used to compute any
  * saving throw value required by the spell. #description# is a concise
- * description of the spell's effects.
+ * description of the spell's effects. #liquids# lists any liquid forms via
+ * which the spell can be applied.
  */
 Realms.spellRules = function(
-  rules, name, school, casterGroup, level, description, domainSpell
+  rules, name, school, casterGroup, level, description, domainSpell, liquids
 ) {
   rules.basePlugin.spellRules
-    (rules, name, school, casterGroup, level, description, domainSpell);
+    (rules, name, school, casterGroup, level, description, domainSpell,
+     liquids);
   // No changes needed to the rules defined by base method
 };
 
