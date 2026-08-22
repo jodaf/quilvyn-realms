@@ -54,11 +54,11 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Ability Notes</b>:     <table id="AbilityNotes" style="width:100%">
     <tr style="text-align:center">
-      <td><i>Race Level Adjustment: -1 Level</i></td>
+      <td><i>Racial Level Adjustment: -1 Level</i></td>
     </tr><tr style="text-align:center">
       <td><i>Water Genasi Ability Adjustment: +2 Constitution/-2 Charisma</i></td>
     </tr><tr style="text-align:center">
-      <td>Natural Swimmer: Swim 30'</td>
+      <td>Natural Swimmer: Has a 30' swim Speed</td>
     </tr></table>
 </td>
   </tr></table>
@@ -77,7 +77,7 @@ var attributes = {
       <td>      <table id="FeatLists" style="width:100%">
       <tr style="text-align:center">
         <td><b>Feats</b>: Improved Unarmed Strike; Quick Draw</td>
-        <td><b>Water Genasi Features</b>: Amphibious; Darkvision; Elemental Affinity; Native Outsider; Natural Swimmer; Race Level Adjustment; Water Genasi Ability Adjustment; Water Genasi Magic</td>
+        <td><b>Water Genasi Features</b>: Amphibious; Darkvision; Genasi Resistance; Natural Swimmer; Outsider; Racial Level Adjustment; Water Genasi Ability Adjustment; Water Genasi Magic</td>
         <td><b>Fighter Features</b>: Armor Proficiency (Light; Medium; Heavy; Shield; Tower Shield); Bonus Feat (Fighter); Weapon Proficiency (Simple Weapons; Martial Weapons)</td>
       </tr></table>
 </td>
@@ -86,7 +86,7 @@ var attributes = {
       <tr style="text-align:center">
         <td><i>Bonus Feat (Fighter): +1 Fighter Feat</i></td>
       </tr><tr style="text-align:center">
-        <td>Amphibious: May breathe water</td>
+        <td>Amphibious: Can breathe water</td>
       </tr><tr style="text-align:center">
         <td>Darkvision: R60' Has black and white vision in complete darkness</td>
       </tr></table>
@@ -184,9 +184,9 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Wisdom Will Adjustment: +2</i></td>
       </tr><tr style="text-align:center">
-        <td>Elemental Affinity: +1 vs. Water spells</td>
+        <td>Genasi Resistance: +1 vs. water spells</td>
       </tr><tr style="text-align:center">
-        <td>Native Outsider: Affected by outsider, not humanoid, target spells</td>
+        <td>Outsider: Affected by spells that target outsiders, not humanoids</td>
       </tr></table>
 </td>
     </tr></table>
@@ -196,9 +196,19 @@ var attributes = {
 </tr><tr style="text-align:center">
   <td style="border:1px solid black"><b>Magic</b><br/>  <table id="Magic" style="width:100%">
   <tr style="text-align:center">
-    <td><b>Spells</b>:<br/>Create Water (Water Genasi Magic1 Conj): R35' Creates 10 gallons of pure water</td>
+    <td>    <table id="SpellPart" style="width:100%">
+    <tr style="text-align:center">
+      <td>      <table id="SpellStats" style="width:100%">
+      <tr style="text-align:center">
+        <td><b>Spell DC</b>: Water Genasi Magic: 12</td>
+      </tr></table>
+</td>
+    </tr></table>
+</td>
   </tr><tr style="text-align:center">
-    <td><b>Magic Notes</b>: Water Genasi Magic: May cast <i>Create Water</i> 1/dy</td>
+    <td><b>Spells</b>:<br/>Create Water (Water Genasi Magic0 Conj): R25' Creates 2 gallons of pure water</td>
+  </tr><tr style="text-align:center">
+    <td><b>Magic Notes</b>: Water Genasi Magic: Can cast <i>Create Water</i> once per day</td>
   </tr></table>
 </td>
 </tr></table>

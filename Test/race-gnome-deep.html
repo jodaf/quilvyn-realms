@@ -57,7 +57,7 @@ var attributes = {
     <tr style="text-align:center">
       <td><i>Deep Gnome Ability Adjustment: -2 Strength/+2 Dexterity/+2 Wisdom/-4 Charisma</i></td>
     </tr><tr style="text-align:center">
-      <td><i>Race Level Adjustment: -3 Level</i></td>
+      <td><i>Racial Level Adjustment: -3 Level</i></td>
     </tr><tr style="text-align:center">
       <td><i>Small: x0.75 Load Max</i></td>
     </tr></table>
@@ -78,7 +78,7 @@ var attributes = {
       <td>      <table id="FeatLists" style="width:100%">
       <tr style="text-align:center">
         <td><b>Feats</b>: Combat Reflexes; Diligent</td>
-        <td><b>Deep Gnome Features</b>: Deep Gnome Ability Adjustment; Exceptional Dodge; Extended Darkvision; Extra Luck; Gnome Enmity; Keen Ears; Know Depth; Natural Illusionist; Race Level Adjustment; Resist Illusion; Sensitive Nose; Shadowed; Stonecunning; Svirfneblin Magic; Svirfneblin Spell Resistance; Undetectable; Weapon Familiarity (Gnome Hooked Hammer)</td>
+        <td><b>Deep Gnome Features</b>: Deep Gnome Ability Adjustment; Deep Gnome Magic; Deep Gnome Spell Resistance; Exceptional Dodger; Extended Darkvision; Gnome Enmity; Inconspicuous; Keen Ears; Know Depth; Natural Illusionist; Racial Level Adjustment; Resilient; Resist Illusion; Sensitive Nose; Stonecunning; Undetectable; Weapon Familiarity (Gnome Hooked Hammer)</td>
         <td><b>Fighter Features</b>: Armor Proficiency (Light; Medium; Heavy; Shield; Tower Shield); Bonus Feat (Fighter); Weapon Proficiency (Simple Weapons; Martial Weapons)</td>
       </tr></table>
 </td>
@@ -87,7 +87,7 @@ var attributes = {
       <tr style="text-align:center">
         <td><i>Bonus Feat (Fighter): +1 Fighter Feat</i></td>
       </tr><tr style="text-align:center">
-        <td>Extended Darkvision: 120' b/w vision in darkness</td>
+        <td>Extended Darkvision: R120' Has black and white vision in complete darkness</td>
       </tr></table>
 </td>
     </tr></table>
@@ -118,15 +118,17 @@ var attributes = {
       <tr style="text-align:center">
         <td><i>Diligent: +2 Appraise/+2 Decipher Script</i></td>
       </tr><tr style="text-align:center">
+        <td><i>Inconspicuous: +2 Hide</i></td>
+      </tr><tr style="text-align:center">
         <td><i>Keen Ears: +2 Listen</i></td>
       </tr><tr style="text-align:center">
         <td><i>Sensitive Nose: +2 Craft (Alchemy)</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Shadowed: +2 Hide/+4 Hide (darkened underground areas)</i></td>
-      </tr><tr style="text-align:center">
         <td><i>Small: +4 Hide/-4 Intimidate</i></td>
       </tr><tr style="text-align:center">
         <td><i>Speed Jump Modifier: -6</i></td>
+      </tr><tr style="text-align:center">
+        <td>Inconspicuous: +2 Hide in darkened underground areas</td>
       </tr><tr style="text-align:center">
         <td>Stonecunning: +2 Search for unusual stonework and makes an automatic Search when within 10'/Can determine approximate depth underground</td>
       </tr></table>
@@ -144,7 +146,7 @@ var attributes = {
       <tr style="text-align:center">
         <td><b>Hit Points</b>: 12</td>
         <td><b>Initiative</b>: +2</td>
-        <td><b>AC/Touch/Flat</b>: 19/17/17</td>
+        <td><b>AC/Touch/Flat</b>: 19/17/13</td>
         <td><b>Attacks Per Round</b>: 1</td>
         <td><b>Base/Melee/Ranged Attack</b>: +1/+3/+4</td>
       </tr></table>
@@ -167,13 +169,13 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><b>Combat Notes</b>:       <table id="CombatNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Armor Class Modifiers: Armor +2; Deflection +0; Dexterity +2; Dodge +0; Natural Armor +0; Shield +0; Size +1</i></td>
+        <td><i>Armor Class Modifiers: Armor +2; Deflection +0; Dexterity +2; Dodge +4; Natural Armor +0; Shield +0; Size +1</i></td>
       </tr><tr style="text-align:center">
         <td><i>Constitution Hit Points Adjustment: +2</i></td>
       </tr><tr style="text-align:center">
         <td><i>Dexterity Attack Adjustment: +2</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Exceptional Dodge: +4 AC</i></td>
+        <td><i>Exceptional Dodger: +4 dodge bonus to Armor Class</i></td>
       </tr><tr style="text-align:center">
         <td><i>Small: +1 size bonus to Armor Class/+1 Melee Attack/+1 Ranged Attack</i></td>
       </tr><tr style="text-align:center">
@@ -202,9 +204,9 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Dexterity Reflex Adjustment: +2</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Extra Luck: +2 Fortitude/+2 Reflex/+2 Will</i></td>
+        <td><i>Resilient: +2 Fortitude/+2 Reflex/+2 Will</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Svirfneblin Spell Resistance: Spell resistance 12</i></td>
+        <td><i>Svirfneblin Spell Resistance: +12</i></td>
       </tr><tr style="text-align:center">
         <td><i>Wisdom Will Adjustment: -1</i></td>
       </tr><tr style="text-align:center">
@@ -222,7 +224,7 @@ var attributes = {
     <tr style="text-align:center">
       <td>      <table id="SpellStats" style="width:100%">
       <tr style="text-align:center">
-        <td><b>Spell DC</b>: Svirfneblin Magic: 10</td>
+        <td><b>Spell DC</b>: Deep Gnome Magic: 20</td>
       </tr></table>
 </td>
     </tr></table>
@@ -230,13 +232,15 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Spells</b>:<br/>    <table id="Spells" style="width:100%">
     <tr style="text-align:left">
-      <td>Blindness/Deafness (Svirfneblin Magic2 Necr): R110' Target suffers a choice of permanent blindness or deafness (save Fortitude negates)</td>
+      <td>Blindness/Deafness (Deep Gnome Magic2 Necr): R110' Target suffers a choice of permanent blindness or deafness (save Fortitude negates)</td>
     </tr><tr style="text-align:left">
-      <td>Blur (Svirfneblin Magic2 Illu): Attacks on touched have a 20% miss chance for 1 min</td>
+      <td>Blur (Deep Gnome Magic2 Illu): Attacks on touched have a 20% miss chance for 1 min</td>
     </tr><tr style="text-align:left">
-      <td>Disguise Self (Svirfneblin Magic1 Illu): Changes the appearance of self (save Will upon interaction disbelieves) and gives +10 Disguise, for 10 min</td>
+      <td>Disguise Self (Deep Gnome Magic1 Illu): Changes the appearance of self (save Will upon interaction disbelieves) and gives +10 Disguise, for 10 min</td>
     </tr><tr style="text-align:left">
-      <td>Nondetection (Svirfneblin Magic3 Abju): Touched gains SR 12 vs. divination, or self or a possession gains SR 16, for 1 hr</td>
+      <td>Nondetection (Deep Gnome Magic3 Abju): Touched gains SR 12 vs. divination, or self or a possession gains SR 16, for 1 hr</td>
+    </tr><tr style="text-align:left">
+      <td>Speak With Animals (Deep Gnome Magic1 Divi): Allows self to converse with animals for 1 min</td>
     </tr></table>
 </td>
   </tr><tr style="text-align:center">
@@ -244,9 +248,7 @@ var attributes = {
     <tr style="text-align:center">
       <td><i>Natural Illusionist: +1 Spell DC (Illusion)</i></td>
     </tr><tr style="text-align:center">
-      <td>Svirfneblin Magic: Has continuous <i>Nondetection</i> effects/May cast <i>Speak With Animals</i> (burrowing mammals) for 1 min, <i>Blindness/Deafness</i>, <i>Blur</i>, and <i>Disguise Self</i> 1/dy</td>
-    </tr><tr style="text-align:center">
-      <td>Undetectable: Has continuous <i>Nondetection</i> effects</td>
+      <td>Deep Gnome Magic: Has continuous <i>Nondetection</i> effects and can cast <i>Speak With Animals</i>  to communicate with burrowing mammals for 1 min, <i>Blindness/Deafness</i>, <i>Blur</i>, and <i>Disguise Self</i> once per day</td>
     </tr></table>
 </td>
   </tr></table>

@@ -124,14 +124,14 @@ function Realms(baseRules) {
       .replace('Common', 'Undercommon')
       .replace('Dwarf Ability Adjustment', 'Gray Dwarf Ability Adjustment')
       .replace(/['"]?Darkvision['"]?/, '"Extended Darkvision"')
-      .replace('Features=', 'Features="Duergar Alertness","Gray Dwarf Immunities","Gray Dwarf Magic","Light Sensitivity","Race Level Adjustment","Stealthy Movement",');
+      .replace('Features=', 'Features="Keen Senses (Gray Dwarf)","Gray Dwarf Immunities","Gray Dwarf Magic","Light Sensitivity","Racial Level Adjustment","Stealthy Movement",');
   Realms.RACES['Shield Dwarf'] = rules.basePlugin.RACES.Dwarf;
   Realms.RACES['Drow Elf'] = rules.basePlugin.RACES.Elf
       .replace('Common', 'Undercommon')
       .replace('Elf Ability Adjustment', 'Drow Elf Ability Adjustment')
       .replace('Low-Light Vision', 'Extended Darkvision')
       .replace(/Weapon Proficiency[^'"]*/, 'Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)')
-      .replace('Features=', 'Features="Drow Elf Magic","Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Race Level Adjustment","Strong Will",');
+      .replace('Features=', 'Features="Drow Elf Magic","Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Racial Level Adjustment","Defy Spells",');
   Realms.RACES['Moon Elf'] = rules.basePlugin.RACES.Elf;
   Realms.RACES['Sun Elf'] =
     rules.basePlugin.RACES.Elf.replace('Elf Ability', 'Sun Elf Ability');
@@ -143,10 +143,10 @@ function Realms(baseRules) {
     rules.basePlugin.RACES.Gnome
       .replace('Common', 'Undercommon')
       .replace('Gnome Ability Adjustment', 'Deep Gnome Ability Adjustment')
-      .replace('Dodge Giants', 'Exceptional Dodge')
-      .replace('Gnome Magic', 'Svirfneblin Magic')
+      .replace('Dodge Giants', 'Exceptional Dodger')
+      .replace('Gnome Magic', 'Deep Gnome Magic')
       .replace('Low-Light Vision', 'Extended Darkvision')
-      .replace('Features=', 'Features="Extra Luck","Know Depth","Race Level Adjustment",Shadowed,Stonecunning,"Svirfneblin Spell Resistance",Undetectable,');
+      .replace('Features=', 'Features="Resilient","Know Depth","Racial Level Adjustment",Inconspicuous,Stonecunning,"Deep Gnome Spell Resistance",Undetectable,');
   Realms.RACES['Rock Gnome'] = rules.basePlugin.RACES.Gnome;
   Realms.RACES['Half-Elf'] = rules.basePlugin.RACES['Half-Elf'];
   Realms.RACES['Half-Orc'] = rules.basePlugin.RACES['Half-Orc'];
@@ -296,7 +296,7 @@ Realms.PRESTIGE_CLASSES = {
       'Survival ' +
     'Features=' +
       '"1:Caster Level Bonus","1:Divine Emissary","1:New Domain",' +
-      '"2:Sacred Defense","3:Imbue With Spell Ability","5:Native Outsider",' +
+      '"2:Sacred Defense","3:Imbue With Spell Ability","5:Outsider",' +
       '"5:Transcendence"',
   'Divine Seeker':
     'Require=' +
@@ -760,44 +760,16 @@ Realms.FEATURES_ADDED = {
   'Water Breathing':'Section=magic Note="May breathe water %{level*10} rd/dy"',
 
   // Race
-  'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
-  'Aasimar Alertness':'Section=skill Note="+2 Listen/+2 Spot"',
-  'Aasimar Magic':'Section=magic Note="May cast <i>Light</i> 1/dy"',
-  'Aasimar Resistance':
-    'Section=save Note="Resistance 5 to acid, cold, and electricity"',
-  'Amphibious':'Section=feature Note="May breathe water"',
-  'Air Genasi Ability Adjustment':
-    'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Wisdom/-2 Charisma"',
-  'Air Genasi Magic':'Section=magic Note="May cast <i>Levitate</i> 1/dy"',
-  'Breathless':
-    'Section=save ' +
-    'Note="Immune to drowning, suffocation, and inhalation effects"',
-  'Control Flame':
-    'Section=magic ' +
-    'Note="R10\' May shrink or expand natural fire for 5 min 1/dy"',
-  'Deep Gnome Ability Adjustment':
-    'Section=ability Note="-2 Strength/+2 Dexterity/+2 Wisdom/-4 Charisma"',
-  'Drow Elf Ability Adjustment':
-    'Section=ability ' +
-    'Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
-  'Drow Elf Magic':
-    'Section=magic ' +
-    'Note="May cast <i>Dancing Lights</i>, <i>Darkness</i>, and <i>Faerie Fire</i> 1/dy"',
-  'Drow Elf Spell Resistance':'Section=save Note="Spell resistance %V"',
-  'Duergar Alertness':'Section=skill Note="+1 Listen/+1 Spot"',
-  'Earth Genasi Ability Adjustment':
-    'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
-  'Earth Genasi Magic':
-    'Section=magic Note="May cast <i>Pass Without Trace</i> 1/dy"',
-  'Elemental Affinity':'Section=save Note="+%{level//5+1} vs. %V spells"',
-  'Exceptional Dodge':'Section=combat Note="+4 AC"',
-  'Extended Darkvision':'Section=feature Note="120\' b/w vision in darkness"',
-  'Extra Luck':'Section=save Note="+2 Fortitude/+2 Reflex/+2 Will"',
-  'Fire Genasi Ability Adjustment':
-    'Section=ability Note="+2 Intelligence/-2 Charisma"',
+
+  // Gold Dwarves
   'Gold Dwarf Ability Adjustment':
     'Section=ability Note="+2 Constitution/-2 Dexterity"',
   'Gold Dwarf Enmity':'Section=combat Note="+1 attack vs. aberrations"',
+
+  // Gray Dwarves
+  'Extended Darkvision':
+    'Section=feature ' +
+    'Note="R120\' Has black and white vision in complete darkness"',
   'Gray Dwarf Ability Adjustment':
     'Section=ability Note="+2 Constitution/-4 Charisma"',
   'Gray Dwarf Immunities':
@@ -805,48 +777,166 @@ Realms.FEATURES_ADDED = {
     'Note="Immune to paralysis, phantasms, and magic and alchemical poisons"',
   'Gray Dwarf Magic':
     'Section=magic ' +
-    'Note="May cast self <i>Enlarge Person</i> and <i>Invisibility</i> 1/dy"',
-  'Light Blindness':
-    'Section=feature Note="Blinded by sudden daylight for 1 rd"',
+    'Note="Can cast <i>Enlarge Person</i> and <i>Invisibility</i> on self once per day" ' +
+    'Spells="Enlarge Person","Invisibility" ' +
+    'SpellAbility=Intelligence',
   'Light Sensitivity':
     'Section=combat,save,skill ' +
-    'Note="-%V attack in bright light",' +
-         '"-%V saves in bright light",' +
-         '"-%V checks in bright light"',
-  'Native Outsider':
-    'Section=save Note="Affected by outsider, not humanoid, target spells"',
-  'Natural Swimmer':'Section=ability Note="Swim 30\'"',
-  'Race Level Adjustment':'Section=ability Note="-%V Level"',
-  'Sly':'Section=skill Note="+2 Hide"',
-  'Shadowed':
-    'Section=skill Note="+2 Hide/+4 Hide (darkened underground areas)"',
-  'Sneaky':'Section=skill Note="+2 Bluff/+2 Hide"',
-  'Speak Without Sound':
-    'Section=feature Note="R20\' May communicate telepathically"',
+    'Note=' +
+      '"-%V attacks in bright light",' +
+      '"-%V saves in bright light",' +
+      '"-%V checks in bright light"',
+  'Keen Senses (Gray Dwarf)':'Section=skill Note="+1 Listen/+1 Spot"',
+  'Racial Level Adjustment':'Section=ability Note="-%V Level"',
   'Stealthy Movement':'Section=skill Note="+4 Move Silently"',
-  'Strong Will':'Section=save Note="+2 Will vs. spells"',
-  'Strongheart Extra Feat':'Section=feature Note="+1 General Feat"',
+
+  // Drow
+  'Defy Spells':
+    'Section=save Note="+2 Will vs. spells and spell-like abilities"',
+  'Drow Elf Ability Adjustment':
+    'Section=ability ' +
+    'Note="+2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma"',
+  'Drow Elf Magic':
+    'Section=magic ' +
+    'Note="Can cast <i>Dancing Lights</i>, <i>Darkness</i>, and <i>Faerie Fire</i> once per day" ' +
+    'Spells="Dancing Lights","Darkness","Faerie Fire" ' +
+    'SpellAbility=Charisma',
+  'Drow Elf Spell Resistance':'Section=save Note="Has SR %V"',
+  // Extended Darkvision as above
+  'Light Blindness':
+    'Section=feature ' +
+    'Note="Abrupt exposure to bright light inflicts blinded for 1 rd and -1 to attacks, saves, and checks"',
+  // Racial Level Adjustment as above
+
+  // Sun Elf
   'Sun Elf Ability Adjustment':
     'Section=ability Note="+2 Intelligence/-2 Constitution"',
-  'Svirfneblin Magic':
-    'Section=magic ' +
-    'Note="Has continuous <i>Nondetection</i> effects/May cast <i>Speak With Animals</i> (burrowing mammals) for 1 min, <i>Blindness/Deafness</i>, <i>Blur</i>, and <i>Disguise Self</i> 1/dy"',
-  'Svirfneblin Spell Resistance':'Section=save Note="Spell resistance %V"',
-  'Tiefling Ability Adjustment':
-    'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Charisma"',
-  'Tiefling Magic':'Section=magic Note="May cast <i>Darkness</i> 1/dy"',
-  'Tiefling Resistance':
-    'Section=save Note="Resistance 5 to cold, electricity, and fire"',
-  'Undetectable':
-    'Section=magic Note="Has continuous <i>Nondetection</i> effects"',
-  'Water Genasi Ability Adjustment':
-    'Section=ability Note="+2 Constitution/-2 Charisma"',
-  'Water Genasi Magic':'Section=magic Note="May cast <i>Create Water</i> 1/dy"',
+
+  // Wild Elf
   'Wild Elf Ability Adjustment':
     'Section=ability Note="+2 Dexterity/-2 Intelligence"',
+
+  // Wood Elf
   'Wood Elf Ability Adjustment':
     'Section=ability ' +
     'Note="+2 Strength/+2 Dexterity/-2 Constitution/-2 Intelligence/-2 Charisma"',
+
+  // Deep Gnome
+  'Deep Gnome Ability Adjustment':
+    'Section=ability Note="-2 Strength/+2 Dexterity/+2 Wisdom/-4 Charisma"',
+  'Deep Gnome Magic':
+    'Section=magic ' +
+    'Note="Has continuous <i>Nondetection</i> effects and can cast <i>Speak With Animals</i>  to communicate with burrowing mammals for 1 min, <i>Blindness/Deafness</i>, <i>Blur</i>, and <i>Disguise Self</i> once per day" ' +
+    'Spells="Nondetection","Speak With Animals","Blindness/Deafness","Blur","Disguise Self" ' +
+    'SpellAbility=Intelligence',
+  'Deep Gnome Spell Resistance':'Section=save Note="Has SR %V"',
+  'Exceptional Dodger':'Section=combat Note="+4 dodge bonus to Armor Class"',
+  // Extended Darkvision as above
+  'Inconspicuous':
+    'Section=skill,skill ' +
+    'Note=' +
+      '"+2 Hide",' +
+      '"+2 Hide in darkened underground areas"',
+  // Racial Level Adjustment as above
+  'Resilient':'Section=save Note="+2 Fortitude/+2 Reflex/+2 Will"',
+  // Stonecunning as SRD35
+
+  // Ghostwise Halfling
+  'Speak Without Sound':
+    'Section=feature ' +
+    'Note="R20\' Can communicate telepathically in a shared language"',
+
+  // Strongheart Halfling
+  'Strongheart Extra Feat':'Section=feature Note="+1 General Feat"',
+
+  // Aasimar
+  'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
+  'Aasimar Alertness':'Section=skill Note="+2 Listen/+2 Spot"',
+  'Aasimar Resistance':
+    'Section=save Note="Has resistance 5 to acid, cold, and electricity"',
+  'Aasimar Magic':
+    'Section=magic ' +
+    'Note="Can cast <i>Light</i> once per day" ' +
+    'Spells="Light" ' +
+    'SpellAbility=Charisma',
+  // Darkvision as SRD35
+  'Outsider':
+    'Section=save ' +
+    'Note="Affected by spells that target outsiders, not humanoids"',
+  // Racial Level Adjustment as above
+
+  // Air Genasi
+  'Air Genasi Ability Adjustment':
+    'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Wisdom/-2 Charisma"',
+  'Air Genasi Magic':
+    'Section=magic ' +
+    'Note="Can cast <i>Levitate</i> once per day" ' +
+    'Spells="Levitate" ' +
+    'SpellAbility=Charisma',
+  'Breathless':
+    'Section=save ' +
+    'Note="Has immunity to drowning, suffocation, and inhalation effects"',
+  'Clerical Focus':'Section=validation Note="Requires %1 domain"',
+  'Genasi Resistance':'Section=save Note="+%{level//5+1} vs. %V spells"',
+  // Outsider as above
+  // Racial Level Adjustment as above
+
+  // Earth Genasi
+  // Clerical Focus as above
+  // Darkvision as above
+  'Earth Genasi Ability Adjustment':
+    'Section=ability Note="+2 Strength/+2 Constitution/-2 Wisdom/-2 Charisma"',
+  'Earth Genasi Magic':
+    'Section=magic ' +
+    'Note="Can cast <i>Pass Without Trace</i> once per day" ' +
+    'Spells="Pass Without Trace" ' +
+    'SpellAbility=Wisdom',
+  // Genasi Resistance as above
+  // Outsider as above
+  // Racial Level Adjustment as above
+
+  // Fire Genasi
+  // Clerical Focus as above
+  'Control Flame':
+    'Section=magic ' +
+    'Note="R10\' Can shrink or expand a natural fire for 5 min once per day"',
+  // Darkvision as above
+  'Fire Genasi Ability Adjustment':
+    'Section=ability Note="+2 Intelligence/-2 Charisma"',
+  // Genasi Resistance as above
+  // Outsider as above
+  // Racial Level Adjustment as above
+
+  // Water Genasi
+  'Amphibious':'Section=feature Note="Can breathe water"',
+  // Clerical Focus as above
+  // Darkvision as above
+  // Genasi Resistance as above
+  'Natural Swimmer':'Section=ability Note="Has a 30\' swim Speed"',
+  // Outsider as above
+  // Racial Level Adjustment as above
+  'Water Genasi Ability Adjustment':
+    'Section=ability Note="+2 Constitution/-2 Charisma"',
+  'Water Genasi Magic':
+    'Section=magic ' +
+    'Note="Can cast <i>Create Water</i> once per day" ' +
+    'Spells="Create Water" ' +
+    'SpellAbility=Wisdom',
+
+  // Tiefling
+  // Darkvision as above
+  // Outsider as above
+  // Racial Level Adjustment as above
+  'Sneaky':'Section=skill Note="+2 Bluff/+2 Hide"',
+  'Tiefling Ability Adjustment':
+    'Section=ability Note="+2 Dexterity/+2 Intelligence/-2 Charisma"',
+  'Tiefling Magic':
+    'Section=magic ' +
+    'Note="Can cast <i>Darkness</i> once per day" ' +
+    'Spells="Darkness" ' +
+    'SpellAbility=Charisma',
+  'Tiefling Resistance':
+    'Section=save Note="Has resistance 5 to cold, electricity, and fire"',
 
   // Prestige classes
   'Alignment Focus':
@@ -1434,7 +1524,7 @@ Realms.RACES = {
       .replace('Common', 'Undercommon')
       .replace('Dwarf Ability Adjustment', 'Gray Dwarf Ability Adjustment')
       .replace(/['"]?Darkvision['"]?/, '"Extended Darkvision"')
-      .replace('Features=', 'Features="Duergar Alertness","Gray Dwarf Immunities","Light Sensitivity","Race Level Adjustment","Stealthy Movement",'),
+      .replace('Features=', 'Features="Keen Senses (Gray Dwarf)","Gray Dwarf Immunities","Light Sensitivity","Racial Level Adjustment","Stealthy Movement",'),
   'Shield Dwarf': SRD35.RACES.Dwarf,
   'Drow Elf':
     SRD35.RACES.Elf
@@ -1442,7 +1532,7 @@ Realms.RACES = {
       .replace('Elf Ability Adjustment', 'Drow Elf Ability Adjustment')
       .replace('Low-Light Vision', 'Extended Darkvision')
       .replace(/Weapon Proficiency[^'"]*/, 'Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)')
-      .replace('Features=', 'Features="Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Race Level Adjustment","Strong Will",'),
+      .replace('Features=', 'Features="Drow Elf Spell Resistance","Light Blindness","Light Sensitivity","Racial Level Adjustment","Defy Spells",'),
   'Moon Elf': SRD35.RACES.Elf,
   'Sun Elf': SRD35.RACES.Elf.replace('Elf Ability', 'Sun Elf Ability'),
   'Wild Elf': SRD35.RACES.Elf.replace('Elf Ability', 'Wild Elf Ability'),
@@ -1451,9 +1541,9 @@ Realms.RACES = {
     SRD35.RACES.Gnome
       .replace('Common', 'Undercommon')
       .replace('Gnome Ability Adjustment', 'Deep Gnome Ability Adjustment')
-      .replace('Dodge Giants', 'Exceptional Dodge')
+      .replace('Dodge Giants', 'Exceptional Dodger')
       .replace('Low-Light Vision', 'Extended Darkvision')
-      .replace('Features=', 'Features="Extra Luck","Know Depth","Race Level Adjustment",Shadowed,Stonecunning,"Svirfneblin Magic","Svirfneblin Spell Resistance",Undetectable,'),
+      .replace('Features=', 'Features="Resilient","Know Depth","Racial Level Adjustment",Inconspicuous,Stonecunning,"Deep Gnome Magic","Deep Gnome Spell Resistance",Undetectable,'),
   'Rock Gnome': SRD35.RACES.Gnome,
   'Half-Elf': SRD35.RACES['Half-Elf'],
   'Half-Orc': SRD35.RACES['Half-Orc'],
@@ -1470,48 +1560,51 @@ Realms.RACES = {
     'Speed=30 ' +
     'Features=' +
       '"1:Aasimar Ability Adjustment","1:Aasimar Alertness",' +
-      '"1:Aasimar Magic","1:Aasimar Resistance",1:Darkvision,' +
-      '"1:Native Outsider","1:Race Level Adjustment" ' +
+      '"1:Aasimar Magic","1:Aasimar Resistance","1:Darkvision","1:Outsider",' +
+      '"1:Racial Level Adjustment" ' +
     'Languages=Common',
   'Air Genasi':
     'Size=Medium ' +
     'Speed=30 ' +
     'Features=' +
-      '"1:Air Genasi Ability Adjustment","1:Air Genasi Magic",1:Breathless,' +
-      '1:Darkvision,"1:Elemental Affinity","1:Native Outsider",' +
-      '"1:Race Level Adjustment" ' +
+      '"1:Air Genasi Ability Adjustment","1:Air Genasi Magic",' +
+      '"1:Breathless","1:Darkvision","1:Genasi Resistance","1:Outsider",' +
+      '"1:Racial Level Adjustment",' +
+      '"levels.Cleric ? 1:Clerical Focus" ' +
     'Languages=Common',
   'Earth Genasi':
     'Size=Medium ' +
     'Speed=30 ' +
     'Features=' +
-      '1:Darkvision,"1:Earth Genasi Ability Adjustment",' +
-      '"1:Earth Genasi Magic","1:Elemental Affinity","1:Native Outsider",' +
-      '"1:Race Level Adjustment" ' +
+      '"1:Darkvision","1:Earth Genasi Ability Adjustment",' +
+      '"1:Earth Genasi Magic","1:Genasi Resistance","1:Outsider",' +
+      '"1:Racial Level Adjustment",' +
+      '"levels.Cleric ? 1:Clerical Focus" ' +
     'Languages=Common',
   'Fire Genasi':
     'Size=Medium ' +
     'Speed=30 ' +
     'Features=' +
-      '"1:Control Flame",1:Darkvision,"1:Elemental Affinity",' +
-      '"1:Fire Genasi Ability Adjustment","1:Native Outsider",' +
-      '"1:Race Level Adjustment" ' +
+      '"1:Control Flame","1:Darkvision","1:Fire Genasi Ability Adjustment",' +
+      '"1:Genasi Resistance","1:Outsider","1:Racial Level Adjustment",' +
+      '"levels.Cleric ? 1:Clerical Focus" ' +
     'Languages=Common',
   'Water Genasi':
     'Size=Medium ' +
     'Speed=30 ' +
     'Features=' +
-      '1:Amphibious,1:Darkvision,"1:Elemental Affinity",' +
-      '"1:Native Outsider","1:Natural Swimmer","1:Race Level Adjustment",' +
-      '"1:Water Genasi Ability Adjustment","1:Water Genasi Magic" ' +
+      '"1:Amphibious","1:Darkvision","1:Genasi Resistance",' +
+      '"1:Natural Swimmer","1:Outsider","1:Racial Level Adjustment",' +
+      '"1:Water Genasi Ability Adjustment","1:Water Genasi Magic",' +
+      '"levels.Cleric ? 1:Clerical Focus" ' +
     'Languages=Common',
   'Tiefling':
     'Size=Medium ' +
     'Speed=30 ' +
     'Features=' +
-      '1:Darkvision,"1:Native Outsider",' +
-      '"1:Race Level Adjustment",1:Sneaky,"1:Tiefling Ability Adjustment",' +
-      '"1:Tiefling Magic","1:Tiefling Resistance" ' +
+      '"1:Darkvision","1:Outsider","1:Racial Level Adjustment","1:Sneaky",' +
+      '"1:Tiefling Ability Adjustment","1:Tiefling Magic",' +
+      '"1:Tiefling Resistance" ' +
     'Languages=Common'
 };
 Realms.REGIONS = {
@@ -2048,13 +2141,13 @@ Realms.identityRules = function(
     rules.choiceRules(rules, 'Region', r, regions[r]);
 
   // Level adjustments for powerful races
-  rules.defineRule('abilityNotes.raceLevelAdjustment',
+  rules.defineRule('abilityNotes.racialLevelAdjustment',
     'race', '=', 'source.match(/Aasimar|Genasi|Tiefling/) ? 1 : source.match(/Drow|Gray Dwarf/) ? 2 : source == "Deep Gnome" ? 3 : null'
   );
   rules.defineRule('level', '', '^', '1');
   rules.defineRule('experienceNeededLevel',
     'level', '=', null,
-    'abilityNotes.raceLevelAdjustment', '+', null
+    'abilityNotes.racialLevelAdjustment', '+', null
   );
   if(rules.basePlugin == window.Pathfinder) {
     for(let track in Pathfinder.TRACKS) {
@@ -2901,48 +2994,14 @@ Realms.raceRulesExtra = function(rules, name) {
   if((matchInfo = name.match(/^(\w+)\sGenasi$/)) != null) {
     let element = matchInfo[1];
     let elementLowered = element.toLowerCase();
-    rules.defineRule('saveNotes.elementalAffinity',
-      elementLowered + 'GenasiLevel', '=', '"' + element + '"'
+    rules.defineRule('saveNotes.genasiResistance',
+      raceLevel, '=', '"' + elementLowered + '"'
     );
-    rules.defineChoice('notes', 'validationNotes.' + elementLowered + 'GenasiCleric:Requires ' + element + ' Domain');
-    rules.defineRule('validationNotes.' + elementLowered + 'GenasiCleric',
-      'levels.Cleric', '?', null,
-      elementLowered + 'GenasiLevel', '=', '-1',
-      'clericFeatures.' + element + ' Domain', '+', '1'
+    rules.defineRule('validationNotes.clericalFocus',
+      'clericFeatures.' + element + ' Domain', '=', 'dict.' + raceLevel + ' ? 0 : null'
     );
-  }
-  let racialSpells =
-    name == 'Aasimar' ?  ['Light'] :
-    name == 'Air Genasi' ?  ['Levitate'] :
-    name == 'Deep Gnome' ? 
-      ['Blindness/Deafness', 'Blur', 'Disguise Self', 'Nondetection'] :
-    name == 'Drow Elf' ?  ['Dancing Lights', 'Darkness', 'Faerie Fire'] :
-    name == 'Earth Genasi' ? ['Pass Without Trace'] :
-    // 3.0 Enlarge => 3.5 Enlarge Person
-    name == 'Gray Dwarf' ? ['Enlarge Person', 'Invisibility'] :
-    name == 'Tiefling' ? ['Darkness'] :
-    name == 'Water Genasi' ? ['Create Water'] :
-    null;
-  if(racialSpells) {
-    let group =
-      (name=='Deep Gnome' ? 'Svirfneblin' : name.replaceAll(' ', '')) + 'Magic';
-    racialSpells.forEach(s => {
-      let attrs = SRD35.SPELLS[s];
-      if(attrs) {
-        let description = QuilvynUtils.getAttrValue(attrs, 'Description');
-        let school = QuilvynUtils.getAttrValue(attrs, 'School');
-        let level =
-          QuilvynUtils.getAttrValue(attrs, 'Level').replace(/^\D/, '') - 0;
-        let fullName =
-          s + '(' + group + level + ' ' + (school ? school.substring(0, 4) : 'Univ') + ')';
-        Realms.spellRules
-          (rules, fullName, school, group, level, description, false, []);
-        rules.defineRule
-          ('spells.' + fullName, 'casterLevels.' + group, '=', '1');
-      }
-    });
-    rules.defineRule('casterLevels.' + group,
-      raceLevel, '=', name.includes('Genasi') ? '5' : name == 'Gray Dwarf' ? 'Math.max(source * 2, 3)' : 'source'
+    rules.defineRule('validationNotes.clericalFocus.1',
+      raceLevel, '=', '"' + elementLowered + '"'
     );
   }
   if(name == 'Aasimar') {
@@ -2959,8 +3018,8 @@ Realms.raceRulesExtra = function(rules, name) {
     // based with a +4 racial modifier. The FG Campaign Setting says 10 +
     // spell level, so we go with that; otherwise, the value would be
     // 14 + source instead of 10
-    rules.defineRule('spellDifficultyClass.SvirfneblinMagic',
-      'casterLevels.SvirfneblinMagic', '?', null,
+    rules.defineRule('spellDifficultyClass.DeepGnomeMagic',
+      'casterLevels.DeepGnomeMagic', '?', null,
       'charismaModifier', '=', '10'
     );
     rules.defineRule
@@ -2977,11 +3036,6 @@ Realms.raceRulesExtra = function(rules, name) {
     rules.defineRule('combatNotes.lightSensitivity', 'grayDwarfLevel', '=','2');
     rules.defineRule('saveNotes.lightSensitivity', 'grayDwarfLevel', '=', '2');
     rules.defineRule('skillNotes.lightSensitivity', 'grayDwarfLevel', '=', '2');
-    // Spell DC for self spell is N/A, but they're part of spell description
-    rules.defineRule('spellDifficultyClass.GrayDwarfMagic',
-      'casterLevels.GrayDwarfMagic', '?', null,
-      'intelligenceModifier', '=', '10 + source'
-    );
   } else if(name == 'Tiefling') {
     rules.defineRule
       ('resistance.Cold', 'saveNotes.tieflingResistance', '^=', '5');

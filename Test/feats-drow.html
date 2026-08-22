@@ -61,7 +61,7 @@ var attributes = {
     <tr style="text-align:center">
       <td><i>Drow Elf Ability Adjustment: +2 Dexterity/-2 Constitution/+2 Intelligence/+2 Charisma</i></td>
     </tr><tr style="text-align:center">
-      <td><i>Race Level Adjustment: -2 Level</i></td>
+      <td><i>Racial Level Adjustment: -2 Level</i></td>
     </tr></table>
 </td>
   </tr></table>
@@ -80,7 +80,7 @@ var attributes = {
       <td>      <table id="FeatLists" style="width:100%">
       <tr style="text-align:center">
         <td><b>Feats</b>: Daylight Adaptation; Stealthy; Survivor; Twin Sword Style; Two-Weapon Fighting</td>
-        <td><b>Drow Elf Features</b>: Drow Elf Ability Adjustment; Drow Elf Magic; Drow Elf Spell Resistance; Elf Resistances; Extended Darkvision; Keen Senses (Elf); Light Blindness; Light Sensitivity; Race Level Adjustment; Strong Will; Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)</td>
+        <td><b>Drow Elf Features</b>: Defy Spells; Drow Elf Ability Adjustment; Drow Elf Magic; Drow Elf Spell Resistance; Elf Resistances; Extended Darkvision; Keen Senses (Elf); Light Blindness; Light Sensitivity; Racial Level Adjustment; Weapon Proficiency (Hand Crossbow/Light Crossbow/Rapier/Shortsword)</td>
         <td><b>Rogue Features</b>: Armor Proficiency (Light); Evasion; Improved Uncanny Dodge; Sneak Attack; Trap Sense; Trapfinding; Uncanny Dodge; Weapon Proficiency (Simple Weapons; Hand Crossbow; Rapier; Sap; Shortbow; Short Sword)</td>
       </tr></table>
 </td>
@@ -89,9 +89,9 @@ var attributes = {
       <tr style="text-align:center">
         <td>Daylight Adaptation: Suffers no penalties from bright light</td>
       </tr><tr style="text-align:center">
-        <td>Extended Darkvision: 120' b/w vision in darkness</td>
+        <td>Extended Darkvision: R120' Has black and white vision in complete darkness</td>
       </tr><tr style="text-align:center">
-        <td>Light Blindness: Blinded by sudden daylight for 1 rd</td>
+        <td>Light Blindness: Abrupt exposure to bright light inflicts blinded for 1 rd and -1 to attacks, saves, and checks</td>
       </tr></table>
 </td>
     </tr></table>
@@ -201,7 +201,7 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td>Improved Uncanny Dodge: Cannot be flanked and can be sneak attacked only by rogue of level 13 or higher</td>
       </tr><tr style="text-align:center">
-        <td>Light Sensitivity: -1 attack in bright light</td>
+        <td>Light Sensitivity: -1 attacks in bright light</td>
       </tr><tr style="text-align:center">
         <td>Sneak Attack: R30' Inflicts +5d6 HP when flanking and when the target is flat-footed or otherwise loses its Dexterity bonus to Armor Class</td>
       </tr><tr style="text-align:center">
@@ -224,19 +224,19 @@ var attributes = {
       <tr style="text-align:center">
         <td><i>Dexterity Reflex Adjustment: +2</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Drow Elf Spell Resistance: Spell resistance 20</i></td>
+        <td><i>Drow Elf Spell Resistance: Has SR 20</i></td>
       </tr><tr style="text-align:center">
         <td><i>Survivor: +1 Fortitude</i></td>
       </tr><tr style="text-align:center">
         <td><i>Wisdom Will Adjustment: +2</i></td>
+      </tr><tr style="text-align:center">
+        <td>Defy Spells: +2 Will vs. spells and spell-like abilities</td>
       </tr><tr style="text-align:center">
         <td>Elf Resistances: Has immunity to magical sleep/+2 vs. enchantment</td>
       </tr><tr style="text-align:center">
         <td>Evasion: Successful Reflex saves yield no damage instead of half; medium or heavy armor negates</td>
       </tr><tr style="text-align:center">
         <td>Light Sensitivity: -1 saves in bright light</td>
-      </tr><tr style="text-align:center">
-        <td>Strong Will: +2 Will vs. spells</td>
       </tr><tr style="text-align:center">
         <td>Trap Sense: +3 Reflex and dodge bonus to Armor Class vs. traps</td>
       </tr></table>
@@ -248,6 +248,16 @@ var attributes = {
 </tr><tr style="text-align:center">
   <td style="border:1px solid black"><b>Magic</b><br/>  <table id="Magic" style="width:100%">
   <tr style="text-align:center">
+    <td>    <table id="SpellPart" style="width:100%">
+    <tr style="text-align:center">
+      <td>      <table id="SpellStats" style="width:100%">
+      <tr style="text-align:center">
+        <td><b>Spell DC</b>: Drow Elf Magic: 12</td>
+      </tr></table>
+</td>
+    </tr></table>
+</td>
+  </tr><tr style="text-align:center">
     <td><b>Spells</b>:<br/>    <table id="Spells" style="width:100%">
     <tr style="text-align:left">
       <td>Dancing Lights (Drow Elf Magic0 Evoc): R190' Creates a humanoid-shaped light, 4 torch lights, or 4 glowing spheres in a 10' radius that can be moved 100' each rd for 1 min</td>
@@ -258,7 +268,7 @@ var attributes = {
     </tr></table>
 </td>
   </tr><tr style="text-align:center">
-    <td><b>Magic Notes</b>: Drow Elf Magic: May cast <i>Dancing Lights</i>, <i>Darkness</i>, and <i>Faerie Fire</i> 1/dy</td>
+    <td><b>Magic Notes</b>: Drow Elf Magic: Can cast <i>Dancing Lights</i>, <i>Darkness</i>, and <i>Faerie Fire</i> once per day</td>
   </tr></table>
 </td>
 </tr><tr style="text-align:center">
