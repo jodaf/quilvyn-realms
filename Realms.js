@@ -1,5 +1,5 @@
 /*
-Copyright 2023, James J. Hayes
+Copyright 2026, James J. Hayes
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -190,8 +190,8 @@ function Realms(baseRules) {
     (rules, Realms.FEATS, Realms.FEATURES, Realms.GOODIES, Realms.LANGUAGES,
      Realms.SKILLS);
   Realms.identityRules(
-    rules, Realms.ALIGNMENTS, Realms.CLASSES, Realms.DEITIES, Realms.PATHS,
-    Realms.RACES, Realms.REGIONS, Realms.PRESTIGE_CLASSES, Realms.NPC_CLASSES
+    rules, Realms.ALIGNMENTS, Realms.CLASSES, Realms.DEITIES, Realms.RACES,
+    Realms.REGIONS, Realms.PRESTIGE_CLASSES, Realms.NPC_CLASSES
   );
 
   Quilvyn.addRuleSet(rules);
@@ -1118,7 +1118,6 @@ Realms.CLASS_FEATURES_ADDED = {
       '"deityDomains =~ \'Tyranny\' ? 1:Tyranny Domain:Domain",' +
       '"deityDomains =~ \'Undeath\' ? 1:Undeath Domain:Domain"'
 };
-Realms.PATHS = {};
 Realms.DEITIES = {
   'None':'',
   // Faerun
@@ -1467,36 +1466,48 @@ Realms.RACES = {
       .replace('Fortunate', '"Strongheart Extra Feat"'),
   'Human': SRD35.RACES.Human,
   'Aasimar':
+    'Size=Medium ' +
+    'Speed=30 ' +
     'Features=' +
       '"1:Aasimar Ability Adjustment","1:Aasimar Alertness",' +
       '"1:Aasimar Magic","1:Aasimar Resistance",1:Darkvision,' +
       '"1:Native Outsider","1:Race Level Adjustment" ' +
     'Languages=Common',
   'Air Genasi':
+    'Size=Medium ' +
+    'Speed=30 ' +
     'Features=' +
       '"1:Air Genasi Ability Adjustment","1:Air Genasi Magic",1:Breathless,' +
       '1:Darkvision,"1:Elemental Affinity","1:Native Outsider",' +
       '"1:Race Level Adjustment" ' +
     'Languages=Common',
   'Earth Genasi':
+    'Size=Medium ' +
+    'Speed=30 ' +
     'Features=' +
       '1:Darkvision,"1:Earth Genasi Ability Adjustment",' +
       '"1:Earth Genasi Magic","1:Elemental Affinity","1:Native Outsider",' +
       '"1:Race Level Adjustment" ' +
     'Languages=Common',
   'Fire Genasi':
+    'Size=Medium ' +
+    'Speed=30 ' +
     'Features=' +
       '"1:Control Flame",1:Darkvision,"1:Elemental Affinity",' +
       '"1:Fire Genasi Ability Adjustment","1:Native Outsider",' +
       '"1:Race Level Adjustment" ' +
     'Languages=Common',
   'Water Genasi':
+    'Size=Medium ' +
+    'Speed=30 ' +
     'Features=' +
       '1:Amphibious,1:Darkvision,"1:Elemental Affinity",' +
       '"1:Native Outsider","1:Natural Swimmer","1:Race Level Adjustment",' +
       '"1:Water Genasi Ability Adjustment","1:Water Genasi Magic" ' +
     'Languages=Common',
   'Tiefling':
+    'Size=Medium ' +
+    'Speed=30 ' +
     'Features=' +
       '1:Darkvision,"1:Native Outsider",' +
       '"1:Race Level Adjustment",1:Sneaky,"1:Tiefling Ability Adjustment",' +
@@ -2017,7 +2028,7 @@ Realms.combatRules = function(rules, armors, shields, weapons) {
 
 /* Defines rules related to basic character identity. */
 Realms.identityRules = function(
-  rules, alignments, classes, deities, paths, races, regions, prestigeClasses,
+  rules, alignments, classes, deities, races, regions, prestigeClasses,
   npcClasses
 ) {
 
@@ -2025,18 +2036,16 @@ Realms.identityRules = function(
 
   if(rules.basePlugin == window.Pathfinder)
     Pathfinder.identityRules(
-      rules, alignments, classes, deities, {}, paths, races, Pathfinder.TRACKS,
+      rules, alignments, classes, deities, races, Pathfinder.TRACKS,
       Pathfinder.TRAITS, prestigeClasses, npcClasses
     );
   else
     SRD35.identityRules(
-      rules, alignments, classes, deities, paths, races, prestigeClasses,
-      npcClasses
+      rules, alignments, classes, deities, races, prestigeClasses, npcClasses
     );
 
-  for(let region in regions) {
-    rules.choiceRules(rules, 'Region', region, regions[region]);
-  }
+  for(let r in regions)
+    rules.choiceRules(rules, 'Region', r, regions[r]);
 
   // Level adjustments for powerful races
   rules.defineRule('abilityNotes.raceLevelAdjustment',
@@ -2109,6 +2118,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'Attack'),
       QuilvynUtils.getAttrValueArray(attrs, 'Dam'),
       QuilvynUtils.getAttrValue(attrs, 'Size'),
+      QuilvynUtils.getAttrValue(attrs, 'Speed'),
       QuilvynUtils.getAttrValue(attrs, 'Level')
     );
   else if(type == 'Armor')
@@ -2119,7 +2129,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'Skill'),
       QuilvynUtils.getAttrValue(attrs, 'Spell')
     );
-  else if(type == 'Class' || type.match(/npc/i) || type == 'Prestige') {
+  else if(type == 'Class' || type == 'Prestige' || type == 'NPC') {
     Realms.classRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Require'),
       QuilvynUtils.getAttrValue(attrs, 'HitDie'),
@@ -2135,9 +2145,22 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'CasterLevelArcane'),
       QuilvynUtils.getAttrValue(attrs, 'CasterLevelDivine'),
       QuilvynUtils.getAttrValue(attrs, 'SpellAbility'),
-      QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots')
+      QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots'),
+      QuilvynUtils.getAttrValueArray(attrs, 'SpellsAvailable')
     );
     Realms.classRulesExtra(rules, name);
+    if(type == 'Prestige')
+      rules.defineRule('levels.' + name, 'prestige.' + name, '=', null);
+    else if(type == 'NPC')
+      rules.defineRule('levels.' + name, 'npc.' + name, '=', null);
+  } else if(type == 'Class Feature') {
+    Realms.classFeatureRules(rules, name,
+      QuilvynUtils.getAttrValueArray(attrs, 'Require'),
+      QuilvynUtils.getAttrValue(attrs, 'Class'),
+      QuilvynUtils.getAttrValue(attrs, 'Level'),
+      QuilvynUtils.getAttrValue(attrs, 'Selectable'),
+      QuilvynUtils.getAttrValueArray(attrs, 'Replace')
+    );
   } else if(type == 'Deity')
     Realms.deityRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Alignment'),
@@ -2157,6 +2180,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'Attack'),
       QuilvynUtils.getAttrValueArray(attrs, 'Dam'),
       QuilvynUtils.getAttrValue(attrs, 'Size'),
+      QuilvynUtils.getAttrValue(attrs, 'Speed'),
       QuilvynUtils.getAttrValue(attrs, 'Level')
     );
   else if(type == 'Feat') {
@@ -2169,7 +2193,9 @@ Realms.choiceRules = function(rules, type, name, attrs) {
   } else if(type == 'Feature')
      Realms.featureRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Section'),
-      QuilvynUtils.getAttrValueArray(attrs, 'Note')
+      QuilvynUtils.getAttrValueArray(attrs, 'Note'),
+      QuilvynUtils.getAttrValueArray(attrs, 'Spells'),
+      QuilvynUtils.getAttrValue(attrs, 'SpellAbility')
     );
   else if(type == 'Goody')
     Realms.goodyRules(rules, name,
@@ -2182,23 +2208,24 @@ Realms.choiceRules = function(rules, type, name, attrs) {
     );
   else if(type == 'Language')
     Realms.languageRules(rules, name);
-  else if(type == 'Path')
-    Realms.pathRules(rules, name,
-      QuilvynUtils.getAttrValue(attrs, 'Group'),
-      QuilvynUtils.getAttrValue(attrs, 'Level'),
-      QuilvynUtils.getAttrValueArray(attrs, 'Features'),
-      QuilvynUtils.getAttrValueArray(attrs, 'Selectables'),
-      QuilvynUtils.getAttrValue(attrs, 'SpellAbility'),
-      QuilvynUtils.getAttrValueArray(attrs, 'SpellSlots')
-    );
   else if(type == 'Race') {
     Realms.raceRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Require'),
       QuilvynUtils.getAttrValueArray(attrs, 'Features'),
       QuilvynUtils.getAttrValueArray(attrs, 'Selectables'),
-      QuilvynUtils.getAttrValueArray(attrs, 'Languages')
+      QuilvynUtils.getAttrValueArray(attrs, 'Languages'),
+      QuilvynUtils.getAttrValue(attrs, 'Size'),
+      QuilvynUtils.getAttrValue(attrs, 'Speed')
     );
     Realms.raceRulesExtra(rules, name);
+  } else if(type == 'Race Feature') {
+    Realms.raceFeatureRules(rules, name,
+      QuilvynUtils.getAttrValueArray(attrs, 'Require'),
+      QuilvynUtils.getAttrValue(attrs, 'Race'),
+      QuilvynUtils.getAttrValue(attrs, 'Level'),
+      QuilvynUtils.getAttrValue(attrs, 'Selectable'),
+      QuilvynUtils.getAttrValueArray(attrs, 'Replace')
+    );
   } else if(type == 'Region')
     Realms.regionRules(rules, name);
   else if(type == 'School') {
@@ -2211,6 +2238,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
     Realms.shieldRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'AC'),
       QuilvynUtils.getAttrValue(attrs, 'Weight'),
+      QuilvynUtils.getAttrValue(attrs, 'Dex'),
       QuilvynUtils.getAttrValue(attrs, 'Skill'),
       QuilvynUtils.getAttrValue(attrs, 'Spell')
     );
@@ -2218,7 +2246,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
     let untrained = QuilvynUtils.getAttrValue(attrs, 'Untrained');
     Realms.skillRules(rules, name,
       QuilvynUtils.getAttrValue(attrs, 'Ability'),
-      untrained != 'n' && untrained != 'N',
+      untrained && !(untrained+'').match(/(^n|false)$/i),
       QuilvynUtils.getAttrValueArray(attrs, 'Class'),
       QuilvynUtils.getAttrValueArray(attrs, 'Synergies')
     );
@@ -2230,24 +2258,26 @@ Realms.choiceRules = function(rules, type, name, attrs) {
     let liquids = QuilvynUtils.getAttrValueArray(attrs, 'Liquid');
     let school = QuilvynUtils.getAttrValue(attrs, 'School');
     let schoolAbbr = (school || 'Universal').substring(0, 4);
-    for(let i = 0; i < groupLevels.length; i++) {
-      let matchInfo = groupLevels[i].match(/^(\D+)(\d+)$/);
+    groupLevels.forEach(gl => {
+      let matchInfo = (gl + '').match(/^(\D+)(\d+)$/);
       if(!matchInfo) {
         console.log('Bad level "' + groupLevels[i] + '" for spell ' + name);
-        continue;
+      } else {
+        let group = matchInfo[1];
+        let level = matchInfo[2] * 1;
+        let fullName = name + '(' + group + level + ' ' + schoolAbbr + ')';
+        // If classes have already been processed, then domains will be listed
+        // in Cleric selectable features; otherwise, look in SRD35.CLASSES
+        let domainSpell =
+          (rules.getChoices('selectableFeatures') != null &&
+           ('Cleric - ' + group + ' Domain') in rules.getChoices('selectableFeatures')) ||
+          Realms.CLASSES.Cleric.includes(group + ' Domain');
+        Realms.spellRules
+          (rules, fullName, school, group, level, description, domainSpell,
+           liquids);
+        rules.addChoice('spells', fullName, attrs);
       }
-      let group = matchInfo[1];
-      let level = matchInfo[2] * 1;
-      let fullName = name + '(' + group + level + ' ' + schoolAbbr + ')';
-      let domainSpell =
-        (rules.getChoices('selectableFeatures') != null &&
-         ('Cleric - ' + group + ' Domain') in rules.getChoices('selectableFeatures')) ||
-        Realms.CLASSES.Cleric.includes(group + ' Domain');
-      Realms.spellRules
-        (rules, fullName, school, group, level, description, domainSpell,
-         liquids);
-      rules.addChoice('spells', fullName, attrs);
-    }
+    });
   } else if(type == 'Track')
     Pathfinder.trackRules(rules, name,
       QuilvynUtils.getAttrValueArray(attrs, 'Progression')
@@ -2266,7 +2296,8 @@ Realms.choiceRules = function(rules, type, name, attrs) {
       QuilvynUtils.getAttrValue(attrs, 'Damage'),
       QuilvynUtils.getAttrValue(attrs, 'Threat'),
       QuilvynUtils.getAttrValue(attrs, 'Crit'),
-      QuilvynUtils.getAttrValue(attrs, 'Range')
+      QuilvynUtils.getAttrValue(attrs, 'Range'),
+      QuilvynUtils.getAttrValueArray(attrs, 'Properties')
     );
   else {
     console.log('Unknown choice type "' + type + '"');
@@ -2316,12 +2347,13 @@ Realms.armorRules = function(
  * can incorporate a class level attribute (e.g., 'levels.Cleric') or the
  * character level attribute 'level'. If the class grants spell slots,
  * #spellAbility# names the ability for computing spell difficulty class, and
- * #spellSlots# lists the number of spells per level per day granted.
+ * #spellSlots# lists the number of spells per level per day granted, and
+ * #spellsAvailable# lists the number of spells known at each level.
  */
 Realms.classRules = function(
   rules, name, requires, hitDie, attack, skillPoints, saveFort, saveRef,
   saveWill, skills, features, selectables, languages, casterLevelArcane,
-  casterLevelDivine, spellAbility, spellSlots
+  casterLevelDivine, spellAbility, spellSlots, spellsAvailable
 ) {
   if(rules.basePlugin == window.Pathfinder) {
     for(let i = 0; i < requires.length; i++) {
@@ -2343,7 +2375,7 @@ Realms.classRules = function(
   rules.basePlugin.classRules(
     rules, name, requires, hitDie, attack, skillPoints, saveFort, saveRef,
     saveWill, skills, features, selectables, languages, casterLevelArcane,
-    casterLevelDivine, spellAbility, spellSlots
+    casterLevelDivine, spellAbility, spellSlots, spellsAvailable
   );
   // No changes needed to the rules defined by base method
 };
@@ -2632,19 +2664,36 @@ Realms.classRulesExtra = function(rules, name) {
 };
 
 /*
+ * Defines in #rules# the rules required to give feature #name# to class
+ * #className# at level #level#. #selectable# gives the category if this feature
+ * is selectable; it is otherwise null. #require# lists any hard prerequisites
+ * for the feature, and #replace# lists any class features that this new one
+ * replaces.
+ */
+Realms.classFeatureRules = function(
+  rules, name, require, className, level, selectable, replace
+) {
+  rules.basePlugin.classFeatureRules
+    (rules, name, require, className, level, selectable, replace);
+  // No changes needed to the rules defined by base method
+};
+
+/*
  * Defines in #rules# the rules associated with animal companion #name#, which
  * has abilities #str#, #dex#, #con#, #intel#, #wis#, and #cha#, hit dice #hd#,
- * and armor class #ac#. The companion has attack bonus #attack# and does
- * #damage# damage. If specified, #level# indicates the minimum master level
- * the character needs to have this animal as a companion.
+ * and armor class #ac#. The companion has attack bonus #attack#, does
+ * #damage# damage, moves at #speed# (which can be a fly or swim speed for
+ * creatures who normally use that form of movement) and is size #size#. If
+ * specified, #level# indicates the minimum master level the character needs to
+ * have this animal as a companion.
  */
 Realms.companionRules = function(
   rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size,
-  level
+  speed, level
 ) {
   rules.basePlugin.companionRules(
     rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size,
-    level
+    speed, level
   );
   // No changes needed to the rules defined by base method
 };
@@ -2662,17 +2711,19 @@ Realms.deityRules = function(rules, name, alignment, domains, weapons) {
 /*
  * Defines in #rules# the rules associated with familiar #name#, which has
  * abilities #str#, #dex#, #con#, #intel#, #wis#, and #cha#, hit dice #hd#,
- * and armor class #ac#. The familiar has attack bonus #attack# and does
- * #damage# damage. If specified, #level# indicates the minimum master level
- * the character needs to have this animal as a familiar.
+ * and armor class #ac#. The familiar has attack bonus #attack#, does
+ * #damage# damage, moves at #speed# (which can be a fly or swim speed for
+ * creatures who normally use that form of movement) and is size #size#. If
+ * specified, #level# indicates the minimum master level the character needs to
+ * have this animal as a familiar.
  */
 Realms.familiarRules = function(
   rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size,
-  level
+  speed, level
 ) {
   rules.basePlugin.familiarRules(
     rules, name, str, dex, con, intel, wis, cha, hd, ac, attack, damage, size,
-    level
+    speed, level
   );
   // No changes needed to the rules defined by base method
 };
@@ -2769,9 +2820,13 @@ Realms.featRulesExtra = function(rules, name) {
 /*
  * Defines in #rules# the rules associated with feature #name#. #sections# lists
  * the sections of the notes related to the feature and #notes# the note texts;
- * the two must have the same number of elements.
+ * the two must have the same number of elements. #spells# lists any spells
+ * acquired as part of the feature, and #spellAbility# is the ability used to
+ * calculate attack and difficulty class for these spells.
  */
-Realms.featureRules = function(rules, name, sections, notes) {
+Realms.featureRules = function(
+  rules, name, sections, notes, spells, spellAbility
+) {
   if(rules.basePlugin == window.Pathfinder) {
     for(let i = 0; i < sections.length; i++) {
       if(sections[i] != 'skill')
@@ -2790,7 +2845,8 @@ Realms.featureRules = function(rules, name, sections, notes) {
       notes[i] = note;
     }
   }
-  rules.basePlugin.featureRules(rules, name, sections, notes);
+  rules.basePlugin.featureRules
+    (rules, name, sections, notes, spells, spellAbility);
   // No changes needed to the rules defined by base method
 };
 
@@ -2821,39 +2877,16 @@ Realms.languageRules = function(rules, name) {
 };
 
 /*
- * Defines in #rules# the rules associated with path #name#, which is a
- * selection for characters belonging to #group# and tracks path level via
- * #levelAttr#. The path grants the features listed in #features#. If the path
- * grants spell slots, #spellAbility# names the ability for computing spell
- * difficulty class, and #spellSlots# lists the number of spells per level per
- * day granted.
- */
-Realms.pathRules = function(
-  rules, name, group, levelAttr, features, selectables, spellAbility,
-  spellSlots
-) {
-  if(rules.basePlugin == window.Pathfinder)
-    rules.basePlugin.pathRules(
-      rules, name, group, levelAttr, features, selectables, [], [],
-      spellAbility, spellSlots
-    );
-  else
-    rules.basePlugin.pathRules(
-      rules, name, group, levelAttr, features, selectables, spellAbility,
-      spellSlots
-    );
-};
-
-/*
  * Defines in #rules# the rules associated with race #name#, which has the list
  * of hard prerequisites #requires#. #features# and #selectables# list
  * associated features and #languages# any automatic languages.
+ * #speed# give the race's size (one of Small, Medium, or Large) and speed.
  */
 Realms.raceRules = function(
-  rules, name, requires, features, selectables, languages
+  rules, name, requires, features, selectables, languages, size, speed
 ) {
   rules.basePlugin.raceRules
-    (rules, name, requires, features, selectables, languages);
+    (rules, name, requires, features, selectables, languages, size, speed);
   // No changes needed to the rules defined by base method
 };
 
@@ -2961,6 +2994,21 @@ Realms.raceRulesExtra = function(rules, name) {
   }
 };
 
+/*
+ * Defines in #rules# the rules required to give feature #name# to race
+ * #raceName# at level #level#. #selectable# gives the category if this feature
+ * is selectable; it is otherwise null. #require# lists any hard prerequisites
+ * for the feature, and #replace# lists any race features that this new one
+ * replaces.
+ */
+Realms.raceFeatureRules = function(
+  rules, name, require, raceName, level, selectable, replace
+) {
+  rules.basePlugin.raceFeatureRules
+    (rules, name, require, raceName, level, selectable, replace);
+  // No changes needed to the rules defined by base method
+};
+
 /* Defines in #rules# the rules associated with region #name#. */
 Realms.regionRules = function(rules, name, features) {
   if(!name) {
@@ -2981,15 +3029,16 @@ Realms.schoolRules = function(rules, name, features) {
 
 /*
  * Defines in #rules# the rules associated with shield #name#, which adds #ac#
- * to the character's armor class, requires a #profLevel# proficiency level to
- * use effectively, imposes #skillPenalty# on specific skills and yields a
- * #spellFail# percent chance of arcane spell failure.
+ * to the character's armor class, requires a #weight# proficiency level to
+ * use effectively, allows a maximum dex bonus to ac of #maxDex#, imposes
+ * #skillFail# on specific skills and yields a #spellFail# percent chance of
+ * arcane spell failure.
  */
 Realms.shieldRules = function(
-  rules, name, ac, profLevel, skillFail, spellFail
+  rules, name, ac, weight, maxDex, skillFail, spellFail
 ) {
   rules.basePlugin.shieldRules
-    (rules, name, ac, profLevel, skillFail, spellFail);
+    (rules, name, ac, weight, maxDex, skillFail, spellFail);
   // No changes needed to the rules defined by base method
 };
 
@@ -3033,13 +3082,16 @@ Realms.spellRules = function(
  * equivalents). The weapon does #damage# HP on a successful attack and
  * threatens x#critMultiplier# (default 2) damage on a roll of #threat# (default
  * 20). If specified, the weapon can be used as a ranged weapon with a range
- * increment of #range# feet.
+ * increment of #range# feet. #properties# lists any additional properties of
+ * the weapon, such as "Thrown" or "Reach".
  */
 Realms.weaponRules = function(
-  rules, name, profLevel, category, damage, threat, critMultiplier, range
+  rules, name, profLevel, category, damage, threat, critMultiplier, range,
+  properties
 ) {
   rules.basePlugin.weaponRules(
-    rules, name, profLevel, category, damage, threat, critMultiplier, range
+    rules, name, profLevel, category, damage, threat, critMultiplier, range,
+    properties
   );
   // No changes needed to the rules defined by base method
 };
