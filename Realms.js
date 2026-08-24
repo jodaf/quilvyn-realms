@@ -146,7 +146,7 @@ function Realms(baseRules) {
       .replace('Dodge Giants', 'Exceptional Dodger')
       .replace('Gnome Magic', 'Deep Gnome Magic')
       .replace('Low-Light Vision', 'Extended Darkvision')
-      .replace('Features=', 'Features="Resilient","Know Depth","Racial Level Adjustment",Inconspicuous,Stonecunning,"Deep Gnome Spell Resistance",Undetectable,');
+      .replace('Features=', 'Features="Resilient","Racial Level Adjustment",Inconspicuous,Stonecunning,"Deep Gnome Spell Resistance",');
   Realms.RACES['Rock Gnome'] = rules.basePlugin.RACES.Gnome;
   Realms.RACES['Half-Elf'] = rules.basePlugin.RACES['Half-Elf'];
   Realms.RACES['Half-Orc'] = rules.basePlugin.RACES['Half-Orc'];
@@ -156,7 +156,7 @@ function Realms(baseRules) {
   Realms.RACES['Lightfoot Halfling'] = rules.basePlugin.RACES.Halfling;
   Realms.RACES['Strongheart Halfling'] =
     rules.basePlugin.RACES.Halfling
-      .replace(/['"]?Fortunate['"]?/, '"Strongheart Extra Feat"');
+      .replace(/['"]?Fortunate['"]?/, '"Bonus Feat (Strongheart Halfling)"');
   Realms.RACES.Human = rules.basePlugin.RACES.Human;
   Realms.SCHOOLS = Object.assign({}, rules.basePlugin.SCHOOLS);
   Realms.SHIELDS = Object.assign({}, rules.basePlugin.SHIELDS);
@@ -598,7 +598,7 @@ Realms.FEATURES_ADDED = {
   // Gold Dwarves
   'Gold Dwarf Ability Adjustment':
     'Section=ability Note="+2 Constitution/-2 Dexterity"',
-  'Gold Dwarf Enmity':'Section=combat Note="+1 attack vs. aberrations"',
+  'Gold Dwarf Enmity':'Section=combat Note="+1 attacks vs. aberrations"',
 
   // Gray Dwarves
   'Extended Darkvision':
@@ -681,7 +681,7 @@ Realms.FEATURES_ADDED = {
     'Note="R20\' Can communicate telepathically in a shared language"',
 
   // Strongheart Halfling
-  'Strongheart Extra Feat':'Section=feature Note="+1 General Feat"',
+  'Bonus Feat (Strongheart Halfling)':'Section=feature Note="+1 General Feat"',
 
   // Aasimar
   'Aasimar Ability Adjustment':'Section=ability Note="+2 Wisdom/+2 Charisma"',
@@ -777,13 +777,13 @@ Realms.FEATURES_ADDED = {
     'Section=magic ' +
     'Note="Can use spell slots to prepare arcane spells ahead of time; applying metamagic effects during preparation does not extend a spell\'s casting time"',
   'Arcane Schooling':
-    'Section=magic ' +
+    'Section=feature ' +
     'Note="Can choose an arcane class as an additional favored class"',
   'Artist':
     'Section=skill,skill ' +
     'Note=' +
       '"+2 Perform",' +
-      '"+2 to a choice of artistic Craft"',
+      '"+2 on a choice of artistic Craft skill"',
   'Blooded':
     'Section=combat,skill ' +
     'Note=' +
@@ -861,7 +861,7 @@ Realms.FEATURES_ADDED = {
   'Mercantile Background':
     'Section=skill,skill ' +
     'Note="+2 Appraise",' +
-    '"+2 on a choice of Craft or Profession"',
+    '"+2 on a choice of Craft or Profession skill"',
   'Militia':'Section=combat Note="Weapon Proficiency (Longbow; Longspear)"',
   'Militia (Luiren)':
     'Section=combat Note="Weapon Proficiency (Shortbow; Short Sword)"',
@@ -879,9 +879,10 @@ Realms.FEATURES_ADDED = {
   'Resist Poison Feat':'Section=save Note="+4 vs. poison"',
   'Saddleback':'Section=skill Note="+3 Ride"',
   'Shadow Weave Magic':
-    'Section=ability,magic,magic ' +
+    'Section=ability,ability,magic,magic ' +
     'Note=' +
-      '"Inflicts -2 Wisdom, reversable only via <i>Atonement</i> cast by a cleric of Shar",' +
+      '"-2 Wisdom",' +
+      '"-2 Wisdom penalty can be reversed only via <i>Atonement</i> cast by a cleric of Shar",' +
       // TODO: Implement
       '"+1 DC on Enchantment, Illusion, Necromancy, and darkness descriptor spells/-1 caster level on non-darkness Evocation and Transmutation spells",' +
       '"+1 checks to overcome resistance on enchantment, illusion, necromancy, and darkness descriptor spells/Cannot cast light descriptor spells"',
@@ -1624,7 +1625,7 @@ Realms.RACES = {
       .replace('Gnome Ability Adjustment', 'Deep Gnome Ability Adjustment')
       .replace('Dodge Giants', 'Exceptional Dodger')
       .replace('Low-Light Vision', 'Extended Darkvision')
-      .replace('Features=', 'Features="Resilient","Know Depth","Racial Level Adjustment",Inconspicuous,Stonecunning,"Deep Gnome Magic","Deep Gnome Spell Resistance",Undetectable,'),
+      .replace('Features=', 'Features="Resilient","Racial Level Adjustment",Inconspicuous,Stonecunning,"Deep Gnome Magic","Deep Gnome Spell Resistance",'),
   'Rock Gnome': SRD35.RACES.Gnome,
   'Half-Elf': SRD35.RACES['Half-Elf'],
   'Half-Orc': SRD35.RACES['Half-Orc'],
@@ -1634,7 +1635,7 @@ Realms.RACES = {
   'Lightfoot Halfling': SRD35.RACES.Halfling,
   'Strongheart Halfling':
     SRD35.RACES.Halfling
-      .replace('Fortunate', '"Strongheart Extra Feat"'),
+      .replace('Fortunate', '"Bonus Feat (Strongheart Halfling)"'),
   'Human': SRD35.RACES.Human,
   'Aasimar':
     'Size=Medium ' +
@@ -3066,8 +3067,9 @@ Realms.raceRulesExtra = function(rules, name) {
     rules.defineRule
       ('resistance.Electricity', 'saveNotes.aasimarResistance', '^=', '5');
   } else if(name == 'Deep Gnome') {
-    rules.defineRule
-      ('saveNotes.svirfneblinSpellResistance', 'deepGnomeLevel', '=', 'source + 11');
+    rules.defineRule('saveNotes.deepGnomeSpellResistance',
+      'deepGnomeLevel', '=', 'source + 11'
+    );
     // Several web pages say that the DC for Deep Gnome spells is Charisma
     // based with a +4 racial modifier. The FG Campaign Setting says 10 +
     // spell level, so we go with that; otherwise, the value would be
@@ -3077,7 +3079,7 @@ Realms.raceRulesExtra = function(rules, name) {
       'charismaModifier', '=', '10'
     );
     rules.defineRule
-      ('spellResistance', 'saveNotes.svirfneblinSpellResistance', '^=', null);
+      ('spellResistance', 'saveNotes.deepGnomeSpellResistance', '^=', null);
   } else if(name == 'Drow Elf') {
     rules.defineRule('combatNotes.lightSensitivity', 'drowElfLevel', '=', '1');
     rules.defineRule
