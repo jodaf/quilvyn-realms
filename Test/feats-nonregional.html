@@ -48,7 +48,7 @@ var attributes = {
       <td><b>Dexterity</b>: 17 (+3)</td>
       <td><b>Constitution</b>: 15 (+2)</td>
       <td><b>Intelligence</b>: 12 (+1)</td>
-      <td><b>Wisdom</b>: 13 (+1)</td>
+      <td><b>Wisdom</b>: 15 (+2)</td>
       <td><b>Charisma</b>: 9 (-1)</td>
     </tr></table>
 </td>
@@ -71,7 +71,7 @@ var attributes = {
     </tr></table>
 </td>
   </tr><tr style="text-align:center">
-    <td><b>Ability Notes</b>: <i>Shadow Weave Magic: -2 Wisdom</i></td>
+    <td><b>Ability Notes</b>: Shadow Weave Magic: Inflicts -2 Wisdom, reversable only via <i>Atonement</i> cast by a cleric of Shar</td>
   </tr></table>
 </td>
 </tr><tr style="text-align:center">
@@ -121,7 +121,7 @@ var attributes = {
       </tr><tr style="text-align:left">
         <td>Concentration: (con) 5 (+7)</td>
         <td>Perform (Dance): (cha;cc) 2 (+0)</td>
-        <td>Sense Motive: (wis;cc) 5 (+3.5)</td>
+        <td>Sense Motive: (wis;cc) 5 (+4.5)</td>
       </tr><tr style="text-align:left">
         <td>Craft (Alchemy): (int) 2 (+3)</td>
         <td>Ride: (dex;cc) 11 (+8.5)</td>
@@ -189,7 +189,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>      <table id="SavesAndResistance" style="width:100%">
       <tr style="text-align:center">
-        <td><b>Save</b>: Fortitude: +4; Reflex: +5; Will: +7</td>
+        <td><b>Save</b>: Fortitude: +4; Reflex: +5; Will: +8</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
@@ -199,7 +199,7 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Dexterity Reflex Adjustment: +3</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Wisdom Will Adjustment: +1</i></td>
+        <td><i>Wisdom Will Adjustment: +2</i></td>
       </tr></table>
 </td>
     </tr></table>
@@ -282,9 +282,9 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Craft Wondrous Item: Can create and mend miscellaneous magic items</td>
     </tr><tr style="text-align:center">
-      <td>Create Portal: May create a magical portal</td>
+      <td>Create Portal: Can create magical portals</td>
     </tr><tr style="text-align:center">
-      <td>Delay Spell: May delay effect of a spell 1-5 rd</td>
+      <td>Delay Spell: Can delay the activation of a self area, personal, or touch spell for 1-5 rd</td>
     </tr><tr style="text-align:center">
       <td>Extend Spell: Can cast a spell using a spell slot 1 level higher than normal to double its duration</td>
     </tr><tr style="text-align:center">
@@ -292,23 +292,25 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Improved Counterspell: Can counterspell using a higher-level spell from the same school</td>
     </tr><tr style="text-align:center">
-      <td>Innate Spell: May use +8 spell slot to use chosen spells as a spell-like ability 1/rd</td>
+      <td>Innate Spell: Can use chosen spells as spell-like abilities once per rd; each choice permanently uses a spell slot 8 levels higher</td>
     </tr><tr style="text-align:center">
-      <td>Insidious Magic: Weave casters require successful DC 19 caster level check to detect self spells other than evocation and transmutation; self requires successful DC 9 + casterLevel caster level check to detect Weave spells other than enchantment, illusion, and necromancy</td>
+      <td>Insidious Magic: Weave casters require a successful DC 19 caster level check to detect self spells other than evocation and transmutation, and self requires a successful caster level check (DC 9 + target caster level) to detect Weave spells other than enchantment, illusion, and necromancy</td>
     </tr><tr style="text-align:center">
-      <td>Magical Artisan: Reduces item creation base price by 25%</td>
+      <td>Magical Artisan: Reduces the cost of creating a chosen type of magic item by 25%</td>
     </tr><tr style="text-align:center">
-      <td>Pernicious Magic: Weave casters require successful DC 19 caster level check to counter self spells other than evocation and transmutation; self requires successful DC 9 + casterLevel caster level check to counter Weave spells other than enchantment, illusion, and necromancy</td>
+      <td>Pernicious Magic: Weave casters require a successful DC 19 caster level check to counter self spells other than evocation and transmutation, and self requires a successful caster level check (DC 9 + target caster level) to counter Weave spells other than enchantment, illusion, and necromancy; does not affect the use of <i>Dispel Magic</i> to counter spells</td>
     </tr><tr style="text-align:center">
-      <td>Persistent Spell: May use +4 spell slot to extend duration of a personal or ranged spell to 1 dy</td>
+      <td>Persistent Spell: Can cast a spell using a spell slot 4 levels higher than normal to increase its duration to 24 hr; can be used only with personal or fixed-ranged spells with a non-instantaneous duration</td>
     </tr><tr style="text-align:center">
       <td>Quicken Spell: Once per rd, can cast a spell with a casting time of up to 1 rd as a free action, using a spell slot 4 levels higher than normal</td>
     </tr><tr style="text-align:center">
       <td>Scribe Scroll: Can create scrolls for known spells</td>
     </tr><tr style="text-align:center">
-      <td>Shadow Weave Magic: +1 DC and resistance checks on enchantment, illusion, necromancy, and darkness descriptor spells/-1 caster level on evocation and transmutation spells/May not cast light descriptor spells</td>
+      <td>Shadow Weave Magic: +1 DC on Enchantment, Illusion, Necromancy, and darkness descriptor spells/-1 caster level on non-darkness Evocation and Transmutation spells</td>
     </tr><tr style="text-align:center">
-      <td>Signature Spell: May cast chosen mastered spell in place of prepared arcane spell</td>
+      <td>Shadow Weave Magic: +1 checks to overcome resistance on enchantment, illusion, necromancy, and darkness descriptor spells/Cannot cast light descriptor spells</td>
+    </tr><tr style="text-align:center">
+      <td>Signature Spell: Can cast a chosen mastered spell in place of a prepared arcane spell</td>
     </tr><tr style="text-align:center">
       <td>Silent Spell: Can cast a spell using a spell slot 1 level higher than normal to cast it without verbal components</td>
     </tr><tr style="text-align:center">
@@ -318,9 +320,9 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Still Spell: Can cast a spell using a spell slot 1 level higher than normal to cast it without somatic components</td>
     </tr><tr style="text-align:center">
-      <td>Tenacious Magic: Weave casters require successful DC 23 caster level check to dispel self spells other than evocation and transmutation; self requires successful DC 13 + casterLevel caster level check to dispel Weave spells other than enchantment, illusion, and necromancy</td>
+      <td>Tenacious Magic: Weave casters require a successful DC 23 caster level check to dispel self spells other than evocation and transmutation, and self requires a successful caster level check (DC 13 + target caster level) to dispel Weave spells other than enchantment, illusion, and necromancy</td>
     </tr><tr style="text-align:center">
-      <td>Twin Spell: May use +4 spell slot to cause spell to take effect twice</td>
+      <td>Twin Spell: Can cast a spell using a spell slot 4 levels higher than normal to have it take effect twice</td>
     </tr></table>
 </td>
   </tr></table>

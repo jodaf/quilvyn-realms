@@ -525,7 +525,6 @@ Realms.FEATS_ADDED = {
     'Require="region =~ \'Dalelands|Impiltur|Luiren|Strongheart Halfling\'"',
   'Mind Over Body':
     'Type=General ' +
-    'Imply="intelligenceModifier >= constitutionModifier" ' +
     'Require="region =~ \'Calimshan|Thay|Moon Elf|Sun Elf\'"',
   'Pernicious Magic':'Type=Metamagic Require="features.Shadow Weave Magic"',
   'Persistent Spell':'Type=Metamagic Require="features.Extend Spell"',
@@ -537,7 +536,9 @@ Realms.FEATS_ADDED = {
   'Shadow Weave Magic':
     'Type=General ' +
     'Imply="casterLevel >= 1" ' +
-    'Require="wisdom >= 13 || deity == \'Shar\'"',
+    // N.B. requires wisdom >= 13, but the feat reduces wisdom by 2 without
+    // violating the prerequisite, so we make the requirement 11
+    'Require="wisdom >= 11 || deity == \'Shar\'"',
   'Signature Spell':'Type=General Require="features.Spell Mastery"',
   'Silver Palm':
     'Type=General ' +
@@ -592,174 +593,7 @@ Realms.FEATS_ADDED = {
 Realms.FEATS = Object.assign({}, SRD35.FEATS, Realms.FEATS_ADDED);
 Realms.FEATURES_ADDED = {
 
-  // Feat
-  'Arcane Preparation':
-    'Section=magic Note="May prepare an arcane spell ahead of time"',
-  'Arcane Schooling':
-    'Section=magic Note="Chosen arcane class is a favored class"',
-  'Artist':'Section=skill Note="+2 Perform/+2 chosen Craft"',
-  'Blooded':'Section=combat,skill Note="+2 Initiative","+2 Spot"',
-  'Bloodline Of Fire':
-    'Section=magic,save ' +
-    'Note="+2 spell DC (Sorcerer fire spells)","+4 vs. fire effects"',
-  'Bullheaded':'Section=save,skill Note="+1 Will","+2 Intimidate"',
-  'Cosmopolitan':
-    'Section=skill Note="Chosen skill is class skill/+2 chosen skill checks"',
-  'Courteous Magocracy':'Section=skill Note="+2 Diplomacy/+2 Spellcraft"',
-  'Create Portal':'Section=magic Note="May create a magical portal"',
-  'Daylight Adaptation':
-    'Section=feature Note="Suffers no penalties from bright light"',
-  'Delay Spell':'Section=magic Note="May delay effect of a spell 1-5 rd"',
-  'Discipline':'Section=save,skill Note="+1 Will","+2 Concentration"',
-  'Education':
-    'Section=skill ' +
-    'Note="All Knowledge is a class skill/+1 choice of 2 Knowledge skills"',
-  // 3.0 Animal Empathy, Intuit Direction => 3.5 Handle Animal, Survival
-  'Ethran':
-    'Section=skill ' +
-    'Note="+2 Handle Animal/+2 Survival/+2 Cha skills with Rashemi"',
-  'Foe Hunter':
-    'Section=combat Note="+1 damage and dbl critical range vs. regional foe"',
-  'Forester':'Section=skill Note="+2 Heal/+2 Survival"',
-  // Identical to SRD35, but +3 DC instead of +1
-  'Greater Spell Focus (%school)':'Section=magic Note="+3 Spell DC (%school)"',
-  'Horse Nomad':
-    'Section=combat,skill ' +
-    'Note="Weapon Proficiency (Composite Shortbow)",' +
-         '"+2 Ride"',
-  'Innate Spell':
-    'Section=magic ' +
-    'Note="May use +8 spell slot to use chosen spells as a spell-like ability 1/rd"',
-  'Inscribe Rune':'Section=magic Note="May cast chosen divine spell via rune"',
-  'Insidious Magic':
-    'Section=magic ' +
-    'Note="Weave casters require successful DC %{11+(casterLevel||0)} caster level check to detect self spells other than evocation and transmutation; self requires successful DC 9 + casterLevel caster level check to detect Weave spells other than enchantment, illusion, and necromancy"',
-  'Luck Of Heroes':'Section=save Note="+1 Fortitude/+1 Reflex/+1 Will"',
-  'Magical Artisan':
-    'Section=magic Note="Reduces item creation base price by 25%"',
-  'Magical Training':
-    'Section=magic ' +
-    'Note="May cast <i>Dancing Lights</i>, <i>Daze</i>, and <i>Mage Hand</i> 1/dy"',
-  'Mercantile Background':
-    'Section=skill Note="+2 Appraise/+2 choice of Craft or Profession"',
-  'Militia':
-    'Section=combat ' +
-    'Note="Weapon Proficiency (Longbow)/Weapon Proficiency (Longspear)"',
-  'Militia Luiren':
-    'Section=combat ' +
-    'Note="Weapon Proficiency (Shortbow)/Weapon Proficiency (Short Sword)"',
-  'Mind Over Body':
-    'Section=combat ' +
-    'Note="Intelligence modifier adds %1 HP, +%2 HP from Metamagic feats"',
-  'Pernicious Magic':
-    'Section=magic ' +
-    'Note="Weave casters require successful DC %{11+(casterLevel||0)} caster level check to counter self spells other than evocation and transmutation; self requires successful DC 9 + casterLevel caster level check to counter Weave spells other than enchantment, illusion, and necromancy"',
-  'Persistent Spell':
-    'Section=magic ' +
-    'Note="May use +4 spell slot to extend duration of a personal or ranged spell to 1 dy"',
-  'Resist Poison Feat':'Section=save Note="+4 vs. poison"',
-  'Saddleback':'Section=skill Note="+3 Ride"',
-  'Shadow Weave Magic':
-    'Section=ability,magic ' +
-    'Note="-2 Wisdom",' +
-         '"+1 DC and resistance checks on enchantment, illusion, necromancy, and darkness descriptor spells/-1 caster level on evocation and transmutation spells/May not cast light descriptor spells"',
-  'Signature Spell':
-    'Section=magic ' +
-    'Note="May cast chosen mastered spell in place of prepared arcane spell"',
-  'Silver Palm':'Section=skill Note="+2 Appraise/+2 Bluff"',
-  'Smooth Talk':'Section=skill Note="+2 Diplomacy/+2 Sense Motive"',
-  'Snake Blood':'Section=save Note="+1 Reflex/+2 vs. poison"',
-  'Spellcasting Prodigy (Bard)':
-    'Section=magic Note="+1 spell DC/+2 Charisma for acquiring bonus spells"',
-  'Spellcasting Prodigy (Cleric)':
-    'Section=magic Note="+1 spell DC/+2 Wisdom for acquiring bonus spells"',
-  'Spellcasting Prodigy (Druid)':
-    'Section=magic Note="+1 spell DC/+2 Wisdom for acquiring bonus spells"',
-  'Spellcasting Prodigy (Sorcerer)':
-    'Section=magic Note="+1 spell DC/+2 Charisma for acquiring bonus spells"',
-  'Spellcasting Prodigy (Wizard)':
-    'Section=magic ' +
-    'Note="+1 spell DC/+2 Intelligence for acquiring bonus spells"',
-  'Stealthy':'Section=skill Note="+2 Hide/+2 Move Silently"',
-  'Street Smart':'Section=skill Note="+2 Bluff/+2 Gather Information"',
-  'Strong Soul':
-    'Section=save Note="+1 Fortitude/+1 Will/+1 vs. draining and death"',
-  'Survivor':'Section=save,skill Note="+1 Fortitude","+2 Survival"',
-  'Tattoo Focus':
-    'Section=magic ' +
-    'Note="+1 DC and caster level vs. resistance w/specialized school spells"',
-  'Tenacious Magic':
-    'Section=magic ' +
-    'Note="Weave casters require successful DC %{15+(casterLevel||0)} caster level check to dispel self spells other than evocation and transmutation; self requires successful DC 13 + casterLevel caster level check to dispel Weave spells other than enchantment, illusion, and necromancy"',
-  'Thug':'Section=combat,skill Note="+2 Initiative","+2 Intimidate"',
-  'Thunder Twin':
-    'Section=ability,skill ' +
-    'Note="+2 charisma checks",' +
-         '"Successful DC 15 Wisdom check determines direction of twin"',
-  'Treetopper':'Section=skill Note="+2 Climb"',
-  'Twin Spell':
-    'Section=magic ' +
-    'Note="May use +4 spell slot to cause spell to take effect twice"',
-  'Twin Sword Style':
-    'Section=combat Note="+2 AC vs. chosen foe when using two swords"',
-
-  // Domain
-  'Advanced Illusionist':
-    'Section=magic Note="+1 caster level on Illusion spells"',
-  'Cavern Stonecunning':
-    'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
-  'Compelling Magic':'Section=magic Note="+2 DC on compulsion spells"',
-  'Creator':
-    'Section=magic,feature ' +
-    'Note="+1 caster level on Creation spells",' +
-         '"+1 General Feat (Skill Focus(chosen Craft))"',
-  'Detect Portal':
-    'Section=skill ' +
-    'Note="Successful DC 20 Search detects active and inactive portals"',
-  'Familial Protection':
-    'Section=magic ' +
-    'Note="R10\' %{charismaModifier>?1} targets gain +4 AC for %{level} rd 1/dy"',
-  'Hammer Specialist':
-    'Section=feature ' +
-    'Note="+2 General Feat (Weapon Proficiency and Focus w/chosen hammer)"',
-  'Hated Foe':
-    'Section=combat,save ' +
-    'Note="+2 attack and AC vs. chosen foe for 1 min 1/dy",' +
-         '"+2 saves vs. chosen foe for 1 min 1/dy"',
-  'Inspire Allies':
-    'Section=magic ' +
-    'Note="Allies gain +2 attack, damage, save, skill, and ability rolls for %{charismaModifier>?1} rd 1/dy"',
-  'Mental Ward':
-    'Section=magic ' +
-    'Note="Touch gives target +%{level+2} on next Will save for 1 hr 1/dy"',
-  'Pain Touch':
-    'Section=combat ' +
-    'Note="Touch inflicts -2 Strength and Dexterity for 1 min 1/dy"',
-  'Renew Self':
-    'Section=combat ' +
-    'Note="Immediately recovers 1d8+%{charismaModifier} HP when at negative HP 1/dy"',
-  'Skilled Caster':'Section=skill Note="+2 Concentration/+2 Spellcraft"',
-  'Smite Power':
-    'Section=combat ' +
-    'Note="+%{levels.Cleric} damage, plus +4 attack vs. dwarf or elf, 1/dy"',
-  'Sprightly':
-    'Section=skill ' +
-    'Note="+%{charismaModifier} Climb, Hide, Jump, and Move Silently for 10 min 1/dy"',
-  'Stormfriend':'Section=save Note="Resistance 5 to electricity"',
-  'Strike Of Vengeance':
-    'Section=combat ' +
-    'Note="May make immediate attack after taking damage from foe hit, inflicting maximum damage if successful, 1/dy"',
-  'Trade Secrets':
-    'Section=magic ' +
-    'Note="May cast <i>Detect Thoughts</i> on 1 target for %{charismaModifier} min 1/dy (Will neg)"',
-  'Turn On The Charm':'Section=ability Note="+4 charisma for 1 min 1/dy"',
-  'Turn Lycanthropes':'Section=combat Note="May turn lycanthropes"',
-  'Turn Oozes':'Section=combat Note="May turn oozes"',
-  'Turn Reptiles':'Section=combat Note="May turn reptiles"',
-  'Turn Spiders':'Section=combat Note="May turn spiders"',
-  'Water Breathing':'Section=magic Note="May breathe water %{level*10} rd/dy"',
-
-  // Race
+  // Races
 
   // Gold Dwarves
   'Gold Dwarf Ability Adjustment':
@@ -938,6 +772,250 @@ Realms.FEATURES_ADDED = {
   'Tiefling Resistance':
     'Section=save Note="Has resistance 5 to cold, electricity, and fire"',
 
+  // Feats
+  'Arcane Preparation':
+    'Section=magic ' +
+    'Note="Can use spell slots to prepare arcane spells ahead of time; applying metamagic effects during preparation does not extend a spell\'s casting time"',
+  'Arcane Schooling':
+    'Section=magic ' +
+    'Note="Can choose an arcane class as an additional favored class"',
+  'Artist':
+    'Section=skill,skill ' +
+    'Note=' +
+      '"+2 Perform",' +
+      '"+2 to a choice of artistic Craft"',
+  'Blooded':
+    'Section=combat,skill ' +
+    'Note=' +
+      '"+2 Initiative",' +
+      '"+2 Spot"',
+  'Bloodline Of Fire':
+    'Section=magic,save ' +
+    'Note=' +
+      '"+2 spell DC for sorcerer fire spells",' +
+      '"+4 vs. fire effects"',
+  'Bullheaded':
+    'Section=save,skill ' +
+    'Note=' +
+      '"+1 Will",' +
+      '"+2 Intimidate"',
+  'Cosmopolitan':
+    'Section=skill ' +
+    'Note="Chosen skill is class skill with a +2 bonus on checks"',
+  'Courteous Magocracy':'Section=skill Note="+2 Diplomacy/+2 Spellcraft"',
+  'Create Portal':'Section=magic Note="Can create magical portals"',
+  'Daylight Adaptation':
+    'Section=feature Note="Suffers no penalties from bright light"',
+  'Delay Spell':
+    'Section=magic ' +
+    'Note="Can delay the activation of a self area, personal, or touch spell for 1-5 rd"',
+  'Discipline':
+    'Section=save,skill ' +
+    'Note=' +
+      '"+1 Will",' +
+      '"+2 Concentration"',
+  'Education':
+    'Section=skill,skill ' +
+    'Note=' +
+      '"All Knowledge skills are class skills",' +
+      '"+1 on 2 choices of Knowledge skills"',
+  // 3.0 Animal Empathy, Intuit Direction => 3.5 Handle Animal, Survival
+  'Ethran':
+    'Section=skill,skill ' +
+    'Note=' +
+      '"+2 Handle Animal/+2 Survival",' +
+      '"+2 on Charisma skills when interacting with Rashemi"',
+  'Foe Hunter':
+    'Section=combat ' +
+    'Note="When fighting a regional foe, inflicts +1 HP with melee weapons and ranged weapons within 30\' and gains a x2 critical threat range"',
+  // 3.0 Wilderness Lore => 3.5 Survival
+  'Forester':'Section=skill Note="+2 Heal/+2 Survival"',
+  // Identical to SRD35, but +3 DC instead of +1
+  'Greater Spell Focus (%school)':'Section=magic Note="+3 Spell DC (%school)"',
+  // Greater Spell Penetration as SRD3.5
+  'Horse Nomad':
+    'Section=combat,skill ' +
+    'Note=' +
+      '"Weapon Proficiency (Composite Shortbow)",' +
+      '"+2 Ride"',
+  // Improved Counterspell as SRD3.5
+  // Improved Familiar as SRD3.5
+  'Innate Spell':
+    'Section=magic ' +
+    'Note="Can use chosen spells as spell-like abilities once per rd; each choice permanently uses a spell slot 8 levels higher"',
+  'Inscribe Rune':
+    'Section=magic ' +
+    'Note="Can store chosen divine spells in runes that activate when triggered"',
+  'Insidious Magic':
+    'Section=magic ' +
+    'Note="Weave casters require a successful DC %{11+(casterLevel||0)} caster level check to detect self spells other than evocation and transmutation, and self requires a successful caster level check (DC 9 + target caster level) to detect Weave spells other than enchantment, illusion, and necromancy"',
+  'Luck Of Heroes':'Section=save Note="+1 Fortitude/+1 Reflex/+1 Will"',
+  'Magical Artisan':
+    'Section=magic ' +
+    'Note="Reduces the cost of creating a chosen type of magic item by 25%"',
+  'Magical Training':
+    'Section=magic ' +
+    'Note="Can cast <i>Dancing Lights</i>, <i>Daze</i>, and <i>Mage Hand</i> once per day" ' +
+    'Spells="Dancing Lights","Daze","Mage Hand" ' +
+    'SpellAbility=Intelligence',
+  'Mercantile Background':
+    'Section=skill,skill ' +
+    'Note="+2 Appraise",' +
+    '"+2 on a choice of Craft or Profession"',
+  'Militia':'Section=combat Note="Weapon Proficiency (Longbow; Longspear)"',
+  'Militia (Luiren)':
+    'Section=combat Note="Weapon Proficiency (Shortbow; Short Sword)"',
+  'Mind Over Body':
+    'Section=combat,combat ' +
+    'Note=' +
+      '"+%1 Hit Points from metamagic feats",' +
+      '"Can add Intelligence modifier instead of Constitution modifier to Hit Points at 1st level"',
+  'Pernicious Magic':
+    'Section=magic ' +
+    'Note="Weave casters require a successful DC %{11+(casterLevel||0)} caster level check to counter self spells other than evocation and transmutation, and self requires a successful caster level check (DC 9 + target caster level) to counter Weave spells other than enchantment, illusion, and necromancy; does not affect the use of <i>Dispel Magic</i> to counter spells"',
+  'Persistent Spell':
+    'Section=magic ' +
+    'Note="Can cast a spell using a spell slot 4 levels higher than normal to increase its duration to 24 hr; can be used only with personal or fixed-ranged spells with a non-instantaneous duration"',
+  'Resist Poison Feat':'Section=save Note="+4 vs. poison"',
+  'Saddleback':'Section=skill Note="+3 Ride"',
+  'Shadow Weave Magic':
+    'Section=ability,magic,magic ' +
+    'Note=' +
+      '"Inflicts -2 Wisdom, reversable only via <i>Atonement</i> cast by a cleric of Shar",' +
+      // TODO: Implement
+      '"+1 DC on Enchantment, Illusion, Necromancy, and darkness descriptor spells/-1 caster level on non-darkness Evocation and Transmutation spells",' +
+      '"+1 checks to overcome resistance on enchantment, illusion, necromancy, and darkness descriptor spells/Cannot cast light descriptor spells"',
+  'Signature Spell':
+    'Section=magic ' +
+    'Note="Can cast a chosen mastered spell in place of a prepared arcane spell"',
+  'Silver Palm':'Section=skill Note="+2 Appraise/+2 Bluff"',
+  'Smooth Talk':'Section=skill Note="+2 Diplomacy/+2 Sense Motive"',
+  'Snake Blood':
+    'Section=save,save ' +
+    'Note=' +
+      '"+1 Reflex",' +
+      '"+2 vs. poison"',
+  'Spellcasting Prodigy (Bard)':
+    'Section=magic ' +
+    // TODO: Implement
+    'Note="+1 spell DC/+2 Charisma for acquiring bonus spells"',
+  'Spellcasting Prodigy (Cleric)':
+    'Section=magic ' +
+    // TODO: Implement
+    'Note="+1 spell DC/+2 Wisdom for acquiring bonus spells"',
+  'Spellcasting Prodigy (Druid)':
+    'Section=magic ' +
+    // TODO: Implement
+    'Note="+1 spell DC/+2 Wisdom for acquiring bonus spells"',
+  'Spellcasting Prodigy (Sorcerer)':
+    'Section=magic ' +
+    // TODO: Implement
+    'Note="+1 spell DC/+2 Charisma for acquiring bonus spells"',
+  'Spellcasting Prodigy (Wizard)':
+    'Section=magic ' +
+    // TODO: Implement
+    'Note="+1 spell DC/+2 Intelligence for acquiring bonus spells"',
+  'Stealthy':'Section=skill Note="+2 Hide/+2 Move Silently"',
+  'Street Smart':'Section=skill Note="+2 Bluff/+2 Gather Information"',
+  'Strong Soul':
+    'Section=save,save ' +
+    'Note=' +
+      '"+1 Fortitude/+1 Will",' +
+      '"+1 vs. draining and death"',
+  'Survivor':
+    'Section=save,skill ' +
+    'Note=' +
+      '"+1 Fortitude",' +
+      // 3.0 Wilderness Lore => 3.5 Survival
+      '"+2 Survival"',
+  'Tattoo Focus':
+    'Section=magic,magic ' +
+    'Note=' +
+      // TODO: Implement
+      '"+1 DC on %V spells",' +
+      '"+1 caster level to overcome spell resistance with %V spells"',
+  'Tenacious Magic':
+    'Section=magic ' +
+    'Note="Weave casters require a successful DC %{15+(casterLevel||0)} caster level check to dispel self spells other than evocation and transmutation, and self requires a successful caster level check (DC 13 + target caster level) to dispel Weave spells other than enchantment, illusion, and necromancy"',
+  'Thug':
+    'Section=combat,skill ' +
+    'Note=' +
+      '"+2 Initiative",' +
+      '"+2 Intimidate"',
+  'Thunder Twin':
+    'Section=ability,skill ' +
+    'Note=' +
+      '"+2 Charisma checks",' +
+      // 3.0 Intuit Direction => 3.5 Survival
+      '"Successful DC 15 Survival determines the direction to twin"',
+  'Treetopper':
+    'Section=combat,skill ' +
+    'Note=' +
+      '"Retains Dexterity bonus to Armor Class when climbing, and climbing gives attackers no bonus",' +
+      '"+2 Climb"',
+  'Twin Spell':
+    'Section=magic ' +
+    'Note="Can cast a spell using a spell slot 4 levels higher than normal to have it take effect twice"',
+  'Twin Sword Style':
+    'Section=combat ' +
+    'Note="Gains a +2 stacking armor bonus to Armor Class vs. a chosen foe when using two swords; loss of Dexterity bonus to Armor Class negates"',
+
+  // Domain
+  'Advanced Illusionist':
+    'Section=magic Note="+1 caster level on Illusion spells"',
+  'Cavern Stonecunning':
+    'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
+  'Compelling Magic':'Section=magic Note="+2 DC on compulsion spells"',
+  'Creator':
+    'Section=magic,feature ' +
+    'Note="+1 caster level on Creation spells",' +
+         '"+1 General Feat (Skill Focus(chosen Craft))"',
+  'Detect Portal':
+    'Section=skill ' +
+    'Note="Successful DC 20 Search detects active and inactive portals"',
+  'Familial Protection':
+    'Section=magic ' +
+    'Note="R10\' %{charismaModifier>?1} targets gain +4 Armor Class for %{level} rd 1/dy"',
+  'Hammer Specialist':
+    'Section=feature ' +
+    'Note="+2 General Feat (Weapon Proficiency and Focus w/chosen hammer)"',
+  'Hated Foe':
+    'Section=combat,save ' +
+    'Note="+2 attack and Armor Class vs. chosen foe for 1 min 1/dy",' +
+         '"+2 saves vs. chosen foe for 1 min 1/dy"',
+  'Inspire Allies':
+    'Section=magic ' +
+    'Note="Allies gain +2 attack, damage, save, skill, and ability rolls for %{charismaModifier>?1} rd 1/dy"',
+  'Mental Ward':
+    'Section=magic ' +
+    'Note="Touch gives target +%{level+2} on next Will save for 1 hr 1/dy"',
+  'Pain Touch':
+    'Section=combat ' +
+    'Note="Touch inflicts -2 Strength and Dexterity for 1 min 1/dy"',
+  'Renew Self':
+    'Section=combat ' +
+    'Note="Immediately recovers 1d8+%{charismaModifier} hit points when at negative hit points 1/dy"',
+  'Skilled Caster':'Section=skill Note="+2 Concentration/+2 Spellcraft"',
+  'Smite Power':
+    'Section=combat ' +
+    'Note="+%{levels.Cleric} damage, plus +4 attack vs. dwarf or elf, 1/dy"',
+  'Sprightly':
+    'Section=skill ' +
+    'Note="+%{charismaModifier} Climb, Hide, Jump, and Move Silently for 10 min 1/dy"',
+  'Stormfriend':'Section=save Note="Resistance 5 to electricity"',
+  'Strike Of Vengeance':
+    'Section=combat ' +
+    'Note="May make immediate attack after taking damage from foe hit, inflicting maximum damage if successful, 1/dy"',
+  'Trade Secrets':
+    'Section=magic ' +
+    'Note="May cast <i>Detect Thoughts</i> on 1 target for %{charismaModifier} min 1/dy (Will neg)"',
+  'Turn On The Charm':'Section=ability Note="+4 charisma for 1 min 1/dy"',
+  'Turn Lycanthropes':'Section=combat Note="May turn lycanthropes"',
+  'Turn Oozes':'Section=combat Note="May turn oozes"',
+  'Turn Reptiles':'Section=combat Note="May turn reptiles"',
+  'Turn Spiders':'Section=combat Note="May turn spiders"',
+  'Water Breathing':'Section=magic Note="May breathe water %{level*10} rd/dy"',
+
   // Prestige classes
   'Alignment Focus':
     'Section=magic ' +
@@ -967,7 +1045,7 @@ Realms.FEATURES_ADDED = {
     'Note="R60\' May communicate telepathically w/outsider who is %V or who serves %{deity}"',
   'Divine Perseverance':
     'Section=combat ' +
-    'Note="Immediately recovers 1d8+5 HP when at negative HP 1/dy"',
+    'Note="Immediately recovers 1d8+5 hit points when at negative hit points 1/dy"',
   'Divine Reach':
     'Section=magic Note="R30\' May cast divine touch spell using ranged touch"',
   'Divine Shroud':
@@ -992,7 +1070,7 @@ Realms.FEATURES_ADDED = {
     'Note="R30\' cone causes creatures to flee for %2 rd %V/dy (DC %1 Will shaken for 1 rd)"',
   'Final Stand':
     'Section=combat ' +
-    'Note="R10\' %{$\'levels.Purple Dragon Knight\'+charismaModifier} allies gain 2d10 temporary HP for %{$\'levels.Purple Dragon Knight\'+charismaModifier} rd 1/dy"',
+    'Note="R10\' %{$\'levels.Purple Dragon Knight\'+charismaModifier} allies gain 2d10 temporary hit points for %{$\'levels.Purple Dragon Knight\'+charismaModifier} rd 1/dy"',
   'Gift Of The Divine':
     'Section=feature ' +
     'Note="May transfer some daily uses of turn undead to another for 1-10 dy"',
@@ -1011,7 +1089,8 @@ Realms.FEATURES_ADDED = {
   'Harper Skill Focus':
     'Section=feature ' +
     'Note="+1 General Feat (Skill Focus in Harper class skill)"',
-  'Heroic Shield':'Section=combat Note="Aid Another action gives +4 AC bonus"',
+  'Heroic Shield':
+    'Section=combat Note="Aid Another action gives +4 Armor Class bonus"',
   'Hierophant Special Abilities':'Section=feature Note="%V selections"',
   'High Arcana':'Section=feature Note="%V selections"',
   'Imbue With Spell Ability':
@@ -1025,7 +1104,7 @@ Realms.FEATURES_ADDED = {
     'Section=magic ' +
     'Note="Allies gain +1 attack, +1 damage, and +2 charm and fear saves during speech +5 rd %{$\'levels.Purple Dragon Knight\'//2}/dy"',
   'Lay On Hands (Divine Champion)':
-    'Section=magic Note="May heal followers of %{deity} %{charismaModifier*$\'levels.Divine Champion\'} HP/dy"',
+    'Section=magic Note="May heal followers of %{deity} %{charismaModifier*$\'levels.Divine Champion\'} hit points per day"',
   "Lliira's Heart":'Section=save Note="+2 vs. compulsion and fear"',
   'Locate Creature':
     'Section=magic ' +
@@ -1209,7 +1288,9 @@ Realms.CLASS_FEATURES_ADDED = {
       '"deityDomains =~ \'Undeath\' ? 1:Undeath Domain:Domain"'
 };
 Realms.DEITIES = {
+
   'None':'',
+
   // Faerun
   'Akadi':
     'Alignment=N Weapon="Heavy Flail" Domain=Air,Illusion,Travel,Trickery',
@@ -1690,7 +1771,7 @@ Realms.SPELLS_ADDED = {
   'Armor Of Darkness':
     'School=Abjuration ' +
     'Level=Darkness4 ' +
-    'Description="Touched gains +%{3+lvl//4<?8} AC and 60\' darkvision for %{lvl*10} min"',
+    'Description="Touched gains +%{3+lvl//4<?8} Armor Class and 60\' darkvision for %{lvl*10} min"',
   'Blacklight':
     'School=Evocation ' +
     'Level=Darkness3,S3,W3 ' +
@@ -1718,7 +1799,7 @@ Realms.SPELLS_ADDED = {
   'Fantastic Machine':
     'School=Illusion ' +
     'Level=Craft6,Gnome6 ' +
-    'Description="Large illusory machine (HP 22, AC 14, slam +5 1d8+4, throw rocks +3 2d6+4, move 40\'/rd, swim and fly 10\'/rd, load 230) obeys self for %{lvl} min"',
+    'Description="Large illusory machine (22 hit points, Armor Class 14, slam +5 1d8+4, throw rocks +3 2d6+4, move 40\'/rd, swim and fly 10\'/rd, load 230) obeys self for %{lvl} min"',
   'Fire Stride':
     'School=Transmutation ' +
     'Level=S4,W4 ' +
@@ -1750,7 +1831,7 @@ Realms.SPELLS_ADDED = {
   'Greater Fantastic Machine':
     'School=Illusion ' +
     'Level=Craft9 ' +
-    'Description="Large illusory machine (HP 88, AC 20, slam +17,+12 1d8+9, throw rocks +12,+7 2d6+9, move 60\'/rd, swim and fly 20\'/rd, load 520) obeys self for %{lvl} min"',
+    'Description="Large illusory machine (88 hit points, Armor Class 20, slam +17,+12 1d8+9, throw rocks +12,+7 2d6+9, move 60\'/rd, swim and fly 20\'/rd, load 520) obeys self for %{lvl} min"',
   "Grimwald's Graymantle":
     'School=Necromancy ' +
     'Level=S5,W5 ' +
@@ -2839,50 +2920,22 @@ Realms.featRulesExtra = function(rules, name) {
 
   let matchInfo;
 
-  if(name == 'Artist') {
-    rules.defineRule
-      (/^skillModifier.Perform/, 'skillNotes.artist', '+', '2');
-  } else if(name == 'Bloodline Of Fire') {
+  if(name == 'Bloodline Of Fire') {
     rules.defineRule
       ('magicNotes.bloodlineOfFire', 'levels.Sorcerer', '?', null);
-  } else if(name == 'Horse Nomad') {
-    rules.defineRule('features.Weapon Proficiency (Composite Shortbow)',
-      'combatNotes.horseNomad', '=', '1'
-    );
   } else if(name == 'Militia') {
     rules.defineRule
       ('combatNotes.militia', 'region', '?', 'source != "Luiren"');
-    rules.defineRule('combatNotes.militiaLuiren',
+    rules.defineRule('combatNotes.militia(Luiren)',
       'region', '?', 'source == "Luiren"',
       'features.Militia', '=', null
     );
-    rules.defineRule('features.Weapon Proficiency (Longbow)',
-      'combatNotes.militia', '=', '1'
-    );
-    rules.defineRule('features.Weapon Proficiency (Longspear)',
-      'combatNotes.militia', '=', '1'
-    );
-    rules.defineRule('features.Weapon Proficiency (Shortbow)',
-      'combatNotes.militiaLuiren', '=', '1'
-    );
-    rules.defineRule('features.Weapon Proficiency (Short Sword)',
-      'combatNotes.militiaLuiren', '=', '1'
-    );
   } else if(name == 'Mind Over Body') {
     rules.defineRule('combatNotes.mindOverBody.1',
-      'combatNotes.mindOverBody', '?', null,
-      'intelligenceModifier', '=', null,
-      'constitutionModifier', '+', '-source'
-    );
-    rules.defineRule('combatNotes.mindOverBody.2',
-      'combatNotes.mindOverBody', '?', null,
       'combatNotes.mindOverBody', '=', '0',
       'sumMetamagicFeats', '+', null
     );
-    rules.defineRule('hitPoints',
-      'combatNotes.mindOverBody.1', '+', null,
-      'combatNotes.mindOverBody.2', '+', null
-    );
+    rules.defineRule('hitPoints', 'combatNotes.mindOverBody.1', '+', null);
   } else if((matchInfo = name.match(/^Spellcasting\sProdigy\s\((.*)\)$/)) != null) {
     let clas = matchInfo[1];
     let spellCode = clas.charAt(0);
@@ -2900,9 +2953,10 @@ Realms.featRulesExtra = function(rules, name) {
       );
     }
   } else if(name == 'Tattoo Focus') {
-    for(let school in rules.getChoices('schools')) {
-      rules.defineRule
-        ('spellDCSchoolBonus.' + school, 'magicNotes.tattooFocus', '+', '1');
+    for(let s in rules.getChoices('schools')) {
+      rules.defineRule('magicNotes.tattooFocus',
+        'features.School Specialization (' + s + ')', '=', '"' + s + '"'
+      );
     }
   } else if(rules.basePlugin.featRulesExtra) {
     rules.basePlugin.featRulesExtra(rules, name);
@@ -3110,7 +3164,10 @@ Realms.skillRules = function(
 ) {
   rules.basePlugin.skillRules
     (rules, name, ability, untrained, classes, synergies);
-  // No changes needed to the rules defined by base method
+  if(name.startsWith('Knowledge ('))
+    rules.defineRule('classSkills.' + name, 'skillNotes.education', '=', '1');
+  if(name.startsWith('Perform ('))
+    rules.defineRule('skillModifier.' + name, 'skillNotes.artist', '+', '2');
 };
 
 /*

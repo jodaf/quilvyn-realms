@@ -43,7 +43,7 @@ var attributes = {
       <td><b>Dexterity</b>: 8 (-1)</td>
       <td><b>Constitution</b>: 11 (+0)</td>
       <td><b>Intelligence</b>: 14 (+2)</td>
-      <td><b>Wisdom</b>: 11 (+0)</td>
+      <td><b>Wisdom</b>: 13 (+1)</td>
       <td><b>Charisma</b>: 16 (+3)</td>
     </tr></table>
 </td>
@@ -66,7 +66,7 @@ var attributes = {
     </tr></table>
 </td>
   </tr><tr style="text-align:center">
-    <td><b>Ability Notes</b>: <i>Shadow Weave Magic: -2 Wisdom</i></td>
+    <td><b>Ability Notes</b>: Shadow Weave Magic: Inflicts -2 Wisdom, reversable only via <i>Atonement</i> cast by a cleric of Shar</td>
   </tr></table>
 </td>
 </tr><tr style="text-align:center">
@@ -116,7 +116,7 @@ var attributes = {
       <tr style="text-align:left">
         <td>Climb: (str;cc) 1 (+4.5)</td>
         <td>Hide: (dex) 19 (+18)</td>
-        <td>Profession (Tanner): (wis) 9 (+9)</td>
+        <td>Profession (Tanner): (wis) 9 (+10)</td>
       </tr><tr style="text-align:left">
         <td>Concentration: (con) 16 (+16)</td>
         <td>Jump: (str;cc) 1 (+3.5)</td>
@@ -124,7 +124,7 @@ var attributes = {
       </tr><tr style="text-align:left">
         <td>Craft (Weapons): (int) 9 (+11)</td>
         <td>Knowledge (Arcana): (int) 8 (+10)</td>
-        <td>Spot: (wis;cc) 9 (+4.5)</td>
+        <td>Spot: (wis;cc) 9 (+5.5)</td>
       </tr><tr style="text-align:left">
         <td>Disguise: (cha) 2 (+5)</td>
         <td>Knowledge (Engineering): (int) 19 (+21)</td>
@@ -199,13 +199,15 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>      <table id="SavesAndResistance" style="width:100%">
       <tr style="text-align:center">
-        <td><b>Save</b>: Fortitude: +5; Reflex: +4; Will: +12</td>
+        <td><b>Save</b>: Fortitude: +5; Reflex: +4; Will: +13</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
       <td><b>Save Notes</b>:       <table id="SaveNotes" style="width:100%">
       <tr style="text-align:center">
         <td><i>Dexterity Reflex Adjustment: -1</i></td>
+      </tr><tr style="text-align:center">
+        <td><i>Wisdom Will Adjustment: +1</i></td>
       </tr><tr style="text-align:center">
         <td>Greater Shield Of Shadows: Shield Of Shadows gives SR 22</td>
       </tr><tr style="text-align:center">
@@ -295,23 +297,25 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Arcane Spell Failure: 10%</td>
     </tr><tr style="text-align:center">
-      <td>Insidious Magic: Weave casters require successful DC 27 caster level check to detect self spells other than evocation and transmutation; self requires successful DC 9 + casterLevel caster level check to detect Weave spells other than enchantment, illusion, and necromancy</td>
+      <td>Insidious Magic: Weave casters require a successful DC 27 caster level check to detect self spells other than evocation and transmutation, and self requires a successful caster level check (DC 9 + target caster level) to detect Weave spells other than enchantment, illusion, and necromancy</td>
     </tr><tr style="text-align:center">
-      <td>Pernicious Magic: Weave casters require successful DC 27 caster level check to counter self spells other than evocation and transmutation; self requires successful DC 9 + casterLevel caster level check to counter Weave spells other than enchantment, illusion, and necromancy</td>
+      <td>Pernicious Magic: Weave casters require a successful DC 27 caster level check to counter self spells other than evocation and transmutation, and self requires a successful caster level check (DC 9 + target caster level) to counter Weave spells other than enchantment, illusion, and necromancy; does not affect the use of <i>Dispel Magic</i> to counter spells</td>
     </tr><tr style="text-align:center">
       <td>Shadow Double: May create clone lasting 16 rd 1/dy</td>
     </tr><tr style="text-align:center">
       <td>Shadow Walk: May travel quickly via Plane of Shadow for 10 hr</td>
     </tr><tr style="text-align:center">
-      <td>Shadow Weave Magic: +1 DC and resistance checks on enchantment, illusion, necromancy, and darkness descriptor spells/-1 caster level on evocation and transmutation spells/May not cast light descriptor spells</td>
+      <td>Shadow Weave Magic: +1 DC on Enchantment, Illusion, Necromancy, and darkness descriptor spells/-1 caster level on non-darkness Evocation and Transmutation spells</td>
+    </tr><tr style="text-align:center">
+      <td>Shadow Weave Magic: +1 checks to overcome resistance on enchantment, illusion, necromancy, and darkness descriptor spells/Cannot cast light descriptor spells</td>
     </tr><tr style="text-align:center">
       <td>Shield Of Shadows: May use <i>Shield</i> effects w/75% concealment 16 rd/dy</td>
     </tr><tr style="text-align:center">
       <td>Still Spell: Can cast a spell using a spell slot 1 level higher than normal to cast it without somatic components</td>
     </tr><tr style="text-align:center">
-      <td>Tenacious Magic: Weave casters require successful DC 31 caster level check to dispel self spells other than evocation and transmutation; self requires successful DC 13 + casterLevel caster level check to dispel Weave spells other than enchantment, illusion, and necromancy</td>
+      <td>Tenacious Magic: Weave casters require a successful DC 31 caster level check to dispel self spells other than evocation and transmutation, and self requires a successful caster level check (DC 13 + target caster level) to dispel Weave spells other than enchantment, illusion, and necromancy</td>
     </tr><tr style="text-align:center">
-      <td>Twin Spell: May use +4 spell slot to cause spell to take effect twice</td>
+      <td>Twin Spell: Can cast a spell using a spell slot 4 levels higher than normal to have it take effect twice</td>
     </tr></table>
 </td>
   </tr></table>
