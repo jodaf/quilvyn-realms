@@ -246,32 +246,12 @@ Realms.PRESTIGE_CLASSES = {
       // 3.0 Alchemy, Scry => 3.5 Craft (Alchemy), null
       'Concentration,Craft,Knowledge,Profession,Spellcraft ' +
     'Features=' +
-      '"1:Caster Level Bonus","1:Enlarge Spell (Arcane Devotee)",' +
+      '"1:Arcane Caster Level Bonus","1:Enlarge Spell (Arcane Devotee)",' +
       '"2:Alignment Focus","2:Sacred Defense","3:Arcane Devotee Bonus Feats",' +
       '"5:Divine Shroud"',
   'Archmage':
-    'Require=' +
-      '"features.Skill Focus (Spellcraft)",' +
-      '"Sum \'^features\\.Spell Focus\' >= 2",' +
-      '"skills.Knowledge (Arcana) >= 15","skills.Spellcraft >= 15",' +
-      '"spellSlots.S7||spellSlots.W7 >= 1","level5SpellSchools >= 5" ' +
-    'HitDie=d4 Attack=1/2 SkillPoints=2 Fortitude=1/3 Reflex=1/3 Will=1/2 ' +
-    'Skills=' +
-       // 3.0 Alchemy, Scry => 3.5 Craft (Alchemy), null
-      'Concentration,"Craft (Alchemy)",Knowledge,Profession,Search,' +
-      'Spellcraft ' +
-    'Features="1:Caster Level Bonus","1:High Arcana" ' +
-    'Selectables=' +
-      '"1:Arcane Fire:High Arcana",' +
-      '"1:Arcane Reach:High Arcana",' +
-      '"features.Arcane Reach ? 1:Improved Arcane Reach:High Arcana",' +
-      '"1:Mastery Of Counterspelling:High Arcana",' +
-      '"1:Mastery Of Elements:High Arcana",' +
-      '"1:Mastery Of Shaping:High Arcana",' +
-      '"1:Spell Power +1:High Arcana",' +
-      '"1:Spell Power +2:High Arcana",' +
-      '"1:Spell Power +3:High Arcana",' +
-      '"1:Spell-Like Ability:High Arcana"',
+    SRD35.PRESTIGE_CLASSES.Archmage
+    .replace('"1:Spell Power:High Arcana"', '"1:Spell Power +1:High Arcana","1:Spell Power +2:High Arcana","1:Spell Power +3:High Arcana"'),
   'Divine Champion':
     'Require=' +
        '"baseAttack >= 7","Sum \'features.Weapon Focus\' >= 1",' +
@@ -282,7 +262,7 @@ Realms.PRESTIGE_CLASSES = {
     'Features=' +
       '"1:Armor Proficiency (Medium)","1:Shield Proficiency",' +
       '"1:Weapon Proficiency (Martial)",' +
-      '"1:Lay On Hands (Divine Champion)","2:Divine Champion Bonus Feats",' +
+      '"2:Divine Champion Bonus Feats","1:Lay On Hands (Divine Champion)",' +
       '"2:Sacred Defense","3:Smite Infidel","5:Divine Wrath"',
   'Divine Disciple':
     'Require=' +
@@ -295,7 +275,7 @@ Realms.PRESTIGE_CLASSES = {
       '"Knowledge (Nature)","Knowledge (Religion)",Profession,Spellcraft,' +
       'Survival ' +
     'Features=' +
-      '"1:Caster Level Bonus","1:Divine Emissary","1:New Domain",' +
+      '"1:Divine Caster Level Bonus","1:Divine Emissary","1:New Domain",' +
       '"2:Sacred Defense","3:Imbue With Spell Ability","5:Outsider",' +
       '"5:Transcendence"',
   'Divine Seeker':
@@ -347,8 +327,8 @@ Realms.PRESTIGE_CLASSES = {
       '"1:Armor Proficiency (Light)",' +
       '"1:Weapon Proficiency (Simple)",' +
       '"1:Bardic Knowledge","1:Favored Enemy","2:Deneir\'s Eye",' +
-      '"2:Harper Perform Focus","2:Harper Skill Focus","3:Tymora\'s Smile",' +
-      '"4:Lliira\'s Heart","5:Craft Harper Item" ' +
+      '"2:Harper Skill Focus","3:Tymora\'s Smile","4:Lliira\'s Heart",' +
+      '"5:Craft Harper Item" ' +
     'SpellAbility=charisma ' +
     'SpellSlots=' +
       'Harper1:1=0;2=1,' +
@@ -372,27 +352,8 @@ Realms.PRESTIGE_CLASSES = {
       '"1:Caster Level Bonus","1:Cohort","1:Place Magic",3:Fear,' +
       '"4:Circle Leader","10:Greater Command"',
   'Hierophant':
-    'Require=' +
-      '"skills.Knowledge (Nature) >= 15||skills.Knowledge (Religion) >= 15",' +
-      '"spellSlots.C7||spellSlots.D7",' +
-      '"sumMetamagicFeats > 0" ' +
-    'HitDie=d8 Attack=1/2 SkillPoints=2 Fortitude=1/2 Reflex=1/3 Will=1/2 ' +
-    'Skills=' +
-      // 3.0 Scry => 3.5 null
-      'Concentration,Craft,Diplomacy,Heal,"Knowledge (Arcana)",' +
-      '"Knowledge (Religion)",Profession,Spellcraft ' +
-    'Features=' +
-      '"1:Hierophant Special Abilities" ' +
-    'Selectables=' +
-      '"1:Blast Infidel:Special Ability",' +
-      '"1:Divine Reach:Special Ability",' +
-      '"1:Faith Healing:Special Ability",' +
-      '"1:Gift Of The Divine:Special Ability",' +
-      '"1:Improved Divine Reach:Special Ability",' +
-      '"1:Mastery Of Energy:Special Ability",' +
-      '"1:Spell Power +2:Special Ability",' +
-      '"1:Spell-Like Ability:Special Ability",' +
-      '"levels.Druid > 0 ? 1:Power Of Nature:Special Ability"',
+    SRD35.PRESTIGE_CLASSES.Hierophant
+    .replace(/(skills.Knowledge\s+.Religion.\s+>=\s+15)/, 'skills.Knowledge (Nature) >= 15 || $1'),
   'Purple Dragon Knight':
     'Require=' +
       '"alignment !~ \'Chaotic|Evil\'","baseAttack >= 4",' +
@@ -418,7 +379,7 @@ Realms.PRESTIGE_CLASSES = {
       // 3.0 Alchemy, Innuendo, Scry => 3.5 Craft (Alchemy), Bluff, null
       'Bluff,Concentration,Craft,Intimidate,Knowledge,Profession,Spellcraft ' +
     'Features=' +
-      '"1:Caster Level Bonus","1:Enhanced Specialization",' +
+      '"1:Arcane Caster Level Bonus","1:Enhanced Specialization",' +
       '"1:Specialist Defense","2:Spell Power","5:Circle Leader",' +
       '"5:Red Wizard Bonus Feats","7:Scribe Tattoo","10:Great Circle Leader"',
   'Runecaster':
@@ -432,7 +393,7 @@ Realms.PRESTIGE_CLASSES = {
       'Concentration,Craft,Diplomacy,Heal,"Knowledge (Arcana)",' +
       '"Knowledge (Religion)",Profession,Spellcraft ' +
     'Features=' +
-      '"1:Caster Level Bonus","1:Rune Craft","2:Rune Power",' +
+      '"1:Divine Caster Level Bonus","1:Rune Craft","2:Rune Power",' +
       '"3:Improved Runecasting","6:Maximize Rune","10:Rune Chant"',
   'Shadow Adept':
     'Require=' +
@@ -677,7 +638,7 @@ Realms.FEATURES_ADDED = {
 
   // Ghostwise Halfling
   'Speak Without Sound':
-    'Section=feature ' +
+    'Section=skill ' +
     'Note="R20\' Can communicate telepathically in a shared language"',
 
   // Strongheart Halfling
@@ -1018,174 +979,239 @@ Realms.FEATURES_ADDED = {
   'Water Breathing':'Section=magic Note="May breathe water %{level*10} rd/dy"',
 
   // Prestige classes
+
+  // Arcane Devotee
   'Alignment Focus':
     'Section=magic ' +
-    'Note="+1 caster level on spells from chosen alignment component"',
-  'Arcane Devotee Bonus Feats':'Section=feature Note="%V Arcane Devotee feats"',
-  'Arcane Fire':
-    'Section=magic ' +
-    'Note="R%{400+40*levels.Archmage}\' May convert an arcane spell into a ranged touch %{levels.Archmage}d6 + 1d6 x spell level bolt of fire"',
-  'Arcane Reach':
-    'Section=magic Note="R30\' May cast arcane touch spell using ranged touch"',
-  'Blast Infidel':
-    'Section=magic ' +
-    'Note="Negative energy spells vs. foe w/different deity have maximum effect"',
-  'Caster Level Bonus':
-    'Section=magic Note="+%V base class level for spells known and spells/dy"',
-  'Circle Leader':
-    'Section=magic ' +
-    'Note="1 hr ritual w/2-5 other members raises caster level and gives metamagic feats"',
-  'Cohort':'Section=feature Note="Gains Ethran or Barbarian follower"',
-  'Craft Harper Item':
-    'Section=magic ' +
-    'Note="May create magic instruments, Harper pins, and potions"',
-  "Deneir's Eye":'Section=save Note="+2 vs. glyphs, runes, and symbols"',
-  'Divine Champion Bonus Feats':'Section=feature Note="%V Fighter feats"',
-  'Divine Emissary':
-    'Section=feature ' +
-    'Note="R60\' May communicate telepathically w/outsider who is %V or who serves %{deity}"',
-  'Divine Perseverance':
-    'Section=combat ' +
-    'Note="Immediately recovers 1d8+5 hit points when at negative hit points 1/dy"',
-  'Divine Reach':
-    'Section=magic Note="R30\' May cast divine touch spell using ranged touch"',
+    'Note="+1 caster level on spells from a chosen alignment component"',
+  'Arcane Caster Level Bonus':SRD35.FEATURES['Arcane Caster Level Bonus'],
+  'Arcane Devotee Bonus Feats':
+    'Section=feature Note="+%V Arcane Devotee Feats"',
   'Divine Shroud':
     'Section=save ' +
-    'Note="Aura provides SR %{casterLevelArcane+12} for %{charismaModifier+5} rd 1/dy"',
-  'Divine Wrath':
-    'Section=combat,save ' +
-    'Note="+3 attack and damage and DR 5/- for %{charismaModifier} rd 1/dy",' +
-         '"+3 saves %{charismaModifier} rd 1/dy",',
-  // 3.0 Innuendo => 3.5 Bluff
-  'Doublespeak':'Section=skill Note="+2 Bluff/+2 Diplomacy"',
-  'Enhanced Specialization':
-    'Section=magic Note="Has additional opposition school"',
+    'Note="Can gain SR %{casterLevelArcane+12} for %{charismaModifier+5} rd once per day"',
   'Enlarge Spell (Arcane Devotee)':
     'Section=magic ' +
-    'Note="May cast chosen spell at dbl range %{(charismaModifier+1)>?1}/dy"',
-  'Faith Healing':
-    'Section=magic ' +
-    'Note="Healing spells on followers of %{deity} have maximum effect"',
-  'Fear':
-    'Section=magic ' +
-    'Note="R30\' cone causes creatures to flee for %2 rd %V/dy (DC %1 Will shaken for 1 rd)"',
-  'Final Stand':
-    'Section=combat ' +
-    'Note="R10\' %{$\'levels.Purple Dragon Knight\'+charismaModifier} allies gain 2d10 temporary hit points for %{$\'levels.Purple Dragon Knight\'+charismaModifier} rd 1/dy"',
-  'Gift Of The Divine':
-    'Section=feature ' +
-    'Note="May transfer some daily uses of turn undead to another for 1-10 dy"',
-  'Great Circle Leader':
-    'Section=magic Note="Leads magic circle w/9 other members"',
-  'Greater Command':
-    'Section=magic ' +
-    'Note="R%{levels.Hathran//2*5+25}\' %{levels.Hathran} targets in 15\' radius obey self commands to approach, drop, fall, flee, or halt for %{levels.Hathran} rd 1/dy (DC %{charismaModifier+15} Will neg)"',
-  'Greater Shield Of Shadows':
-    'Section=save ' +
-    'Note="Shield Of Shadows gives SR %{$\'levels.Shadow Adept\'+12}"',
-  'Guild Thief Bonus Feats':'Section=feature Note="%V Guild Thief feats"',
-  'Harper Perform Focus':
-    'Section=feature ' +
-    'Note="+1 General Feat (Skill Focus in chosen Perform)"',
-  'Harper Skill Focus':
-    'Section=feature ' +
-    'Note="+1 General Feat (Skill Focus in Harper class skill)"',
-  'Heroic Shield':
-    'Section=combat Note="Aid Another action gives +4 Armor Class bonus"',
-  'Hierophant Special Abilities':'Section=feature Note="%V selections"',
-  'High Arcana':'Section=feature Note="%V selections"',
-  'Imbue With Spell Ability':
-    'Section=magic ' +
-    'Note="May use <i>Imbue With Spell Ability</i> w/1st and 2nd level spells at will"',
-  'Improved Arcane Reach':'Section=magic Note="R60\' Arcane Reach"',
-  'Improved Divine Reach':'Section=magic Note="R60\' Divine Reach"',
-  'Improved Runecasting':
-    'Section=magic Note="May add charges and triggers to runes"',
-  "Inspire Courage (Purple Dragon Knight)":
-    'Section=magic ' +
-    'Note="Allies gain +1 attack, +1 damage, and +2 charm and fear saves during speech +5 rd %{$\'levels.Purple Dragon Knight\'//2}/dy"',
-  'Lay On Hands (Divine Champion)':
-    'Section=magic Note="May heal followers of %{deity} %{charismaModifier*$\'levels.Divine Champion\'} hit points per day"',
-  "Lliira's Heart":'Section=save Note="+2 vs. compulsion and fear"',
-  'Locate Creature':
-    'Section=magic ' +
-    'Note="Self may sense direction of creature or kind in %{($\'levels.Divine Seeker\'+charismaModifier)*40+400}\' radius for %{($\'levels.Divine Seeker\'+charismaModifier)*10} min 1/dy"',
-  'Locate Object':
-    'Section=magic ' +
-    'Note="Self may sense direction of object or type in %{($\'levels.Divine Seeker\'+charismaModifier)*40+400}\' radius for %{$\'levels.Divine Seeker\'+charismaModifier} min 1/dy"',
-  'Mastery Of Counterspelling':
-    'Section=magic Note="Counterspell turns effect back on caster"',
-  'Mastery Of Elements':'Section=magic Note="May change energy type of spell"',
-  'Mastery Of Energy':
-    'Section=combat Note="+4 undead turning checks and damage"',
-  'Mastery Of Shaping':
-    'Section=magic Note="May create holes in spell effect area"',
-  'Maximize Rune':
-    'Section=magic ' +
-    'Note="Successful +5 DC Craft (rune) gives maximized effects"',
-  'New Domain':'Section=feature Note="May choose an additional deity domain"',
-  'Oath Of Wrath':
-    'Section=combat,save,skill ' +
-    'Note="R60\' +2 attack and damage vs. chosen opponent until encounter ends 1/dy",' +
-         '"R60\' +2 save vs. chosen opponent until encounter ends 1/dy",' +
-         '"R60\' +2 checks vs. chosen opponent until encounter ends 1/dy"',
-  'Obscure Object':
-    'Section=magic ' +
-    'Note="Touched gains immunity to divination for 8 hr 1/dy (DC %{charismaModifier+13} Will neg)"',
-  'Place Magic':
-    'Section=magic Note="May cast spells w/out preparation when in Rashemen"',
-  'Power Of Nature':
-    'Section=feature ' +
-    'Note="May transfer druid feature to another for 1-10 days"',
-  'Rallying Cry':
-    'Section=combat ' +
-    'Note="R60\' Allies gain +1 next attack, +5\' Speed for 1 tn 3/dy"',
-  'Red Wizard Bonus Feats':'Section=feature Note="%V Wizard feats"',
-  'Reputation':'Section=feature Note="+%V Leadership"',
-  'Rune Chant':'Section=magic Note="May trace rune for a +3 DC divine spell"',
-  'Rune Craft':
-    'Section=skill Note="+%{(levels.Runecaster+2)//3<?3} Craft (rune)"',
-  'Rune Power':
-    'Section=magic ' +
-    'Note="+%{levels.Runecaster>=9 ? 3 : levels.Runecaster>=5 ? 2 : 1} DC of runes"',
+    'Note="Can cast a spell at double its normal range %{charismaModifier>0?charismaModifier+1+\' times\':\'once\'} per day"',
   'Sacred Defense':
     'Section=save ' +
-    'Note="+%V vs. divine spells and spell-like effects of outsiders"',
+    'Note="+%V vs. divine spells and outsiders\' spell-like and supernatural abilities"',
+
+  // Archmage
+  // Arcane Caster Level Bonus as above
+  'Arcane Fire':SRD35.FEATURES['Arcane Fire'],
+  'Arcane Reach':SRD35.FEATURES['Arcane Reach'],
+  'High Arcana':SRD35.FEATURES['High Arcana'],
+  'Mastery Of Counterspelling':SRD35.FEATURES['Mastery Of Counterspelling'],
+  'Mastery Of Elements':SRD35.FEATURES['Mastery Of Elements'],
+  'Mastery Of Shaping':SRD35.FEATURES['Mastery Of Shaping'],
+  'Spell-Like Ability':SRD35.FEATURES['Spell-Like Ability'],
+
+  // Divine Champion
+  'Divine Champion Bonus Feats':'Section=feature Note="+%V Fighter feats"',
+  'Divine Wrath':
+    'Section=combat,save ' +
+    'Note=' +
+      '"Can gain +3 attack and damage for %{charismaModifier} rd once per day",' +
+      '"Can gain +3 saves and DR 5/- for %{charismaModifier} rd once per day",',
+  'Lay On Hands (Divine Champion)':
+    'Section=magic ' +
+    'Note="Can use touch on followers of %{deity} to heal %{charismaModifier*$\'levels.Divine Champion\'} hit points per day"',
+  // Sacred Defense as above
+  'Smite Infidel':
+    'Section=combat ' +
+    'Note="Can gain +%{charismaModifier} attack and inflict +%{$\'levels.Divine Champion\'} HP vs. a follower of a different deity once per day"',
+
+  // Divine Disciple
+  'Divine Caster Level Bonus':SRD35.FEATURES['Divine Caster Level Bonus'],
+  'Divine Emissary':
+    'Section=skill ' +
+    'Note="R60\' Can communicate telepathically with %V outsiders and with those who serve %{deity}"',
+  'Imbue With Spell Ability':
+    'Section=magic ' +
+    'Note="Can use <i>Imbue With Spell Ability</i> effects with 1st and 2nd level spells at will" ' +
+    'Spells="Imbue With Spell Ability" ' +
+    'SpellAbility=Wisdom',
+  'New Domain':'Section=feature Note="Can choose an additional deity domain"',
+  // Sacred Defense as above
+  'Transcendence':
+    'Section=magic,skill ' +
+    'Note=' +
+      '"Can a cast chosen a chosen <i>Protection From Chaos/Evil/Good/Law</i> spell on self at will",' +
+      '"+2 Charisma checks with followers of %{deity}" ' +
+    'Spells="Protection From Chaos","Protection From Evil","Protection From Good","Protection From Law" ' +
+    'SpellAbility=Wisdom',
+
+  // Divine Seeker
+  'Divine Perseverance':
+    'Section=combat ' +
+    'Note="Immediately recovers 1d8+5 hit points when at negative hit points once per day"',
+  'Locate Creature':
+    'Section=magic ' +
+    'Note="Can use <i>Locate Creature</i> effects once per day" ' +
+    'Spells="Locate Creature" ' +
+    'SpellAbility=Charisma',
+  'Locate Object':
+    'Section=magic ' +
+    'Note="Can use <i>Locate Object</i> effects once per day" ' +
+    'Spells="Locate Object" ' +
+    'SpellAbility=Charisma',
+  'Obscure Object':
+    'Section=magic ' +
+    'Note="Can use <i>Obscure Object</i> effects once per day" ' +
+    'Spells="Obscure Object" ' +
+    'SpellAbility=Charisma',
+  // Sacred Defense as above
   'Sanctuary':
     'Section=magic ' +
-    'Note="Foes cannot attack self for %{$\'levels.Divine Seeker\'} rd or until self attacks 1/dy (DC %{charismaModifier+11} Will neg)"',
-  'Scribe Tattoo':'Section=magic Note="May induct novices into circle"',
-  'Shadow Adept Bonus Feats':'Section=feature Note="%V Metamagic feats"',
+    'Note="Can use <i>Sanctuary</i> effects on self once per day" ' +
+    'Spells=Sanctuary ' +
+    'SpellAbility=Charisma',
+  'Sneak Attack':SRD35.FEATURES['Sneak Attack'],
+  'Thwart Glyph':
+    'Section=skill ' +
+    'Note="+4 Search and Disable Device to locate, bypass, and disable glyphs, runes, and symbols"',
+
+  // Guild Thief
+  // 3.0 Innuendo => 3.5 Bluff
+  'Doublespeak':'Section=skill Note="+2 Bluff/+2 Diplomacy"',
+  'Guild Thief Bonus Feats':'Section=feature Note="%V Guild Thief feats"',
+  'Improved Uncanny Dodge':SRD35.FEATURES['Improved Uncanny Dodge'],
+  // Sneak Attack as above
+  'Reputation':'Section=feature Note="+%V Leadership"',
+  'Uncanny Dodge':SRD35.FEATURES['Uncanny Dodge'],
+
+  // Harper Scout
+  'Bardic Knowledge':SRD35.FEATURES['Bardic Knowledge'],
+  'Craft Harper Item':
+    'Section=magic ' +
+    'Note="Can create magic instruments, Harper pins, and potions"',
+  "Deneir's Eye":'Section=save Note="+2 vs. glyphs, runes, and symbols"',
+  'Favored Enemy':SRD35.FEATURES['Favored Enemy'],
+  'Harper Skill Focus':
+    'Section=feature ' +
+    'Note="+2 General Feat (Skill Focus in chosen Perform and a Harper class skill)"',
+  "Lliira's Heart":'Section=save Note="+2 vs. compulsion and fear"',
+  "Tymora's Smile":'Section=save Note="Can add 2 to a save once per day"',
+
+  // Hathran
+  'Caster Level Bonus':SRD35.FEATURES['Caster Level Bonus'],
+  'Circle Leader':
+    'Section=magic ' +
+    'Note="1 hr ritual with 2-5 other members raises caster level and gives metamagic feats"',
+  'Cohort':'Section=feature Note="Has an Ethran or barbarian follower"',
+  'Fear':
+    'Section=magic ' +
+    'Note="Can cast <i>Fear</i> %{levels.Hathran>5?levels.Hathran//3+\' times\':\'once\'} per day" ' +
+    'Spells=Fear ' +
+    'SpellAbility=Charisma',
+  'Greater Command':
+    'Section=magic ' +
+    'Note="Can cast a quickened <i>Greater Command</i> once per day" ' +
+    'Spells="Greater Command" ' +
+    'SpellAbility=Charisma',
+  'Place Magic':
+    'Section=magic ' +
+    'Note="When in Rashemen, can use a full-round action to cast a spell without preparation"',
+
+  // Hierophant
+  'Blast Infidel':
+    SRD35.FEATURES['Blast Infidel']
+    .replace('an opposed alignment', 'a different deity'),
+  'Divine Reach':SRD35.FEATURES['Divine Reach'],
+  'Faith Healing':
+    SRD35.FEATURES['Faith Healing']
+    .replace('with the same alignment', 'who follow %{deity}'),
+  'Gift Of The Divine':
+    SRD35.FEATURES['Gift Of The Divine']
+    .replace('1-7', '24 hr to 10'),
+  'Hierophant Special Abilities':'Section=feature Note="%V selections"',
+  'Mastery Of Energy':SRD35.FEATURES['Mastery Of Energy'],
+  'Metamagic Feat':SRD35.FEATURES['Metamagic Feat'],
+  'Power Of Nature':
+    SRD35.FEATURES['Power Of Nature']
+    .replace('1-7', '24 hr to 10'),
+  // N.B. different effects from SRD35
+  'Spell Power':
+    'Section=magic ' +
+    'Note="+%V spell DC and caster level checks to overcome resistance"',
+  // Spell-Like Ability as above
+
+  // Purple Dragon Knight
+  // Fear as above
+  'Final Stand':
+    'Section=combat ' +
+    'Note="R10\' Can give %{$\'levels.Purple Dragon Knight\'+charismaModifier} allies 2d10 temporary hit points for %{$\'levels.Purple Dragon Knight\'+charismaModifier} rd once per day"',
+  'Heroic Shield':
+    'Section=combat ' +
+    'Note="Can use Aid Another to distract a foe, giving an ally +4 Armor Class against that foe\'s next attack"',
+  'Inspire Courage (Purple Dragon Knight)':
+    'Section=combat ' +
+    'Note="Can use a speech to give allies +1 attacks, +1 damage, and +2 charm and fear saves, lasting for 5 rd after the speech ends, %{$\'levels.Purple Dragon Knight\'>3?\'2 times\':\'once\'} per day"',
+  'Oath Of Wrath':
+    'Section=combat ' +
+    'Note="Can gain +2 attacks, damage, saves, and skill checks vs. a chosen foe until the encounter ends once per day"',
+  'Rallying Cry':
+    'Section=combat ' +
+    'Note="R60\' Can give allies +1 on the next attack and +5 Speed for 1 rd 3 times per day"',
+
+  // Red Wizard
+  // Arcane Caster Level Bonus as above
+  // Circle Leader as above
+  'Enhanced Specialization':
+    'Section=magic Note="Has an additional opposition school"',
+  'Great Circle Leader':
+    'Section=magic Note="Leads a magic circle with 9 other members"',
+  'Red Wizard Bonus Feats':'Section=feature Note="+1 Wizard Feat"',
+  'Specialist Defense':
+    'Section=save ' +
+    'Note="+%{($\'levels.Red Wizard\'+1)//2-($\'levels.Red Wizard\'>=5?1:0)} saves vs. specialized school spells"',
+  // Spell Power as above
+  'Scribe Tattoo':'Section=magic Note="Can induct novices into circle"',
+
+  // Runecaster
+  // Divine Caster Level Bonus as above
+  'Improved Runecasting':
+    'Section=magic Note="Can add charges to runes%{levels.Runecaster>7?\', make them permanent, \':\'\'} or have them trigger when read or passed"',
+  'Maximize Rune':
+    'Section=magic ' +
+    'Note="Successful +5 DC Craft when creating a rune maximizes its effects"',
+  'Rune Chant':
+    'Section=magic ' +
+    'Note="Can use a full-round action when casting a divine spell to add 3 to the its DC and to checks to overcome target SR"',
+  'Rune Craft':
+    'Section=skill ' +
+    'Note="+%{(levels.Runecaster+2)//3<?3} Craft to inscribe runes"',
+  'Rune Power':
+    'Section=magic ' +
+    'Note="+%{levels.Runecaster>=9?3:levels.Runecaster>=5?2:1} to the DC to erase, disable, or dispel runes and to checks to overcome target SR"',
+
+  // Shadow Adept
+  // Caster Level Bonus as above
+  'Darkvision':SRD35.FEATURES.Darkvision,
+  'Greater Shield Of Shadows':
+    'Section=save Note="Has increased Shield Of Shadows effects"',
+  'Low-Light Vision':SRD35.FEATURES['Low-Light Vision'],
+  // Spell Power as above
+  'Shadow Adept Bonus Feats':'Section=feature Note="+1 Metamagic Feat"',
   'Shadow Defense':
     'Section=save ' +
     'Note="+%{($\'levels.Shadow Adept\'+1)//3} vs. enchantment, illusion, necromancy, and darkness spells"',
   'Shadow Double':
-    'Section=magic Note="May create clone lasting %{casterLevel} rd 1/dy"',
+    'Section=magic ' +
+    'Note="Can create an obedient clone lasting %{casterLevel} rd once per day"',
   'Shadow Feats':
     'Section=feature ' +
-    'Note="Has Insidious Magic, Pernicious Magic, and Tenacious Magic features"',
+    'Note="Has the Insidious Magic, Pernicious Magic, and Tenacious Magic features"',
   'Shadow Walk':
     'Section=magic ' +
     'Note="May travel quickly via Plane of Shadow for %{$\'levels.Shadow Adept\'} hr"',
   'Shield Of Shadows':
     'Section=magic ' +
-    'Note="May use <i>Shield</i> effects w/75% concealment %{casterLevel} rd/dy"',
-  'Smite Infidel':
-    'Section=combat ' +
-    'Note="+%{charismaModifier} attack, +%{$\'levels.Divine Champion\'} damage vs. foe w/different deity 1/dy"',
-  'Specialist Defense':
-    'Section=save ' +
-    'Note="+%{($\'levels.Red Wizard\'+1)//2 - ($\'levels.Red Wizard\'>=5 ? 1 : 0)} saves vs. specialized school spells"',
-  'Spell Power':'Section=magic Note="+%V spell DC and resistance checks"',
-  'Spell-Like Ability':
-    'Section=magic Note="May use chosen spell as a spell-like ability 2+/dy"',
-  'Thwart Glyph':
-    'Section=skill Note="+4 Disable Device (glyphs, runes, and symbols)/+4 Search (glyphs, runes, and symbols)"',
-  'Transcendence':
-    'Section=magic,skill ' +
-    'Note="May cast chosen <i>Protection</i> spell at will",' +
-         '"+2 Charisma checks w/followers of %{deity}"',
-  "Tymora's Smile":'Section=save Note="May apply +2 to any save 1/dy"'
+    'Note="Can use <i>Shield</i> effects, gaining 75% concealment%{saveNotes.greaterShieldOfShadows?\' and SR \'+($\'levels.Shadow Adept\'+12):\'\'}, %{casterLevel} rd per dy" ' +
+    'Spells=Shield ' +
+    'SpellAbility=Charisma'
+  // Spell Power as above
 
 };
 Realms.FEATURES = Object.assign({}, SRD35.FEATURES, Realms.FEATURES_ADDED);
@@ -2571,85 +2597,54 @@ Realms.classRulesExtra = function(rules, name) {
       console.log('No feats defined for class "' + name + '"');
     else
       feats = [
-        'Greater Spell Penetration', 'Improved Counterspell', 'Magical Artisan',
-        'Shadow Weave Magic', 'Spell Penetration'
+        'Greater Spell Penetration', 'Improved Counterspell',
+        'Magical Artisan', 'Shadow Weave Magic', 'Spell Penetration'
       ].concat(
-        QuilvynUtils.getKeys(allFeats).filter(x => x.match(/Spell\s+Focus/))
+        QuilvynUtils.getKeys(allFeats).filter(x => x.match(/Spell Focus/) || allFeats[x].match(/Item\s+Creation/))
       );
 
+    // Override featureRules' + with +=
+    rules.defineRule('featCount.Arcane Devotee',
+      'featureNotes.arcaneDevoteeBonusFeats', '+=', null
+    );
     rules.defineRule('featureNotes.arcaneDevoteeBonusFeats',
       classLevel, '=', 'Math.floor(source / 3)'
     );
-    rules.defineRule('featCount.Arcane Devotee',
-      'featureNotes.arcaneDevoteeBonusFeats', '=', null
-    );
-    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
+    rules.defineRule
+      ('magicNotes.arcaneCasterLevelBonus', classLevel, '+=', null);
     rules.defineRule
       ('saveNotes.sacredDefense', classLevel, '+=', 'Math.floor(source / 2)');
 
   } else if(name == 'Archmage') {
 
-    let allSpells = rules.getChoices('spells');
-    let matchInfo;
-    for(let spell in allSpells) {
-      if((matchInfo = spell.match(/\(\w+5 (\w+)\)/)) != null) {
-        let school = matchInfo[1];
-        rules.defineRule
-          ('level5' + school + 'Spells', 'spells.' + spell, '+=', '1');
-        rules.defineRule
-          ('level5SpellSchools', 'level5' + school + 'Spells', '+=', '1');
-      }
-    }
+    SRD35.classRulesExtra(rules, name);
     rules.defineRule('features.Spell Power',
-      'features.Spell Power +1', '=', '1',
-      'features.Spell Power +2', '=', '1',
-      'features.Spell Power +3', '=', '1'
+      'archmageFeatures.Spell Power +1', '=', '1',
+      'archmageFeatures.Spell Power +2', '=', '1',
+      'archmageFeatures.Spell Power +3', '=', '1'
     );
-    rules.defineRule('featureNotes.highArcana', classLevel, '=', null);
-    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
     rules.defineRule('magicNotes.spellPower',
-      'features.Spell Power +1', '+=', '1',
-      'features.Spell Power +2', '+=', '2',
-      'features.Spell Power +3', '+=', '3'
-    );
-    rules.defineRule('selectableFeatureCount.Archmage (High Arcana)',
-      'featureNotes.highArcana', '+=', null
+      'archmageFeatures.Spell Power +1', '+=', '1',
+      'archmageFeatures.Spell Power +2', '+=', '2',
+      'archmageFeatures.Spell Power +3', '+=', '3'
     );
     rules.defineRule('spellSlots.S5',
-      'archmageFeatures.Spell Power +1', '+', '-1',
-      'archmageFeatures.Spell-Like Ability', '+', '-1'
+      'archmageFeatures.Spell Power +1', '+', '-source'
     );
     rules.defineRule('spellSlots.W5',
-      'archmageFeatures.Spell Power +1', '+', '-1',
-      'archmageFeatures.Spell-Like Ability', '+', '-1'
+      'archmageFeatures.Spell Power +1', '+', '-source'
     );
-    rules.defineRule
-      ('spellSlots.S6', 'archmageFeatures.Mastery Of Shaping', '+', '-1');
-    rules.defineRule
-      ('spellSlots.W6', 'archmageFeatures.Mastery Of Shaping', '+', '-1');
     rules.defineRule('spellSlots.S7',
-      'archmageFeatures.Arcane Reach', '+', '-1',
-      'archmageFeatures.Improved Arcane Reach', '+', '-1',
-      'archmageFeatures.Mastery Of Counterspelling', '+', '-1',
-      'archmageFeatures.Spell Power +2', '+', '-1'
+      'archmageFeatures.Spell Power +2', '+', '-source'
     );
     rules.defineRule('spellSlots.W7',
-      'archmageFeatures.Arcane Reach', '+', '-1',
-      'archmageFeatures.Improved Arcane Reach', '+', '-1',
-      'archmageFeatures.Mastery Of Counterspelling', '+', '-1',
-      'archmageFeatures.Spell Power +2', '+', '-1'
+      'archmageFeatures.Spell Power +2', '+', '-source'
     );
-    rules.defineRule
-      ('spellSlots.S8', 'archmageFeatures.Mastery Of Elements', '+', '-1');
-    rules.defineRule
-      ('spellSlots.W8', 'archmageFeatures.Mastery Of Elements', '+', '-1');
     rules.defineRule('spellSlots.S9',
-      'archmageFeatures.Arcane Fire', '+', '-1',
-      'archmageFeatures.Spell Power +3', '+', '-1'
+      'archmageFeatures.Spell Power +3', '+', '-source'
     );
     rules.defineRule('spellSlots.W9',
-      'archmageFeatures.Arcane Fire', '+', '-1',
-      'archmageFeatures.Spell Power +3', '+', '-1'
+      'archmageFeatures.Spell Power +3', '+', '-source'
     );
 
   } else if(name == 'Divine Champion') {
@@ -2669,8 +2664,9 @@ Realms.classRulesExtra = function(rules, name) {
       'featureNotes.newDomain', '+=', '1'
     );
     rules.defineRule
-      ('featureNotes.divineEmissary', 'alignment', '=', 'source.toLowerCase()');
-    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
+      ('skillNotes.divineEmissary', 'alignment', '=', 'source.toLowerCase()');
+    rules.defineRule
+      ('magicNotes.divineCasterLevelBonus', classLevel, '+=', null);
     rules.defineRule
       ('saveNotes.sacredDefense', classLevel, '+=', 'Math.floor(source / 2)');
 
@@ -2724,11 +2720,7 @@ Realms.classRulesExtra = function(rules, name) {
     );
     QuilvynRules.prerequisiteRules(
       rules, 'validation', 'harperSkillFocus', 'features.Harper Skill Focus',
-      'Sum \'features.Skill Focus\' >= 1'
-    );
-    QuilvynRules.prerequisiteRules(
-      rules, 'validation', 'harperPerformFocus','features.Harper Perform Focus',
-      'Sum \'features.Skill Focus .Perform\' >= 1'
+      ['Sum \'features.Skill Focus\' >= 2', 'Sum \'features.Skill Focus .Perform\' >= 1']
     );
 
   } else if(name == 'Hathran') {
@@ -2750,30 +2742,11 @@ Realms.classRulesExtra = function(rules, name) {
 
   } else if(name == 'Hierophant') {
 
-    rules.defineRule
-      ('featureNotes.hierophantSpecialAbilities', classLevel, '=', null);
-    rules.defineRule('selectableFeatureCount.Hierophant (Special Ability)',
-      'featureNotes.hierophantSpecialAbilities', '+=', null
+    SRD35.classRulesExtra(rules, name);
+    // override SRD35 effect of Spell Power
+    rules.defineRule('magicNotes.spellPower',
+      'hierophantFeatures.Spell Power', '+=', 'source * 2'
     );
-    rules.defineRule('combatNotes.turnUndead.1',
-      'combatNotes.masteryOfEnergy', '+', '4'
-    );
-    rules.defineRule('combatNotes.turnUndead.2',
-      'combatNotes.masteryOfEnergy', '+', '4'
-    );
-    rules.defineRule
-      ('features.Spell Power', 'features.Spell Power +2', '=', '1');
-    rules.defineRule
-      ('magicNotes.spellPower', 'features.Spell Power +2', '+=', '2');
-
-  } else if(name == 'Purple Dragon Knight') {
-
-    rules.defineRule('magicNotes.fear', classLevel, '=', '1');
-    rules.defineRule('magicNotes.fear.1',
-      'features.Fear', '?', null,
-      'charismaModifier', '=', '13 + source'
-    );
-    rules.defineRule('magicNotes.fear.2', classLevel, '=', null);
 
   } else if(name == 'Red Wizard') {
 
@@ -2781,10 +2754,8 @@ Realms.classRulesExtra = function(rules, name) {
       'sumItemCreationFeats', '=', null,
       'sumMetamagicFeats', '+', null
     );
-    rules.defineRule('featureNotes.redWizardBonusFeats', classLevel, '=', '1');
     rules.defineRule
-      ('featCount.Wizard', 'featureNotes.redWizardBonusFeats', '+=', null);
-    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
+      ('magicNotes.arcaneCasterLevelBonus', classLevel, '+=', null);
     rules.defineRule
       ('magicNotes.spellPower', classLevel, '+=', 'Math.floor(source / 2)');
     rules.defineRule('selectableFeatureCount.Wizard (Opposition)',
@@ -2793,18 +2764,17 @@ Realms.classRulesExtra = function(rules, name) {
 
   } else if(name == 'Runecaster') {
 
-    rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
+    rules.defineRule
+      ('magicNotes.divineCasterLevelBonus', classLevel, '+=', null);
 
   } else if(name == 'Shadow Adept') {
 
     rules.defineRule
-      ('features.Insidious Magic', 'featureNotes.shadowFeats', '=', null);
+      ('features.Insidious Magic', 'featureNotes.shadowFeats', '=', '1');
     rules.defineRule
-      ('features.Pernicious Magic', 'featureNotes.shadowFeats', '=', null);
+      ('features.Pernicious Magic', 'featureNotes.shadowFeats', '=', '1');
     rules.defineRule
-      ('features.Tenacious Magic', 'featureNotes.shadowFeats', '=', null);
-    rules.defineRule
-      ('featureNotes.shadowAdeptBonusFeats', classLevel, '=', '1');
+      ('features.Tenacious Magic', 'featureNotes.shadowFeats', '=', '1');
     rules.defineRule
       ('featCount.Metamagic', 'featureNotes.shadowAdeptBonusFeats', '+=', null);
     rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
@@ -2829,7 +2799,7 @@ Realms.classRulesExtra = function(rules, name) {
     for(let j = 0; j < feats.length; j++) {
       let feat = feats[j];
       if(!(feat in allFeats)) {
-        console.log('Feat "' + feat + '" undefined for class "' + name + '"');
+        console.log('Unknown feat "' + feat + '" for class "' + name + '"');
         continue;
       }
       allFeats[feat] = allFeats[feat].replace('Type=', 'Type="' + name + '",');
