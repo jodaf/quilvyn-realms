@@ -99,9 +99,9 @@ var attributes = {
       <tr style="text-align:center">
         <td><i>Human Feat Bonus: +1 General Feat</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Shadow Adept Bonus Feats: 1 Metamagic feats</i></td>
+        <td><i>Shadow Adept Bonus Feats: +1 Metamagic Feat</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Shadow Feats: Has Insidious Magic, Pernicious Magic, and Tenacious Magic features</i></td>
+        <td><i>Shadow Feats: Has the Insidious Magic, Pernicious Magic, and Tenacious Magic features</i></td>
       </tr><tr style="text-align:center">
         <td>Darkvision: R60' Has black and white vision in complete darkness</td>
       </tr><tr style="text-align:center">
@@ -213,7 +213,7 @@ var attributes = {
       <tr style="text-align:center">
         <td><i>Dexterity Reflex Adjustment: -1</i></td>
       </tr><tr style="text-align:center">
-        <td>Greater Shield Of Shadows: Shield Of Shadows gives SR 22</td>
+        <td><i>Greater Shield Of Shadows: Has increased Shield Of Shadows effects</i></td>
       </tr><tr style="text-align:center">
         <td>Shadow Defense: +3 vs. enchantment, illusion, necromancy, and darkness spells</td>
       </tr></table>
@@ -231,7 +231,7 @@ var attributes = {
       <tr style="text-align:center">
         <td><b>Spells Known/Prepared</b>: S0: 7; S1: 4; S2: 2; S3: 1</td>
         <td><b>Spell Slots</b>: S0: 6; S1: 7; S2: 7; S3: 7; S4: 6; S5: 6; S6: 6; S7: 5; S8: 3</td>
-        <td><b>Spell DC</b>: S: 13</td>
+        <td><b>Spell DC</b>: S: 13; Shield Of Shadows: 13</td>
       </tr></table>
 </td>
     </tr></table>
@@ -239,57 +239,59 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Spells</b>:<br/>    <table id="Spells" style="width:100%">
     <tr style="text-align:left">
-      <td>Acid Splash (S0 Conj): R70' Ranged touch inflicts 1d3 HP acid</td>
+      <td>Acid Splash (S0 Conj): R65' Ranged touch inflicts 1d3 HP acid</td>
     </tr><tr style="text-align:left">
       <td>Arcane Mark (S0 Univ): Inscribes a personal rune on touched, lasting a month on a creature or permanently on an object</td>
     </tr><tr style="text-align:left">
-      <td>Arcane Sight (S3 Divi): R120' Reveals auras and spell abilities for 19 min; a successful DC 15+level Spellcraft reveals their schools</td>
+      <td>Arcane Sight (S3 Divi): R120' Reveals auras and spell abilities for 16 min; a successful DC 15+level Spellcraft reveals their schools</td>
     </tr><tr style="text-align:left">
-      <td>Blindness/Deafness (S2 Necr): R290' Target suffers a choice of permanent blindness or deafness (save Fortitude negates)</td>
+      <td>Blindness/Deafness (S2 Necr): R260' Target suffers a choice of permanent blindness or deafness (save Fortitude negates)</td>
     </tr><tr style="text-align:left">
-      <td>Cause Fear (S1 Necr): R70' Target with up to 5 HD becomes frightened and flees for 1d4 rd (save Will inflicts shaken for 1 rd)</td>
+      <td>Cause Fear (S1 Necr): R65' Target with up to 5 HD becomes frightened and flees for 1d4 rd (save Will inflicts shaken for 1 rd)</td>
     </tr><tr style="text-align:left">
-      <td>Claws Of Darkness (S2 Illu): Self hands become 6' extendable claws that inflict 1d4 HP and slow via grapple (DC 15 Fort neg) for 19 rd</td>
+      <td>Claws Of Darkness (S2 Illu): Self hands become 6' extendable claws that inflict 1d4 HP and slow via grapple (Fort neg) for 16 rd</td>
     </tr><tr style="text-align:left">
-      <td>Displacement (S3 Illu): Foes attacking touched suffer a 50% miss chance for 19 rd</td>
+      <td>Displacement (S3 Illu): Foes attacking touched suffer a 50% miss chance for 16 rd</td>
     </tr><tr style="text-align:left">
-      <td>Eagle's Splendor (S2 Tran): Touched gains +4 Charisma for 19 min</td>
+      <td>Eagle's Splendor (S2 Tran): Touched gains +4 Charisma for 16 min</td>
     </tr><tr style="text-align:left">
-      <td>Greater Magic Weapon (S3 Tran): R70' Target weapon or up to 50 projectiles in a container gain +4 attacks and damage for 19 hr</td>
+      <td>Greater Magic Weapon (S3 Tran): R65' Target weapon or up to 50 projectiles in a container gain +4 attacks and damage for 16 hr</td>
     </tr><tr style="text-align:left">
-      <td>Haste (S3 Tran): R70' 19 targets in a 15' radius gain an extra attack at full BAB during a full-attack action, +1 attacks, a +1 dodge bonus to Armor Class, +1 Reflex saves, and +30' Speed for 19 rd</td>
+      <td>Haste (S3 Tran): R65' 16 targets in a 15' radius gain an extra attack at full BAB during a full-attack action, +1 attacks, a +1 dodge bonus to Armor Class, +1 Reflex saves, and +30' Speed for 16 rd</td>
     </tr><tr style="text-align:left">
-      <td>Hold Portal (S1 Abju): R290' Holds shut a door, gate, or window, adding +5 to the DC to force it, for 19 min</td>
+      <td>Hold Portal (S1 Abju): R260' Holds shut a door, gate, or window, adding +5 to the DC to force it, for 16 min</td>
     </tr><tr style="text-align:left">
-      <td>Hypnotism (S1 Ench): R70' Fascinates and makes suggestible 2d4 HD of creatures in a 15' radius (save Will negates; +2 if in combat and -2 if only 1 creature is targeted), working upward from those with the fewest HD, for 2d4 rd</td>
+      <td>Hypnotism (S1 Ench): R65' Fascinates and makes suggestible 2d4 HD of creatures in a 15' radius (save Will negates; +2 if in combat and -2 if only 1 creature is targeted), working upward from those with the fewest HD, for 2d4 rd</td>
     </tr><tr style="text-align:left">
-      <td>Levitate (S2 Tran): R70' Allows using a move action each rd to raise or lower an object or a willing target 20' for 19 min</td>
+      <td>Levitate (S2 Tran): R65' Allows using a move action each rd to raise or lower an object or a willing target 20' for 16 min</td>
     </tr><tr style="text-align:left">
-      <td>Light (S0 Evoc): Touched object emits a 20' bright light for 190 min</td>
+      <td>Light (S0 Evoc): Touched object emits a 20' bright light for 160 min</td>
     </tr><tr style="text-align:left">
-      <td>Magic Missile (S1 Evoc): R290' 5 missiles in a 15' radius each inflict 1d4+1 HP force</td>
+      <td>Magic Missile (S1 Evoc): R260' 5 missiles in a 15' radius each inflict 1d4+1 HP force</td>
     </tr><tr style="text-align:left">
-      <td>Magic Mouth (S2 Illu): R70' Enspells the target object or creature (save Will negates) so that a mouth appears on it and speaks up to 25 words in response to a specified trigger within 285'</td>
+      <td>Magic Mouth (S2 Illu): R65' Enspells the target object or creature (save Will negates) so that a mouth appears on it and speaks up to 25 words in response to a specified trigger within 240'</td>
     </tr><tr style="text-align:left">
       <td>Mending (S0 Tran): R10' Repairs minor damage to an object weighing up to 1 lb</td>
     </tr><tr style="text-align:left">
-      <td>Protection From Chaos (S1 Abju): Gives touched a +2 deflection bonus to Armor Class and +2 saves vs. chaotic creatures, suppresses mental control, prevents possession, and bars contact by nonlawful summoned creatures for 19 min</td>
+      <td>Protection From Chaos (S1 Abju): Gives touched a +2 deflection bonus to Armor Class and +2 saves vs. chaotic creatures, suppresses mental control, prevents possession, and bars contact by nonlawful summoned creatures for 16 min</td>
     </tr><tr style="text-align:left">
-      <td>Protection From Evil (S1 Abju): Gives touched a +2 deflection bonus to Armor Class and +2 saves vs. evil creatures, suppresses mental control, prevents possession, and bars contact by nongood summoned creatures for 19 min</td>
+      <td>Protection From Evil (S1 Abju): Gives touched a +2 deflection bonus to Armor Class and +2 saves vs. evil creatures, suppresses mental control, prevents possession, and bars contact by nongood summoned creatures for 16 min</td>
     </tr><tr style="text-align:left">
-      <td>Ray Of Frost (S0 Evoc): R70' Ranged touch inflicts 1d3 HP cold</td>
+      <td>Ray Of Frost (S0 Evoc): R65' Ranged touch inflicts 1d3 HP cold</td>
     </tr><tr style="text-align:left">
-      <td>Read Magic (S0 Divi): Allows self to read magical writing for 190 min</td>
+      <td>Read Magic (S0 Divi): Allows self to read magical writing for 160 min</td>
     </tr><tr style="text-align:left">
-      <td>Scare (S2 Necr): R70' Target with up to 6 HD becomes frightened and flees for 1d4 rd (save Will inflicts shaken for 1 rd)</td>
+      <td>Scare (S2 Necr): R65' Target with up to 6 HD becomes frightened and flees for 1d4 rd (save Will inflicts shaken for 1 rd)</td>
     </tr><tr style="text-align:left">
-      <td>Scatterspray (S1 Tran): R70' Little items in 1' radius scatter, inflicting 1d8 on creatures w/in 10' (DC 14 Ref neg)</td>
+      <td>Scatterspray (S1 Tran): R65' Little items in 1' radius scatter, inflicting 1d8 on creatures w/in 10' (Ref neg)</td>
+    </tr><tr style="text-align:left">
+      <td>Shield (Shield Of Shadows1 Abju): Creates a disk that gives self a +4 shield bonus to Armor Class and immunity to <i>Magic Missile</i> for 16 min</td>
     </tr></table>
 </td>
   </tr><tr style="text-align:center">
     <td><b>Magic Notes</b>:     <table id="MagicNotes" style="width:100%">
     <tr style="text-align:center">
-      <td><i>Caster Level Bonus: +10 base class level for spells known and spells/dy</i></td>
+      <td><i>Caster Level Bonus: +10 base class level for spells known and spells per day</i></td>
     </tr><tr style="text-align:center">
       <td><i>Charisma Sorcerer Spell Slot Bonus: Spell level S1, S2, S3</i></td>
     </tr><tr style="text-align:center">
@@ -297,15 +299,13 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><i>Spell Focus (Conjuration): +1 Spell DC (Conjuration)</i></td>
     </tr><tr style="text-align:center">
-      <td><i>Spell Power: +3 spell DC and resistance checks</i></td>
-    </tr><tr style="text-align:center">
       <td>Arcane Spell Failure: 10%</td>
     </tr><tr style="text-align:center">
       <td>Insidious Magic: Weave casters require a successful DC 27 caster level check to detect self spells other than evocation and transmutation, and self requires a successful caster level check (DC 9 + target caster level) to detect Weave spells other than enchantment, illusion, and necromancy</td>
     </tr><tr style="text-align:center">
       <td>Pernicious Magic: Weave casters require a successful DC 27 caster level check to counter self spells other than evocation and transmutation, and self requires a successful caster level check (DC 9 + target caster level) to counter Weave spells other than enchantment, illusion, and necromancy; does not affect the use of <i>Dispel Magic</i> to counter spells</td>
     </tr><tr style="text-align:center">
-      <td>Shadow Double: May create clone lasting 16 rd 1/dy</td>
+      <td>Shadow Double: Can create an obedient clone lasting 16 rd once per day</td>
     </tr><tr style="text-align:center">
       <td>Shadow Walk: May travel quickly via Plane of Shadow for 10 hr</td>
     </tr><tr style="text-align:center">
@@ -313,7 +313,9 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Shadow Weave Magic: +1 checks to overcome resistance on enchantment, illusion, necromancy, and darkness descriptor spells/Cannot cast light descriptor spells</td>
     </tr><tr style="text-align:center">
-      <td>Shield Of Shadows: May use <i>Shield</i> effects w/75% concealment 16 rd/dy</td>
+      <td>Shield Of Shadows: Can use <i>Shield</i> effects, gaining 75% concealment and SR 22, 16 rd per dy</td>
+    </tr><tr style="text-align:center">
+      <td>Spell Power: +3 spell DC and caster level checks to overcome resistance on enchantment, illusion, necromancy, and darkness spells</td>
     </tr><tr style="text-align:center">
       <td>Still Spell: Can cast a spell using a spell slot 1 level higher than normal to cast it without somatic components</td>
     </tr><tr style="text-align:center">

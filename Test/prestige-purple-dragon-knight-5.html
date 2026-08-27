@@ -135,8 +135,6 @@ var attributes = {
         <td><i>Skill Focus (Disable Device): +3 Disable Device</i></td>
       </tr><tr style="text-align:center">
         <td><i>Speed Jump Modifier: -6</i></td>
-      </tr><tr style="text-align:center">
-        <td>Oath Of Wrath: R60' +2 checks vs. chosen opponent until encounter ends 1/dy</td>
       </tr></table>
 </td>
     </tr></table>
@@ -183,9 +181,9 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Improved Initiative: +4 Initiative</i></td>
       </tr><tr style="text-align:center">
-        <td>Final Stand: R10' 5 allies gain 2d10 temporary hit points for 5 rd 1/dy</td>
+        <td>Final Stand: R10' Can give 5 allies 2d10 temporary hit points for 5 rd once per day</td>
       </tr><tr style="text-align:center">
-        <td>Heroic Shield: Aid Another action gives +4 Armor Class bonus</td>
+        <td>Heroic Shield: Can use Aid Another to distract a foe, giving an ally +4 Armor Class against that foe's next attack</td>
       </tr><tr style="text-align:center">
         <td>Improved Shield Bash: Retains shield bonus to Armor Class when using Shield Bash</td>
       </tr><tr style="text-align:center">
@@ -193,11 +191,13 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td>Improved Unarmed Strike: Unarmed strikes provoke no AOO and can deal lethal damage</td>
       </tr><tr style="text-align:center">
+        <td>Inspire Courage (Purple Dragon Knight): Can use a speech to give allies +1 attacks, +1 damage, and +2 charm and fear saves, lasting for 5 rd after the speech ends, 2 times per day</td>
+      </tr><tr style="text-align:center">
         <td>Mounted Combat: Can use a reaction and a successful Ride skill check (DC foe attack roll) to negate damage to mount once per rd</td>
       </tr><tr style="text-align:center">
-        <td>Oath Of Wrath: R60' +2 attack and damage vs. chosen opponent until encounter ends 1/dy</td>
+        <td>Oath Of Wrath: Can gain +2 attacks, damage, saves, and skill checks vs. a chosen foe until the encounter ends once per day</td>
       </tr><tr style="text-align:center">
-        <td>Rallying Cry: R60' Allies gain +1 next attack, +5' Speed for 1 tn 3/dy</td>
+        <td>Rallying Cry: R60' Can give allies +1 on the next attack and +5 Speed for 1 rd 3 times per day</td>
       </tr><tr style="text-align:center">
         <td>Two-Weapon Fighting: Reduces the attack penalties when fighting with a weapon in each hand by 2 for the primary hand and 6 for the off hand</td>
       </tr></table>
@@ -216,8 +216,6 @@ var attributes = {
         <td><i>Dexterity Reflex Adjustment: +2</i></td>
       </tr><tr style="text-align:center">
         <td><i>Wisdom Will Adjustment: +2</i></td>
-      </tr><tr style="text-align:center">
-        <td>Oath Of Wrath: R60' +2 save vs. chosen opponent until encounter ends 1/dy</td>
       </tr></table>
 </td>
     </tr></table>
@@ -227,13 +225,19 @@ var attributes = {
 </tr><tr style="text-align:center">
   <td style="border:1px solid black"><b>Magic</b><br/>  <table id="Magic" style="width:100%">
   <tr style="text-align:center">
-    <td><b>Magic Notes</b>:     <table id="MagicNotes" style="width:100%">
+    <td>    <table id="SpellPart" style="width:100%">
     <tr style="text-align:center">
-      <td>Fear: R30' cone causes creatures to flee for 5 rd 1/dy (DC 13 Will shaken for 1 rd)</td>
-    </tr><tr style="text-align:center">
-      <td>Inspire Courage (Purple Dragon Knight): Allies gain +1 attack, +1 damage, and +2 charm and fear saves during speech +5 rd 2/dy</td>
+      <td>      <table id="SpellStats" style="width:100%">
+      <tr style="text-align:center">
+        <td><b>Spell DC</b>: Fear: 10</td>
+      </tr></table>
+</td>
     </tr></table>
 </td>
+  </tr><tr style="text-align:center">
+    <td><b>Spells</b>:<br/>Fear (Fear4 Necr): 30' cone causes creatures to flee for 11 rd (save Will inflicts shaken for 1 rd)</td>
+  </tr><tr style="text-align:center">
+    <td><b>Magic Notes</b>: Fear: Can cast <i>Fear</i> once per day</td>
   </tr></table>
 </td>
 </tr></table>

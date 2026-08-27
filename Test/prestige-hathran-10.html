@@ -122,7 +122,7 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td>Aura: Visible to <i>Detect Chaos/Evil/Good/Law</i>, depending on deity alignment and domains</td>
       </tr><tr style="text-align:center">
-        <td>Cohort: Gains Ethran or Barbarian follower</td>
+        <td>Cohort: Has an Ethran or barbarian follower</td>
       </tr></table>
 </td>
     </tr></table>
@@ -273,7 +273,7 @@ var attributes = {
       <td>      <table id="SpellStats" style="width:100%">
       <tr style="text-align:center">
         <td><b>Spell Slots</b>: C0: 6; C1: 6; C2: 6; C3: 4; C4: 4; C5: 3; C6: 3; C7: 2; Domain1: 1; Domain2: 1; Domain3: 1; Domain4: 1; Domain5: 1; Domain6: 1; Domain7: 1; W0: 4; W1: 6; W2: 6; W3: 5; W4: 5; W5: 4; W6: 3; W7: 2</td>
-        <td><b>Spell DC</b>: Animal Talk: 13; C: 12; Domain: 12; W: 12</td>
+        <td><b>Spell DC</b>: Animal Talk: 13; C: 12; Domain: 12; Fear: 13; Greater Command: 13; W: 12</td>
       </tr></table>
 </td>
     </tr></table>
@@ -281,7 +281,7 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Spells</b>:<br/>    <table id="Spells" style="width:100%">
     <tr style="text-align:left">
-      <td>Aganazzar's Scorcher (W2 Evoc): 5' by 55' path inflicts 5d8 HP (DC 14 Ref half)</td>
+      <td>Aganazzar's Scorcher (W2 Evoc): 5' by 55' path inflicts 5d8 HP (Ref half)</td>
     </tr><tr style="text-align:left">
       <td>Antimagic Field (Protection6 Abju): 10' radius suppresses magic and summoned and undead creatures for 140 min</td>
     </tr><tr style="text-align:left">
@@ -291,7 +291,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Baleful Polymorph (W5 Tran): R55' Changes the target into a chosen 1 HD creature (save Fortitude negates; Will after 24 hr allows retaining HD and memories)</td>
     </tr><tr style="text-align:left">
-      <td>Blacklight (W3 Evoc): R55' 20' radius enveloped in darkness that only self can see within for 13 rd (DC 15 Will neg)</td>
+      <td>Blacklight (W3 Evoc): R55' 20' radius enveloped in darkness that only self can see within for 13 rd (Will neg)</td>
     </tr><tr style="text-align:left">
       <td>Bull's Strength (C2 Tran): Touched gains +4 Strength for 14 min</td>
     </tr><tr style="text-align:left">
@@ -323,7 +323,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Dimensional Anchor (C4 Abju): R240' Ranged touch bars extradimensional travel for 14 min</td>
     </tr><tr style="text-align:left">
-      <td>Dismissal (C4 Abju): R60' Sends the target to its native plane or (20%) to another random plane (save Will + 14 - target HD negates)</td>
+      <td>Dismissal (C4 Abju): R60' Sends the target to its native plane or (20%) to another random plane (save Will (DC +1) + 14 - target HD negates)</td>
     </tr><tr style="text-align:left">
       <td>Dispel Magic (C3 Abju): R240' Successful d20+10 check vs. 11+caster level cancels an ongoing targeted spell, suppresses a magic item for 1d4 rd, cancels 1 spell on each creature in a 20' radius, or disrupts a foe's spell casting</td>
     </tr><tr style="text-align:left">
@@ -333,6 +333,8 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Enlarge Person (W1 Tran): R55' Target humanoid doubles in size, gaining +2 Strength and suffering -2 Dexterity, -1 attacks, and a -1 size penalty to Armor Class (save Fortitude negates), for 13 min</td>
     </tr><tr style="text-align:left">
+      <td>Fear (Fear4 Necr): 30' cone causes creatures to flee for 17 rd (save Will inflicts shaken for 1 rd)</td>
+    </tr><tr style="text-align:left">
       <td>Feather Fall (W1 Tran): R55' 13 falling targets in a 10' radius slow to 60' per rd (save Will negates) for 13 rd</td>
     </tr><tr style="text-align:left">
       <td>Fire Stride (W4 Tran): Self may teleport 920' between fires 13 times for 130 min</td>
@@ -341,17 +343,19 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Freedom Of Movement (C4 Abju): Allows touched to ignore movement impediments for 140 min</td>
     </tr><tr style="text-align:left">
-      <td>Geas/Quest (C6 Ench): R60' Compels a target to complete a specified task within 14 days, suffering 3d6 HP and sickened (save Fortitude HP only) for each 24 hr spent without obeying; the sickness ends 24 hr after resuming the task</td>
+      <td>Geas/Quest (C6 Ench): R60' Compels a target to complete a specified task within 14 days, suffering 3d6 HP and sickened (save Fortitude (DC +1) HP only) for each 24 hr spent without obeying; the sickness ends 24 hr after resuming the task</td>
     </tr><tr style="text-align:left">
       <td>Gentle Repose (C2 Necr): Preserves a touched corpse from decay (save Will negates) for 14 days</td>
+    </tr><tr style="text-align:left">
+      <td>Greater Command (Greater Command5 Ench): R65' 17 targets in a 15' radius obey a command to approach, drop, fall, flee, or halt (save Will (DC +1) negates; additional saves each rd end) for 17 rd</td>
     </tr><tr style="text-align:left">
       <td>Guidance (C0 Divi): Touched gains +1 on an attack, save, or skill check within 1 min</td>
     </tr><tr style="text-align:left">
       <td>Halt Undead (W3 Necr): R230' Immobilizes 3 undead in a 15' radius (save Will for intelligent undead negates) for 13 rd</td>
     </tr><tr style="text-align:left">
-      <td>Hold Animal (Animal2 Ench): R240' Paralyzes the animal target (save Will negates; additional saves each rd end) for 14 rd</td>
+      <td>Hold Animal (Animal2 Ench): R240' Paralyzes the animal target (save Will (DC +1) negates; additional saves each rd end) for 14 rd</td>
     </tr><tr style="text-align:left">
-      <td>Hold Monster (W5 Ench): R230' Paralyzes the target (save Will negates; additional saves each rd end) for 13 rd</td>
+      <td>Hold Monster (W5 Ench): R230' Paralyzes the target (save Will (DC +1) negates; additional saves each rd end) for 13 rd</td>
     </tr><tr style="text-align:left">
       <td>Identify (W1 Divi): Reveals the magic properties of a touched, non-artifact object</td>
     </tr><tr style="text-align:left">
@@ -375,7 +379,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Moon Path (W5 Evoc): Creates glowing pathway 5'-20' by 195' for 13 min that provides <i>Sanctuary</i> for 13 designed creatures</td>
     </tr><tr style="text-align:left">
-      <td>Moonbeam (W2 Evoc): R55' Target lycanthropes assume animal form for 13 min (DC 14 Will neg)</td>
+      <td>Moonbeam (W2 Evoc): R55' Target lycanthropes assume animal form for 13 min (Will neg)</td>
     </tr><tr style="text-align:left">
       <td>Nondetection (W3 Abju): Touched gains SR 24 vs. divination, or self or a possession gains SR 28, for 13 hr</td>
     </tr><tr style="text-align:left">
@@ -395,7 +399,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Read Magic (W0 Divi): Allows self to read magical writing for 130 min</td>
     </tr><tr style="text-align:left">
-      <td>Repulsion (Protection7 Abju): 140' radius bars creatures and prevents those within it from approaching (save Will negates) for 14 rd</td>
+      <td>Repulsion (Protection7 Abju): 140' radius bars creatures and prevents those within it from approaching (save Will (DC +1) negates) for 14 rd</td>
     </tr><tr style="text-align:left">
       <td>Resist Energy (C2 Abju): Touched gains resistance 30 to a choice of acid, cold, electricity, fire, or sonic for 140 min</td>
     </tr><tr style="text-align:left">
@@ -403,7 +407,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Righteous Might (C5 Tran): Causes self and equipment to double in size, gaining a size category, +4 Strength, +2 Constitution, a +2 enhanancement bonus to natural armor, and x8 weight, and gives DR 6/evil or DR 6/good, for 14 rd</td>
     </tr><tr style="text-align:left">
-      <td>Scatterspray (W1 Tran): R55' Little items in 1' radius scatter, inflicting 1d8 on creatures w/in 10' (DC 13 Ref neg)</td>
+      <td>Scatterspray (W1 Tran): R55' Little items in 1' radius scatter, inflicting 1d8 on creatures w/in 10' (Ref neg)</td>
     </tr><tr style="text-align:left">
       <td>Scorching Ray (W2 Evoc): R55' 3 ranged touch attacks in a 15' radius each inflict 4d6 HP fire</td>
     </tr><tr style="text-align:left">
@@ -421,7 +425,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Symbol Of Fear (C6 Necr): R60' Rune panics creatures in a 60' radius for 14 rd (save Will negates) when triggered for 140 min</td>
     </tr><tr style="text-align:left">
-      <td>Symbol Of Persuasion (W6 Ench): R60' Rune charms creatures in a 60' radius for 13 hrs (save Will negates) when triggered for 130 min</td>
+      <td>Symbol Of Persuasion (W6 Ench): R60' Rune charms creatures in a 60' radius for 13 hrs (save Will (DC +1) negates) when triggered for 130 min</td>
     </tr><tr style="text-align:left">
       <td>Symbol Of Weakness (W7 Necr): R60' Rune inflicts -3d6 Strength on creatures in a 60' radius (save Fortitude negates) when triggered for 130 min</td>
     </tr><tr style="text-align:left">
@@ -435,7 +439,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>True Strike (W1 Divi): Gives self +20 on the next attack before the end of the next rd</td>
     </tr><tr style="text-align:left">
-      <td>Undetectable Alignment (C2 Abju): R60' Conceals the target's alignment from divination (save Will negates) for 24 hr</td>
+      <td>Undetectable Alignment (C2 Abju): R60' Conceals the target's alignment from divination (save Will (DC +1) negates) for 24 hr</td>
     </tr><tr style="text-align:left">
       <td>Vampiric Touch (W3 Necr): Melee touch attack inflicts 6d6 HP and gives self the same number of temporary HP for 1 hr</td>
     </tr><tr style="text-align:left">
@@ -445,7 +449,7 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Magic Notes</b>:     <table id="MagicNotes" style="width:100%">
     <tr style="text-align:center">
-      <td><i>Caster Level Bonus: +10 base class level for spells known and spells/dy</i></td>
+      <td><i>Caster Level Bonus: +10 base class level for spells known and spells per day</i></td>
     </tr><tr style="text-align:center">
       <td><i>Intelligence Wizard Spell Slot Bonus: Spell level W1, W2</i></td>
     </tr><tr style="text-align:center">
@@ -461,13 +465,13 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Arcane Spell Failure: 15%</td>
     </tr><tr style="text-align:center">
-      <td>Circle Leader: 1 hr ritual w/2-5 other members raises caster level and gives metamagic feats</td>
+      <td>Circle Leader: 1 hr ritual with 2-5 other members raises caster level and gives metamagic feats</td>
     </tr><tr style="text-align:center">
-      <td>Fear: R30' cone causes creatures to flee for 14 rd 3/dy (DC 16 Will shaken for 1 rd)</td>
+      <td>Fear: Can cast <i>Fear</i> 3 times per day</td>
     </tr><tr style="text-align:center">
-      <td>Greater Command: R50' 10 targets in 15' radius obey self commands to approach, drop, fall, flee, or halt for 10 rd 1/dy (DC 18 Will neg)</td>
+      <td>Greater Command: Can cast a quickened <i>Greater Command</i> once per day</td>
     </tr><tr style="text-align:center">
-      <td>Place Magic: May cast spells w/out preparation when in Rashemen</td>
+      <td>Place Magic: When in Rashemen, can use a full-round action to cast a spell without preparation</td>
     </tr><tr style="text-align:center">
       <td>Protective Touch: Touched gains +4 on the next save within 1 hour once per day</td>
     </tr><tr style="text-align:center">
@@ -477,7 +481,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Scribe Scroll: Can create scrolls for known spells</td>
     </tr><tr style="text-align:center">
-      <td>Spell Penetration: +2 checks to overcome spell resistance</td>
+      <td>Spell Penetration: +2 on checks to overcome spell resistance</td>
     </tr><tr style="text-align:center">
       <td>Spontaneous Casting (Cleric): Can cast <i>Cure</i> or <i>Inflict</i> spells in place of prepared spells</td>
     </tr></table>

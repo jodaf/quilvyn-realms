@@ -100,20 +100,16 @@ var attributes = {
       <tr style="text-align:center">
         <td><b>Feats</b>: Acrobatic; Animal Affinity; Athletic; Extend Spell; Improved Unarmed Strike; Lightning Reflexes; Scribe Scroll; Still Spell</td>
         <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
-        <td><b>Hierophant Features</b>: Blast Infidel; Divine Reach; Faith Healing; Gift Of The Divine; Hierophant Special Abilities; Improved Divine Reach; Mastery Of Energy; Power Of Nature; Spell Power +2; Spell-Like Ability</td>
+        <td><b>Hierophant Features</b>: Blast Infidel; Divine Power Bonus; Divine Reach; Faith Healing; Gift Of The Divine; Mastery Of Energy; Power Of Nature; Special Ability (Hierophant); Spell Power +2; Spell-Like Ability</td>
         <td><b>Druid Features</b>: A Thousand Faces; Animal Companion; Armor Proficiency (Light; Medium; Shield); Nature Sense; Resist Nature's Lure; Spontaneous Casting (Druid); Trackless Step; Venom Immunity; Weapon Proficiency (Club; Dagger; Dart; Quarterstaff; Scimitar; Sickle; Shortspear; Sling; Spear); Wild Empathy; Wild Shape; Woodland Stride</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
       <td><b>Feature Notes</b>:       <table id="FeatureNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Hierophant Special Abilities: 5 selections</i></td>
-      </tr><tr style="text-align:center">
         <td><i>Human Feat Bonus: +1 General Feat</i></td>
       </tr><tr style="text-align:center">
-        <td>Gift Of The Divine: May transfer some daily uses of turn undead to another for 1-10 dy</td>
-      </tr><tr style="text-align:center">
-        <td>Power Of Nature: May transfer druid feature to another for 1-10 days</td>
+        <td><i>Special Ability (Hierophant): 5 selections</i></td>
       </tr></table>
 </td>
     </tr></table>
@@ -217,6 +213,8 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Mastery Of Energy: +4 undead turning checks and damage</i></td>
       </tr><tr style="text-align:center">
+        <td>Gift Of The Divine: Can transfer some daily uses of turn or rebuke undead to another for 24 hr to 10 days</td>
+      </tr><tr style="text-align:center">
         <td>Improved Unarmed Strike: Unarmed strikes provoke no AOO and can deal lethal damage</td>
       </tr></table>
 </td>
@@ -260,91 +258,95 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Spells</b>:<br/>    <table id="Spells" style="width:100%">
     <tr style="text-align:left">
-      <td>Animal Messenger (D2 Ench): R60' Tiny animal target travels to a specified place for 15 days</td>
+      <td>Animal Messenger (D2 Ench): R55' Tiny animal target travels to a specified place for 13 days</td>
     </tr><tr style="text-align:left">
-      <td>Animal Trance (D2 Ench): R60' 2d6 HD of animals sit unmoving (save Will for trained, dire, or magical animals negates) for concentration</td>
+      <td>Animal Trance (D2 Ench): R55' 2d6 HD of animals sit unmoving (save Will for trained, dire, or magical animals negates) for concentration</td>
     </tr><tr style="text-align:left">
-      <td>Antiplant Shell (D4 Abju): 10' radius bars plant creatures and animated plants for 150 min</td>
+      <td>Antiplant Shell (D4 Abju): 10' radius bars plant creatures and animated plants for 130 min</td>
     </tr><tr style="text-align:left">
-      <td>Bull's Strength (D2 Tran): Touched gains +4 Strength for 15 min</td>
+      <td>Bull's Strength (D2 Tran): Touched gains +4 Strength for 13 min</td>
     </tr><tr style="text-align:left">
-      <td>Call Lightning Storm (D5 Evoc): R1000' 1 bolt per rd inflicts 5d6 HP electricity (or 5d10 HP during a storm) (save Reflex half) for 15 min or 15 bolts</td>
+      <td>Call Lightning Storm (D5 Evoc): R920' 1 bolt per rd inflicts 5d6 HP electricity (or 5d10 HP during a storm) (save Reflex half) for 13 min or 13 bolts</td>
     </tr><tr style="text-align:left">
-      <td>Command Plants (D4 Tran): R60' 30 HD of plant creatures in a 15' radius consider self as a friend (save Will negates) for 15 days, obeying commands only with successful opposed Charisma checks</td>
+      <td>Command Plants (D4 Tran): R55' 26 HD of plant creatures in a 15' radius consider self as a friend (save Will negates) for 13 days, obeying commands only with successful opposed Charisma checks</td>
     </tr><tr style="text-align:left">
-      <td>Control Water (D4 Tran): R1000' Raises or lowers a 150'x150'x30' area of water by 30' for 150 min</td>
+      <td>Control Water (D4 Tran): R920' Raises or lowers a 130'x130'x26' area of water by 26' for 130 min</td>
     </tr><tr style="text-align:left">
-      <td>Create Water (D0 Conj): R60' Creates 30 gallons of pure water</td>
+      <td>Create Water (D0 Conj): R55' Creates 26 gallons of pure water</td>
     </tr><tr style="text-align:left">
       <td>Cure Moderate Wounds (D3 Conj): Touched regains 2d8+10 hit points; undead instead suffer the same amount (save Will half)</td>
     </tr><tr style="text-align:left">
-      <td>Detect Poison (D0 Divi): R60' Reveals the presence of poison in the target; a successful DC 20 Wisdom or Craft (Alchemy) check reveals the type</td>
+      <td>Detect Poison (D0 Divi): R55' Reveals the presence of poison in the target; a successful DC 20 Wisdom or Craft (Alchemy) check reveals the type</td>
     </tr><tr style="text-align:left">
-      <td>Dominate Animal (D3 Ench): R60' Target animal obeys mental commands (save Will negates) for 15 rd</td>
+      <td>Dominate Animal (D3 Ench): R55' Target animal obeys mental commands (save Will negates) for 13 rd</td>
     </tr><tr style="text-align:left">
-      <td>Faerie Fire (D1 Evoc): R1000' Creatures in a 5' radius glow for 15 min, negating concealment from darkness, blurring, displacement, and invisibility</td>
+      <td>Faerie Fire (D1 Evoc): R920' Creatures in a 5' radius glow for 13 min, negating concealment from darkness, blurring, displacement, and invisibility</td>
     </tr><tr style="text-align:left">
-      <td>Flare (D0 Evoc): R60' Dazzles the target (save Fortitude negates) for 1 min</td>
+      <td>Flare (D0 Evoc): R55' Dazzles the target (save Fortitude negates) for 1 min</td>
     </tr><tr style="text-align:left">
-      <td>Freedom Of Movement (D4 Abju): Allows touched to ignore movement impediments for 150 min</td>
+      <td>Freedom Of Movement (D4 Abju): Allows touched to ignore movement impediments for 130 min</td>
     </tr><tr style="text-align:left">
-      <td>Goodberry (D1 Tran): 2d4 target berries each provide a full meal and restore 1 hit point for 15 days</td>
+      <td>Goodberry (D1 Tran): 2d4 target berries each provide a full meal and restore 1 hit point for 13 days</td>
     </tr><tr style="text-align:left">
       <td>Guidance (D0 Divi): Touched gains +1 on an attack, save, or skill check within 1 min</td>
     </tr><tr style="text-align:left">
-      <td>Heat Metal (D2 Tran): R60' Metal on 7 creatures in a 15' radius inflicts 0/1d4/2d4/2d4/2d4/1d4/0 HP (save Will for magical metal negates) for 7 rd</td>
+      <td>Heat Metal (D2 Tran): R55' Metal on 6 creatures in a 15' radius inflicts 0/1d4/2d4/2d4/2d4/1d4/0 HP (save Will for magical metal negates) for 7 rd</td>
     </tr><tr style="text-align:left">
-      <td>Hide From Animals (D1 Abju): 15 touched become imperceptible to animals for 150 min</td>
+      <td>Hide From Animals (D1 Abju): 13 touched become imperceptible to animals for 130 min</td>
     </tr><tr style="text-align:left">
-      <td>Jump (D1 Tran): Touched gains +30 Jump checks for 15 min</td>
+      <td>Jump (D1 Tran): Touched gains +30 Jump checks for 13 min</td>
     </tr><tr style="text-align:left">
       <td>Know Direction (D0 Divi): Reveals the direction of north</td>
     </tr><tr style="text-align:left">
-      <td>Mass Cure Light Wounds (D6 Conj): R60' 15 targets in a 15' radius regain 1d8+15 hit points; undead instead suffer the same amount (save Will half)</td>
+      <td>Mass Cure Light Wounds (D6 Conj): R55' 13 targets in a 15' radius regain 1d8+13 hit points; undead instead suffer the same amount (save Will half)</td>
     </tr><tr style="text-align:left">
       <td>Mending (D0 Tran): R10' Repairs minor damage to an object weighing up to 1 lb</td>
     </tr><tr style="text-align:left">
-      <td>Obscuring Mist (D1 Conj): Fog in a 20' radius obscures vision for 15 min</td>
+      <td>Obscuring Mist (D1 Conj): Fog in a 20' radius obscures vision for 13 min</td>
     </tr><tr style="text-align:left">
-      <td>Shillelagh (D1 Tran): Touched small, medium, or large staff gains +1 attacks and inflicts 1d8+1 HP, 2d6+1 HP, or 3d6+1 HP (save Will negates) when wielded by self for 15 min</td>
+      <td>Shillelagh (D1 Tran): Touched small, medium, or large staff gains +1 attacks and inflicts 1d8+1 HP, 2d6+1 HP, or 3d6+1 HP (save Will negates) when wielded by self for 13 min</td>
     </tr><tr style="text-align:left">
-      <td>Spike Growth (D3 Tran): R250' Vegetation in a 300 square foot area inflicts 1d4 HP piercing for each 5' of movement and slows creatures to half Speed for 24 hr (save Reflex HP only; a healing spell or successful Heal check restores full Speed), for 15 hr</td>
+      <td>Spike Growth (D3 Tran): R230' Vegetation in a 260 square foot area inflicts 1d4 HP piercing for each 5' of movement and slows creatures to half Speed for 24 hr (save Reflex HP only; a healing spell or successful Heal check restores full Speed), for 13 hr</td>
     </tr><tr style="text-align:left">
-      <td>Summon Nature's Ally III (D3 Conj): R60' Summons 1 3rd-level, 1d3 2nd-level, or 1d4+1 1st-level creatures that fight foes and obey orders for 15 rd</td>
+      <td>Summon Nature's Ally III (D3 Conj): R55' Summons 1 3rd-level, 1d3 2nd-level, or 1d4+1 1st-level creatures that fight foes and obey orders for 13 rd</td>
     </tr><tr style="text-align:left">
-      <td>Summon Nature's Ally V (D5 Conj): R60' Summons 1 5th-level, 1d3 4th-level, or 1d4+1 lower-level creatures that fight foes and obey orders for 15 rd</td>
+      <td>Summon Nature's Ally V (D5 Conj): R55' Summons 1 5th-level, 1d3 4th-level, or 1d4+1 lower-level creatures that fight foes and obey orders for 13 rd</td>
     </tr><tr style="text-align:left">
-      <td>Summon Nature's Ally VI (D6 Conj): R60' Summons 1 6th-level, 1d3 5th-level, or 1d4+1 lower-level creatures that fight foes and obey orders for 15 rd</td>
+      <td>Summon Nature's Ally VI (D6 Conj): R55' Summons 1 6th-level, 1d3 5th-level, or 1d4+1 lower-level creatures that fight foes and obey orders for 13 rd</td>
     </tr><tr style="text-align:left">
-      <td>True Seeing (D7 Divi): Allows touched to see through 120' darkness, illusion, and invisibility, note secret doors, and see the true forms of polymorphed items for 15 min</td>
+      <td>True Seeing (D7 Divi): Allows touched to see through 120' darkness, illusion, and invisibility, note secret doors, and see the true forms of polymorphed items for 13 min</td>
     </tr><tr style="text-align:left">
-      <td>Wall Of Fire (D5 Evoc): R250' Creates a 300'x20' wall or a 35'x20' ring that inflicts 2d4 HP fire to creatures within 10', 1d4 HP fire to creatures within 20', and 2d6+15 HP fire when passing through (or double these damages to undead) for concentration + 15 rd</td>
+      <td>Wall Of Fire (D5 Evoc): R230' Creates a 260'x20' wall or a 30'x20' ring that inflicts 2d4 HP fire to creatures within 10', 1d4 HP fire to creatures within 20', and 2d6+13 HP fire when passing through (or double these damages to undead) for concentration + 13 rd</td>
     </tr><tr style="text-align:left">
-      <td>Wood Shape (D2 Tran): Reshapes a 25 cubic feet piece of wood (save Will negates)</td>
+      <td>Wood Shape (D2 Tran): Reshapes a 23 cubic feet piece of wood (save Will negates)</td>
     </tr></table>
 </td>
   </tr><tr style="text-align:center">
     <td><b>Magic Notes</b>:     <table id="MagicNotes" style="width:100%">
     <tr style="text-align:center">
-      <td><i>Spell Power: +2 spell DC and resistance checks</i></td>
+      <td><i>Divine Power Bonus: +5 caster level for divine spell effects</i></td>
     </tr><tr style="text-align:center">
       <td><i>Wisdom Druid Spell Slot Bonus: Spell level D1</i></td>
     </tr><tr style="text-align:center">
       <td>A Thousand Faces: Can change appearance at will while in normal form</td>
     </tr><tr style="text-align:center">
-      <td>Blast Infidel: Negative energy spells vs. foe w/different deity have maximum effect</td>
+      <td>Blast Infidel: Negative energy spells cast on targets with a different deity have the maximum effect</td>
     </tr><tr style="text-align:center">
-      <td>Divine Reach: R30' May cast divine touch spell using ranged touch</td>
+      <td>Divine Reach: Can cast touch spells using a R30' ranged touch</td>
     </tr><tr style="text-align:center">
       <td>Extend Spell: Can cast a spell using a spell slot 1 level higher than normal to double its duration</td>
     </tr><tr style="text-align:center">
-      <td>Faith Healing: Healing spells on followers of Geb have maximum effect</td>
+      <td>Faith Healing: Healing spells cast on targets who follow Geb have the maximum effect</td>
     </tr><tr style="text-align:center">
-      <td>Improved Divine Reach: R60' Divine Reach</td>
+      <td>Power Of Nature: Can transfer a druid feature to another for 24 hr to 10 days</td>
     </tr><tr style="text-align:center">
       <td>Scribe Scroll: Can create scrolls for known spells</td>
     </tr><tr style="text-align:center">
-      <td>Spell-Like Ability: May use chosen spell as a spell-like ability 2+/dy</td>
+      <td>Spell Power+2: +2 Spell Power</td>
+    </tr><tr style="text-align:center">
+      <td>Spell Power: +2 spell DC and caster level checks to overcome resistance on divine spells</td>
+    </tr><tr style="text-align:center">
+      <td>Spell-Like Ability: Can sacrifice a spell slot to invoke a chosen spell as a spell-like ability 2 times per day, or 3 or 4 times per day by by sacrificing a spell slot 3 or 6 levels higher than the spell</td>
     </tr><tr style="text-align:center">
       <td>Spontaneous Casting (Druid): Can cast <i>Summon Nature's Ally</i> spells in place of prepared spells</td>
     </tr><tr style="text-align:center">
@@ -412,7 +414,15 @@ var attributes = {
   <tr style="text-align:center">
     <td>    <table id="ValidationPart" style="width:100%">
     <tr style="text-align:center">
-      <td><b>Validation Errors</b>: Selectable Feature Allocation: 5 available vs. 9 allocated</td>
+      <td><b>Validation Errors</b>:       <table id="ValidationNotes" style="width:100%">
+      <tr style="text-align:center">
+        <td>Hierophant-Gift Of The Divine Selectable Feature: Requires cleric level and hierophant level (currently 5)</td>
+      </tr><tr style="text-align:center">
+        <td>Hierophant-Mastery Of Energy Selectable Feature: Requires cleric level and hierophant level (currently 5)</td>
+      </tr><tr style="text-align:center">
+        <td>Selectable Feature Allocation: 5 available vs. 9 allocated</td>
+      </tr></table>
+</td>
     </tr></table>
 </td>
   </tr></table>

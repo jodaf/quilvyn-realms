@@ -353,7 +353,8 @@ Realms.PRESTIGE_CLASSES = {
       '"4:Circle Leader","10:Greater Command"',
   'Hierophant':
     SRD35.PRESTIGE_CLASSES.Hierophant
-    .replace(/(skills.Knowledge\s+.Religion.\s+>=\s+15)/, 'skills.Knowledge (Nature) >= 15 || $1'),
+    .replace(/(skills.Knowledge\s+.Religion.\s+>=\s+15)/, 'skills.Knowledge (Nature) >= 15 || $1')
+    .replace('Spell Power', 'Spell Power +2'),
   'Purple Dragon Knight':
     'Require=' +
       '"alignment !~ \'Chaotic|Evil\'","baseAttack >= 4",' +
@@ -1006,6 +1007,19 @@ Realms.FEATURES_ADDED = {
   'Mastery Of Elements':SRD35.FEATURES['Mastery Of Elements'],
   'Mastery Of Shaping':SRD35.FEATURES['Mastery Of Shaping'],
   'Spell-Like Ability':SRD35.FEATURES['Spell-Like Ability'],
+  // N.B. different effects from SRD35
+  'Spell Power':
+    'Section=magic ' +
+    'Note="+%V spell DC and caster level checks to overcome resistance on %1 spells"',
+  'Spell Power +1':
+    'Section=magic ' +
+    'Note="+1 Spell Power; costs a 5th-level spell slot to acquire"',
+  'Spell Power +2':
+    'Section=magic ' +
+    'Note="+2 Spell Power%{levels.Archmage?\'; costs a 7th-level spell slot to acquire\':\'\'}"',
+  'Spell Power +3':
+    'Section=magic ' +
+    'Note="+2 Spell Power; costs a 9th-level spell slot to acquire"',
 
   // Divine Champion
   'Divine Champion Bonus Feats':'Section=feature Note="+%V Fighter feats"',
@@ -1026,7 +1040,7 @@ Realms.FEATURES_ADDED = {
   'Divine Caster Level Bonus':SRD35.FEATURES['Divine Caster Level Bonus'],
   'Divine Emissary':
     'Section=skill ' +
-    'Note="R60\' Can communicate telepathically with %V outsiders and with those who serve %{deity}"',
+    'Note="R60\' Can communicate telepathically with %V outsiders and with outsiders who serve %{deity}"',
   'Imbue With Spell Ability':
     'Section=magic ' +
     'Note="Can use <i>Imbue With Spell Ability</i> effects with 1st and 2nd level spells at will" ' +
@@ -1035,9 +1049,10 @@ Realms.FEATURES_ADDED = {
   'New Domain':'Section=feature Note="Can choose an additional deity domain"',
   // Sacred Defense as above
   'Transcendence':
-    'Section=magic,skill ' +
+    'Section=magic,save,skill ' +
     'Note=' +
       '"Can a cast chosen a chosen <i>Protection From Chaos/Evil/Good/Law</i> spell on self at will",' +
+      '"Affected by spells that target outsiders, not humanoids",' +
       '"+2 Charisma checks with followers of %{deity}" ' +
     'Spells="Protection From Chaos","Protection From Evil","Protection From Good","Protection From Law" ' +
     'SpellAbility=Wisdom',
@@ -1090,9 +1105,10 @@ Realms.FEATURES_ADDED = {
   'Favored Enemy':SRD35.FEATURES['Favored Enemy'],
   'Harper Skill Focus':
     'Section=feature ' +
+    // TODO: what about randomizing this?
     'Note="+2 General Feat (Skill Focus in chosen Perform and a Harper class skill)"',
   "Lliira's Heart":'Section=save Note="+2 vs. compulsion and fear"',
-  "Tymora's Smile":'Section=save Note="Can add 2 to a save once per day"',
+  "Tymora's Smile":'Section=save Note="Can add +2 to a save once per day"',
 
   // Hathran
   'Caster Level Bonus':SRD35.FEATURES['Caster Level Bonus'],
@@ -1131,10 +1147,7 @@ Realms.FEATURES_ADDED = {
   'Power Of Nature':
     SRD35.FEATURES['Power Of Nature']
     .replace('1-7', '24 hr to 10'),
-  // N.B. different effects from SRD35
-  'Spell Power':
-    'Section=magic ' +
-    'Note="+%V spell DC and caster level checks to overcome resistance"',
+  // Spell Power as above
   // Spell-Like Ability as above
 
   // Purple Dragon Knight
@@ -2617,7 +2630,60 @@ Realms.classRulesExtra = function(rules, name) {
 
   } else if(name == 'Archmage') {
 
-    SRD35.classRulesExtra(rules, name);
+    // Copied and modified from SRD35
+    let allSpells = rules.getChoices('spells');
+    let matchInfo;
+    for(let s in allSpells) {
+      if((matchInfo = s.match(/\(\w+5 (\w+)\)/)) != null) {
+        let school = matchInfo[1];
+        rules.defineRule
+          ('level5' + school + 'Spells', 'spells.' + s, '+=', '1');
+        rules.defineRule
+          ('level5SpellSchools', 'level5' + school + 'Spells', '+=', '1');
+      }
+    }
+
+    rules.defineRule('featureNotes.highArcana', classLevel, '=', null);
+    rules.defineRule
+      ('magicNotes.arcaneCasterLevelBonus', classLevel, '+=', null);
+    //rules.defineRule N/A for this rule set
+    //  ('magicNotes.spellPower', 'archmageFeatures.Spell Power', '+=', null);
+    rules.defineRule('selectableFeatureCount.Archmage (High Arcana)',
+      'featureNotes.highArcana', '+=', null
+    );
+    //rules.defineRule N/A for this rule set
+    // ('spellEffectsCasterLevelBonus', 'magicNotes.spellPower', '+=', null);
+
+    rules.defineRule('spellSlots.S5',
+      // 'archmageFeatures.Spell Power', '+', '-source', N/A for this rule set
+      'archmageFeatures.Spell-Like Ability', '+', '-source'
+    );
+    rules.defineRule('spellSlots.W5',
+      // 'archmageFeatures.Spell Power', '+', '-source', N/A for this rule set
+      'archmageFeatures.Spell-Like Ability', '+', '-source'
+    );
+    rules.defineRule
+      ('spellSlots.S6', 'archmageFeatures.Mastery Of Shaping', '+', '-source');
+    rules.defineRule
+      ('spellSlots.W6', 'archmageFeatures.Mastery Of Shaping', '+', '-source');
+    rules.defineRule('spellSlots.S7',
+      'archmageFeatures.Arcane Reach', '+', '-source',
+      'archmageFeatures.Mastery Of Counterspelling', '+', '-source'
+    );
+    rules.defineRule('spellSlots.W7',
+      'archmageFeatures.Arcane Reach', '+', '-source',
+      'archmageFeatures.Mastery Of Counterspelling', '+', '-source'
+    );
+    rules.defineRule
+      ('spellSlots.S8', 'archmageFeatures.Mastery Of Elements', '+', '-source');
+    rules.defineRule
+      ('spellSlots.W8', 'archmageFeatures.Mastery Of Elements', '+', '-source');
+    rules.defineRule
+      ('spellSlots.S9', 'archmageFeatures.Arcane Fire', '+', '-source');
+    rules.defineRule
+      ('spellSlots.W9', 'archmageFeatures.Arcane Fire', '+', '-source');
+
+    // additions to SRD35 rules
     rules.defineRule('features.Spell Power',
       'archmageFeatures.Spell Power +1', '=', '1',
       'archmageFeatures.Spell Power +2', '=', '1',
@@ -2627,6 +2693,11 @@ Realms.classRulesExtra = function(rules, name) {
       'archmageFeatures.Spell Power +1', '+=', '1',
       'archmageFeatures.Spell Power +2', '+=', '2',
       'archmageFeatures.Spell Power +3', '+=', '3'
+    );
+    rules.defineRule('magicNotes.spellPower.1',
+      'archmageFeatures.Spell Power +1', '=', '"arcane"',
+      'archmageFeatures.Spell Power +2', '=', '"arcane"',
+      'archmageFeatures.Spell Power +3', '=', '"arcane"'
     );
     rules.defineRule('spellSlots.S5',
       'archmageFeatures.Spell Power +1', '+', '-source'
@@ -2672,6 +2743,18 @@ Realms.classRulesExtra = function(rules, name) {
 
   } else if(name == 'Divine Seeker') {
 
+    rules.defineRule('casterLevels.Divine Seeker',
+      classLevel, '=', null,
+      'charismaModifier', '+', null
+    );
+    rules.defineRule
+      ('casterLevels.LocateCreature', 'casterLevels.Divine Seeker', '=', null);
+    rules.defineRule
+      ('casterLevels.LocateObject', 'casterLevels.Divine Seeker', '=', null);
+    rules.defineRule
+      ('casterLevels.ObscureObject', 'casterLevels.Divine Seeker', '=', null);
+    rules.defineRule
+      ('casterLevels.Sanctuary', 'casterLevels.Divine Seeker', '=', null);
     rules.defineRule
       ('combatNotes.sneakAttack', classLevel, '+=', 'Math.floor(source / 2)');
     rules.defineRule
@@ -2742,10 +2825,36 @@ Realms.classRulesExtra = function(rules, name) {
 
   } else if(name == 'Hierophant') {
 
-    SRD35.classRulesExtra(rules, name);
-    // override SRD35 effect of Spell Power
+    // Copied and modified from SRD35
+    rules.defineRule
+      ('casterLevelDivine', 'magicNotes.divinePowerBonus', '+', null);
+    rules.defineRule('combatNotes.turnUndead.1',
+      'combatNotes.masteryOfEnergy', '+', '4'
+    );
+    rules.defineRule('combatNotes.turnUndead.2',
+      'combatNotes.masteryOfEnergy', '+', '4'
+    );
+    rules.defineRule('magicNotes.divinePowerBonus', classLevel, '+=', null);
+    //rules.defineRule N/A for this rule set
+    //  ('magicNotes.spellPower', 'hierophantFeatures.Spell Power', '+=', null);
+    rules.defineRule('featureNotes.specialAbility(Hierophant)',
+      classLevel, '=', null
+    );
+    rules.defineRule('selectableFeatureCount.Hierophant (Special Ability)',
+      'featureNotes.specialAbility(Hierophant)', '=', null
+    );
+    //rules.defineRule N/A for this rule set
+    // ('spellEffectsCasterLevelBonus', 'magicNotes.spellPower', '+=', null);
+
+    // additions to SRD35 rules
+    rules.defineRule('features.Spell Power',
+      'hierophantFeatures.Spell Power +2', '=', '1'
+    );
     rules.defineRule('magicNotes.spellPower',
-      'hierophantFeatures.Spell Power', '+=', 'source * 2'
+      'hierophantFeatures.Spell Power +2', '+=', 'source * 2',
+    );
+    rules.defineRule('magicNotes.spellPower.1',
+      'hierophantFeatures.Spell Power +2', '+=', '"divine"',
     );
 
   } else if(name == 'Red Wizard') {
@@ -2758,6 +2867,15 @@ Realms.classRulesExtra = function(rules, name) {
       ('magicNotes.arcaneCasterLevelBonus', classLevel, '+=', null);
     rules.defineRule
       ('magicNotes.spellPower', classLevel, '+=', 'Math.floor(source / 2)');
+    for(let s in rules.getChoices('schools'))
+      rules.defineRule('magicNotes.spellPower.1',
+        'redWizardFeatures.Spell Power', '=', '"%{redWizardSpecialistSchool}"'
+      );
+    rules.defineRule('redWizardSpecialistSchool', classLevel, '?', null);
+    for(let s in rules.getChoices('schools'))
+      rules.defineRule('redWizardSpecialistSchool',
+        'features.School Specialization (' + s + ')', '=', '"' + s + '"'
+      );
     rules.defineRule('selectableFeatureCount.Wizard (Opposition)',
       'magicNotes.enhancedSpecialization', '+', '1'
     );
@@ -2780,6 +2898,9 @@ Realms.classRulesExtra = function(rules, name) {
     rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
     rules.defineRule
       ('magicNotes.spellPower', classLevel, '+=', 'Math.floor(source / 3)');
+    rules.defineRule('magicNotes.spellPower.1',
+      'shadowAdeptFeatures.Spell Power', '=', '"enchantment, illusion, necromancy, and darkness"'
+    );
 
   } else {
 

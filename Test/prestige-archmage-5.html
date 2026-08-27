@@ -15,15 +15,14 @@ var attributes = {
   "intelligence":14, "languages.Draconic":1, "languages.Giant":1, "languages.Illuskan":1, 
   "levels.Archmage":5, "levels.Sorcerer":14, "name":"Prestige-Archmage 5", "race":"Human", 
   "region":"Chessenta", "selectableFeatures.Archmage - Arcane Fire":1, 
-  "selectableFeatures.Archmage - Arcane Reach":1, "selectableFeatures.Archmage - Improved Arcane Reach":1, 
-  "selectableFeatures.Archmage - Mastery Of Counterspelling":1, "selectableFeatures.Archmage - Mastery Of Elements":1, 
-  "selectableFeatures.Archmage - Mastery Of Shaping":1, "selectableFeatures.Archmage - Spell Power +1":1, 
-  "selectableFeatures.Archmage - Spell Power +2":1, "selectableFeatures.Archmage - Spell Power +3":1, 
-  "selectableFeatures.Archmage - Spell-Like Ability":1, "shield":"None", "skills.Balance":16, "skills.Concentration":22, 
-  "skills.Craft (Traps)":22, "skills.Heal":22, "skills.Knowledge (Arcana)":15, 
-  "skills.Perform (Dance)":4, "skills.Spellcraft":15, "spells.Arcane Eye(S4 Divi)":1, 
-  "spells.Blur(S2 Illu)":1, "spells.Break Enchantment(S5 Abju)":1, "spells.Color Spray(S1 Illu)":1, 
-  "spells.Cone Of Cold(S5 Evoc)":1, "spells.Contact Other Plane(S5 Divi)":1, 
+  "selectableFeatures.Archmage - Arcane Reach":1, "selectableFeatures.Archmage - Mastery Of Counterspelling":1, 
+  "selectableFeatures.Archmage - Mastery Of Elements":1, "selectableFeatures.Archmage - Mastery Of Shaping":1, 
+  "selectableFeatures.Archmage - Spell Power +1":1, "selectableFeatures.Archmage - Spell Power +2":1, 
+  "selectableFeatures.Archmage - Spell Power +3":1, "selectableFeatures.Archmage - Spell-Like Ability":1, "shield":"None", 
+  "skills.Balance":16, "skills.Concentration":22, "skills.Craft (Traps)":22, "skills.Heal":22, 
+  "skills.Knowledge (Arcana)":15, "skills.Perform (Dance)":4, "skills.Spellcraft":15, 
+  "spells.Arcane Eye(S4 Divi)":1, "spells.Blur(S2 Illu)":1, "spells.Break Enchantment(S5 Abju)":1, 
+  "spells.Color Spray(S1 Illu)":1, "spells.Cone Of Cold(S5 Evoc)":1, "spells.Contact Other Plane(S5 Divi)":1, 
   "spells.Continual Flame(S2 Evoc)":1, "spells.Dancing Lights(S0 Evoc)":1, "spells.Daylight(S3 Evoc)":1, 
   "spells.Deep Slumber(S3 Ench)":1, "spells.Delayed Blast Fireball(S7 Evoc)":1, 
   "spells.Detect Magic(S0 Divi)":1, "spells.Dimension Door(S4 Conj)":1, "spells.Erase(S1 Tran)":1, 
@@ -100,14 +99,14 @@ var attributes = {
       <tr style="text-align:center">
         <td><b>Feats</b>: Craft Wondrous Item; Enlarge Spell; Great Fortitude; Heighten Spell; Skill Focus (Spellcraft); Spell Focus (Abjuration); Spell Focus (Divination); Spell Focus (Enchantment)</td>
         <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
-        <td><b>Archmage Features</b>: Arcane Fire; Arcane Reach; Caster Level Bonus; High Arcana; Improved Arcane Reach; Mastery Of Counterspelling; Mastery Of Elements; Mastery Of Shaping; Spell Power +1; Spell Power +2; Spell Power +3; Spell-Like Ability</td>
+        <td><b>Archmage Features</b>: Arcane Caster Level Bonus; Arcane Fire; Arcane Reach; High Arcana; Mastery Of Counterspelling; Mastery Of Elements; Mastery Of Shaping; Spell Power +1; Spell Power +2; Spell Power +3; Spell-Like Ability</td>
         <td><b>Sorcerer Features</b>: Summon Familiar; Weapon Proficiency (Simple Weapons)</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
       <td><b>Feature Notes</b>:       <table id="FeatureNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>High Arcana: 5 selections</i></td>
+        <td><i>High Arcana: 5 selections; requires sacrificing an equal number of spell slots</i></td>
       </tr><tr style="text-align:center">
         <td><i>Human Feat Bonus: +1 General Feat</i></td>
       </tr></table>
@@ -225,7 +224,7 @@ var attributes = {
       <td>      <table id="SpellStats" style="width:100%">
       <tr style="text-align:center">
         <td><b>Spells Known/Prepared</b>: S0: 9; S1: 5; S2: 5; S3: 4; S4: 4; S5: 3; S6: 2; S7: 1</td>
-        <td><b>Spell Slots</b>: S0: 6; S1: 7; S2: 7; S3: 7; S4: 6; S5: 4; S6: 5; S7: 2; S8: 5; S9: 2</td>
+        <td><b>Spell Slots</b>: S0: 6; S1: 7; S2: 7; S3: 7; S4: 6; S5: 4; S6: 5; S7: 3; S8: 5; S9: 2</td>
         <td><b>Spell DC</b>: S: 13; Scry On Familiar: 13</td>
       </tr></table>
 </td>
@@ -234,127 +233,127 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Spells</b>:<br/>    <table id="Spells" style="width:100%">
     <tr style="text-align:left">
-      <td>Arcane Eye (S4 Divi): Allows seeing through an invisible remote sensor that can be moved 30' per rd for 25 min</td>
+      <td>Arcane Eye (S4 Divi): Allows seeing through an invisible remote sensor that can be moved 30' per rd for 19 min</td>
     </tr><tr style="text-align:left">
-      <td>Blur (S2 Illu): Attacks on touched have a 20% miss chance for 25 min</td>
+      <td>Blur (S2 Illu): Attacks on touched have a 20% miss chance for 19 min</td>
     </tr><tr style="text-align:left">
-      <td>Break Enchantment (S5 Abju): R85' Self makes a +15 check (DC 11 + the effect's caster level, or DC 25 for cursed items) to free 25 targets in a 15' radius from enchantments, transmutations, and curses</td>
+      <td>Break Enchantment (S5 Abju): R70' Self makes a +15 check (DC 11 + the effect's caster level, or DC 25 for cursed items) to free 19 targets in a 15' radius from enchantments, transmutations, and curses</td>
     </tr><tr style="text-align:left">
       <td>Color Spray (S1 Illu): 15' cone renders creatures with 2/4/5+ HD unconscious for 2d4 rd/blind for 1d4 rd/stunned for 1 rd (save Will negates)</td>
     </tr><tr style="text-align:left">
       <td>Cone Of Cold (S5 Evoc): 60' cone inflicts 15d6 HP cold (save Reflex half)</td>
     </tr><tr style="text-align:left">
-      <td>Contact Other Plane (S5 Divi): Contacts an extraplanar entity to ask 12 yes/no questions within 10 min; carries the risks of receiving lies and of suffering loss of Intelligence, Charisma, and arcane spellcasting for 1-5 weeks</td>
+      <td>Contact Other Plane (S5 Divi): Contacts an extraplanar entity to ask 9 yes/no questions within 10 min; carries the risks of receiving lies and of suffering loss of Intelligence, Charisma, and arcane spellcasting for 1-5 weeks</td>
     </tr><tr style="text-align:left">
       <td>Continual Flame (S2 Evoc): Touched permanently emits a heatless torch flame</td>
     </tr><tr style="text-align:left">
-      <td>Dancing Lights (S0 Evoc): R350' Creates a humanoid-shaped light, 4 torch lights, or 4 glowing spheres in a 10' radius that can be moved 100' each rd for 1 min</td>
+      <td>Dancing Lights (S0 Evoc): R290' Creates a humanoid-shaped light, 4 torch lights, or 4 glowing spheres in a 10' radius that can be moved 100' each rd for 1 min</td>
     </tr><tr style="text-align:left">
-      <td>Daylight (S3 Evoc): Touched object radiates bright light in a 60' radius for 250 min</td>
+      <td>Daylight (S3 Evoc): Touched object radiates bright light in a 60' radius for 190 min</td>
     </tr><tr style="text-align:left">
-      <td>Deep Slumber (S3 Ench): R85' 10 HD of creatures in a 10' radius sleep (save Will negates) for 25 min</td>
+      <td>Deep Slumber (S3 Ench): R70' 10 HD of creatures in a 10' radius sleep (save Will (DC +1) negates) for 19 min</td>
     </tr><tr style="text-align:left">
-      <td>Delayed Blast Fireball (S7 Evoc): R1400' Inflicts 20d6 HP fire (save Reflex half) in a 20' radius; can delay effects up to 5 rd</td>
+      <td>Delayed Blast Fireball (S7 Evoc): R1160' Inflicts 19d6 HP fire (save Reflex half) in a 20' radius; can delay effects up to 5 rd</td>
     </tr><tr style="text-align:left">
-      <td>Detect Magic (S0 Divi): 60' cone reveals the presence, power, and schools of magical auras for concentration up to 25 min</td>
+      <td>Detect Magic (S0 Divi): 60' cone reveals the presence, power, and schools of magical auras for concentration up to 19 min</td>
     </tr><tr style="text-align:left">
-      <td>Dimension Door (S4 Conj): Teleports self and a touched object or 8 willing creatures 1400'</td>
+      <td>Dimension Door (S4 Conj): Teleports self and a touched object or 6 willing creatures 1160'</td>
     </tr><tr style="text-align:left">
-      <td>Erase (S1 Tran): R85' Two pages of writing vanish; magical writing requires a successful 1d20+25 caster check with a DC of 15</td>
+      <td>Erase (S1 Tran): R70' Two pages of writing vanish; magical writing requires a successful 1d20+19 caster check with a DC of 15</td>
     </tr><tr style="text-align:left">
-      <td>Eyebite (S6 Necr): R85' Renders 1 target per rd with 1/5/10 HD comatose for 250 min/panicked for 1d4 rd and shaken for 250 min/sickened for 250 min (save Fortitude negates), for 8 rd</td>
+      <td>Eyebite (S6 Necr): R70' Renders 1 target per rd with 1/5/10 HD comatose for 190 min/panicked for 1d4 rd and shaken for 190 min/sickened for 190 min (save Fortitude negates), for 6 rd</td>
     </tr><tr style="text-align:left">
-      <td>Fear (S4 Necr): 30' cone causes creatures to flee for 25 rd (save Will inflicts shaken for 1 rd)</td>
+      <td>Fear (S4 Necr): 30' cone causes creatures to flee for 19 rd (save Will inflicts shaken for 1 rd)</td>
     </tr><tr style="text-align:left">
-      <td>Flesh To Stone (S6 Tran): R350' Permanently changes the target into a statue (save Fortitude negates)</td>
+      <td>Flesh To Stone (S6 Tran): R290' Permanently changes the target into a statue (save Fortitude negates)</td>
     </tr><tr style="text-align:left">
-      <td>Fly (S3 Tran): Touched gains a 60' fly Speed for 25 min, then floats downward 60' per rd for 1d6 rd</td>
+      <td>Fly (S3 Tran): Touched gains a 60' fly Speed for 19 min, then floats downward 60' per rd for 1d6 rd</td>
     </tr><tr style="text-align:left">
-      <td>Great Shout (S8 Evoc): R85' Objects in range suffer 20d6 HP (DC 21 Ref neg); creatures in cone suffer 10d6 HP, stunned for 1 rd, and deafened for 4d6 rd (DC 21 Fort half)</td>
+      <td>Great Shout (S8 Evoc): R70' Objects in range suffer 20d6 HP (Ref neg); creatures in cone suffer 10d6 HP, stunned for 1 rd, and deafened for 4d6 rd (Fort half)</td>
     </tr><tr style="text-align:left">
-      <td>Greater Arcane Sight (S7 Divi): R120' Reveals auras, spell abilities, and spells affecting creatures and objects for 25 min</td>
+      <td>Greater Arcane Sight (S7 Divi): R120' Reveals auras, spell abilities, and spells affecting creatures and objects for 19 min</td>
     </tr><tr style="text-align:left">
-      <td>Greater Invisibility (S4 Illu): Touched becomes invisible for 25 rd</td>
+      <td>Greater Invisibility (S4 Illu): Touched becomes invisible for 19 rd</td>
     </tr><tr style="text-align:left">
-      <td>Greater Prying Eyes (S8 Divi): 1d4+25 floating eyes (Armor Class 18, 1 HP, +16 Hide, +25 Spot, Fly 30') with True Seeing scout up to 1 mile and return to show observations within 25 hr</td>
+      <td>Greater Prying Eyes (S8 Divi): 1d4+19 floating eyes (Armor Class 18, 1 HP, +16 Hide, +19 Spot, Fly 30') with True Seeing scout up to 1 mile and return to show observations within 19 hr</td>
     </tr><tr style="text-align:left">
-      <td>Greater Teleport (S7 Conj): Transports self and 8 willing targets any distance with no chance of error</td>
+      <td>Greater Teleport (S7 Conj): Transports self and 6 willing targets any distance with no chance of error</td>
     </tr><tr style="text-align:left">
-      <td>Hypnotic Pattern (S2 Illu): R350' Fascinates 2d4+10 HD of creatures in a 10' radius (save Will negates), working upward from those with the fewest HD, for concentration + 2 rd</td>
+      <td>Hypnotic Pattern (S2 Illu): R290' Fascinates 2d4+10 HD of creatures in a 10' radius (save Will negates), working upward from those with the fewest HD, for concentration + 2 rd</td>
     </tr><tr style="text-align:left">
-      <td>Illusory Script (S3 Illu): Touched writing transmits a suggestion of up to 30 min duration to unauthorized readers (save Will negates) for 25 days</td>
+      <td>Illusory Script (S3 Illu): Touched writing transmits a suggestion of up to 30 min duration to unauthorized readers (save Will negates) for 19 days</td>
     </tr><tr style="text-align:left">
-      <td>Invisibility (S2 Illu): Touched becomes invisible for 25 min; target attacking ends</td>
+      <td>Invisibility (S2 Illu): Touched becomes invisible for 19 min; target attacking ends</td>
     </tr><tr style="text-align:left">
-      <td>Iron Body (S8 Tran): Self becomes iron, gaining +6 Strength, DR 15/adamantine, half damage from acid and fire, immunity to physiology effects, and unarmed attacks that inflict 1d6 HP, but suffering -6 Dexterity, half Speed, 50% arcane failure, an -8 armor skill check penalty, and 10x weight, for 25 min</td>
+      <td>Iron Body (S8 Tran): Self becomes iron, gaining +6 Strength, DR 15/adamantine, half damage from acid and fire, immunity to physiology effects, and unarmed attacks that inflict 1d6 HP, but suffering -6 Dexterity, half Speed, 50% arcane failure, an -8 armor skill check penalty, and 10x weight, for 19 min</td>
     </tr><tr style="text-align:left">
-      <td>Magic Circle Against Law (S3 Abju): 10' radius from touched either gives a +2 deflection bonus to Armor Class and +2 saves vs. lawful creatures, suppresses mental control, prevents possession, and bars contact and entry by nonchaotic summoned creatures (SR negates) for 250 min or traps a nonchaotic summoned creature (SR negates; additional tests each day end) for 600 hr</td>
+      <td>Magic Circle Against Law (S3 Abju): 10' radius from touched either gives a +2 deflection bonus to Armor Class and +2 saves vs. lawful creatures, suppresses mental control, prevents possession, and bars contact and entry by nonchaotic summoned creatures (SR negates) for 190 min or traps a nonchaotic summoned creature (SR negates; additional tests each day end) for 456 hr</td>
     </tr><tr style="text-align:left">
-      <td>Magic Missile (S1 Evoc): R350' 5 missiles in a 15' radius each inflict 1d4+1 HP force</td>
+      <td>Magic Missile (S1 Evoc): R290' 5 missiles in a 15' radius each inflict 1d4+1 HP force</td>
     </tr><tr style="text-align:left">
-      <td>Mass Bear's Endurance (S6 Tran): R85' 25 targets in a 15' radius gain +4 Constitution for 25 min</td>
+      <td>Mass Bear's Endurance (S6 Tran): R70' 19 targets in a 15' radius gain +4 Constitution for 19 min</td>
     </tr><tr style="text-align:left">
-      <td>Mass Reduce Person (S4 Tran): R85' 25 target humanoids in a 15' radius become half size (save Fortitude negates), suffering -2 Strength and gaining +2 Dexterity, +1 attacks, and a +1 size bonus to Armor Class, for 25 min</td>
+      <td>Mass Reduce Person (S4 Tran): R70' 19 target humanoids in a 15' radius become half size (save Fortitude negates), suffering -2 Strength and gaining +2 Dexterity, +1 attacks, and a +1 size bonus to Armor Class, for 19 min</td>
     </tr><tr style="text-align:left">
       <td>Mending (S0 Tran): R10' Repairs minor damage to an object weighing up to 1 lb</td>
     </tr><tr style="text-align:left">
-      <td>Move Earth (S6 Tran): R1400' Excavates 150'x150'x10' of dirt every 10 min for up to 250 min</td>
+      <td>Move Earth (S6 Tran): R1160' Excavates 150'x150'x10' of dirt every 10 min for up to 250 min</td>
     </tr><tr style="text-align:left">
-      <td>Open/Close (S0 Tran): R85' Target object of up to 30 lb opens or closes (save Will negates)</td>
+      <td>Open/Close (S0 Tran): R70' Target object of up to 30 lb opens or closes (save Will negates)</td>
     </tr><tr style="text-align:left">
-      <td>Phantom Steed (S3 Conj): Creates a mount with 32 hit points, Armor Class 18, and 240' Speed that only the target can ride for 25 hr; the mount can ride over sandy, muddy, and swampy ground at full speed, use <i>Water Walk</i> effects at will,use <i>Air Walk</i> effects for 1 rd at will, and fly at full Speed</td>
+      <td>Phantom Steed (S3 Conj): Creates a mount with 26 hit points, Armor Class 18, and 240' Speed that only the target can ride for 19 hr; the mount can ride over sandy, muddy, and swampy ground at full speed, use <i>Water Walk</i> effects at will,use <i>Air Walk</i> effects for 1 rd at will, and fly at full Speed</td>
     </tr><tr style="text-align:left">
-      <td>Polymorph Any Object (S8 Tran): R85' Target creature or object becomes a different creature or object (save Fortitude negates); the duration depends on the degree of change, from 20 min to permanent</td>
+      <td>Polymorph Any Object (S8 Tran): R70' Target creature or object becomes a different creature or object (save Fortitude negates); the duration depends on the degree of change, from 20 min to permanent</td>
     </tr><tr style="text-align:left">
       <td>Prismatic Spray (S7 Evoc): 60' cone blinds creatures with up to 8 HD and randomly inflicts on each creature one of: 20 HP fire (save Reflex half); 40 HP acid (save Reflex half); 80 HP electricity (save Reflex Half); slain by poison (save Fortitude inflicts 1d4 Constitution damage); turned to stone (save Fortitude negates); insanity (save Will negates); sent to another plane (save Will negates); 2 of the preceding effects</td>
     </tr><tr style="text-align:left">
-      <td>Project Image (S7 Illu): R350' Allows self to see and cast through an intangible duplicate (save Will upon interaction disbelieves) for 25 rd; a break in line of effect to the duplicate ends the spell</td>
+      <td>Project Image (S7 Illu): R290' Allows self to see and cast through an intangible duplicate (save Will upon interaction disbelieves) for 19 rd; a break in line of effect to the duplicate ends the spell</td>
     </tr><tr style="text-align:left">
-      <td>Ray Of Enfeeblement (S1 Necr): R85' Ranged touch inflicts -1d6+5 Strength for 25 min</td>
+      <td>Ray Of Enfeeblement (S1 Necr): R70' Ranged touch inflicts -1d6+5 Strength for 19 min</td>
     </tr><tr style="text-align:left">
-      <td>Ray Of Frost (S0 Evoc): R85' Ranged touch inflicts 1d3 HP cold</td>
+      <td>Ray Of Frost (S0 Evoc): R70' Ranged touch inflicts 1d3 HP cold</td>
     </tr><tr style="text-align:left">
       <td>Refuge (S9 Conj): Breaking a prepared object and speaking a command word transports the possessor to self home or transports self to possessor</td>
     </tr><tr style="text-align:left">
       <td>Resistance (S0 Abju): Touched gains +1 saves for 1 min</td>
     </tr><tr style="text-align:left">
-      <td>Scrying (Scry On Familiar4 Divi): Self sees and hears a 10' radius around the target (save Will, modified by familiarity and connection with the target, negates for 24 hr) for 25 min</td>
+      <td>Scrying (Scry On Familiar4 Divi): Self sees and hears a 10' radius around the target (save Will, modified by familiarity and connection with the target, negates for 24 hr) for 19 min</td>
     </tr><tr style="text-align:left">
-      <td>See Invisibility (S2 Divi): Allows self to see invisible and ethereal creatures and objects for 250 min</td>
+      <td>See Invisibility (S2 Divi): Allows self to see invisible and ethereal creatures and objects for 190 min</td>
     </tr><tr style="text-align:left">
-      <td>Seeming (S5 Illu): R85' Changes the appearance of 12 targets in a 15' radius (save Will negates; save Will by others upon interaction disbelieves) and gives them +10 Disguise for 12 hr</td>
+      <td>Seeming (S5 Illu): R70' Changes the appearance of 9 targets in a 15' radius (save Will negates; save Will by others upon interaction disbelieves) and gives them +10 Disguise for 12 hr</td>
     </tr><tr style="text-align:left">
-      <td>Shadow Spray (S2 Illu): R350' Creatures in 5' radius suffer -2 Strength and fear saves and dazed 1 rd for 25 rd (DC 15 Fort neg)</td>
+      <td>Shadow Spray (S2 Illu): R290' Creatures in 5' radius suffer -2 Strength and fear saves and dazed 1 rd for 19 rd (Fort neg)</td>
     </tr><tr style="text-align:left">
-      <td>Snilloc's Snowball Swarm (S2 Evoc): R350' Creatures in 10' radius suffer 5d6 HP (DC 15 Ref half)</td>
+      <td>Snilloc's Snowball Swarm (S2 Evoc): R290' Creatures in 10' radius suffer 5d6 HP (Ref half)</td>
     </tr><tr style="text-align:left">
-      <td>Suggestion (S3 Ench): R85' Target follows a reasonable suggestion (save Will negates) for 25 hr</td>
+      <td>Suggestion (S3 Ench): R70' Target follows a reasonable suggestion (save Will (DC +1) negates) for 19 hr</td>
     </tr><tr style="text-align:left">
-      <td>Summon Monster I (S1 Conj): R85' Summons a 1st-level extraplanar creature that fights foes and obeys orders for 25 rd</td>
+      <td>Summon Monster I (S1 Conj): R70' Summons a 1st-level extraplanar creature that fights foes and obeys orders for 19 rd</td>
     </tr><tr style="text-align:left">
-      <td>Summon Monster VI (S6 Conj): R85' Summons 1 6th-level, 1d3 5th-level, or 1d4+1 lower-level creatures that fight foes and obey orders for 25 rd</td>
+      <td>Summon Monster VI (S6 Conj): R70' Summons 1 6th-level, 1d3 5th-level, or 1d4+1 lower-level creatures that fight foes and obey orders for 19 rd</td>
     </tr><tr style="text-align:left">
-      <td>Symbol Of Pain (S5 Necr): R60' Rune causes pain that inflicts -4 attacks and skill and ability checks for 1 hr on creatures in a 60' radius (save Fortitude negates) when triggered for 250 min</td>
+      <td>Symbol Of Pain (S5 Necr): R60' Rune causes pain that inflicts -4 attacks and skill and ability checks for 1 hr on creatures in a 60' radius (save Fortitude negates) when triggered for 190 min</td>
     </tr><tr style="text-align:left">
-      <td>Symbol Of Weakness (S7 Necr): R60' Rune inflicts -3d6 Strength on creatures in a 60' radius (save Fortitude negates) when triggered for 250 min</td>
+      <td>Symbol Of Weakness (S7 Necr): R60' Rune inflicts -3d6 Strength on creatures in a 60' radius (save Fortitude negates) when triggered for 190 min</td>
     </tr><tr style="text-align:left">
-      <td>Sympathy (S8 Ench): R85' Specified intelligent creature kind or alignment is drawn to a target object or a 250 cubic foot area (save Will negates; requires another save 1d6x10 min later) for 50 hr</td>
+      <td>Sympathy (S8 Ench): R70' Specified intelligent creature kind or alignment is drawn to a target object or a 190 cubic foot area (save Will (DC +1) negates; requires another save 1d6x10 min later) for 38 hr</td>
     </tr><tr style="text-align:left">
-      <td>Thunderlance (S4 Evoc): Self wields shimmering staff (+13 attack, 2d6+13 x3@20) 1' - 20' long for 25 rd</td>
+      <td>Thunderlance (S4 Evoc): Self wields shimmering staff (+10 attack, 2d6+10 x3@20) 1' - 20' long for 19 rd</td>
     </tr><tr style="text-align:left">
       <td>Time Stop (S9 Tran): Allows taking 1d4+1 turns while no time passes for others; cannot attack or cast spells on other creatures for the duration</td>
     </tr><tr style="text-align:left">
       <td>True Strike (S1 Divi): Gives self +20 on the next attack before the end of the next rd</td>
     </tr><tr style="text-align:left">
-      <td>Ventriloquism (S1 Illu): Allows speech to originate from a spot within 85' (save Will disbelieves) for 25 min</td>
+      <td>Ventriloquism (S1 Illu): Allows speech to originate from a spot within 70' (save Will disbelieves) for 19 min</td>
     </tr><tr style="text-align:left">
-      <td>Weird (S9 Illu): R350' Fears of targets in a 15' radius create creatures (save Will negates) whose touch kills its target (save Fortitude inflicts 3d6 HP, -1d4 Strength, and stunned for 1 rd)</td>
+      <td>Weird (S9 Illu): R290' Fears of targets in a 15' radius create creatures (save Will negates) whose touch kills its target (save Fortitude inflicts 3d6 HP, -1d4 Strength, and stunned for 1 rd)</td>
     </tr></table>
 </td>
   </tr><tr style="text-align:center">
     <td><b>Magic Notes</b>:     <table id="MagicNotes" style="width:100%">
     <tr style="text-align:center">
-      <td><i>Caster Level Bonus: +5 base class level for spells known and spells/dy</i></td>
+      <td><i>Arcane Caster Level Bonus: +5 arcane base class level for spells known and spells per day</i></td>
     </tr><tr style="text-align:center">
       <td><i>Charisma Sorcerer Spell Slot Bonus: Spell level S1, S2, S3</i></td>
     </tr><tr style="text-align:center">
@@ -364,11 +363,9 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><i>Spell Focus (Enchantment): +1 Spell DC (Enchantment)</i></td>
     </tr><tr style="text-align:center">
-      <td><i>Spell Power: +6 spell DC and resistance checks</i></td>
+      <td>Arcane Fire: R600' Can expend a prepared arcane spell to make a ranged touch attack that inflicts 5d6 HP fire + 1d6 HP fire per spell level; costs a 9th-level spell slot to acquire</td>
     </tr><tr style="text-align:center">
-      <td>Arcane Fire: R600' May convert an arcane spell into a ranged touch 5d6 + 1d6 x spell level bolt of fire</td>
-    </tr><tr style="text-align:center">
-      <td>Arcane Reach: R30' May cast arcane touch spell using ranged touch</td>
+      <td>Arcane Reach: Can cast touch spells using a R30' ranged touch; costs a 7th-level spell slot to acquire</td>
     </tr><tr style="text-align:center">
       <td>Craft Wondrous Item: Can create and mend miscellaneous magic items</td>
     </tr><tr style="text-align:center">
@@ -376,15 +373,21 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Heighten Spell: Can cast spells at a higher than normal level</td>
     </tr><tr style="text-align:center">
-      <td>Improved Arcane Reach: R60' Arcane Reach</td>
+      <td>Mastery Of Counterspelling: Successful counterspell turns the effect back on the caster; costs a 7th-level spell slot to acquire</td>
     </tr><tr style="text-align:center">
-      <td>Mastery Of Counterspelling: Counterspell turns effect back on caster</td>
+      <td>Mastery Of Elements: Can change the energy type of acid, cold, fire, electricity, and sonic spells; costs an 8th-level spell slot to acquire</td>
     </tr><tr style="text-align:center">
-      <td>Mastery Of Elements: May change energy type of spell</td>
+      <td>Mastery Of Shaping: Can include 5' cube or larger spaces in a spell effect area that are unaffected by it; costs a 6th-level spell slot to acquire</td>
     </tr><tr style="text-align:center">
-      <td>Mastery Of Shaping: May create holes in spell effect area</td>
+      <td>Spell Power+1: +1 Spell Power; costs a 5th-level spell slot to acquire</td>
     </tr><tr style="text-align:center">
-      <td>Spell-Like Ability: May use chosen spell as a spell-like ability 2+/dy</td>
+      <td>Spell Power+2: +2 Spell Power; costs a 7th-level spell slot to acquire</td>
+    </tr><tr style="text-align:center">
+      <td>Spell Power+3: +2 Spell Power; costs a 9th-level spell slot to acquire</td>
+    </tr><tr style="text-align:center">
+      <td>Spell Power: +6 spell DC and caster level checks to overcome resistance on arcane spells</td>
+    </tr><tr style="text-align:center">
+      <td>Spell-Like Ability: Can sacrifice a spell slot to invoke a chosen spell as a spell-like ability 2 times per day, or 3 or 4 times per day by by sacrificing a spell slot 3 or 6 levels higher than the spell; costs a 5th-level spell slot to acquire</td>
     </tr></table>
 </td>
   </tr></table>
@@ -454,7 +457,7 @@ var attributes = {
   <tr style="text-align:center">
     <td>    <table id="ValidationPart" style="width:100%">
     <tr style="text-align:center">
-      <td><b>Validation Errors</b>: Selectable Feature Allocation: 5 available vs. 10 allocated</td>
+      <td><b>Validation Errors</b>: Selectable Feature Allocation: 5 available vs. 9 allocated</td>
     </tr></table>
 </td>
   </tr></table>

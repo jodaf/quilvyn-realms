@@ -86,14 +86,14 @@ var attributes = {
       <tr style="text-align:center">
         <td><b>Feats</b>: Deceitful; Enlarge Spell; Extend Spell; Improved Familiar; Skill Focus (Disable Device); Spell Focus (Enchantment); Spell Focus (Evocation)</td>
         <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
-        <td><b>Arcane Devotee Features</b>: Alignment Focus; Arcane Devotee Bonus Feats; Caster Level Bonus; Divine Shroud; Enlarge Spell (Arcane Devotee); Sacred Defense</td>
+        <td><b>Arcane Devotee Features</b>: Alignment Focus; Arcane Caster Level Bonus; Arcane Devotee Bonus Feats; Divine Shroud; Enlarge Spell (Arcane Devotee); Sacred Defense</td>
         <td><b>Sorcerer Features</b>: Summon Familiar; Weapon Proficiency (Simple Weapons)</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
       <td><b>Feature Notes</b>:       <table id="FeatureNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Arcane Devotee Bonus Feats: 1 Arcane Devotee feats</i></td>
+        <td><i>Arcane Devotee Bonus Feats: +1 Arcane Devotee Feats</i></td>
       </tr><tr style="text-align:center">
         <td><i>Human Feat Bonus: +1 General Feat</i></td>
       </tr></table>
@@ -202,9 +202,9 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Wisdom Will Adjustment: +2</i></td>
       </tr><tr style="text-align:center">
-        <td>Divine Shroud: Aura provides SR 25 for 7 rd 1/dy</td>
+        <td>Divine Shroud: Can gain SR 25 for 7 rd once per day</td>
       </tr><tr style="text-align:center">
-        <td>Sacred Defense: +2 vs. divine spells and spell-like effects of outsiders</td>
+        <td>Sacred Defense: +2 vs. divine spells and outsiders' spell-like and supernatural abilities</td>
       </tr></table>
 </td>
     </tr></table>
@@ -230,7 +230,7 @@ var attributes = {
     <tr style="text-align:left">
       <td>Acid Fog (S6 Conj): R230' 20' radius fog obscures vision, slows to 5', and inflicts -2 attacks, -2 damage, and 2d6 HP acid per rd for 13 rd</td>
     </tr><tr style="text-align:left">
-      <td>Aganazzar's Scorcher (S2 Evoc): 5' by 55' path inflicts 5d8 HP (DC 15 Ref half)</td>
+      <td>Aganazzar's Scorcher (S2 Evoc): 5' by 55' path inflicts 5d8 HP (Ref half)</td>
     </tr><tr style="text-align:left">
       <td>Analyze Portal (S3 Divi): R60' Quarter circle gives self info on portals for 13 rd or conc</td>
     </tr><tr style="text-align:left">
@@ -244,15 +244,15 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Bull's Strength (S2 Tran): Touched gains +4 Strength for 13 min</td>
     </tr><tr style="text-align:left">
-      <td>Charm Person (S1 Ench): R55' Target humanoid treats self as a trusted friend (save Will negates; +5 if being threatened) for 13 hr</td>
+      <td>Charm Person (S1 Ench): R55' Target humanoid treats self as a trusted friend (save Will (DC +1) negates; +5 if being threatened) for 13 hr</td>
     </tr><tr style="text-align:left">
       <td>Command Undead (S2 Necr): R55' Undead target considers self as a friend (save Will negates) for 13 days, obeying commands only with successful opposed Charisma checks</td>
     </tr><tr style="text-align:left">
-      <td>Cone Of Cold (S5 Evoc): 60' cone inflicts 13d6 HP cold (save Reflex half)</td>
+      <td>Cone Of Cold (S5 Evoc): 60' cone inflicts 13d6 HP cold (save Reflex (DC +1) half)</td>
     </tr><tr style="text-align:left">
       <td>Contact Other Plane (S5 Divi): Contacts an extraplanar entity to ask 6 yes/no questions within 10 min; carries the risks of receiving lies and of suffering loss of Intelligence, Charisma, and arcane spellcasting for 1-5 weeks</td>
     </tr><tr style="text-align:left">
-      <td>Dominate Person (S5 Ench): R55' Target humanoid obeys mental commands (save Will negates) for 13 days; concentration allows receiving sensory info from the target</td>
+      <td>Dominate Person (S5 Ench): R55' Target humanoid obeys mental commands (save Will (DC +1) negates) for 13 days; concentration allows receiving sensory info from the target</td>
     </tr><tr style="text-align:left">
       <td>Erase (S1 Tran): R55' Two pages of writing vanish; magical writing requires a successful 1d20+13 caster check with a DC of 15</td>
     </tr><tr style="text-align:left">
@@ -296,11 +296,11 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Sepia Snake Sigil (S3 Conj): Reading the target text puts the reader into suspended animation (save Reflex negates) for 1d4+13 days</td>
     </tr><tr style="text-align:left">
-      <td>Shatter (S2 Evoc): R55' Breakables weighing up to 13 lb in a 5' radius shatter (save Will negates), or a target object weighing up to 130 lb suffers 10d6 HP sonic (save Fortitude half)</td>
+      <td>Shatter (S2 Evoc): R55' Breakables weighing up to 13 lb in a 5' radius shatter (save Will (DC +1) negates), or a target object weighing up to 130 lb suffers 10d6 HP sonic (save Fortitude (DC +1) half)</td>
     </tr><tr style="text-align:left">
       <td>Shocking Grasp (S1 Evoc): Melee touch attack (+3 vs. metal) inflicts 5d6 HP electricity</td>
     </tr><tr style="text-align:left">
-      <td>Shout (S4 Evoc): 30' cone inflicts 5d6 HP sonic (or 15d6 HP sonic to crystalline creatures and objects) and deafness for 2d6 rd (save Fortitude half HP only; save Reflex negates damage to held objects)</td>
+      <td>Shout (S4 Evoc): 30' cone inflicts 5d6 HP sonic (or 15d6 HP sonic to crystalline creatures and objects) and deafness for 2d6 rd (save Fortitude (DC +1) half HP only; save Reflex (DC +1) negates damage to held objects)</td>
     </tr><tr style="text-align:left">
       <td>Solid Fog (S4 Conj): R230' 20' radius fog obscures vision, slows movement to 5', prevents ranged attacks, and inflicts -2 attacks and damage for 13 min</td>
     </tr><tr style="text-align:left">
@@ -312,7 +312,7 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Magic Notes</b>:     <table id="MagicNotes" style="width:100%">
     <tr style="text-align:center">
-      <td><i>Caster Level Bonus: +5 base class level for spells known and spells/dy</i></td>
+      <td><i>Arcane Caster Level Bonus: +5 arcane base class level for spells known and spells per day</i></td>
     </tr><tr style="text-align:center">
       <td><i>Charisma Sorcerer Spell Slot Bonus: Spell level S1, S2</i></td>
     </tr><tr style="text-align:center">
@@ -320,9 +320,9 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><i>Spell Focus (Evocation): +1 Spell DC (Evocation)</i></td>
     </tr><tr style="text-align:center">
-      <td>Alignment Focus: +1 caster level on spells from chosen alignment component</td>
+      <td>Alignment Focus: +1 caster level on spells from a chosen alignment component</td>
     </tr><tr style="text-align:center">
-      <td>Enlarge Spell (Arcane Devotee): May cast chosen spell at dbl range 3/dy</td>
+      <td>Enlarge Spell (Arcane Devotee): Can cast a spell at double its normal range 3 times per day</td>
     </tr><tr style="text-align:center">
       <td>Enlarge Spell: Can cast a spell using a spell slot 1 level higher than normal to double its range</td>
     </tr><tr style="text-align:center">
