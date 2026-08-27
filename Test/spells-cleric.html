@@ -87,6 +87,8 @@ var attributes = {
       <td>Blind-Fight: Can move at 3/4 Speed in darkness or poor visibility</td>
     </tr><tr style="text-align:center">
       <td>Charisma Boost: Can gain +4 charisma for 1 min once per day</td>
+    </tr><tr style="text-align:center">
+      <td>Water Breathing: Can breathe water for 200 rd per day</td>
     </tr></table>
 </td>
   </tr></table>
@@ -107,7 +109,7 @@ var attributes = {
       <tr style="text-align:center">
         <td><b>Feats</b>: Agile; Deceitful; Improved Critical (Sickle); Iron Will; Maximize Spell; Nimble Fingers; Power Attack; Spell Focus (Divination); Spell Focus (Illusion); Spell Penetration; Tower Shield Proficiency</td>
         <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
-        <td><b>Cleric Features</b>: Advanced Illusionist; Armor Proficiency (Light; Medium; Heavy; Shield); Aura; Blind-Fight; Cavern Domain; Cavern Stonecunning; Charisma Boost; Charm Domain; Craft Domain; Crafter; Darkness Domain; Detect Portal; Domineering Magic; Drow Domain; Dwarf Domain; Elf Domain; Extend Spell; Extra Turning; Family Domain; Fate Domain; Gnome Domain; Great Fortitude; Halfling Domain; Hammer Specialist; Hatred Domain; Illusion Domain; Improved Initiative; Inspire Allies; Lightning Reflexes; Mark Foe; Mental Ward; Mentalism Domain; Metal Domain; Moon Domain; Nobility Domain; Ocean Domain; Orc Domain; Pain Touch; Planning Domain; Point-Blank Shot; Portal Domain; Protector; Rebuke Oozes; Rebuke Reptiles; Rebuke Spiders; Renewal Domain; Retribution Domain; Rune Domain; Scalykind Domain; Scribe Scroll; Skilled Caster; Slime Domain; Smite Power; Spell Domain; Spider Domain; Spontaneous Casting (Cleric); Spontaneous Recovery; Sprightly; Storm Domain; Stormfriend; Strike Of Vengeance; Suffering Domain; Time Domain; Trade Domain; Trade Secrets; Turn Lycanthropes; Turn Undead; Tyranny Domain; Uncanny Dodge; Undeath Domain; Water Breathing; Weapon Proficiency (Simple Weapons)</td>
+        <td><b>Cleric Features</b>: Advanced Illusionist; Armor Proficiency (Light; Medium; Heavy; Shield); Aura; Blind-Fight; Cavern Domain; Cavern Stonecunning; Charisma Boost; Charm Domain; Craft Domain; Crafter; Darkness Domain; Detect Portal; Domineering Magic; Drow Domain; Dwarf Domain; Elf Domain; Extend Spell; Extra Turning; Family Domain; Fate Domain; Gnome Domain; Great Fortitude; Halfling Domain; Hammer Specialist; Hatred Domain; Illusion Domain; Improved Initiative; Inspire Allies; Lightning Reflexes; Mark Foe; Mental Ward; Mentalism Domain; Metal Domain; Moon Domain; Nobility Domain; Ocean Domain; Orc Domain; Pain Touch; Planning Domain; Point-Blank Shot; Portal Domain; Protector; Rebuke Oozes; Rebuke Reptiles; Rebuke Spiders; Renewal Domain; Retribution Domain; Rune Domain; Scalykind Domain; Scribe Scroll; Skilled Caster; Slime Domain; Smite Power; Spell Domain; Spider Domain; Spontaneous Casting (Cleric); Spontaneous Recovery; Sprightly; Storm Domain; Stormfriend; Strike Of Vengeance; Suffering Domain; Time Domain; Trade Domain; Turn Lycanthropes; Turn Undead; Tyranny Domain; Uncanny Dodge; Uncover Trade Secrets; Undeath Domain; Water Breathing; Weapon Proficiency (Simple Weapons)</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
@@ -295,7 +297,7 @@ var attributes = {
       <td>      <table id="SpellStats" style="width:100%">
       <tr style="text-align:center">
         <td><b>Spell Slots</b>: C0: 6; C1: 5; C2: 5; C3: 5; C4: 5; C5: 5; C6: 4; C7: 4; C8: 4; C9: 4; Domain1: 1; Domain2: 1; Domain3: 1; Domain4: 1; Domain5: 1; Domain6: 1; Domain7: 1; Domain8: 1; Domain9: 1</td>
-        <td><b>Spell DC</b>: C: 9; Domain: 9; Trade Secrets: 9</td>
+        <td><b>Spell DC</b>: C: 9; Domain: 9; Uncover Trade Secrets: 9</td>
       </tr></table>
 </td>
     </tr></table>
@@ -315,7 +317,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Darkbolt (Darkness5 Evoc): R300' Ranged touch with 7 bolts in 30' radius inflict 2d8 HP each and daze 1 rd (Will neg)</td>
     </tr><tr style="text-align:left">
-      <td>Detect Thoughts (Trade Secrets2 Divi): 60' cone reveals the presence of minds and their surface thoughts (save Will (DC +1) presence only) for concentration up to 20 min</td>
+      <td>Detect Thoughts (Uncover Trade Secrets2 Divi): 60' cone reveals the presence of minds and their surface thoughts (save Will (DC +1) presence only) for concentration up to 20 min</td>
     </tr><tr style="text-align:left">
       <td>Fantastic Machine (Craft6 Illu): Large illusory machine (22 hit points, Armor Class 14, slam +5 1d8+4, throw rocks +3 2d6+4, move 40'/rd, swim and fly 10'/rd, load 230) obeys self for 20 min</td>
     </tr><tr style="text-align:left">
@@ -359,7 +361,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Advanced Illusionist: +1 caster level on Illusion spells</td>
     </tr><tr style="text-align:center">
-      <td>Crafter: +1 caster level on Creation spells</td>
+      <td>Crafter: +1 caster level on creation spells</td>
     </tr><tr style="text-align:center">
       <td>Domineering Magic: +2 DC on compulsion spells</td>
     </tr><tr style="text-align:center">
@@ -379,9 +381,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Spontaneous Casting (Cleric): Can cast <i>Cure</i> or <i>Inflict</i> spells in place of prepared spells</td>
     </tr><tr style="text-align:center">
-      <td>Trade Secrets: Can use <i>Detect Thoughts</i> effects on 1 target for 4 min once per day</td>
-    </tr><tr style="text-align:center">
-      <td>Water Breathing: Can breathe water for 200 rd per day</td>
+      <td>Uncover Trade Secrets: Can use <i>Detect Thoughts</i> effects on 1 target for 4 min once per day</td>
     </tr></table>
 </td>
   </tr></table>

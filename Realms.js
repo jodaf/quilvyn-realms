@@ -276,8 +276,7 @@ Realms.PRESTIGE_CLASSES = {
       'Survival ' +
     'Features=' +
       '"1:Divine Caster Level Bonus","1:Divine Emissary","1:New Domain",' +
-      '"2:Sacred Defense","3:Imbue With Spell Ability","5:Outsider",' +
-      '"5:Transcendence"',
+      '"2:Sacred Defense","3:Imbue With Spell Ability","5:Transcendence"',
   'Divine Seeker':
     'Require=' +
       '"skills.Hide >= 10","skills.Knowledge (Religion) >= 3",' +
@@ -970,7 +969,7 @@ Realms.FEATURES_ADDED = {
   'Divine Wrath':
     'Section=combat,save ' +
     'Note=' +
-      '"Can gain +3 attack and damage for %{charismaModifier} rd once per day",' +
+      '"Can gain +3 attacks and damage for %{charismaModifier} rd once per day",' +
       '"Can gain +3 saves and DR 5/- for %{charismaModifier} rd once per day",',
   'Lay On Hands (Divine Champion)':
     'Section=magic ' +
@@ -995,7 +994,7 @@ Realms.FEATURES_ADDED = {
   'Transcendence':
     'Section=magic,save,skill ' +
     'Note=' +
-      '"Can a cast chosen a chosen <i>Protection From Chaos/Evil/Good/Law</i> spell on self at will",' +
+      '"Can a cast a chosen <i>Protection From Chaos/Evil/Good/Law</i> spell on self at will",' +
       '"Affected by spells that target outsiders, not humanoids",' +
       '"+2 Charisma checks with followers of %{deity}" ' +
     'Spells="Protection From Chaos","Protection From Evil","Protection From Good","Protection From Law" ' +
@@ -1034,7 +1033,7 @@ Realms.FEATURES_ADDED = {
   // Guild Thief
   // 3.0 Innuendo => 3.5 Bluff
   'Doublespeak':'Section=skill Note="+2 Bluff/+2 Diplomacy"',
-  'Guild Thief Bonus Feats':'Section=feature Note="%V Guild Thief feats"',
+  'Guild Thief Bonus Feats':'Section=feature Note="%V Guild Thief Feats"',
   'Improved Uncanny Dodge':SRD35.FEATURES['Improved Uncanny Dodge'],
   // Sneak Attack as above
   'Reputation':'Section=feature Note="+%V Leadership"',
@@ -1050,7 +1049,7 @@ Realms.FEATURES_ADDED = {
   'Harper Skill Focus':
     'Section=feature ' +
     // TODO: what about randomizing this?
-    'Note="+2 General Feat (Skill Focus in chosen Perform and a Harper class skill)"',
+    'Note="+2 General Feat (Skill Focus in a chosen Perform and a Harper class skill)"',
   "Lliira's Heart":'Section=save Note="+2 vs. compulsion and fear"',
   "Tymora's Smile":'Section=save Note="Can add +2 to a save once per day"',
 
@@ -1078,6 +1077,7 @@ Realms.FEATURES_ADDED = {
   'Blast Infidel':
     SRD35.FEATURES['Blast Infidel']
     .replace('an opposed alignment', 'a different deity'),
+  'Divine Power Bonus':SRD35.FEATURES['Divine Power Bonus'],
   'Divine Reach':SRD35.FEATURES['Divine Reach'],
   'Faith Healing':
     SRD35.FEATURES['Faith Healing']
@@ -1122,7 +1122,7 @@ Realms.FEATURES_ADDED = {
   'Red Wizard Bonus Feats':'Section=feature Note="+1 Wizard Feat"',
   'Specialist Defense':
     'Section=save ' +
-    'Note="+%{($\'levels.Red Wizard\'+1)//2-($\'levels.Red Wizard\'>=5?1:0)} saves vs. specialized school spells"',
+    'Note="+%{($\'levels.Red Wizard\'+1)//2-($\'levels.Red Wizard\'>=5?1:0)} saves vs. %{redWizardSpecialistSchool} spells"',
   // Spell Power as above
   'Scribe Tattoo':'Section=magic Note="Can induct novices into circle"',
 
@@ -1135,7 +1135,7 @@ Realms.FEATURES_ADDED = {
     'Note="Successful +5 DC Craft when creating a rune maximizes its effects"',
   'Rune Chant':
     'Section=magic ' +
-    'Note="Can use a full-round action when casting a divine spell to add 3 to the its DC and to checks to overcome target SR"',
+    'Note="Can use a full-round action when casting a divine spell to add +3 to its DC and to checks to overcome target SR"',
   'Rune Craft':
     'Section=skill ' +
     'Note="+%{(levels.Runecaster+2)//3<?3} Craft to inscribe runes"',
@@ -1147,7 +1147,7 @@ Realms.FEATURES_ADDED = {
   // Caster Level Bonus as above
   'Darkvision':SRD35.FEATURES.Darkvision,
   'Greater Shield Of Shadows':
-    'Section=save Note="Has increased Shield Of Shadows effects"',
+    'Section=magic Note="Has increased Shield Of Shadows effects"',
   'Low-Light Vision':SRD35.FEATURES['Low-Light Vision'],
   // Spell Power as above
   'Shadow Adept Bonus Feats':'Section=feature Note="+1 Metamagic Feat"',
@@ -1162,10 +1162,10 @@ Realms.FEATURES_ADDED = {
     'Note="Has the Insidious Magic, Pernicious Magic, and Tenacious Magic features"',
   'Shadow Walk':
     'Section=magic ' +
-    'Note="May travel quickly via Plane of Shadow for %{$\'levels.Shadow Adept\'} hr"',
+    'Note="Can travel quickly via the Plane of Shadow for %{$\'levels.Shadow Adept\'} hr"',
   'Shield Of Shadows':
     'Section=magic ' +
-    'Note="Can use <i>Shield</i> effects, gaining 75% concealment%{saveNotes.greaterShieldOfShadows?\' and SR \'+($\'levels.Shadow Adept\'+12):\'\'}, %{casterLevel} rd per dy" ' +
+    'Note="Can use <i>Shield</i> effects, gaining 75% concealment%{magicNotes.greaterShieldOfShadows?\' and SR \'+($\'levels.Shadow Adept\'+12):\'\'}, %{casterLevel} rd per dy" ' +
     'Spells=Shield ' +
     'SpellAbility=Charisma',
   // Spell Power as above
@@ -1183,7 +1183,7 @@ Realms.FEATURES_ADDED = {
   'Crafter':
     'Section=magic,feature ' +
     'Note=' +
-      '"+1 caster level on Creation spells",' +
+      '"+1 caster level on creation spells",' +
       '"+1 General Feat (Skill Focus with a chosen Craft)"',
 
   // Family
@@ -1230,7 +1230,7 @@ Realms.FEATURES_ADDED = {
 
   // Ocean
   'Water Breathing':
-    'Section=magic Note="Can breathe water for %{level*10} rd per day"',
+    'Section=ability Note="Can breathe water for %{level*10} rd per day"',
 
   // Orc
   'Smite Power':
@@ -1279,7 +1279,7 @@ Realms.FEATURES_ADDED = {
     'Note="Touch attack inflicts -2 Strength and Dexterity for 1 min once per day"',
 
   // Trade
-  'Trade Secrets':
+  'Uncover Trade Secrets':
     'Section=magic ' +
     'Note="Can use <i>Detect Thoughts</i> effects on 1 target for %{charismaModifier} min once per day" ' +
     'Spells="Detect Thoughts" ' +
@@ -1350,7 +1350,7 @@ Realms.CLASS_FEATURES_ADDED = {
       '"features.Storm Domain ? 1:Stormfriend",' +
       '"features.Suffering Domain ? 1:Pain Touch",' +
       '"features.Time Domain ? 1:Improved Initiative",' +
-      '"features.Trade Domain ? 1:Trade Secrets",' +
+      '"features.Trade Domain ? 1:Uncover Trade Secrets",' +
       '"features.Tyranny Domain ? 1:Domineering Magic",' +
       '"features.Undeath Domain ? 1:Extra Turning" ' +
     'Selectables=' +
@@ -1905,7 +1905,7 @@ Realms.SPELLS_ADDED = {
   'Fire Stride':
     'School=Transmutation ' +
     'Level=S4,W4 ' +
-    'Description="Self may teleport %{lvl*40+400}\' between fires %{lvl} times for %{lvl*10} min"',
+    'Description="Self can teleport %{lvl*40+400}\' between fires %{lvl} times for %{lvl*10} min"',
   'Flashburst':
     'School=Evocation ' +
     'Level=S3,W3 ' +
@@ -2845,8 +2845,9 @@ Realms.classRulesExtra = function(rules, name) {
     rules.defineRule('featureNotes.guildThiefBonusFeats',
       classLevel, '=', 'Math.floor(source / 2)'
     );
+    // Override featureRules' + with +=
     rules.defineRule('featCount.Guild Thief',
-      'featureNotes.guildThiefBonusFeats', '=', null
+      'featureNotes.guildThiefBonusFeats', '+=', null
     );
     rules.defineRule('featureNotes.reputation',
       classLevel, '=', 'source >= 3 ? source - 2 : null'
@@ -2954,6 +2955,7 @@ Realms.classRulesExtra = function(rules, name) {
       ('features.Pernicious Magic', 'featureNotes.shadowFeats', '=', '1');
     rules.defineRule
       ('features.Tenacious Magic', 'featureNotes.shadowFeats', '=', '1');
+    // Override featureRules' + with +=
     rules.defineRule
       ('featCount.Metamagic', 'featureNotes.shadowAdeptBonusFeats', '+=', null);
     rules.defineRule('magicNotes.casterLevelBonus', classLevel, '+=', null);
