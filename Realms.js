@@ -956,13 +956,13 @@ Realms.FEATURES_ADDED = {
     'Note="+%V spell DC and caster level checks to overcome resistance on %1 spells"',
   'Spell Power +1':
     'Section=magic ' +
-    'Note="+1 Spell Power; costs a 5th-level spell slot to acquire"',
+    'Note="+1 Spell Power%{levels.Archmage?\'; costs a 5th-level spell slot to acquire\':\'\'}"',
   'Spell Power +2':
     'Section=magic ' +
     'Note="+2 Spell Power%{levels.Archmage?\'; costs a 7th-level spell slot to acquire\':\'\'}"',
   'Spell Power +3':
     'Section=magic ' +
-    'Note="+2 Spell Power; costs a 9th-level spell slot to acquire"',
+    'Note="+2 Spell Power%{levels.Archmage?\'; costs a 9th-level spell slot to acquire\':\'\'}"',
 
   // Divine Champion
   'Divine Champion Bonus Feats':'Section=feature Note="+%V Fighter feats"',
@@ -1122,7 +1122,7 @@ Realms.FEATURES_ADDED = {
   'Red Wizard Bonus Feats':'Section=feature Note="+1 Wizard Feat"',
   'Specialist Defense':
     'Section=save ' +
-    'Note="+%{($\'levels.Red Wizard\'+1)//2-($\'levels.Red Wizard\'>=5?1:0)} saves vs. %{redWizardSpecialistSchool} spells"',
+    'Note="+%{($\'levels.Red Wizard\'+1)//2-($\'levels.Red Wizard\'>=5?1:0)} saves vs. %{redWizardSpecialistSchool||\'specialist school\'} spells"',
   // Spell Power as above
   'Scribe Tattoo':'Section=magic Note="Can induct novices into circle"',
 
