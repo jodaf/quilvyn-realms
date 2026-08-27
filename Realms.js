@@ -923,62 +923,6 @@ Realms.FEATURES_ADDED = {
     'Section=combat ' +
     'Note="Gains a +2 stacking armor bonus to Armor Class vs. a chosen foe when using two swords; loss of Dexterity bonus to Armor Class negates"',
 
-  // Domain
-  'Advanced Illusionist':
-    'Section=magic Note="+1 caster level on Illusion spells"',
-  'Cavern Stonecunning':
-    'Section=skill Note="+2 Search (stone, metal), automatic check w/in 10\'"',
-  'Compelling Magic':'Section=magic Note="+2 DC on compulsion spells"',
-  'Creator':
-    'Section=magic,feature ' +
-    'Note="+1 caster level on Creation spells",' +
-         '"+1 General Feat (Skill Focus(chosen Craft))"',
-  'Detect Portal':
-    'Section=skill ' +
-    'Note="Successful DC 20 Search detects active and inactive portals"',
-  'Familial Protection':
-    'Section=magic ' +
-    'Note="R10\' %{charismaModifier>?1} targets gain +4 Armor Class for %{level} rd 1/dy"',
-  'Hammer Specialist':
-    'Section=feature ' +
-    'Note="+2 General Feat (Weapon Proficiency and Focus w/chosen hammer)"',
-  'Hated Foe':
-    'Section=combat,save ' +
-    'Note="+2 attack and Armor Class vs. chosen foe for 1 min 1/dy",' +
-         '"+2 saves vs. chosen foe for 1 min 1/dy"',
-  'Inspire Allies':
-    'Section=magic ' +
-    'Note="Allies gain +2 attack, damage, save, skill, and ability rolls for %{charismaModifier>?1} rd 1/dy"',
-  'Mental Ward':
-    'Section=magic ' +
-    'Note="Touch gives target +%{level+2} on next Will save for 1 hr 1/dy"',
-  'Pain Touch':
-    'Section=combat ' +
-    'Note="Touch inflicts -2 Strength and Dexterity for 1 min 1/dy"',
-  'Renew Self':
-    'Section=combat ' +
-    'Note="Immediately recovers 1d8+%{charismaModifier} hit points when at negative hit points 1/dy"',
-  'Skilled Caster':'Section=skill Note="+2 Concentration/+2 Spellcraft"',
-  'Smite Power':
-    'Section=combat ' +
-    'Note="+%{levels.Cleric} damage, plus +4 attack vs. dwarf or elf, 1/dy"',
-  'Sprightly':
-    'Section=skill ' +
-    'Note="+%{charismaModifier} Climb, Hide, Jump, and Move Silently for 10 min 1/dy"',
-  'Stormfriend':'Section=save Note="Resistance 5 to electricity"',
-  'Strike Of Vengeance':
-    'Section=combat ' +
-    'Note="May make immediate attack after taking damage from foe hit, inflicting maximum damage if successful, 1/dy"',
-  'Trade Secrets':
-    'Section=magic ' +
-    'Note="May cast <i>Detect Thoughts</i> on 1 target for %{charismaModifier} min 1/dy (Will neg)"',
-  'Turn On The Charm':'Section=ability Note="+4 charisma for 1 min 1/dy"',
-  'Turn Lycanthropes':'Section=combat Note="May turn lycanthropes"',
-  'Turn Oozes':'Section=combat Note="May turn oozes"',
-  'Turn Reptiles':'Section=combat Note="May turn reptiles"',
-  'Turn Spiders':'Section=combat Note="May turn spiders"',
-  'Water Breathing':'Section=magic Note="May breathe water %{level*10} rd/dy"',
-
   // Prestige classes
 
   // Arcane Devotee
@@ -1223,8 +1167,126 @@ Realms.FEATURES_ADDED = {
     'Section=magic ' +
     'Note="Can use <i>Shield</i> effects, gaining 75% concealment%{saveNotes.greaterShieldOfShadows?\' and SR \'+($\'levels.Shadow Adept\'+12):\'\'}, %{casterLevel} rd per dy" ' +
     'Spells=Shield ' +
-    'SpellAbility=Charisma'
+    'SpellAbility=Charisma',
   // Spell Power as above
+
+  // Domain
+
+  // Cavern
+  'Cavern Stonecunning':SRD35.FEATURES.Stonecunning,
+
+  // Charm
+  'Charisma Boost':
+    'Section=ability Note="Can gain +4 charisma for 1 min once per day"',
+
+  // Craft
+  'Crafter':
+    'Section=magic,feature ' +
+    'Note=' +
+      '"+1 caster level on Creation spells",' +
+      '"+1 General Feat (Skill Focus with a chosen Craft)"',
+
+  // Family
+  'Protector':
+    'Section=magic ' +
+    'Note="R10\' Can give %{charismaModifier>1?charismaModifier+\' targets\':\'a target\'} +4 Armor Class for %{level} rd once per day"',
+
+  // Gnome
+  'Advanced Illusionist':
+    'Section=magic Note="+1 caster level on Illusion spells"',
+
+  // Halfling
+  'Sprightly':
+    'Section=skill ' +
+    'Note="Can gain +%{charismaModifier} Climb, Hide, Jump, and Move Silently for 10 min once per day"',
+
+  // Hatred
+  'Mark Foe':
+    'Section=combat ' +
+    'Note="Can gain +2 attacks, Armor Class, and saves vs. a chosen foe for 1 min once per day"',
+
+  // Illusion
+  // Advanced Illusionist as above
+
+  // Mentalism
+  'Mental Ward':
+    'Section=magic ' +
+    'Note="Touch gives target +%{level+2} on its next Will save within 1 hr once per day"',
+
+  // Metal
+  'Hammer Specialist':
+    'Section=feature ' +
+    'Note="+2 General Feat (Weapon Proficiency and Focus with a chosen type of hammer)"',
+
+  // Moon
+  'Turn Lycanthropes':
+    'Section=combat ' +
+    'Note="Can turn lycanthropes %{charismaModifier+3} times per day"',
+
+  // Nobility
+  'Inspire Allies':
+    'Section=magic ' +
+    'Note="Can give allies within hearing +2 attacks, damage, saves, skill checks, and ability rolls for %{charismaModifier>?1} rd once per day"',
+
+  // Ocean
+  'Water Breathing':
+    'Section=magic Note="Can breathe water for %{level*10} rd per day"',
+
+  // Orc
+  'Smite Power':
+    'Section=combat ' +
+    'Note="Can gain +%{levels.Cleric} damage, and +4 attack if the target is a dwarf or elf, on an attack once per day"',
+
+  // Portal
+  'Detect Portal':
+    'Section=skill ' +
+    'Note="Can detect active and inactive portals as if they were secret doors"',
+
+  // Renewal
+  'Spontaneous Recovery':
+    'Section=combat ' +
+    'Note="Immediately recovers 1d8+%{charismaModifier} hit points when at negative hit points once per day"',
+
+  // Retribution
+  'Strike Of Vengeance':
+    'Section=combat ' +
+    'Note="Once per day, can inflict maximum damage with a successful first attack during the rd after taking damage from the target"',
+
+  // Scalykind
+  'Rebuke Reptiles':
+    'Section=combat ' +
+    'Note="Can rebuke or command reptiles %{charismaModifier+3} times per day"',
+
+  // Slime
+  'Rebuke Oozes':
+    'Section=combat ' +
+    'Note="Can rebuke or command oozes %{charismaModifier+3} times per day"',
+
+  // Spell
+  'Skilled Caster':'Section=skill Note="+2 Concentration/+2 Spellcraft"',
+
+  // Spider
+  'Rebuke Spiders':
+    'Section=combat ' +
+    'Note="Can rebuke or command spiders %{charismaModifier+3} times per day"',
+
+  // Storm
+  'Stormfriend':'Section=save Note="Has resistance 5 to electricity"',
+
+  // Suffering
+  'Pain Touch':
+    'Section=combat ' +
+    'Note="Touch attack inflicts -2 Strength and Dexterity for 1 min once per day"',
+
+  // Trade
+  'Trade Secrets':
+    'Section=magic ' +
+    'Note="Can use <i>Detect Thoughts</i> effects on 1 target for %{charismaModifier} min once per day" ' +
+    'Spells="Detect Thoughts" ' +
+    'SpellAbility=Wisdom',
+
+  // Tyranny
+  'Domineering Magic':'Section=magic Note="+2 DC on compulsion spells"'
 
 };
 Realms.FEATURES = Object.assign({}, SRD35.FEATURES, Realms.FEATURES_ADDED);
@@ -1258,17 +1320,17 @@ Realms.CLASS_FEATURES_ADDED = {
   'Cleric':
     'Features=' +
       '"features.Cavern Domain ? 1:Cavern Stonecunning",' +
-      '"features.Charm Domain ? 1:Turn On The Charm",' +
-      '"features.Craft Domain ? 1:Creator",' +
+      '"features.Charm Domain ? 1:Charisma Boost",' +
+      '"features.Craft Domain ? 1:Crafter",' +
       '"features.Darkness Domain ? 1:Blind-Fight",' +
       '"features.Drow Domain ? 1:Lightning Reflexes",' +
       '"features.Dwarf Domain ? 1:Great Fortitude",' +
       '"features.Elf Domain ? 1:Point-Blank Shot",' +
-      '"features.Family Domain ? 1:Familial Protection",' +
+      '"features.Family Domain ? 1:Protector",' +
       '"features.Fate Domain ? 1:Uncanny Dodge",' +
       '"features.Gnome || features.Illusion Domain ? 1:Advanced Illusionist",' +
       '"features.Halfling Domain ? 1:Sprightly",' +
-      '"features.Hatred Domain ? 1:Hated Foe",' +
+      '"features.Hatred Domain ? 1:Mark Foe",' +
       // Handled above '"features.Illusion Domain ? 1:Advanced Illusionist",' +
       '"features.Mentalism Domain ? 1:Mental Ward",' +
       '"features.Metal Domain ? 1:Hammer Specialist",' +
@@ -1278,18 +1340,18 @@ Realms.CLASS_FEATURES_ADDED = {
       '"features.Orc Domain ? 1:Smite Power",' +
       '"features.Planning Domain ? 1:Extend Spell",' +
       '"features.Portal Domain ? 1:Detect Portal",' +
-      '"features.Renewal Domain ? 1:Renew Self",' +
+      '"features.Renewal Domain ? 1:Spontaneous Recovery",' +
       '"features.Retribution Domain ? 1:Strike Of Vengeance",' +
       '"features.Rune Domain ? 1:Scribe Scroll",' +
-      '"features.Scalykind Domain ? 1:Turn Reptiles",' +
-      '"features.Slime Domain ? 1:Turn Oozes",' +
+      '"features.Scalykind Domain ? 1:Rebuke Reptiles",' +
+      '"features.Slime Domain ? 1:Rebuke Oozes",' +
       '"features.Spell Domain ? 1:Skilled Caster",' +
-      '"features.Spider Domain ? 1:Turn Spiders",' +
+      '"features.Spider Domain ? 1:Rebuke Spiders",' +
       '"features.Storm Domain ? 1:Stormfriend",' +
       '"features.Suffering Domain ? 1:Pain Touch",' +
       '"features.Time Domain ? 1:Improved Initiative",' +
       '"features.Trade Domain ? 1:Trade Secrets",' +
-      '"features.Tyranny Domain ? 1:Compelling Magic",' +
+      '"features.Tyranny Domain ? 1:Domineering Magic",' +
       '"features.Undeath Domain ? 1:Extra Turning" ' +
     'Selectables=' +
       '"deityDomains =~ \'Cavern\' ? 1:Cavern Domain:Domain",' +
@@ -2475,7 +2537,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
     groupLevels.forEach(gl => {
       let matchInfo = (gl + '').match(/^(\D+)(\d+)$/);
       if(!matchInfo) {
-        console.log('Bad level "' + groupLevels[i] + '" for spell ' + name);
+        console.log('Bad level "' + gl + '" for spell ' + name);
       } else {
         let group = matchInfo[1];
         let level = matchInfo[2] * 1;
@@ -2851,10 +2913,10 @@ Realms.classRulesExtra = function(rules, name) {
       'hierophantFeatures.Spell Power +2', '=', '1'
     );
     rules.defineRule('magicNotes.spellPower',
-      'hierophantFeatures.Spell Power +2', '+=', 'source * 2',
+      'hierophantFeatures.Spell Power +2', '+=', 'source * 2'
     );
     rules.defineRule('magicNotes.spellPower.1',
-      'hierophantFeatures.Spell Power +2', '+=', '"divine"',
+      'hierophantFeatures.Spell Power +2', '+=', '"divine"'
     );
 
   } else if(name == 'Red Wizard') {
@@ -2867,14 +2929,13 @@ Realms.classRulesExtra = function(rules, name) {
       ('magicNotes.arcaneCasterLevelBonus', classLevel, '+=', null);
     rules.defineRule
       ('magicNotes.spellPower', classLevel, '+=', 'Math.floor(source / 2)');
-    for(let s in rules.getChoices('schools'))
-      rules.defineRule('magicNotes.spellPower.1',
-        'redWizardFeatures.Spell Power', '=', '"%{redWizardSpecialistSchool}"'
-      );
+    rules.defineRule('magicNotes.spellPower.1',
+      'redWizardFeatures.Spell Power', '=', '"%{redWizardSpecialistSchool}"'
+    );
     rules.defineRule('redWizardSpecialistSchool', classLevel, '?', null);
     for(let s in rules.getChoices('schools'))
       rules.defineRule('redWizardSpecialistSchool',
-        'features.School Specialization (' + s + ')', '=', '"' + s + '"'
+        'features.School Specialization (' + s + ')', '=', '"' + s.toLowerCase() + '"'
       );
     rules.defineRule('selectableFeatureCount.Wizard (Opposition)',
       'magicNotes.enhancedSpecialization', '+', '1'

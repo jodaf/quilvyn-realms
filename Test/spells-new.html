@@ -94,7 +94,7 @@ var attributes = {
         <td><b>Feats</b>: Craft Wand; Endurance; Extra Turning; Spell Focus (Evocation)</td>
         <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
         <td><b>Wizard Features</b>: School Opposition (Evocation); School Opposition (Necromancy); School Opposition; School Specialization (Abjuration); School Specialization; Scribe Scroll; Summon Familiar; Weapon Proficiency (Club; Dagger; Heavy Crossbow; Light Crossbow; Quarterstaff)</td>
-        <td><b>Cleric Features</b>: Armor Proficiency (Light; Medium; Heavy; Shield); Aura; Blind-Fight; Cavern Domain; Cavern Stonecunning; Darkness Domain; Gnome Domain; Moon Domain; Ocean Domain; Spider Domain; Spontaneous Casting (Cleric); Trade Domain; Trade Secrets; Turn Lycanthropes; Turn Spiders; Turn Undead; Water Breathing; Weapon Proficiency (Simple Weapons)</td>
+        <td><b>Cleric Features</b>: Armor Proficiency (Light; Medium; Heavy; Shield); Aura; Blind-Fight; Cavern Domain; Cavern Stonecunning; Darkness Domain; Gnome Domain; Moon Domain; Ocean Domain; Rebuke Spiders; Spider Domain; Spontaneous Casting (Cleric); Trade Domain; Trade Secrets; Turn Lycanthropes; Turn Undead; Water Breathing; Weapon Proficiency (Simple Weapons)</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
@@ -145,7 +145,7 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Intelligence Skill Points Adjustment: -11</i></td>
       </tr><tr style="text-align:center">
-        <td>Cavern Stonecunning: +2 Search (stone, metal), automatic check w/in 10'</td>
+        <td>Cavern Stonecunning: +2 Search for unusual stonework and makes an automatic Search when within 10'/Can determine approximate depth underground</td>
       </tr><tr style="text-align:center">
         <td>Companion Alertness: +2 Listen and Spot when companion is within reach</td>
       </tr><tr style="text-align:center">
@@ -198,9 +198,9 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td>Blind-Fight: Can reroll misses due to concealment, retains Dexterity bonus to Armor Class when fighting invisible attackers, and invisible attackers gain no melee attack bonus</td>
       </tr><tr style="text-align:center">
-        <td>Turn Lycanthropes: May turn lycanthropes</td>
+        <td>Rebuke Spiders: Can rebuke or command spiders 3 times per day</td>
       </tr><tr style="text-align:center">
-        <td>Turn Spiders: May turn spiders</td>
+        <td>Turn Lycanthropes: Can turn lycanthropes 3 times per day</td>
       </tr><tr style="text-align:center">
         <td>Turn Undead: R60' Can turn or rebuke 2d6+4 HD of undead creatures of up to (d20+2)/3 HD 7 times per day</td>
       </tr></table>
@@ -233,7 +233,7 @@ var attributes = {
       <td>      <table id="SpellStats" style="width:100%">
       <tr style="text-align:center">
         <td><b>Spell Slots</b>: C0: 5; C1: 3; C2: 2; Domain1: 1; Domain2: 1; W0: 4; W1: 4; W2: 3</td>
-        <td><b>Spell DC</b>: C: 10; Domain: 10; W: 9</td>
+        <td><b>Spell DC</b>: C: 10; Domain: 10; Trade Secrets: 10; W: 9</td>
       </tr></table>
 </td>
     </tr></table>
@@ -258,6 +258,8 @@ var attributes = {
       <td>Create Magic Tattoo (W2 Conj): Touched gains magic tattoo w/specified effects for 1 dy</td>
     </tr><tr style="text-align:left">
       <td>Darkbolt (Darkness5 Evoc): R140' Ranged touch with 2 bolts in 30' radius inflict 2d8 HP each and daze 1 rd (Will (DC +1) neg)</td>
+    </tr><tr style="text-align:left">
+      <td>Detect Thoughts (Trade Secrets2 Divi): 60' cone reveals the presence of minds and their surface thoughts (save Will presence only) for concentration up to 8 min</td>
     </tr><tr style="text-align:left">
       <td>Elminster's Evasion (W9 Evoc): Teleports self and up to 50 lb to named locale</td>
     </tr><tr style="text-align:left">
@@ -335,9 +337,9 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Spontaneous Casting (Cleric): Can cast <i>Cure</i> or <i>Inflict</i> spells in place of prepared spells</td>
     </tr><tr style="text-align:center">
-      <td>Trade Secrets: May cast <i>Detect Thoughts</i> on 1 target for 0 min 1/dy (Will neg)</td>
+      <td>Trade Secrets: Can use <i>Detect Thoughts</i> effects on 1 target for 0 min once per day</td>
     </tr><tr style="text-align:center">
-      <td>Water Breathing: May breathe water 80 rd/dy</td>
+      <td>Water Breathing: Can breathe water for 80 rd per day</td>
     </tr></table>
 </td>
   </tr></table>
