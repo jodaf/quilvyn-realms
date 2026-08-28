@@ -1861,43 +1861,57 @@ Realms.SPELLS_ADDED = {
   "Aganazzar's Scorcher":
     'School=Evocation ' +
     'Level=S2,W2 ' +
-    'Description="5\' by %{lvl//2*5+25}\' path inflicts %{lvl//2<?5}d8 HP (Ref half)"',
+    'Description=' +
+      '"5\' by %{lvl//2*5+25}\' line inflicts %{lvl//2<?5}d8 HP fire (save Reflex half)"',
   'Analyze Portal':
     'School=Divination ' +
     'Level=B3,Portal2,S3,W3 ' +
-    'Description="R60\' Quarter circle gives self info on portals for %{lvl} rd or conc"',
+    'Description=' +
+      '"R60\' Reveals the location and properties of portals in a quarter circle for concentration up to %{lvl} rd; reveals one property per rd, and each property requires a DC 17 caster level check to uncover"',
   'Anyspell':
     'School=Transmutation ' +
     'Level=Spell3 ' +
-    'Description="Prepares up to 2nd level arcane spell from written source"',
+    'Description=' +
+      '"Allows preparing an arcane spell of up to 2nd level from a written source; the prepared spell occupies the level 3 domain spell slot"',
   'Armor Of Darkness':
     'School=Abjuration ' +
     'Level=Darkness4 ' +
-    'Description="Touched gains +%{3+lvl//4<?8} Armor Class and 60\' darkvision for %{lvl*10} min"',
+    'Description=' +
+      '"Touched gains a +%{3+lvl//4<?8} deflection bonus to Armor Class, 60\' darkvision, and +2 saves vs. holy, good, and light spells for %{lvl*10} min; an undead target also gains +4 turn resistance"',
   'Blacklight':
     'School=Evocation ' +
     'Level=Darkness3,S3,W3 ' +
-    'Description="R%{lvl//2*5+25}\' 20\' radius enveloped in darkness that only self can see within for %{lvl} rd (Will neg)"',
+    'Description=' +
+      '"R%{lvl//2*5+25}\' 20\' radius around the target becomes enveloped in darkness (save Will negates) for %{lvl} rd; the darkness is impervious to Darkvision, but self can see normally when inside the radius"',
   'Claws Of Darkness':
     'School=Illusion ' +
    'Level=S2,W2 ' +
-    'Description="Self hands become 6\' extendable claws that inflict 1d4 HP and slow via grapple (Fort neg) for %{lvl} rd"',
+   'Description=' +
+     '"Self grows 6\' extendable claws that inflict 1d4 HP cold via unarmed strikes and grappling for %{lvl} rd; grappling also slows the target (save Fortitude negates)"',
   'Cloak Of Dark Power':
     'School=Abjuration ' +
     'Level=Drow1 ' +
-    'Description="Touched protected from sunlight and gains +4 save vs. light and darkness effects for %{lvl} min"',
+    'Description=' +
+      '"Gives touched protection from the effects of sunlight and +4 saves vs. light and darkness effects for %{lvl} min"',
   'Create Magic Tattoo':
     'School=Conjuration ' +
     'Level=S2,W2 ' +
-    'Description="Touched gains magic tattoo w/specified effects for 1 dy"',
+    'Description=' +
+      '"Inscribes on touched a tattoo that grants one of these benefits for 1 day, with at most 3 tattoos inscribed on a target at any time: a +2 bonus to a chosen type of saves; +1 attacks; a +1 deflection bonus to Armor Class%{lvl>6?\'; a +2 resistance bonus to saves; +2 attacks; the ability to recall a cast spell of up to 2nd level once during the day\':\'\'}%{lvl>12?\'; SR \'+(10+lvl//6)+\'; +2 to a choice of ability; +1 caster level for spell effects\':\'\'}"',
   'Darkbolt':
     'School=Evocation ' +
     'Level=Darkness5 ' +
-    'Description="R%{lvl*10+100}\' Ranged touch with ${lvl//2<?7} bolts in 30\' radius inflict 2d8 HP each and daze 1 rd (Will neg)"',
+    'Description=' +
+      '"R%{lvl*10+100}\' Ranged touch attacks with ${lvl//2<?7} bolts in a 30\' radius each inflict 2d8 HP and dazed for 1 rd (save Will HP only); the spell does not damage undead, but may daze them"',
+  "Eagle's Splendor":
+    SRD35.SPELLS["Eagle's Splendor"]
+    .replace('+4', '+1d4+1')
+    .replace(' min', ' hr'),
   "Elminster's Evasion":
     'School=Evocation ' +
     'Level=S9,W9 ' +
-    'Description="Teleports self and up to 50 lb to named locale"',
+    'Description=' +
+      '"Specifies a set of triggers that will teleport self and up to 50 lb of touched objects to a named locale, upon which up to 2 additional spells of up to level %{lvl//3<?6} with self as the target will take effect"',
   'Fantastic Machine':
     'School=Illusion ' +
     'Level=Craft6,Gnome6 ' +
@@ -2007,6 +2021,7 @@ Realms.SPELLS_ADDED = {
     'School=Conjuration ' +
     'Level=Ocean7 ' +
     'Description="R%{lvl*40+400}\' Self moves 10\'x80\' spout 30\'/rd; touched creatures suffer 2d6 HP (Ref neg) for %{lvl} rd"'
+
 };
 Realms.SPELLS = Object.assign(
   {}, window.PHB35 != null ? PHB35.SPELLS : SRD35.SPELLS, Realms.SPELLS_ADDED
