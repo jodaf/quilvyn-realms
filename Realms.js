@@ -844,9 +844,11 @@ Realms.FEATURES_ADDED = {
     'Note=' +
       '"-2 Wisdom",' +
       '"-2 Wisdom penalty can be reversed only via <i>Atonement</i> cast by a cleric of Shar",' +
-      // TODO: Implement
-      '"+1 DC on Enchantment, Illusion, Necromancy, and darkness descriptor spells/-1 caster level on non-darkness Evocation and Transmutation spells",' +
-      '"+1 checks to overcome resistance on enchantment, illusion, necromancy, and darkness descriptor spells/Cannot cast light descriptor spells"',
+      '"+1 DC on Enchantment, Illusion, and Necromancy spells",' +
+      // N.B. spell attributes don't currently include descriptors like
+      // darkness, and our computed character attributes don't presently allow
+      // changing the caster level on a per-school basis
+      '"+1 DC on darkness descriptor spells/-1 caster level on non-darkness Evocation and Transmutation spells/+1 checks to overcome resistance on enchantment, illusion, necromancy, and darkness descriptor spells/Cannot cast light descriptor spells"',
   'Signature Spell':
     'Section=magic ' +
     'Note="Can cast a chosen mastered spell in place of a prepared arcane spell"',
@@ -859,24 +861,19 @@ Realms.FEATURES_ADDED = {
       '"+2 vs. poison"',
   'Spellcasting Prodigy (Bard)':
     'Section=magic ' +
-    // TODO: Implement
-    'Note="+1 spell DC/+2 Charisma for acquiring bonus spells"',
+    'Note="+2 Charisma for calculating spell DC and acquiring bonus spells"',
   'Spellcasting Prodigy (Cleric)':
     'Section=magic ' +
-    // TODO: Implement
-    'Note="+1 spell DC/+2 Wisdom for acquiring bonus spells"',
+    'Note="+2 Wisdom for calculating spell DC and acquiring bonus spells"',
   'Spellcasting Prodigy (Druid)':
     'Section=magic ' +
-    // TODO: Implement
-    'Note="+1 spell DC/+2 Wisdom for acquiring bonus spells"',
+    'Note="+2 Wisdom for calculating spell DC and acquiring bonus spells"',
   'Spellcasting Prodigy (Sorcerer)':
     'Section=magic ' +
-    // TODO: Implement
-    'Note="+1 spell DC/+2 Charisma for acquiring bonus spells"',
+    'Note="+2 Charisma for calculating spell DC and acquiring bonus spells"',
   'Spellcasting Prodigy (Wizard)':
     'Section=magic ' +
-    // TODO: Implement
-    'Note="+1 spell DC/+2 Intelligence for acquiring bonus spells"',
+    'Note="+2 Intelligence for calculating spell DC and acquiring bonus spells"',
   'Stealthy':'Section=skill Note="+2 Hide/+2 Move Silently"',
   'Street Smart':'Section=skill Note="+2 Bluff/+2 Gather Information"',
   'Strong Soul':
@@ -893,7 +890,6 @@ Realms.FEATURES_ADDED = {
   'Tattoo Focus':
     'Section=magic,magic ' +
     'Note=' +
-      // TODO: Implement
       '"+1 DC on %V spells",' +
       '"+1 caster level to overcome spell resistance with %V spells"',
   'Tenacious Magic':
@@ -3149,10 +3145,33 @@ Realms.featRulesExtra = function(rules, name) {
         'prodigyAbility' + clas, '+', 'source == ' + spellLevel + ' ? 1 : null'
       );
     }
+  } else if(name == 'Shadow Weave Magic') {
+    rules.defineRule('spellDCSchoolBonus.Enchantment',
+      'magicNotes.shadowWeaveMagic', '+=', '1'
+    );
+    rules.defineRule('spellDCSchoolBonus.Illusion',
+      'magicNotes.shadowWeaveMagic', '+=', '1'
+    );
+    rules.defineRule('spellDCSchoolBonus.Necromancy',
+      'magicNotes.shadowWeaveMagic', '+=', '1'
+    );
+  } else if(name.startsWith('Spellcasting Prodigy')) {
+    let c = name.replace('Spellcasting Prodigy (', '').replace(')', '');
+    let note =
+      'magicNotes.' + name.charAt(0).toLowerCase() + name.substring(1).replaceAll(' ', '');
+    let ability =
+      c in rules.getChoices('levels') ?
+        QuilvynUtils.getAttrValue(rules.getChoices('levels')[c], 'SpellAbility') || 'Wisdom' : 'Wisdom';
+    rules.defineRules
+      (ability.toLowerCase() + c.replaceAll(' ', '') + 'SpellSlotBonus', note, '+', '1');
+    rules.defineRule('spellDifficultyClass.' + c.charAt(0), note, '+', '1');
   } else if(name == 'Tattoo Focus') {
     for(let s in rules.getChoices('schools')) {
       rules.defineRule('magicNotes.tattooFocus',
         'features.School Specialization (' + s + ')', '=', '"' + s + '"'
+      );
+      rules.defineRule('spellDCSchoolBonus.' + s,
+        'magicNotes.tattooFocus', '+', 'source=="' + s + '" ? 1 : null'
       );
     }
   } else if(rules.basePlugin.featRulesExtra) {
