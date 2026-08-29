@@ -1862,7 +1862,7 @@ Realms.SPELLS_ADDED = {
     'School=Evocation ' +
     'Level=S2,W2 ' +
     'Description=' +
-      '"5\' by %{lvl//2*5+25}\' line inflicts %{lvl//2<?5}d8 HP fire (save Reflex half)"',
+      '"5\'x%{lvl//2*5+25}\' line inflicts %{lvl//2<?5}d8 HP fire (save Reflex half)"',
   'Analyze Portal':
     'School=Divination ' +
     'Level=B3,Portal2,S3,W3 ' +
@@ -1897,7 +1897,7 @@ Realms.SPELLS_ADDED = {
     'School=Conjuration ' +
     'Level=S2,W2 ' +
     'Description=' +
-      '"Inscribes on touched a tattoo that grants one of these benefits for 1 day, with at most 3 tattoos inscribed on a target at any time: a +2 bonus to a chosen type of saves; +1 attacks; a +1 deflection bonus to Armor Class%{lvl>6?\'; a +2 resistance bonus to saves; +2 attacks; the ability to recall a cast spell of up to 2nd level once during the day\':\'\'}%{lvl>12?\'; SR \'+(10+lvl//6)+\'; +2 to a choice of ability; +1 caster level for spell effects\':\'\'}"',
+      '"Inscribes on touched a tattoo that grants a choice of these benefits for 1 day, with at most 3 tattoos inscribed on a target at any time: a +2 bonus to a chosen type of saves; +1 attacks; a +1 deflection bonus to Armor Class%{lvl>6?\'; a +2 resistance bonus to saves; +2 attacks; the ability to recall a cast spell of up to 2nd level once during the day\':\'\'}%{lvl>12?\'; SR \'+(10+lvl//6)+\'; +2 to a choice of ability; +1 caster level for spell effects\':\'\'}"',
   'Darkbolt':
     'School=Evocation ' +
     'Level=Darkness5 ' +
@@ -1926,7 +1926,7 @@ Realms.SPELLS_ADDED = {
     'School=Evocation ' +
     'Level=S3,W3 ' +
     'Description=' +
-      '"R%{lvl*40+400}\' Inflicts dazzled (-1 attacks) for 1 rd on creatures in a 20\' radius for 1 rd and blinded (50% miss chance on attacks; foe attacks gain +2 to hit; loss of Dexterity bonus to Armor Class; move at half Speed; -4 on Dexterity and Strength skill checks) for 2d8 rd (save Will negates) on creatures within view in a 120\' radius"',
+      '"R%{lvl*40+400}\' Inflicts blinded (50% miss chance on attacks; foe attacks gain +2 to hit; loss of Dexterity bonus to Armor Class; move at half Speed; -4 on Dexterity and Strength skill checks) for 2d8 rd on creatures in a 120\' radius (save Will inflicts dazzled for 1 rd on creatures in a 20\' radius; otherwise negates)"',
   'Flensing':
     'School=Evocation ' +
     'Level=S8,W8 ' +
@@ -1946,7 +1946,7 @@ Realms.SPELLS_ADDED = {
     'School=Evocation ' +
     'Level=B6,S8,W8 ' +
     'Description=' +
-      '"5\'5\'x%{lvl//2*5+25}\' area inflicts on objects 20d6 HP sonic (save Reflex for held objects negates), and a %{lvl//2*5+25}\' cone inflicts on creatures 10d6 HP sonic (or %{lvl<20}d6 HP for crystalline creatures), stunned for 1 rd, and deafened for 4d6 rd (save Fortitude half HP and deafness duration)"',
+      '"5\'x%{lvl//2*5+25}\' area inflicts on objects 20d6 HP sonic (save Reflex for held objects negates), and a %{lvl//2*5+25}\' cone inflicts on creatures 10d6 HP sonic (or %{lvl<?20}d6 HP for crystalline creatures), stunned for 1 rd, and deafened for 4d6 rd (save Fortitude half HP and deafness duration)"',
   'Greater Anyspell':
     'School=Transmutation ' +
     'Level=Spell6 ' +
@@ -1956,12 +1956,12 @@ Realms.SPELLS_ADDED = {
     'School=Illusion ' +
     'Level=Craft9 ' +
     'Description=' +
-      '"Creates an illusory large machine (88 hit points; Armor Class 20; slam +17/+12 1d8+9, x3 vs. stone and metal; throw rocks +12/+7 2d6+9; move 60\'; swim and fly 20\'; load 520) that takes directions for %{lvl} min"',
+      '"Creates an illusory large machine (88 hit points; Armor Class 20; slam +17/+12 1d8+9, x3 vs. stone and metal; throw rocks +12/+7 2d6+9; move 60\'; swim and fly 20\'; load 520) that obeys instructions for %{lvl} min"',
   "Grimwald's Graymantle":
     'School=Necromancy ' +
     'Level=S5,W5 ' +
     'Description=' +
-      '"R%{lvl*10+100}\' Touch or ranged touch attack prevents the target from healing, restoring, and regenerating (save Fortitude negates) for %{lvl} rd"',
+      '"R%{lvl*10+100}\' Ranged touch prevents the target from healing, restoring, and regenerating (save Fortitude negates) for %{lvl} rd"',
   'Lesser Ironguard':
     'School=Abjuration ' +
     'Level=S5,W5 ' +
