@@ -1915,112 +1915,139 @@ Realms.SPELLS_ADDED = {
   'Fantastic Machine':
     'School=Illusion ' +
     'Level=Craft6,Gnome6 ' +
-    'Description="Large illusory machine (22 hit points, Armor Class 14, slam +5 1d8+4, throw rocks +3 2d6+4, move 40\'/rd, swim and fly 10\'/rd, load 230) obeys self for %{lvl} min"',
+    'Description=' +
+      '"Creates an illusory large machine (22 hit points; Armor Class 14; slam +5 1d8+4, x3 vs. stone or metal; throw rocks +3 2d6+4; move 40\'; swim and fly 10\'; load 230) to perform a specified task for %{lvl} min"',
   'Fire Stride':
     'School=Transmutation ' +
     'Level=S4,W4 ' +
-    'Description="Self can teleport %{lvl*40+400}\' between fires %{lvl} times for %{lvl*10} min"',
+    'Description=' +
+      '"Allows self to teleport %{lvl*40+400}\' between fires %{lvl} times within %{lvl*10} min"',
   'Flashburst':
     'School=Evocation ' +
     'Level=S3,W3 ' +
-    'Description="R%{lvl*40+400}\' Creatures in 20\' radius dazzled (-1 attack) for 1 rd; creatures w/in 120\' blinded (Will neg) for 2d8 rd"',
+    'Description=' +
+      '"R%{lvl*40+400}\' Inflicts dazzled (-1 attacks) for 1 rd on creatures in a 20\' radius for 1 rd and blinded (50% miss chance on attacks; foe attacks gain +2 to hit; loss of Dexterity bonus to Armor Class; move at half Speed; -4 on Dexterity and Strength skill checks) for 2d8 rd (save Will negates) on creatures within view in a 120\' radius"',
   'Flensing':
     'School=Evocation ' +
     'Level=S8,W8 ' +
-    'Description="R%{lvl//2*5+25}\' Target suffers 2d6 HP and -1d6 Charisma and Constitution (Fort half HP only) for 4 rd"',
+    'Description=' +
+      '"R%{lvl//2*5+25}\' Inflicts 2d6 HP and -1d6 Charisma and Constitution per rd (save Fortitude each rd inflicts half HP only) for 4 rd"',
   'Gate Seal':
     'School=Abjuration ' +
     'Level=B6,C6,D6,S6,W6 ' +
-    'Description="R%{lvl//2*5+25}\' Seals magical gate or portal"',
+    'Description=' +
+      '"R%{lvl//2*5+25}\' Disables a magical gate or portal; a successful <i>Dispel Magic</i> or use of a <i>chime of opening</i> ends"',
   'Gembomb':
     'School=Conjuration ' +
     'Level=Gnome2,Trade2 ' +
-    'Description="Up to 5 gems become R100\' ranged touch bombs that inflict ${lvl//2<?5}d8 HP total (Ref half)"',
+    'Description=' +
+      '"Changes up to 5 gems into R100\' ranged touch bombs that together inflict ${lvl//2<?5}d8 HP force (save Reflex half), divided among them as desired"',
   'Great Shout':
     'School=Evocation ' +
     'Level=B6,S8,W8 ' +
-    'Description="R%{lvl//2*5+25}\' Objects in range suffer 20d6 HP (Ref neg); creatures in cone suffer 10d6 HP, stunned for 1 rd, and deafened for 4d6 rd (Fort half)"',
+    'Description=' +
+      '"5\'5\'x%{lvl//2*5+25}\' area inflicts on objects 20d6 HP sonic (save Reflex for held objects negates), and a %{lvl//2*5+25}\' cone inflicts on creatures 10d6 HP sonic (or %{lvl<20}d6 HP for crystalline creatures), stunned for 1 rd, and deafened for 4d6 rd (save Fortitude half HP and deafness duration)"',
   'Greater Anyspell':
     'School=Transmutation ' +
     'Level=Spell6 ' +
-    'Description="Prepares up to 5th level arcane spell from written source"',
+    'Description=' +
+      '"Allows preparing an arcane spell of up to 5th level from a written source; the prepared spell occupies the level 6 domain spell slot"',
   'Greater Fantastic Machine':
     'School=Illusion ' +
     'Level=Craft9 ' +
-    'Description="Large illusory machine (88 hit points, Armor Class 20, slam +17,+12 1d8+9, throw rocks +12,+7 2d6+9, move 60\'/rd, swim and fly 20\'/rd, load 520) obeys self for %{lvl} min"',
+    'Description=' +
+      '"Creates an illusory large machine (88 hit points; Armor Class 20; slam +17/+12 1d8+9, x3 vs. stone and metal; throw rocks +12/+7 2d6+9; move 60\'; swim and fly 20\'; load 520) that takes directions for %{lvl} min"',
   "Grimwald's Graymantle":
     'School=Necromancy ' +
     'Level=S5,W5 ' +
-    'Description="R%{lvl*10+100}\' Touched prevented from healing, restoring, and regenerating for %{lvl} rd (Fort neg)"',
+    'Description=' +
+      '"R%{lvl*10+100}\' Touch or ranged touch attack prevents the target from healing, restoring, and regenerating (save Fortitude negates) for %{lvl} rd"',
   'Lesser Ironguard':
     'School=Abjuration ' +
     'Level=S5,W5 ' +
-    'Description="Touched gains immunity to normal metal for %{lvl} rd"',
+    'Description=' +
+      '"Causes nonmagical metal to pass harmlessly through touched for %{lvl} rd"',
   'Maelstrom':
     'School=Conjuration ' +
     'Level=Ocean8 ' +
-    'Description="R%{lvl*40+400}\' Creatures in whirlpool suffer 3d8 HP for 2d4 rd (Ref et al neg) for %{lvl} rd"',
+    'Description=' +
+      '"R%{lvl*40+400}\' Creates a 60\' radius, 60\' deep whirlpool that inflicts 3d8 HP bludgeoning for 2d4 rd (save Reflex or Swim for swimmers and Profession (Sailor) for vessels negates) for %{lvl} rd"',
   'Maw Of Stone':
     'School=Transmutation ' +
     'Level=Cavern7 ' +
-    'Description="Animates natural opening to perform +%{lvl+wisdomModifier+7} grapple that inflicts 2d6+10 HP"',
+    'Description=' +
+      '"Causes a natural opening or chamber to make +%{lvl+wisdomModifier+7} grapple attempts when triggered for %{lvl*10} min; successful grapples are followed by a 2nd attempt that inflicts 2d6+10 HP if successful; openings can attempt to grapple 1 target each rd, chambers can grapple all creatures within, and openings and chambers with a dimension greater than 8\' suffer -1 on the initial grapple attempt, gain +4 on the 2nd, and inflict 2d8+10 HP"',
   'Moon Blade':
     'School=Evocation ' +
     'Level=Moon3,S3,W3 ' + // W3 for Hathran
-    'Description="Touch attack inflicts 1d8+%{lvl//2} HP (undead 2d8+%{lvl} HP) for %{lvl} min"',
+    'Description=' +
+      '"Creates a 3\' beam of light, wielded as a choice of sword, that allows melee touch attacks inflicting 1d8+%{lvl//2} HP (or 2d8+%{lvl} HP to undead), for %{lvl} min; a creature struck by the blade also requires a successful Concentration attempt to cast spells or use spell-like abilities on its next turn"',
   'Moon Path':
     'School=Evocation ' +
     'Level=Moon5,S5,W5 ' + // W5 for Hathran
-    'Description="Creates glowing pathway 5\'-20\' by %{lvl*15}\' for %{lvl} min that provides <i>Sanctuary</i> for %{lvl} designed creatures"',
+    'Description=' +
+      '"Creates a glowing pathway 5\'-20\' wide and %{lvl*15}\' long for %{lvl} min; it provides <i>Sanctuary</i> and <i>Spider Climb</i> effects for %{lvl} designed creatures when in contact"',
   'Moonbeam':
     'School=Evocation ' +
     'Level=Moon2,S2,W2 ' + // W2 for Hathran
-    'Description="R%{lvl//2*5+25}\' Target lycanthropes assume animal form for %{lvl} min (Will neg)"',
+    'Description=' +
+      '"R%{lvl//2*5+25}\' Creates a beam for %{lvl} min that forces target lycanthropes to assume animal form (save Will negates for 24 hr)"',
   'Moonfire':
     'School=Evocation ' +
     'Level=Moon9 ' +
-    'Description="R%{lvl//2*5+25}\' Cone inflicts %{lvl//2<?10}d8 HP (undead dbl) (Ref half), reverts changed creatures to normal form (Will neg), and marks auras for %{lvl} min"',
+    'Description=' +
+      '"R%{lvl//2*5+25}\' Cone inflicts %{lvl//2<?10}d8 HP (or double this for undead and shapechangers) (save Reflex half), reverts changed creatures to normal form (save Will negates), and causes the area to glow, marks auras, and requires successful caster level checks to create or continue electricity effects for %{lvl} rd"',
   'Scatterspray':
     'School=Transmutation ' +
     'Level=Harper1,S1,W1 ' +
-    'Description="R%{lvl//2*5+25}\' Little items in 1\' radius scatter, inflicting 1d8 on creatures w/in 10\' (Ref neg)"',
+    'Description=' +
+      '"R%{lvl//2*5+25}\' Unsecured little items in a 1\' radius scatter, inflicting 1d8 HP on creatures within 10\' (save Reflex negates)"',
   'Shadow Mask':
     'School=Illusion ' +
     'Level=Harper2,S2,W2 ' +
-    'Description="Hides self face and gives +4 saves vs. light and dark and 50% protection from gaze attacks for %{lvl*10} min" ' +
+    'Description=' +
+      '"Shrouds self facial features and gives +4 saves vs. light and darkness spells and 50% protection from gaze attacks for %{lvl*10} min" ' +
     'Liquid=Potion',
   'Shadow Spray':
     'School=Illusion ' +
     'Level=S2,W2 ' +
-    'Description="R%{lvl*10+100}\' Creatures in 5\' radius suffer -2 Strength and fear saves and dazed 1 rd for %{lvl} rd (Fort neg)"',
+    'Description=' +
+      '"R%{lvl*10+100}\' 5\' radius inflicts dazed for 1 rd, -2 fear saves for %{lvl} rd, and -2 temporary Strength damage (save Fort negates)"',
   "Snilloc's Snowball Swarm":
     'School=Evocation ' +
     'Level=S2,W2 ' +
-    'Description="R%{lvl*10+100}\' Creatures in 10\' radius suffer %{(lvl+1)//2<?5}d6 HP (Ref half)"',
+    'Description=' +
+      '"R%{lvl*10+100}\' 10\' radius inflicts %{(lvl+1)//2<?5}d6 HP cold (save Reflex half)"',
   'Spider Curse':
     'School=Transmutation ' +
     'Level=Spider6 ' +
-    'Description="R%{lvl*10+100}\' Target polymorphs into drider that obeys self thoughts for %{lvl} dy (Will neg)"',
+    'Description=' +
+      '"R%{lvl*10+100}\' Polymorphs the target into a drider (save Will negates) that obeys telepathic commands for %{lvl} days; the target gains +4 Strength, Dexterity, and Constitution and a poison bite attack that inflicts 1d6 points of initial and secondary temporary Strength damage (save Fortitude DC %{16+wisdomModifier} negates)"',
   'Spider Shapes':
     'School=Transmutation ' +
     'Level=Spider9 ' +
-    'Description="R%{lvl//2*5+25}\' Willing target polymorphs into monstrous spider for %{lvl} hr"',
+    'Description=' +
+      '"R%{lvl//2*5+25}\' Polymorphs %{lvl} willing targets into monstrous spiders for %{lvl} hr or until each ends the effect; the transformation inflicts no disorientation and restores hit points equivalent to a day\'s rest"',
   'Spiderform':
     'School=Transmutation ' +
     'Level=Drow5 ' +
-    'Description="Self polymorphs into drider or monstrous spider for %{lvl} hr"',
+    'Description=' +
+      '"Polymorphs self into a drider or monstrous spider with a poisonous bite for %{lvl} hr; the transformation inflicts no disorientation and restores hit points equivalent to a day\'s rest"',
   'Stone Spiders':
     'School=Transmutation ' +
     'Level=Spider7 ' +
-    'Description="R%{lvl//2*5+25}\' Transforms 1d3 pebbles into obedient monstrous spiders for %{lvl} rd"',
+    'Description=' +
+      '"R%{lvl//2*5+25}\' Transforms 1d3 pebbles into obedient constructs with the form and capabilities of monstrous spiders for %{lvl} rd; the targets also gain +6 natural armor, DR 30/+2, and a poison that inflicts 1d3 points of initial and secondary Strength damage (save Fortitude DC %{17+wisdomModifier} negates); if cast on vermin, the spell instead gives 1d3 targets DR 10/+5 for %{lvl} rd"',
   'Thunderlance':
     'School=Evocation ' +
     'Level=S4,W4 ' +
-    'Description="Self wields shimmering staff (+%{lvl//2+1} attack, 2d6+%{lvl//2+1} x3@20) 1\' - 20\' long for %{lvl} rd"',
+    'Description=' +
+      '"Allows self to wield, with proficiency, a shimmering force staff (+%{lvl//2+1} attack inflicts 2d6+%{lvl//2+1} x3@20) that can grow and shrink between 1\' and 20\' for %{lvl} rd; hits with the staff also allow a caster level check to dispel protective spells of up to level 3"',
   'Waterspout':
     'School=Conjuration ' +
     'Level=Ocean7 ' +
-    'Description="R%{lvl*40+400}\' Self moves 10\'x80\' spout 30\'/rd; touched creatures suffer 2d6 HP (Ref neg) for %{lvl} rd"'
+    'Description=' +
+      '"R%{lvl*40+400}\' Creates on a body of water a 10\' wide, 80\' waterspout that can be moved 30\' per rd for %{lvl} rd; it inflicts 2d6 HP on creatures it touches (save Reflex negates), and an additional 2d6 HP per rd for 1d3 rd, plus falling damage from being ejected from the waterspout, on Medium and smaller creatures who fail their saves"'
 
 };
 Realms.SPELLS = Object.assign(
