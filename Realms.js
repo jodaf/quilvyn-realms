@@ -3108,8 +3108,6 @@ Realms.featRules = function(rules, name, requires, implies, types) {
  */
 Realms.featRulesExtra = function(rules, name) {
 
-  let matchInfo;
-
   if(name == 'Bloodline Of Fire') {
     rules.defineRule
       ('magicNotes.bloodlineOfFire', 'levels.Sorcerer', '?', null);
