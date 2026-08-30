@@ -961,7 +961,7 @@ Realms.FEATURES_ADDED = {
     'Note="+2 Spell Power%{levels.Archmage?\'; costs a 9th-level spell slot to acquire\':\'\'}"',
 
   // Divine Champion
-  'Divine Champion Bonus Feats':'Section=feature Note="+%V Fighter feats"',
+  'Divine Champion Bonus Feats':'Section=feature Note="+%V Fighter Feats"',
   'Divine Wrath':
     'Section=combat,save ' +
     'Note=' +
@@ -2619,7 +2619,7 @@ Realms.choiceRules = function(rules, type, name, attrs) {
   }
   if(type != 'Spell') {
     type = type == 'Class' ? 'levels' :
-    (type.substring(0,1).toLowerCase() + type.substring(1).replaceAll(' ', '') + 's');
+    (type.charAt(0).toLowerCase() + type.substring(1).replaceAll(' ','') + 's');
     rules.addChoice(type, name, attrs);
   }
 };
@@ -2660,7 +2660,7 @@ Realms.armorRules = function(
  * Javascript expression for determining the caster level for the class; these
  * can incorporate a class level attribute (e.g., 'levels.Cleric') or the
  * character level attribute 'level'. If the class grants spell slots,
- * #spellAbility# names the ability for computing spell difficulty class, and
+ * #spellAbility# names the ability for computing spell difficulty class,
  * #spellSlots# lists the number of spells per level per day granted, and
  * #spellsAvailable# lists the number of spells known at each level.
  */
@@ -2823,6 +2823,7 @@ Realms.classRulesExtra = function(rules, name) {
     rules.defineRule('featureNotes.divineChampionBonusFeats',
       classLevel, '=', 'Math.floor(source / 2)'
     );
+    // Override featureRules' + with +=
     rules.defineRule('featCount.Fighter',
       'featureNotes.divineChampionBonusFeats', '+=', null
     );
@@ -2887,9 +2888,7 @@ Realms.classRulesExtra = function(rules, name) {
     rules.defineRule('featCount.Guild Thief',
       'featureNotes.guildThiefBonusFeats', '+=', null
     );
-    rules.defineRule('featureNotes.reputation',
-      classLevel, '=', 'source >= 3 ? source - 2 : null'
-    );
+    rules.defineRule('featureNotes.reputation', classLevel, '=', 'source - 2');
 
   } else if(name == 'Harper Scout') {
 
@@ -3018,14 +3017,12 @@ Realms.classRulesExtra = function(rules, name) {
   }
 
   if(feats != null && allFeats != null) {
-    for(let j = 0; j < feats.length; j++) {
-      let feat = feats[j];
-      if(!(feat in allFeats)) {
-        console.log('Unknown feat "' + feat + '" for class "' + name + '"');
-        continue;
-      }
-      allFeats[feat] = allFeats[feat].replace('Type=', 'Type="' + name + '",');
-    }
+    feats.forEach(f => {
+      if(!(f in allFeats))
+        console.log('Unknown feat "' + f + '" for class "' + name + '"');
+      else
+        allFeats[f] = allFeats[f].replace('Type=', 'Type="' + name + '",');
+    });
   }
 
 };
@@ -3129,22 +3126,6 @@ Realms.featRulesExtra = function(rules, name) {
       'sumMetamagicFeats', '+', null
     );
     rules.defineRule('hitPoints', 'combatNotes.mindOverBody.1', '+', null);
-  } else if((matchInfo = name.match(/^Spellcasting\sProdigy\s\((.*)\)$/)) != null) {
-    let clas = matchInfo[1];
-    let spellCode = clas.charAt(0);
-    let ability = {'Bard':'charisma', 'Cleric':'wisdom', 'Druid':'wisdom', 'Sorcerer':'charisma', 'Wizard':'intelligence'}[clas];
-    rules.defineRule('spellDifficultyClass.' + clas,
-      'magicNotes.spellcastingProdigy(' + clas + ')', '+', '1'
-    );
-    rules.defineRule('prodigyAbility' + clas,
-      'magicNotes.spellcastingProdigy(' + clas + ')', '?', null,
-      ability + 'Modifier', '=', 'source + 1'
-    );
-    for(let spellLevel = 1; spellLevel <= 5; spellLevel++) {
-      rules.defineRule('spellSlots.' + spellCode + spellLevel,
-        'prodigyAbility' + clas, '+', 'source == ' + spellLevel + ' ? 1 : null'
-      );
-    }
   } else if(name == 'Shadow Weave Magic') {
     rules.defineRule('spellDCSchoolBonus.Enchantment',
       'magicNotes.shadowWeaveMagic', '+=', '1'
@@ -3159,11 +3140,11 @@ Realms.featRulesExtra = function(rules, name) {
     let c = name.replace('Spellcasting Prodigy (', '').replace(')', '');
     let note =
       'magicNotes.' + name.charAt(0).toLowerCase() + name.substring(1).replaceAll(' ', '');
+    let classes = rules.getChoices('levels') || Realms.CLASSES;
     let ability =
-      c in rules.getChoices('levels') ?
-        QuilvynUtils.getAttrValue(rules.getChoices('levels')[c], 'SpellAbility') || 'Wisdom' : 'Wisdom';
-    rules.defineRules
-      (ability.toLowerCase() + c.replaceAll(' ', '') + 'SpellSlotBonus', note, '+', '1');
+      c in classes ? QuilvynUtils.getAttrValue(classes[c], 'SpellAbility') || 'Wisdom' : 'Wisdom';
+    rules.defineRule
+      ('magicNotes.' + ability.toLowerCase() + c.replaceAll(' ', '') + 'SpellSlotBonus', note, '+', '1');
     rules.defineRule('spellDifficultyClass.' + c.charAt(0), note, '+', '1');
   } else if(name == 'Tattoo Focus') {
     for(let s in rules.getChoices('schools')) {
@@ -3242,7 +3223,7 @@ Realms.languageRules = function(rules, name) {
 /*
  * Defines in #rules# the rules associated with race #name#, which has the list
  * of hard prerequisites #requires#. #features# and #selectables# list
- * associated features and #languages# any automatic languages.
+ * associated features and #languages# any automatic languages. #size# and
  * #speed# give the race's size (one of Small, Medium, or Large) and speed.
  */
 Realms.raceRules = function(
@@ -3283,7 +3264,7 @@ Realms.raceRulesExtra = function(rules, name) {
       ('resistance.Electricity', 'saveNotes.aasimarResistance', '^=', '5');
   } else if(name == 'Deep Gnome') {
     rules.defineRule('saveNotes.deepGnomeSpellResistance',
-      'deepGnomeLevel', '=', 'source + 11'
+      raceLevel, '=', 'source + 11'
     );
     // Several web pages say that the DC for Deep Gnome spells is Charisma
     // based with a +4 racial modifier. The FG Campaign Setting says 10 +
@@ -3298,15 +3279,15 @@ Realms.raceRulesExtra = function(rules, name) {
   } else if(name == 'Drow Elf') {
     rules.defineRule('combatNotes.lightSensitivity', 'drowElfLevel', '=', '1');
     rules.defineRule
-      ('saveNotes.drowElfSpellResistance', 'drowElfLevel', '=', 'source + 11');
-    rules.defineRule('saveNotes.lightSensitivity', 'drowElfLevel', '=', '1');
-    rules.defineRule('skillNotes.lightSensitivity', 'drowElfLevel', '=', '1');
+      ('saveNotes.drowElfSpellResistance', raceLevel, '=', 'source + 11');
+    rules.defineRule('saveNotes.lightSensitivity', raceLevel, '=', '1');
+    rules.defineRule('skillNotes.lightSensitivity', raceLevel, '=', '1');
     rules.defineRule
       ('spellResistance', 'saveNotes.drowElfSpellResistance', '^=', null);
   } else if(name == 'Gray Dwarf') {
-    rules.defineRule('combatNotes.lightSensitivity', 'grayDwarfLevel', '=','2');
-    rules.defineRule('saveNotes.lightSensitivity', 'grayDwarfLevel', '=', '2');
-    rules.defineRule('skillNotes.lightSensitivity', 'grayDwarfLevel', '=', '2');
+    rules.defineRule('combatNotes.lightSensitivity', raceLevel, '=','2');
+    rules.defineRule('saveNotes.lightSensitivity', raceLevel, '=', '2');
+    rules.defineRule('skillNotes.lightSensitivity', raceLevel, '=', '2');
   } else if(name == 'Tiefling') {
     rules.defineRule
       ('resistance.Cold', 'saveNotes.tieflingResistance', '^=', '5');
@@ -3369,12 +3350,11 @@ Realms.shieldRules = function(
 
 /*
  * Defines in #rules# the rules associated with skill #name#, associated with
- * basic ability #ability#. #untrained#, if specified, is a boolean indicating
- * whether or not the skill can be used untrained; the default is true.
- * #classes# lists the classes for which this is a class skill; a value of
- * "all" indicates that this is a class skill for all classes. #synergies#
- * lists any synergies with other skills and abilities granted by high ranks in
- * this skill.
+ * basic ability #ability#. #untrained# is a boolean indicating whether or not
+ * the skill can be used untrained. #classes# lists the classes for which this
+ * is a class skill; a value of "all" indicates that this is a class skill for
+ * all classes. #synergies# lists any synergies with other skills and abilities
+ * granted by high ranks in this skill.
  */
 Realms.skillRules = function(
   rules, name, ability, untrained, classes, synergies
