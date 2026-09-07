@@ -775,7 +775,7 @@ Realms.FEATURES_ADDED = {
     'Note=' +
       '"+1 Will",' +
       '"+2 Concentration"',
-  'Education':
+  'Education': // ref Eberron
     'Section=skill,skill ' +
     'Note=' +
       '"All Knowledge skills are class skills",' +
@@ -1172,7 +1172,7 @@ Realms.FEATURES_ADDED = {
   'Cavern Stonecunning':SRD35.FEATURES.Stonecunning,
 
   // Charm
-  'Charisma Boost':
+  'Charisma Boost': // ref Eberron
     'Section=ability Note="Can gain +4 charisma for 1 min once per day"',
 
   // Craft
