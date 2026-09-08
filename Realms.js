@@ -1179,7 +1179,7 @@ Realms.FEATURES_ADDED = {
   'Crafter':
     'Section=magic,feature ' +
     'Note=' +
-      '"+1 caster level on creation spells",' +
+      '"+1 caster level on Creation spells",' +
       '"+1 General Feat (Skill Focus with a chosen Craft)"',
 
   // Family
@@ -1855,7 +1855,7 @@ Realms.SPELLS_ADDED = {
   // of potions that appear not to be spell-based: Hiding, Sneaking, Charisma,
   // Vision, Truth, and Love
   "Aganazzar's Scorcher":
-    'School=Evocation ' +
+    'School="Evocation [Fire]" ' +
     'Level=S2,W2 ' +
     'Description=' +
       '"5\'x%{lvl//2*5+25}\' line inflicts %{lvl//2<?5}d8 HP fire (save Reflex half)"',
@@ -1870,17 +1870,17 @@ Realms.SPELLS_ADDED = {
     'Description=' +
       '"Allows preparing an arcane spell of up to 2nd level from a written source; the prepared spell occupies the level 3 domain spell slot"',
   'Armor Of Darkness':
-    'School=Abjuration ' +
+    'School="Abjuration [Darkness]" ' +
     'Level=Darkness4 ' +
     'Description=' +
       '"Touched gains a +%{3+lvl//4<?8} deflection bonus to Armor Class, 60\' darkvision, and +2 saves vs. holy, good, and light spells for %{lvl*10} min; an undead target also gains +4 turn resistance"',
   'Blacklight':
-    'School=Evocation ' +
+    'School="Evocation [Darkness]" ' +
     'Level=Darkness3,S3,W3 ' +
     'Description=' +
       '"R%{lvl//2*5+25}\' 20\' radius around the target becomes enveloped in darkness (save Will negates) for %{lvl} rd; the darkness is impervious to Darkvision, but self can see normally when inside the radius"',
   'Claws Of Darkness':
-    'School=Illusion ' +
+    'School="Illusion (Shadow)" ' +
    'Level=S2,W2 ' +
    'Description=' +
      '"Self grows 6\' extendable claws that inflict 1d4 HP cold via unarmed strikes and grappling for %{lvl} rd; grappling also slows the target (save Fortitude negates)"',
@@ -1890,12 +1890,12 @@ Realms.SPELLS_ADDED = {
     'Description=' +
       '"Gives touched protection from the effects of sunlight and +4 saves vs. light and darkness effects for %{lvl} min"',
   'Create Magic Tattoo':
-    'School=Conjuration ' +
+    'School="Conjuration (Creation)" ' +
     'Level=S2,W2 ' +
     'Description=' +
       '"Inscribes on touched a tattoo that grants a choice of these benefits for 1 day, with at most 3 tattoos inscribed on a target at any time: a +2 bonus to a chosen type of saves; +1 attacks; a +1 deflection bonus to Armor Class%{lvl>6?\'; a +2 resistance bonus to saves; +2 attacks; the ability to recall a cast spell of up to 2nd level once during the day\':\'\'}%{lvl>12?\'; SR \'+(10+lvl//6)+\'; +2 to a choice of ability; +1 caster level for spell effects\':\'\'}"',
   'Darkbolt':
-    'School=Evocation ' +
+    'School="Evocation [Darkness]" ' +
     'Level=Darkness5 ' +
     'Description=' +
       '"R%{lvl*10+100}\' Ranged touch attacks with ${lvl//2<?7} bolts in a 30\' radius each inflict 2d8 HP and dazed for 1 rd (save Will HP only); the spell does not damage undead, but may daze them"',
@@ -1909,17 +1909,17 @@ Realms.SPELLS_ADDED = {
     'Description=' +
       '"Specifies a set of triggers that will teleport self and up to 50 lb of touched objects to a named locale, upon which up to 2 additional spells of up to level %{lvl//3<?6} with self as the target will take effect"',
   'Fantastic Machine':
-    'School=Illusion ' +
+    'School="Illusion (Shadow)" ' +
     'Level=Craft6,Gnome6 ' +
     'Description=' +
       '"Creates an illusory large machine (22 hit points; Armor Class 14; slam +5 1d8+4, x3 vs. stone or metal; throw rocks +3 2d6+4; move 40\'; swim and fly 10\'; load 230) to perform a specified task for %{lvl} min"',
   'Fire Stride':
-    'School=Transmutation ' +
+    'School="Transmutation [Teleportation]" ' +
     'Level=S4,W4 ' +
     'Description=' +
       '"Allows self to teleport %{lvl*40+400}\' between fires %{lvl} times within %{lvl*10} min"',
   'Flashburst':
-    'School=Evocation ' +
+    'School="Evocation [Fire]" ' +
     'Level=S3,W3 ' +
     'Description=' +
       '"R%{lvl*40+400}\' Inflicts blinded (50% miss chance on attacks; foe attacks gain +2 to hit; loss of Dexterity bonus to Armor Class; move at half Speed; -4 on Dexterity and Strength skill checks) for 2d8 rd on creatures in a 120\' radius (save Will inflicts dazzled for 1 rd on creatures in a 20\' radius; otherwise negates)"',
@@ -1934,12 +1934,12 @@ Realms.SPELLS_ADDED = {
     'Description=' +
       '"R%{lvl//2*5+25}\' Disables a magical gate or portal; a successful <i>Dispel Magic</i> or use of a <i>chime of opening</i> ends"',
   'Gembomb':
-    'School=Conjuration ' +
+    'School="Conjuration (Creation) [Force]" ' +
     'Level=Gnome2,Trade2 ' +
     'Description=' +
       '"Changes up to 5 gems into R100\' ranged touch bombs that together inflict ${lvl//2<?5}d8 HP force (save Reflex half), divided among them as desired"',
   'Great Shout':
-    'School=Evocation ' +
+    'School="Evocation [Sonic]" ' +
     'Level=B6,S8,W8 ' +
     'Description=' +
       '"5\'x%{lvl//2*5+25}\' area inflicts on objects 20d6 HP sonic (save Reflex for held objects negates), and a %{lvl//2*5+25}\' cone inflicts on creatures 10d6 HP sonic (or %{lvl<?20}d6 HP for crystalline creatures), stunned for 1 rd, and deafened for 4d6 rd (save Fortitude half HP and deafness duration)"',
@@ -1949,7 +1949,7 @@ Realms.SPELLS_ADDED = {
     'Description=' +
       '"Allows preparing an arcane spell of up to 5th level from a written source; the prepared spell occupies the level 6 domain spell slot"',
   'Greater Fantastic Machine':
-    'School=Illusion ' +
+    'School="Illusion (Shadow)" ' +
     'Level=Craft9 ' +
     'Description=' +
       '"Creates an illusory large machine (88 hit points; Armor Class 20; slam +17/+12 1d8+9, x3 vs. stone and metal; throw rocks +12/+7 2d6+9; move 60\'; swim and fly 20\'; load 520) that obeys instructions for %{lvl} min"',
@@ -1964,7 +1964,7 @@ Realms.SPELLS_ADDED = {
     'Description=' +
       '"Causes nonmagical metal to pass harmlessly through touched for %{lvl} rd"',
   'Maelstrom':
-    'School=Conjuration ' +
+    'School="Conjuration (Creation)" ' +
     'Level=Ocean8 ' +
     'Description=' +
       '"R%{lvl*40+400}\' Creates a 60\' radius, 60\' deep whirlpool that inflicts 3d8 HP bludgeoning for 2d4 rd (save Reflex or Swim for swimmers and Profession (Sailor) for vessels negates) for %{lvl} rd"',
@@ -1979,17 +1979,17 @@ Realms.SPELLS_ADDED = {
     'Description=' +
       '"Creates a 3\' beam of light, wielded as a choice of sword, that allows melee touch attacks inflicting 1d8+%{lvl//2} HP (or 2d8+%{lvl} HP to undead), for %{lvl} min; a creature struck by the blade also requires a successful Concentration attempt to cast spells or use spell-like abilities on its next turn"',
   'Moon Path':
-    'School=Evocation ' +
+    'School="Evocation [Force]" ' +
     'Level=Moon5,S5,W5 ' + // W5 for Hathran
     'Description=' +
       '"Creates a glowing pathway 5\'-20\' wide and %{lvl*15}\' long for %{lvl} min; it provides <i>Sanctuary</i> and <i>Spider Climb</i> effects for %{lvl} designed creatures when in contact"',
   'Moonbeam':
-    'School=Evocation ' +
+    'School="Evocation [Light]" ' +
     'Level=Moon2,S2,W2 ' + // W2 for Hathran
     'Description=' +
       '"R%{lvl//2*5+25}\' Creates a beam for %{lvl} min that forces target lycanthropes to assume animal form (save Will negates for 24 hr)"',
   'Moonfire':
-    'School=Evocation ' +
+    'School="Evocation [Light]" ' +
     'Level=Moon9 ' +
     'Description=' +
       '"R%{lvl//2*5+25}\' Cone inflicts %{lvl//2<?10}d8 HP (or double this for undead and shapechangers) (save Reflex half), reverts changed creatures to normal form (save Will negates), and causes the area to glow, marks auras, and requires successful caster level checks to create or continue electricity effects for %{lvl} rd"',
@@ -1999,23 +1999,23 @@ Realms.SPELLS_ADDED = {
     'Description=' +
       '"R%{lvl//2*5+25}\' Unsecured little items in a 1\' radius scatter, inflicting 1d8 HP on creatures within 10\' (save Reflex negates)"',
   'Shadow Mask':
-    'School=Illusion ' +
+    'School="Illusion (Shadow)" ' +
     'Level=Harper2,S2,W2 ' +
     'Description=' +
       '"Shrouds self facial features and gives +4 saves vs. light and darkness spells and 50% protection from gaze attacks for %{lvl*10} min" ' +
     'Liquid=Potion',
   'Shadow Spray':
-    'School=Illusion ' +
+    'School="Illusion (Shadow)" ' +
     'Level=S2,W2 ' +
     'Description=' +
       '"R%{lvl*10+100}\' 5\' radius inflicts dazed for 1 rd, -2 fear saves for %{lvl} rd, and -2 temporary Strength damage (save Fort negates)"',
   "Snilloc's Snowball Swarm":
-    'School=Evocation ' +
+    'School="Evocation [Cold]" ' +
     'Level=S2,W2 ' +
     'Description=' +
       '"R%{lvl*10+100}\' 10\' radius inflicts %{(lvl+1)//2<?5}d6 HP cold (save Reflex half)"',
   'Spider Curse':
-    'School=Transmutation ' +
+    'School="Transmutation [Mind-Affecting]" ' +
     'Level=Spider6 ' +
     'Description=' +
       '"R%{lvl*10+100}\' Polymorphs the target into a drider (save Will negates) that obeys telepathic commands for %{lvl} days; the target gains +4 Strength, Dexterity, and Constitution and a poison bite attack that inflicts 1d6 points of initial and secondary temporary Strength damage (save Fortitude DC %{16+wisdomModifier} negates)"',
@@ -2035,12 +2035,12 @@ Realms.SPELLS_ADDED = {
     'Description=' +
       '"R%{lvl//2*5+25}\' Transforms 1d3 pebbles into obedient constructs with the form and capabilities of monstrous spiders for %{lvl} rd; the targets also gain +6 natural armor, DR 30/+2, and a poison that inflicts 1d3 points of initial and secondary Strength damage (save Fortitude DC %{17+wisdomModifier} negates); if cast on vermin, the spell instead gives 1d3 targets DR 10/+5 for %{lvl} rd"',
   'Thunderlance':
-    'School=Evocation ' +
+    'School="Evocation [Force]" ' +
     'Level=S4,W4 ' +
     'Description=' +
       '"Allows self to wield, with proficiency, a shimmering force staff (+%{lvl//2+1} attack inflicts 2d6+%{lvl//2+1} x3@20) that can grow and shrink between 1\' and 20\' for %{lvl} rd; hits with the staff also allow a caster level check to dispel protective spells of up to level 3"',
   'Waterspout':
-    'School=Conjuration ' +
+    'School="Conjuration (Creation)" ' +
     'Level=Ocean7 ' +
     'Description=' +
       '"R%{lvl*40+400}\' Creates on a body of water a 10\' wide, 80\' waterspout that can be moved 30\' per rd for %{lvl} rd; it inflicts 2d6 HP on creatures it touches (save Reflex negates), and an additional 2d6 HP per rd for 1d3 rd, plus falling damage from being ejected from the waterspout, on Medium and smaller creatures who fail their saves"'
@@ -3012,6 +3012,12 @@ Realms.classRulesExtra = function(rules, name) {
         ('resistance.Electricity', 'saveNotes.stormfriend', '^=', '5');
       rules.defineRule
         ('combatNotes.extraTurning', 'clericFeatures.Extra Turning', '+=', '4');
+      rules.defineRule('spellEffectsCasterLevelBonus.Creation',
+        'magicNotes.crafter', '+=', '1'
+      );
+      rules.defineRule('spellEffectsCasterLevelBonus.Illusion',
+        'magicNotes.advancedIllusionist', '+=', '1'
+      );
     }
 
   }
