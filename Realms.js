@@ -845,10 +845,7 @@ Realms.FEATURES_ADDED = {
       '"-2 Wisdom",' +
       '"-2 Wisdom penalty can be reversed only via <i>Atonement</i> cast by a cleric of Shar",' +
       '"+1 DC on Enchantment, Illusion, and Necromancy spells",' +
-      // N.B. spell attributes don't currently include descriptors like
-      // darkness, and our computed character attributes don't presently allow
-      // changing the caster level on a per-school basis
-      '"+1 DC on darkness descriptor spells/-1 caster level on non-darkness Evocation and Transmutation spells/+1 checks to overcome resistance on enchantment, illusion, necromancy, and darkness descriptor spells/Cannot cast light descriptor spells"',
+      '"+1 DC on Darkness spells/-1 caster level with non-darkness Evocation and Transmutation spells/+1 checks to overcome resistance on enchantment, illusion, necromancy, and darkness descriptor spells/Cannot cast light descriptor spells"',
   'Signature Spell':
     'Section=magic ' +
     'Note="Can cast a chosen mastered spell in place of a prepared arcane spell"',
@@ -923,7 +920,7 @@ Realms.FEATURES_ADDED = {
   // Arcane Devotee
   'Alignment Focus':
     'Section=magic ' +
-    'Note="+1 caster level on spells from a chosen alignment component"',
+    'Note="+1 caster level on spells with a chosen alignment descriptor"',
   'Arcane Caster Level Bonus':SRD35.FEATURES['Arcane Caster Level Bonus'],
   'Arcane Devotee Bonus Feats':
     'Section=feature Note="+%V Arcane Devotee Feats"',
@@ -3012,12 +3009,6 @@ Realms.classRulesExtra = function(rules, name) {
         ('resistance.Electricity', 'saveNotes.stormfriend', '^=', '5');
       rules.defineRule
         ('combatNotes.extraTurning', 'clericFeatures.Extra Turning', '+=', '4');
-      rules.defineRule('spellEffectsCasterLevelBonus.Creation',
-        'magicNotes.crafter', '+=', '1'
-      );
-      rules.defineRule('spellEffectsCasterLevelBonus.Illusion',
-        'magicNotes.advancedIllusionist', '+=', '1'
-      );
     }
 
   }
