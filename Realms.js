@@ -844,8 +844,8 @@ Realms.FEATURES_ADDED = {
     'Note=' +
       '"-2 Wisdom",' +
       '"-2 Wisdom penalty can be reversed only via <i>Atonement</i> cast by a cleric of Shar",' +
-      '"+1 DC on Enchantment, Illusion, and Necromancy spells",' +
-      '"+1 DC on Darkness spells/-1 caster level with non-darkness Evocation and Transmutation spells/+1 checks to overcome resistance on enchantment, illusion, necromancy, and darkness descriptor spells/Cannot cast light descriptor spells"',
+      '"+1 DC on Enchantment, Illusion, and Necromancy spells/-1 caster level on non-Darkness Evocation and Transmutation spells",' +
+      '"+1 DC on Darkness spells/+1 checks to overcome resistance on enchantment, illusion, necromancy, and darkness descriptor spells/Cannot cast light descriptor spells"',
   'Signature Spell':
     'Section=magic ' +
     'Note="Can cast a chosen mastered spell in place of a prepared arcane spell"',
@@ -3131,6 +3131,14 @@ Realms.featRulesExtra = function(rules, name) {
     rules.defineRule('spellDCSchoolBonus.Necromancy',
       'magicNotes.shadowWeaveMagic', '+=', '1'
     );
+    // N.B. here we reduce the caster level for all Evoc and Tran spells by -1;
+    // spellRules carves out an exception for [Darkness] descriptor spells
+    rules.defineRule('spellEffectsCasterLevelBonus.Evocation',
+      'magicNotes.shadowWeaveMagic', '+=', '-1'
+    );
+    rules.defineRule('spellEffectsCasterLevelBonus.Transmutation',
+      'magicNotes.shadowWeaveMagic', '+=', '-1'
+    );
   } else if(name.startsWith('Spellcasting Prodigy')) {
     let c = name.replace('Spellcasting Prodigy (', '').replace(')', '');
     let note =
@@ -3375,7 +3383,17 @@ Realms.spellRules = function(
   rules.basePlugin.spellRules
     (rules, name, school, casterGroup, level, description, domainSpell,
      liquids);
-  // No changes needed to the rules defined by base method
+   if(school && school.match(/^(Evocation|Transmutation).*Darkness/)) {
+     // Reverse the -1 spell effects caster level for Shadow Weave magic
+     // defined by featRulesExtra
+     rules.defineRule('spellEffectsCasterLevelBonus.ShadowWeaveMagic',
+       'magicNotes.shadowWeaveMagic', '=', '1'
+     );
+     let description = rules.getChoices('notes')['spells.' + name];
+     if(description)
+       rules.getChoices('notes')['spells.' + name] =
+         description.replaceAll('(spellEffectsCasterLevelBonus.Darkness||0)', '(spellEffectsCasterLevelBonus.Darkness||0)+(spellEffectsCasterLevelBonus.ShadowWeaveMagic||0)');
+   }
 };
 
 /*
