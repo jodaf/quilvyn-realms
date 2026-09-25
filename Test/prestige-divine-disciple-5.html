@@ -87,15 +87,15 @@ var attributes = {
       <td>      <table id="FeatLists" style="width:100%">
       <tr style="text-align:center">
         <td><b>Feats</b>: Acrobatic; Endurance; Extend Spell; Heighten Spell; Persistent Spell; Toughness</td>
-        <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
+        <td><b>Human Features</b>: Bonus Feat (Human); Skill Bonus (Human)</td>
         <td><b>Divine Disciple Features</b>: Divine Caster Level Bonus; Divine Emissary; Imbue With Spell Ability; New Domain; Sacred Defense; Transcendence</td>
-        <td><b>Cleric Features</b>: Animal Domain; Animal Talk; Armor Proficiency (Light; Medium; Heavy; Shield); Aura; Empowered Good; Good Domain; Nature Knowledge; Plant Domain; Plant Turning; Spontaneous Casting (Cleric); Turn Undead; Weapon Proficiency (Simple Weapons)</td>
+        <td><b>Cleric Features</b>: Animal Domain; Armor Proficiency (Light; Medium; Heavy; Shield); Aura; Good Domain; Plant Domain; Spontaneous Casting (Cleric); Turn Undead; Weapon Proficiency (Simple Weapons)</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
       <td><b>Feature Notes</b>:       <table id="FeatureNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Human Feat Bonus: +1 General Feat</i></td>
+        <td><i>Bonus Feat (Human): +1 General Feat</i></td>
       </tr><tr style="text-align:center">
         <td><i>New Domain: Can choose an additional deity domain</i></td>
       </tr><tr style="text-align:center">
@@ -134,17 +134,19 @@ var attributes = {
       <tr style="text-align:center">
         <td><i>Acrobatic: +2 Jump/+2 Tumble</i></td>
       </tr><tr style="text-align:center">
+        <td><i>Animal Domain: Knowledge (Nature) is a class skill</i></td>
+      </tr><tr style="text-align:center">
         <td><i>Armor Skill Check Penalty: -9 Balance/-9 Climb/-9 Escape Artist/-9 Hide/-9 Jump/-9 Move Silently/-9 Sleight Of Hand/-9 Tumble</i></td>
       </tr><tr style="text-align:center">
         <td><i>Armor Swim Check Penalty: -18 Swim</i></td>
-      </tr><tr style="text-align:center">
-        <td><i>Human Skill Bonus: +15 Skill Points</i></td>
       </tr><tr style="text-align:center">
         <td><i>Intelligence Language Adjustment: +1</i></td>
       </tr><tr style="text-align:center">
         <td><i>Intelligence Skill Points Adjustment: +15</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Nature Knowledge: Knowledge (Nature) is a class skill</i></td>
+        <td><i>Plant Domain: Knowledge (Nature) is a class skill</i></td>
+      </tr><tr style="text-align:center">
+        <td><i>Skill Bonus (Human): +15 Skill Points</i></td>
       </tr><tr style="text-align:center">
         <td><i>Speed Jump Modifier: -6</i></td>
       </tr><tr style="text-align:center">
@@ -197,7 +199,7 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Toughness: +3 Hit Points</i></td>
       </tr><tr style="text-align:center">
-        <td>Plant Turning: Can rebuke Plant creatures</td>
+        <td>Plant Domain: Can rebuke Plant creatures 4 times per day</td>
       </tr><tr style="text-align:center">
         <td>Turn Undead: R60' Can turn or rebuke 2d6+8 HD of undead creatures of up to (d20+12)/3 HD 4 times per day</td>
       </tr></table>
@@ -234,7 +236,7 @@ var attributes = {
       <td>      <table id="SpellStats" style="width:100%">
       <tr style="text-align:center">
         <td><b>Spell Slots</b>: C0: 6; C1: 6; C2: 5; C3: 4; C4: 3; C5: 3; C6: 2; Domain1: 1; Domain2: 1; Domain3: 1; Domain4: 1; Domain5: 1; Domain6: 1</td>
-        <td><b>Spell DC</b>: Animal Talk: 11; C: 12; Domain: 12; Imbue With Spell Ability: 12; Transcendence: 12</td>
+        <td><b>Spell DC</b>: Animal Domain: 11; C: 12; Domain: 12; Imbue With Spell Ability: 12; Transcendence: 12</td>
       </tr></table>
 </td>
     </tr></table>
@@ -304,7 +306,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Righteous Might (C5 Tran): Causes self and equipment to double in size, gaining a size category, +4 Strength, +2 Constitution, a +2 enhanancement bonus to natural armor, and x8 weight, and gives DR 6/evil or DR 6/good, for 12 rd</td>
     </tr><tr style="text-align:left">
-      <td>Speak With Animals (Animal Talk1 Divi): Allows self to converse with animals for 12 min</td>
+      <td>Speak With Animals (Animal Domain1 Divi): Allows self to converse with animals for 12 min</td>
     </tr><tr style="text-align:left">
       <td>Spiritual Weapon (C2 Evoc): R220' Creates a force weapon (+10 attacks; inflicts 1d8+4 HP force; crit same as the corresponding physical weapon) that attacks a designated foe for 12 rd; can use move actions to redirect to different targets, and the first attack on each creature is subject to SR</td>
     </tr><tr style="text-align:left">
@@ -326,11 +328,11 @@ var attributes = {
     <tr style="text-align:center">
       <td><i>Divine Caster Level Bonus: +5 divine base class level for spells known and spells per day</i></td>
     </tr><tr style="text-align:center">
-      <td><i>Empowered Good: +1 caster level on Good spells</i></td>
+      <td><i>Good Domain: +1 caster level on Good spells</i></td>
     </tr><tr style="text-align:center">
       <td><i>Wisdom Cleric Spell Slot Bonus: Spell level C1, C2</i></td>
     </tr><tr style="text-align:center">
-      <td>Animal Talk: Can use <i>Speak With Animals</i> effects once per day</td>
+      <td>Animal Domain: Can use <i>Speak With Animals</i> effects once per day</td>
     </tr><tr style="text-align:center">
       <td>Extend Spell: Can cast a spell using a spell slot 1 level higher than normal to double its duration</td>
     </tr><tr style="text-align:center">

@@ -79,7 +79,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Trackless Step: Can leave no traces of passage through natural surroundings</td>
     </tr><tr style="text-align:center">
-      <td>Woodland Stride: Can move normally through natural undergrowth</td>
+      <td>Woodland Stride: Can move normally through natural undergrowth without damage or impairment</td>
     </tr></table>
 </td>
   </tr></table>
@@ -99,7 +99,7 @@ var attributes = {
       <td>      <table id="FeatLists" style="width:100%">
       <tr style="text-align:center">
         <td><b>Feats</b>: Acrobatic; Animal Affinity; Athletic; Extend Spell; Improved Unarmed Strike; Lightning Reflexes; Scribe Scroll; Still Spell</td>
-        <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
+        <td><b>Human Features</b>: Bonus Feat (Human); Skill Bonus (Human)</td>
         <td><b>Hierophant Features</b>: Blast Infidel; Divine Power Bonus; Divine Reach; Faith Healing; Gift Of The Divine; Mastery Of Energy; Power Of Nature; Special Ability (Hierophant); Spell Power +2; Spell-Like Ability</td>
         <td><b>Druid Features</b>: A Thousand Faces; Animal Companion; Armor Proficiency (Light; Medium; Shield); Nature Sense; Resist Nature's Lure; Spontaneous Casting (Druid); Trackless Step; Venom Immunity; Weapon Proficiency (Club; Dagger; Dart; Quarterstaff; Scimitar; Sickle; Shortspear; Sling; Spear); Wild Empathy; Wild Shape; Woodland Stride</td>
       </tr></table>
@@ -107,7 +107,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><b>Feature Notes</b>:       <table id="FeatureNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Human Feat Bonus: +1 General Feat</i></td>
+        <td><i>Bonus Feat (Human): +1 General Feat</i></td>
       </tr><tr style="text-align:center">
         <td><i>Special Ability (Hierophant): 5 selections</i></td>
       </tr></table>
@@ -156,19 +156,19 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Athletic: +2 Climb/+2 Swim</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Human Skill Bonus: +21 Skill Points</i></td>
-      </tr><tr style="text-align:center">
         <td><i>Intelligence Language Adjustment: +1</i></td>
       </tr><tr style="text-align:center">
         <td><i>Intelligence Skill Points Adjustment: +21</i></td>
       </tr><tr style="text-align:center">
         <td><i>Nature Sense: +2 Knowledge (Nature)/+2 Survival</i></td>
       </tr><tr style="text-align:center">
+        <td><i>Skill Bonus (Human): +21 Skill Points</i></td>
+      </tr><tr style="text-align:center">
         <td><i>Speed Jump Modifier: -6</i></td>
       </tr><tr style="text-align:center">
         <td>Link: +4 Handle Animal and Wild Empathy with companion, and can command companion as a free action</td>
       </tr><tr style="text-align:center">
-        <td>Wild Empathy: Can make a +16 check to use Diplomacy with animals and magical beasts with an Intelligence of 1 or 2</td>
+        <td>Wild Empathy: Can make a +16 check to use Diplomacy actions with animals; using Wild Empathy with magical beasts that have an Intelligence of 1 or 2 incurs a -4 penalty on the check</td>
       </tr></table>
 </td>
     </tr></table>
@@ -222,6 +222,7 @@ var attributes = {
       <td>      <table id="SavesAndResistance" style="width:100%">
       <tr style="text-align:center">
         <td><b>Save</b>: Fortitude: +12; Reflex: +9; Will: +13</td>
+        <td><b>Resistance</b>: Poison: immune</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
@@ -231,11 +232,11 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Lightning Reflexes: +2 Reflex</i></td>
       </tr><tr style="text-align:center">
+        <td><i>Venom Immunity: Has immunity to poison</i></td>
+      </tr><tr style="text-align:center">
         <td><i>Wisdom Will Adjustment: +1</i></td>
       </tr><tr style="text-align:center">
         <td>Resist Nature's Lure: +4 vs. the spell-like abilities of fey creatures</td>
-      </tr><tr style="text-align:center">
-        <td>Venom Immunity: Has immunity to poison</td>
       </tr></table>
 </td>
     </tr></table>
@@ -352,7 +353,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Still Spell: Can cast a spell using a spell slot 1 level higher than normal to cast it without somatic components</td>
     </tr><tr style="text-align:center">
-      <td>Wild Shape: Can change into a tiny to large animal or plant creature with up to 13 Hit Dice for 13 hr 4 times per day</td>
+      <td>Wild Shape: Can change into a tiny to large animal or plant with up to 13 HD, regaining 18 hit points, for 13 hr 4 times per day</td>
     </tr></table>
 </td>
   </tr></table>
@@ -388,7 +389,7 @@ var attributes = {
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
-      <td><b>Animal Companion Features</b>: Bonus Tricks; Companion Evasion; Devotion; Link; Multiattack; Share Spells</td>
+      <td><b>Animal Companion Features</b>: Bonus Tricks; Devotion; Evasion (Companion); Link; Multiattack; Share Spells</td>
     </tr></table>
 </td>
   </tr><tr style="text-align:center">
@@ -398,9 +399,9 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Bonus Tricks: Companion can learn 5 additional tricks, requiring no training time or Handle Animal checks</td>
     </tr><tr style="text-align:center">
-      <td>Companion Evasion: Successful Reflex saves by companion yield no damage instead of half</td>
-    </tr><tr style="text-align:center">
       <td>Devotion: Companion has +4 Will vs. enchantment</td>
+    </tr><tr style="text-align:center">
+      <td>Evasion (Companion): Successful Reflex saves by companion yield no damage instead of half</td>
     </tr><tr style="text-align:center">
       <td>Multiattack: Reduces the penalty for additional attacks to -2 or gives a second attack at -5</td>
     </tr><tr style="text-align:center">

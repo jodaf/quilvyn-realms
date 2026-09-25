@@ -228,18 +228,18 @@ var attributes = {
       <td>      <table id="FeatLists" style="width:100%">
       <tr style="text-align:center">
         <td><b>Feats</b>: Blind-Fight; Brew Potion; Persistent Spell; Quick Draw; Spell Focus (Evocation); Spell Penetration</td>
-        <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
+        <td><b>Human Features</b>: Bonus Feat (Human); Skill Bonus (Human)</td>
         <td><b>Cleric Features</b>: Advanced Illusionist; Armor Proficiency (Light; Medium; Heavy; Shield); Aura; Blind-Fight; Cavern Domain; Cavern Stonecunning; Charisma Boost; Charm Domain; Craft Domain; Crafter; Darkness Domain; Detect Portal; Domineering Magic; Drow Domain; Dwarf Domain; Elf Domain; Extend Spell; Extra Turning; Family Domain; Fate Domain; Gnome Domain; Great Fortitude; Halfling Domain; Hammer Specialist; Hatred Domain; Illusion Domain; Improved Initiative; Inspire Allies; Lightning Reflexes; Mark Foe; Mental Ward; Mentalism Domain; Metal Domain; Moon Domain; Nobility Domain; Ocean Domain; Orc Domain; Pain Touch; Planning Domain; Point-Blank Shot; Portal Domain; Protector; Rebuke Oozes; Rebuke Reptiles; Rebuke Spiders; Renewal Domain; Retribution Domain; Rune Domain; Scalykind Domain; Scribe Scroll; Skilled Caster; Slime Domain; Smite Power; Spell Domain; Spider Domain; Spontaneous Casting (Cleric); Spontaneous Recovery; Sprightly; Storm Domain; Stormfriend; Strike Of Vengeance; Suffering Domain; Time Domain; Trade Domain; Turn Lycanthropes; Turn Undead; Tyranny Domain; Uncanny Dodge; Uncover Trade Secrets; Undeath Domain; Water Breathing; Weapon Proficiency (Simple Weapons)</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
       <td><b>Feature Notes</b>:       <table id="FeatureNotes" style="width:100%">
       <tr style="text-align:center">
+        <td><i>Bonus Feat (Human): +1 General Feat</i></td>
+      </tr><tr style="text-align:center">
         <td><i>Crafter: +1 General Feat (Skill Focus with a chosen Craft)</i></td>
       </tr><tr style="text-align:center">
         <td><i>Hammer Specialist: +2 General Feat (Weapon Proficiency and Focus with a chosen type of hammer)</i></td>
-      </tr><tr style="text-align:center">
-        <td><i>Human Feat Bonus: +1 General Feat</i></td>
       </tr><tr style="text-align:center">
         <td>Aura: Visible to <i>Detect Chaos/Evil/Good/Law</i>, depending on deity alignment and domains</td>
       </tr></table>
@@ -282,15 +282,15 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Armor Swim Check Penalty: -6 Swim</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Human Skill Bonus: +8 Skill Points</i></td>
-      </tr><tr style="text-align:center">
         <td><i>Intelligence Language Adjustment: +3</i></td>
       </tr><tr style="text-align:center">
         <td><i>Intelligence Skill Points Adjustment: +24</i></td>
       </tr><tr style="text-align:center">
+        <td><i>Skill Bonus (Human): +8 Skill Points</i></td>
+      </tr><tr style="text-align:center">
         <td><i>Skilled Caster: +2 Concentration/+2 Spellcraft</i></td>
       </tr><tr style="text-align:center">
-        <td>Cavern Stonecunning: +2 Search for unusual stonework and makes an automatic Search when within 10'/Can determine approximate depth underground</td>
+        <td>Cavern Stonecunning: +2 Search for unusual stonework and makes an automatic check when within 10'/Can determine approximate depth underground</td>
       </tr><tr style="text-align:center">
         <td>Detect Portal: Can detect active and inactive portals as if they were secret doors</td>
       </tr><tr style="text-align:center">
@@ -310,7 +310,7 @@ var attributes = {
       <tr style="text-align:center">
         <td><b>Hit Points</b>: 15</td>
         <td><b>Initiative</b>: +4</td>
-        <td><b>AC/Touch/Flat</b>: 14/10/14</td>
+        <td><b>AC/Touch/Flat</b>: 15/10/15</td>
         <td><b>Attacks Per Round</b>: 1</td>
         <td><b>Base/Melee/Ranged Attack</b>: +3/+6/+3</td>
       </tr></table>
@@ -333,7 +333,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><b>Combat Notes</b>:       <table id="CombatNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Armor Class Modifiers: Armor +4; Deflection +0; Dexterity +0; Dodge +0; Natural Armor +0; Shield +0; Size +0</i></td>
+        <td><i>Armor Class Modifiers: Armor +4; Deflection +0; Dexterity +0; Dodge +0; Natural Armor +0; Shield +1; Size +0</i></td>
       </tr><tr style="text-align:center">
         <td><i>Charisma Turning Adjustment: +2</i></td>
       </tr><tr style="text-align:center">
@@ -347,7 +347,7 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Strength Damage Adjustment: +3</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Two-handed Weapon With Buckler Penalty: -1 attack and Armor Class</i></td>
+        <td><i>Two-handed Weapon With Buckler Penalty: -1 attack</i></td>
       </tr><tr style="text-align:center">
         <td><i>Uncanny Dodge: Retains Dexterity bonus to Armor Class when flat-footed</i></td>
       </tr><tr style="text-align:center">
@@ -376,6 +376,8 @@ var attributes = {
         <td>Turn Lycanthropes: Can turn lycanthropes 5 times per day</td>
       </tr><tr style="text-align:center">
         <td>Turn Undead: R60' Can turn or rebuke 2d6+7 HD of undead creatures of up to (d20+7)/3 HD 9 times per day</td>
+      </tr><tr style="text-align:center">
+        <td>Two-handed Weapon With Buckler Penalty: Negates shield bonus to Armor Class</td>
       </tr><tr style="text-align:center">
         <td>Uncanny Dodge: Retains Dexterity bonus to Armor Class vs. invisible foes</td>
       </tr></table>
@@ -693,7 +695,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Good Hope (Moon4 Ench): R150' 5 targets in a 15' radius gain +2 attacks, damage, saves, and checks for 5 min</td>
     </tr><tr style="text-align:left">
-      <td>Grease (Slime1 Conj): R40' Coats a 10' square with grease, inflicting falls (save Reflex negates and allows a DC 10 Balance check to move at half speed), or coats a target object with grease (save Reflex negates for possessed items), causing them to be dropped (save Reflex negates each rd), for 6 rd</td>
+      <td>Grease (Slime1 Conj): R40' Coats a 10' square with grease, inflicting falls (save Reflex negates and allows a DC 10 Balance check to move at half Speed), or coats a target object with grease (save Reflex negates for possessed items), causing them to be dropped (save Reflex negates each rd), for 6 rd</td>
     </tr><tr style="text-align:left">
       <td>Greater Anyspell (Spell6 Tran): Allows preparing an arcane spell of up to 5th level from a written source; the prepared spell occupies the level 6 domain spell slot</td>
     </tr><tr style="text-align:left">
@@ -937,7 +939,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Silent Image (Illusion1 Illu): R640' Creates a 100 cubic foot movable image (save Will disbelieve) for concentration</td>
     </tr><tr style="text-align:left">
-      <td>Sleet Storm (Storm4 Conj): R640' 40' radius, 20' high cylinder blocks sight, extinguishes small fires, and requires a DC 10 Balance check to move at half speed (failure by 5 or more causes a fall) for 6 rd</td>
+      <td>Sleet Storm (Storm4 Conj): R640' 40' radius, 20' high cylinder blocks sight, extinguishes small fires, and requires a DC 10 Balance check to move at half Speed (failure by 5 or more causes a fall) for 6 rd</td>
     </tr><tr style="text-align:left">
       <td>Snare (Elf3 Tran): Touched vine, thong, or rope becomes a trap until triggered; a DC 23 Search check notices the trap, and a DC 23 Escape Artist or Strength check escapes from it</td>
     </tr><tr style="text-align:left">

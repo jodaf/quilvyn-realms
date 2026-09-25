@@ -105,16 +105,16 @@ var attributes = {
       <td>      <table id="FeatLists" style="width:100%">
       <tr style="text-align:center">
         <td><b>Feats</b>: Alertness; Ethran; Nimble Fingers; Point-Blank Shot; Spell Focus (Abjuration); Spell Focus (Enchantment); Spell Penetration</td>
-        <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
+        <td><b>Human Features</b>: Bonus Feat (Human); Skill Bonus (Human)</td>
         <td><b>Hathran Features</b>: Caster Level Bonus; Circle Leader; Cohort; Fear; Greater Command; Place Magic; Weapon Proficiency (Whip)</td>
         <td><b>Wizard Features</b>: School Opposition (Conjuration); School Opposition (Illusion); School Opposition; School Specialization (Abjuration); School Specialization; Scribe Scroll; Summon Familiar; Weapon Proficiency (Club; Dagger; Heavy Crossbow; Light Crossbow; Quarterstaff)</td>
-        <td><b>Cleric Features</b>: Animal Domain; Animal Talk; Armor Proficiency (Light; Medium; Heavy; Shield); Aura; Nature Knowledge; Protection Domain; Protective Touch; Spontaneous Casting (Cleric); Turn Undead; Weapon Proficiency (Simple Weapons)</td>
+        <td><b>Cleric Features</b>: Animal Domain; Armor Proficiency (Light; Medium; Heavy; Shield); Aura; Protection Domain; Spontaneous Casting (Cleric); Turn Undead; Weapon Proficiency (Simple Weapons)</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
       <td><b>Feature Notes</b>:       <table id="FeatureNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Human Feat Bonus: +1 General Feat</i></td>
+        <td><i>Bonus Feat (Human): +1 General Feat</i></td>
       </tr><tr style="text-align:center">
         <td><i>School Opposition: 2 selections</i></td>
       </tr><tr style="text-align:center">
@@ -165,23 +165,23 @@ var attributes = {
       <tr style="text-align:center">
         <td><i>Alertness: +2 Listen/+2 Spot</i></td>
       </tr><tr style="text-align:center">
+        <td><i>Animal Domain: Knowledge (Nature) is a class skill</i></td>
+      </tr><tr style="text-align:center">
         <td><i>Armor Skill Check Penalty: -1 Balance/-1 Climb/-1 Escape Artist/-1 Hide/-1 Jump/-1 Move Silently/-1 Sleight Of Hand/-1 Tumble</i></td>
       </tr><tr style="text-align:center">
         <td><i>Armor Swim Check Penalty: -2 Swim</i></td>
       </tr><tr style="text-align:center">
         <td><i>Ethran: +2 Handle Animal/+2 Survival</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Human Skill Bonus: +20 Skill Points</i></td>
-      </tr><tr style="text-align:center">
         <td><i>Intelligence Language Adjustment: +2</i></td>
       </tr><tr style="text-align:center">
         <td><i>Intelligence Skill Points Adjustment: +40</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Nature Knowledge: Knowledge (Nature) is a class skill</i></td>
-      </tr><tr style="text-align:center">
         <td><i>Nimble Fingers: +2 Disable Device/+2 Open Lock</i></td>
       </tr><tr style="text-align:center">
-        <td>Companion Alertness: +2 Listen and Spot when companion is within reach</td>
+        <td><i>Skill Bonus (Human): +20 Skill Points</i></td>
+      </tr><tr style="text-align:center">
+        <td>Alertness (Companion): +2 Listen and Spot when companion is within reach</td>
       </tr><tr style="text-align:center">
         <td>Ethran: +2 on Charisma skills when interacting with Rashemi</td>
       </tr><tr style="text-align:center">
@@ -203,7 +203,7 @@ var attributes = {
       <tr style="text-align:center">
         <td><b>Hit Points</b>: 73</td>
         <td><b>Initiative</b>: +1</td>
-        <td><b>AC/Touch/Flat</b>: 13/11/12</td>
+        <td><b>AC/Touch/Flat</b>: 14/11/13</td>
         <td><b>Attacks Per Round</b>: 2</td>
         <td><b>Base/Melee/Ranged Attack</b>: +9/+11/+10</td>
       </tr></table>
@@ -226,7 +226,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><b>Combat Notes</b>:       <table id="CombatNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Armor Class Modifiers: Armor +2; Deflection +0; Dexterity +1; Dodge +0; Natural Armor +0; Shield +0; Size +0</i></td>
+        <td><i>Armor Class Modifiers: Armor +2; Deflection +0; Dexterity +1; Dodge +0; Natural Armor +0; Shield +1; Size +0</i></td>
       </tr><tr style="text-align:center">
         <td><i>Charisma Turning Adjustment: +3</i></td>
       </tr><tr style="text-align:center">
@@ -238,11 +238,13 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Strength Damage Adjustment: +2</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Two-handed Weapon With Buckler Penalty: -1 attack and Armor Class</i></td>
+        <td><i>Two-handed Weapon With Buckler Penalty: -1 attack</i></td>
       </tr><tr style="text-align:center">
         <td>Point-Blank Shot: +1 ranged attacks and damage within 30'</td>
       </tr><tr style="text-align:center">
         <td>Turn Undead: R60' Can turn or rebuke 2d6+7 HD of undead creatures of up to (d20+5)/3 HD 6 times per day</td>
+      </tr><tr style="text-align:center">
+        <td>Two-handed Weapon With Buckler Penalty: Negates shield bonus to Armor Class</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
@@ -273,7 +275,7 @@ var attributes = {
       <td>      <table id="SpellStats" style="width:100%">
       <tr style="text-align:center">
         <td><b>Spell Slots</b>: C0: 6; C1: 6; C2: 6; C3: 4; C4: 4; C5: 3; C6: 3; C7: 2; Domain1: 1; Domain2: 1; Domain3: 1; Domain4: 1; Domain5: 1; Domain6: 1; Domain7: 1; W0: 4; W1: 6; W2: 6; W3: 5; W4: 5; W5: 4; W6: 3; W7: 2</td>
-        <td><b>Spell DC</b>: Animal Talk: 13; C: 12; Domain: 12; Fear: 13; Greater Command: 13; W: 12</td>
+        <td><b>Spell DC</b>: Animal Domain: 13; C: 12; Domain: 12; Fear: 13; Greater Command: 13; W: 12</td>
       </tr></table>
 </td>
     </tr></table>
@@ -413,7 +415,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Shout (W4 Evoc): 30' cone inflicts 5d6 HP sonic (or 15d6 HP sonic to crystalline creatures and objects) and deafness for 2d6 rd (save Fortitude half HP only; save Reflex negates damage to held objects)</td>
     </tr><tr style="text-align:left">
-      <td>Speak With Animals (Animal Talk1 Divi): Allows self to converse with animals for 17 min</td>
+      <td>Speak With Animals (Animal Domain1 Divi): Allows self to converse with animals for 17 min</td>
     </tr><tr style="text-align:left">
       <td>Speak With Animals (Animal1 Divi): 1</td>
     </tr><tr style="text-align:left">
@@ -461,7 +463,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><i>Wisdom Cleric Spell Slot Bonus: Spell level C1, C2</i></td>
     </tr><tr style="text-align:center">
-      <td>Animal Talk: Can use <i>Speak With Animals</i> effects once per day</td>
+      <td>Animal Domain: Can use <i>Speak With Animals</i> effects once per day</td>
     </tr><tr style="text-align:center">
       <td>Arcane Spell Failure: 15%</td>
     </tr><tr style="text-align:center">
@@ -473,7 +475,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td>Place Magic: When in Rashemen, can use a full-round action to cast a spell without preparation</td>
     </tr><tr style="text-align:center">
-      <td>Protective Touch: Touched gains +4 on the next save within 1 hour once per day</td>
+      <td>Protection Domain: Touched gains +4 on the next save within 1 hour once per day</td>
     </tr><tr style="text-align:center">
       <td>School Opposition (Conjuration): Cannot learn or cast Conjuration spells</td>
     </tr><tr style="text-align:center">
@@ -518,19 +520,19 @@ var attributes = {
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
-      <td><b>Familiar Features</b>: Companion Alertness; Companion Evasion; Companion Improved Evasion; Deliver Touch Spells; Empathic Link; Share Spells</td>
+      <td><b>Familiar Features</b>: Alertness (Companion); Deliver Touch Spells; Empathic Link; Evasion (Companion); Improved Evasion (Companion); Share Spells</td>
     </tr></table>
 </td>
   </tr><tr style="text-align:center">
     <td><b>Companion Notes</b>:     <table id="CompanionNotes" style="width:100%">
     <tr style="text-align:center">
-      <td><i>Companion Improved Evasion: Has increased Companion Evasion effects</i></td>
-    </tr><tr style="text-align:center">
-      <td>Companion Evasion: Successful Reflex saves by companion yield no damage instead of half, and failed Reflex saves yield half damage</td>
+      <td><i>Improved Evasion (Companion): Has increased Evasion (Companion) effects</i></td>
     </tr><tr style="text-align:center">
       <td>Deliver Touch Spells: Can use companion to deliver touch spells if in contact when the spell is cast</td>
     </tr><tr style="text-align:center">
       <td>Empathic Link: Can communicate emotions with companion up to 1 mile</td>
+    </tr><tr style="text-align:center">
+      <td>Evasion (Companion): Successful Reflex saves by companion yield no damage instead of half, and failed Reflex saves yield half damage</td>
     </tr><tr style="text-align:center">
       <td>Share Spells: Can cast a personal spell on an adjacent companion and have a targeted spell cast on self also affect a companion while it is within 5'</td>
     </tr><tr style="text-align:center">

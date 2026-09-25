@@ -74,19 +74,19 @@ var attributes = {
       <td>      <table id="FeatLists" style="width:100%">
       <tr style="text-align:center">
         <td><b>Feats</b>: Acrobatic; Armor Proficiency (Light); Combat Expertise; Deflect Arrows; Deft Hands; Improved Grapple; Improved Two-Weapon Fighting; Improved Unarmed Strike; Snatch Arrows; Stunning Fist; Two-Weapon Fighting; Weapon Focus (Longsword)</td>
-        <td><b>Human Features</b>: Human Feat Bonus; Human Skill Bonus</td>
+        <td><b>Human Features</b>: Bonus Feat (Human); Skill Bonus (Human)</td>
         <td><b>Divine Champion Features</b>: Armor Proficiency (Medium); Divine Champion Bonus Feats; Divine Wrath; Lay On Hands (Divine Champion); Sacred Defense; Shield Proficiency; Smite Infidel; Weapon Proficiency (Martial)</td>
-        <td><b>Fighter Features</b>: Armor Proficiency (Light; Medium; Heavy; Shield; Tower Shield); Bonus Feat (Fighter); Weapon Proficiency (Simple Weapons; Martial Weapons)</td>
+        <td><b>Fighter Features</b>: Armor Proficiency (Light; Medium; Heavy; Shield; Tower Shield); Bonus Feats (Fighter); Weapon Proficiency (Simple Weapons; Martial Weapons)</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
       <td><b>Feature Notes</b>:       <table id="FeatureNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Bonus Feat (Fighter): +4 Fighter Feats</i></td>
+        <td><i>Bonus Feat (Human): +1 General Feat</i></td>
+      </tr><tr style="text-align:center">
+        <td><i>Bonus Feats (Fighter): +4 Fighter Feats</i></td>
       </tr><tr style="text-align:center">
         <td><i>Divine Champion Bonus Feats: +2 Fighter Feats</i></td>
-      </tr><tr style="text-align:center">
-        <td><i>Human Feat Bonus: +1 General Feat</i></td>
       </tr></table>
 </td>
     </tr></table>
@@ -127,11 +127,11 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td><i>Deft Hands: +2 Sleight Of Hand/+2 Use Rope</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Human Skill Bonus: +15 Skill Points</i></td>
-      </tr><tr style="text-align:center">
         <td><i>Intelligence Language Adjustment: +1</i></td>
       </tr><tr style="text-align:center">
         <td><i>Intelligence Skill Points Adjustment: +15</i></td>
+      </tr><tr style="text-align:center">
+        <td><i>Skill Bonus (Human): +15 Skill Points</i></td>
       </tr><tr style="text-align:center">
         <td><i>Speed Jump Modifier: -6</i></td>
       </tr></table>
@@ -149,7 +149,7 @@ var attributes = {
       <tr style="text-align:center">
         <td><b>Hit Points</b>: 115</td>
         <td><b>Initiative</b>: +3</td>
-        <td><b>AC/Touch/Flat</b>: 16/10/16</td>
+        <td><b>AC/Touch/Flat</b>: 17/10/17</td>
         <td><b>Attacks Per Round</b>: 3</td>
         <td><b>Base/Melee/Ranged Attack</b>: +12/+12/+15</td>
       </tr></table>
@@ -172,13 +172,13 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><b>Combat Notes</b>:       <table id="CombatNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Armor Class Modifiers: Armor +6; Deflection +0; Dexterity +0; Dodge +0; Natural Armor +0; Shield +0; Size +0</i></td>
+        <td><i>Armor Class Modifiers: Armor +6; Deflection +0; Dexterity +0; Dodge +0; Natural Armor +0; Shield +1; Size +0</i></td>
       </tr><tr style="text-align:center">
         <td><i>Constitution Hit Points Adjustment: +36</i></td>
       </tr><tr style="text-align:center">
         <td><i>Dexterity Attack Adjustment: +3</i></td>
       </tr><tr style="text-align:center">
-        <td><i>Two-handed Weapon With Buckler Penalty: -1 attack and Armor Class</i></td>
+        <td><i>Two-handed Weapon With Buckler Penalty: -1 attack</i></td>
       </tr><tr style="text-align:center">
         <td><i>Weapon Focus (Longsword): +1 Longsword Attack Modifier</i></td>
       </tr><tr style="text-align:center">
@@ -188,7 +188,7 @@ var attributes = {
       </tr><tr style="text-align:center">
         <td>Divine Wrath: Can gain +3 attacks and damage for 3 rd once per day</td>
       </tr><tr style="text-align:center">
-        <td>Improved Grapple: +4 on Grapple checks, and Grapple attempts provoke no AOO</td>
+        <td>Improved Grapple: +4 on Grapple attempts, and they provoke no AOO</td>
       </tr><tr style="text-align:center">
         <td>Improved Two-Weapon Fighting: Can make a second off-hand attack with a -5 penalty</td>
       </tr><tr style="text-align:center">
@@ -201,6 +201,8 @@ var attributes = {
         <td>Stunning Fist: Unarmed Strike can inflict stunned for 1 rd (save Fortitude DC 18 negates) 3 times per day</td>
       </tr><tr style="text-align:center">
         <td>Two-Weapon Fighting: Reduces the attack penalties when fighting with a weapon in each hand by 2 for the primary hand and 6 for the off hand</td>
+      </tr><tr style="text-align:center">
+        <td>Two-handed Weapon With Buckler Penalty: Negates shield bonus to Armor Class</td>
       </tr></table>
 </td>
     </tr><tr style="text-align:center">
