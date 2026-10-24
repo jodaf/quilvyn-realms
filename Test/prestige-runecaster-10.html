@@ -206,7 +206,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><b>Combat Notes</b>:       <table id="CombatNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Armor Class Modifiers: Armor +8; Deflection +0; Dexterity +1; Dodge +0; Natural Armor +0; Shield +2; Size +0</i></td>
+        <td><i>Armor Class Modifiers: Armor: +8; Dexterity: +1; Shield: +2</i></td>
       </tr><tr style="text-align:center">
         <td><i>Dexterity Attack Adjustment: +2</i></td>
       </tr><tr style="text-align:center">
@@ -255,11 +255,11 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Spells</b>:<br/>    <table id="Spells" style="width:100%">
     <tr style="text-align:left">
-      <td>Animate Dead (C3 Necr): Touched corpses become up to 30 HD of obedient skeletons and zombies; no more than 4 HD of undead created by multiple castings can be controlled</td>
+      <td>Animate Dead (C3 Necr): Transforms touched corpses into up to 30 HD of obedient skeletons and zombies; no more than 4 HD of undead created by multiple castings can be controlled</td>
     </tr><tr style="text-align:left">
       <td>Atonement (C5 Abju): Touched recovers alignment and holy powers</td>
     </tr><tr style="text-align:left">
-      <td>Bear's Endurance (C2 Tran): Touched gains +4 Constitution for 15 min</td>
+      <td>Bear's Endurance (C2 Tran): Gives touched +4 Constitution (save Will negates) for 15 min</td>
     </tr><tr style="text-align:left">
       <td>Bless (C1 Ench): Allies within 50' gain +1 attacks and fear saves for 15 min</td>
     </tr><tr style="text-align:left">
@@ -275,7 +275,7 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Detect Evil (C1 Divi): 60' cone reveals the presence and power of evil auras for concentration up to 150 min</td>
     </tr><tr style="text-align:left">
-      <td>Dispel Good (C5 Abju): Gives self a +4 deflection bonus to Armor Class vs. good creatures for 15 rd; can end the spell early to dismiss a good creature (save Will negates) or spell via touch</td>
+      <td>Dispel Good (C5 Abju): Gives self a +4 deflection bonus to Armor Class vs. good creatures for 15 rd; can end the spell early with a touch that dismisses a good creature (save Will negates), a good spell, or a spell cast by a good caster</td>
     </tr><tr style="text-align:left">
       <td>Divination (C4 Divi): Gives a 85% chance to learn useful advice on a proposed action up to 1 week in the future</td>
     </tr><tr style="text-align:left">
@@ -283,19 +283,19 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Earthquake (Destruction8 Evoc): R1000' Intense tremor shakes an 80' radius for 1 rd, prohibiting movement, breaking spell concentration (DC 20 + spell level concentration negates), collapsing caverns, cliffs, and structures that inflict 8d6 HP (save Reflex DC 15 half) and pin creatures in the rubble, knocking down creatures on open ground (save Reflex DC 15 negates) and opening fissures with a 25% chance to fall in (save Reflex DC 20 negates)</td>
     </tr><tr style="text-align:left">
-      <td>Endure Elements (C1 Abju): Touched remains comfortable between -50F and 140F for 1 day</td>
+      <td>Endure Elements (C1 Abju): Touched remains comfortable between -50F and 140F (save Will negates) for 24 hr</td>
     </tr><tr style="text-align:left">
-      <td>Enthrall (C2 Ench): R250' Captivates listeners (save Will negates) for concentration up to 1 hr</td>
+      <td>Enthrall (C2 Ench): R250' Captivates listeners (save Will negates) for concentration up to 1 hr plus 1d3 rd; attacking an enthralled creature ends the spell for all, and creatures who save can attempt a Charisma check to end it for others</td>
     </tr><tr style="text-align:left">
-      <td>Forbiddance (C6 Abju): R250' 900 cubic foot area bars planar travel and inflicts 6d6 HP or 12d6 HP on creatures who enter if their alignments differ in 1 or 2 dimensions</td>
+      <td>Forbiddance (C6 Abju): R250' 900 cubic foot area bars planar travel and inflicts 6d6 HP or 12d6 HP (save Will half; password negates) on creatures who enter if their alignments differ in 1 or 2 dimensions</td>
     </tr><tr style="text-align:left">
-      <td>Geas/Quest (C6 Ench): R60' Compels a target to complete a specified task within 15 days, suffering 3d6 HP and sickened (save Fortitude HP only) for each 24 hr spent without obeying; the sickness ends 24 hr after resuming the task</td>
+      <td>Geas/Quest (C6 Ench): R60' Compels the target to complete a specified task within 15 days, suffering 3d6 HP and sickened (save Fortitude HP only) for each 24 hr spent without obeying; the sickness ends 24 hr after resuming the task</td>
     </tr><tr style="text-align:left">
-      <td>Guidance (C0 Divi): Touched gains +1 on an attack, save, or skill check within 1 min</td>
+      <td>Guidance (C0 Divi): Gives touched +1 on an attack, save, or skill check within 1 min (save Will negates)</td>
     </tr><tr style="text-align:left">
-      <td>Harm (Destruction6 Necr): Touch inflicts 150 HP (save Will half); undead instead regain the same amount</td>
+      <td>Harm (Destruction6 Necr): Melee touch inflicts 150 HP (save Will half), leaving the target with at least 1 hit point; undead instead regain the same amount</td>
     </tr><tr style="text-align:left">
-      <td>Imbue With Spell Ability (C4 Evoc): Touched with an Intelligence of at least 5, Wisdom of at least 9, and 1, 3, or 5 HD gains the ability to cast chosen 1st, 2x1st, or 2x1st+2nd level spells from self prepared abjuration, divination, or healing spells; the <i>Imbue With Spell Ability</i> spell slot cannot be recovered until these spells are cast or dismissed</td>
+      <td>Imbue With Spell Ability (C4 Evoc): Touched with Intelligence of at least 5, Wisdom of at least 9, and 1, 3, or 5 HD gains the ability to cast chosen 1st, 2x1st, or 2x1st+2nd level spells from self prepared abjuration, divination, or healing spells (save Will negates); the <i>Imbue With Spell Ability</i> spell slot cannot be recovered until these spells are cast or dismissed</td>
     </tr><tr style="text-align:left">
       <td>Inflict Critical Wounds (Destruction4 Necr): Touched suffers 4d8+15 HP (save Will half); undead instead regain the same amount</td>
     </tr><tr style="text-align:left">
@@ -305,43 +305,43 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Locate Object (C3 Divi): Reveals the direction of a visualized object or kind of object found within 1000' for 15 min; a sheet of lead blocks the spell</td>
     </tr><tr style="text-align:left">
-      <td>Magic Circle Against Good (C3 Abju): 10' radius from touched either gives a +2 deflection bonus to Armor Class and +2 saves vs. good creatures, suppresses mental control, prevents possession, and bars contact and entry by nonevil summoned creatures (SR negates) for 150 min or traps a nonevil summoned creature (SR negates; additional tests each day end) for 360 hr</td>
+      <td>Magic Circle Against Good (C3 Abju): Either creates a 10' emanation from the touched creature that suppresses mental control, prevents possession, gives a +2 deflection bonus to Armor Class and +2 saves vs. good creatures (save Will negates), and bars contact and entry by nonevil summoned creatures (SR negates) for 150 min or traps a nonevil summoned creature (SR negates; additional tests each day end) for 360 hr</td>
     </tr><tr style="text-align:left">
-      <td>Mass Bear's Endurance (C6 Tran): R60' 15 targets in a 15' radius gain +4 Constitution for 15 min</td>
+      <td>Mass Bear's Endurance (C6 Tran): R60' 15 targets in a 15' radius gain +4 Constitution (save Will negates) for 15 min</td>
     </tr><tr style="text-align:left">
       <td>Mass Inflict Light Wounds (Destruction5 Necr): R60' 15 targets in a 15' radius suffer 1d8+15 HP (save Will half); undead instead regain the same amount</td>
     </tr><tr style="text-align:left">
-      <td>Mending (C0 Tran): R10' Repairs minor damage to an object weighing up to 1 lb</td>
+      <td>Mending (C0 Tran): R10' Repairs minor damage to an object weighing up to 1 lb (save Will negates)</td>
     </tr><tr style="text-align:left">
       <td>Purify Food And Drink (C0 Tran): R10' Makes 15 cubic feet of food and water safe to consume (save Will negates)</td>
     </tr><tr style="text-align:left">
-      <td>Raise Dead (C5 Conj): Restores a willing soul, dead up to 15 days, to its touched corpse; the target regains 1 hit point per HD, loses a level (level 1 targets instead lose 2 Constitution), and has a 50% chance of losing each prepared spell or unused spell slot</td>
+      <td>Raise Dead (C5 Conj): Restores a willing soul, dead up to 15 days, to its touched corpse; the target regains 1 hit point per HD, irreversibly loses a level (level 1 targets instead irreversibly lose 2 Constitution), and has a 50% chance of losing each prepared spell or unused spell slot</td>
     </tr><tr style="text-align:left">
-      <td>Read Magic (C0 Divi): Allows self to read magical writing for 150 min</td>
+      <td>Read Magic (C0 Divi): Allows self to read magical writing and identify <i>Glyphs</i> and <i>Symbols</i> with a successful Spellcraft check for 150 min</td>
     </tr><tr style="text-align:left">
-      <td>Remove Fear (C1 Abju): R60' Suppresses fear in 4 targets in a 15' radius and gives them +4 vs. fear for 10 min</td>
+      <td>Remove Fear (C1 Abju): R60' Suppresses fear in 4 targets in a 15' radius and gives them +4 vs. fear for 10 min (save Will negates)</td>
     </tr><tr style="text-align:left">
       <td>Repulsion (C7 Abju): 150' radius bars creatures and prevents those within it from approaching (save Will negates) for 15 rd</td>
     </tr><tr style="text-align:left">
-      <td>Resist Energy (C2 Abju): Touched gains resistance 30 to a choice of acid, cold, electricity, fire, or sonic for 150 min</td>
+      <td>Resist Energy (C2 Abju): Gives touched resistance 30 to a choice of acid, cold, electricity, fire, or sonic (save Fortitude negates) for 150 min</td>
     </tr><tr style="text-align:left">
-      <td>Restoration (C4 Conj): Dispels magical ability harm from touched and cures all temporary ability damage, restores 1 drained ability, removes fatigue or exhaustion, removes temporary negative levels, and restores 1 drained level with the minimum necessary XP</td>
+      <td>Restoration (C4 Conj): Dispels magical ability harm from touched and cures all temporary ability damage, restores 1 drained ability, removes fatigue or exhaustion, removes temporary negative levels, and restores 1 drained level with the minimum necessary XP (save Will negates)</td>
     </tr><tr style="text-align:left">
-      <td>Shatter (Destruction2 Evoc): R60' Breakables weighing up to 15 lb in a 5' radius shatter (save Will negates), or a target object weighing up to 150 lb suffers 10d6 HP sonic (save Fortitude half)</td>
+      <td>Shatter (Destruction2 Evoc): R60' Shatters breakables weighing up to 15 lb in a 5' radius (save Will negates), or inflicts 10d6 HP sonic on a target object weighing up to 150 lb (save Fortitude half)</td>
     </tr><tr style="text-align:left">
-      <td>Shield Other (C2 Abju): R60' Target gains a +1 deflection bonus to Armor Class and +1 saves, and half of any damage suffered by the target is transferred to self, for 15 hr</td>
+      <td>Shield Other (C2 Abju): R60' Gives the target a +1 deflection bonus to Armor Class and +1 saves, and transfers half of any HP damage suffered by the target to self, (save Will negates) for 15 hr</td>
     </tr><tr style="text-align:left">
       <td>Silence (C2 Illu): R1000' Eliminates sound in a 20' radius (save Will (DC +1) for a targeted creature negates) for 15 min</td>
     </tr><tr style="text-align:left">
-      <td>Spiritual Weapon (C2 Evoc): R250' Creates a force weapon (+12 attacks; inflicts 1d8+5 HP force; crit same as the corresponding physical weapon) that attacks a designated foe for 15 rd; can use move actions to redirect to different targets, and the first attack on each creature is subject to SR</td>
+      <td>Spiritual Weapon (C2 Evoc): R250' Creates a force weapon (+12 attacks; inflicts 1d8+5 HP force; critical hits as the corresponding physical weapon) that attacks a designated foe for 15 rd; can use move actions to redirect to different targets; the first attack on each creature is subject to SR, and the spell ends if the attack fails to overcome it</td>
     </tr><tr style="text-align:left">
       <td>Summon Monster I (C1 Conj): R60' Summons a 1st-level extraplanar creature that fights foes and obeys orders for 15 rd</td>
     </tr><tr style="text-align:left">
       <td>Summon Monster V (C5 Conj): R60' Summons 1 5th-level, 1d3 4th-level, or 1d4+1 lower-level creatures that fight foes and obey orders for 15 rd</td>
     </tr><tr style="text-align:left">
-      <td>Tongues (C4 Divi): Allows touched to communicate in any language for 150 min</td>
+      <td>Tongues (C4 Divi): Allows touched to communicate in any language (save Will negates) for 150 min</td>
     </tr><tr style="text-align:left">
-      <td>Water Breathing (Ocean3 Tran): Allows touched creatures to breathe underwater for a total of 30 hrs</td>
+      <td>Water Breathing (Ocean3 Tran): Allows touched creatures to breathe underwater (save Will negates) for a total of 30 hrs divided among them</td>
     </tr><tr style="text-align:left">
       <td>Waterspout (Ocean7 Conj): R1000' Creates on a body of water a 10' wide, 80' waterspout that can be moved 30' per rd for 15 rd; it inflicts 2d6 HP on creatures it touches (save Reflex negates), and an additional 2d6 HP per rd for 1d3 rd, plus falling damage from being ejected from the waterspout, on Medium and smaller creatures who fail their saves</td>
     </tr></table>

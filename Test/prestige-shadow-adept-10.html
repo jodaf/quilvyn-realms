@@ -191,7 +191,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><b>Combat Notes</b>:       <table id="CombatNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Armor Class Modifiers: Armor +2; Deflection +0; Dexterity -1; Dodge +0; Natural Armor +0; Shield +0; Size +0</i></td>
+        <td><i>Armor Class Modifiers: Armor: +2; Dexterity: -1</i></td>
       </tr><tr style="text-align:center">
         <td><i>Dexterity Attack Adjustment: -1</i></td>
       </tr><tr style="text-align:center">
@@ -237,31 +237,31 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Spells</b>:<br/>    <table id="Spells" style="width:100%">
     <tr style="text-align:left">
-      <td>Acid Splash (S0 Conj): R65' Ranged touch inflicts 1d3 HP acid</td>
+      <td>Acid Splash (S0 Conj): R65' Ranged touch attack inflicts 1d3 HP acid</td>
     </tr><tr style="text-align:left">
       <td>Arcane Mark (S0 Univ): Inscribes a personal rune on touched, lasting a month on a creature or permanently on an object</td>
     </tr><tr style="text-align:left">
-      <td>Arcane Sight (S3 Divi): R120' Reveals auras and spell abilities for 16 min; a successful DC 15+level Spellcraft reveals their schools</td>
+      <td>Arcane Sight (S3 Divi): R120' Reveals auras and spell abilities for 16 min; a successful DC 15 + spell level Spellcraft reveals their schools</td>
     </tr><tr style="text-align:left">
       <td>Blindness/Deafness (S2 Necr): R260' Target suffers a choice of permanent blindness or deafness (save Fortitude (DC +1) negates)</td>
     </tr><tr style="text-align:left">
-      <td>Cause Fear (S1 Necr): R65' Target with up to 5 HD becomes frightened and flees for 1d4 rd (save Will (DC +1) inflicts shaken for 1 rd)</td>
+      <td>Cause Fear (S1 Necr): R65' Causes a target with up to 5 HD to become frightened and flee for 1d4 rd (save Will (DC +1) inflicts shaken for 1 rd)</td>
     </tr><tr style="text-align:left">
       <td>Claws Of Darkness (S2 Illu): Self grows 6' extendable claws that inflict 1d4 HP cold via unarmed strikes and grappling for 16 rd; grappling also slows the target (save Fortitude (DC +1) negates)</td>
     </tr><tr style="text-align:left">
-      <td>Displacement (S3 Illu): Foes attacking touched suffer a 50% miss chance for 16 rd</td>
+      <td>Displacement (S3 Illu): Makes the touched creature's location appear to be shifted (save Will (DC +1) negates), inflicting a 50% miss chance on foe attacks, for 16 rd</td>
     </tr><tr style="text-align:left">
-      <td>Eagle's Splendor (S2 Tran): Touched gains +1d4+1 Charisma for 15 hr</td>
+      <td>Eagle's Splendor (S2 Tran): Gives touched +1d4+1 Charisma (save Will negates) for 15 hr</td>
     </tr><tr style="text-align:left">
-      <td>Greater Magic Weapon (S3 Tran): R60' Target weapon or up to 50 projectiles in a container gain +3 attacks and damage for 15 hr</td>
+      <td>Greater Magic Weapon (S3 Tran): R60' Enhances the target weapon or up to 50 projectiles in a container to make +3 attacks and inflict +3 HP (save Will negates) for 15 hr</td>
     </tr><tr style="text-align:left">
-      <td>Haste (S3 Tran): R60' 15 targets in a 15' radius gain an extra attack at full BAB during a full-attack action, +1 attacks, a +1 dodge bonus to Armor Class, +1 Reflex saves, and +30' Speed for 15 rd</td>
+      <td>Haste (S3 Tran): R60' 15 targets in a 15' radius gain an extra attack at full BAB during a full-attack action, +1 attacks, a +1 dodge bonus to Armor Class, +1 Reflex saves, and +30 Speed (save Fortitude negates) for 15 rd</td>
     </tr><tr style="text-align:left">
       <td>Hold Portal (S1 Abju): R260' Holds shut a door, gate, or window, adding +5 to the DC to force it, for 16 min</td>
     </tr><tr style="text-align:left">
       <td>Hypnotism (S1 Ench): R65' Fascinates and makes suggestible 2d4 HD of creatures in a 15' radius (save Will (DC +1) negates; +2 if in combat and -2 if only 1 creature is targeted), working upward from those with the fewest HD, for 2d4 rd</td>
     </tr><tr style="text-align:left">
-      <td>Levitate (S2 Tran): R60' Allows using a move action each rd to raise or lower an object or a willing target 20' for 15 min</td>
+      <td>Levitate (S2 Tran): R60' Allows using a move action each rd to raise or lower an unattended object or willing creature 20' each rd for 15 min</td>
     </tr><tr style="text-align:left">
       <td>Light (S0 Evoc): Touched object emits a 20' bright light for 150 min</td>
     </tr><tr style="text-align:left">
@@ -269,17 +269,17 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Magic Mouth (S2 Illu): R65' Enspells the target object or creature (save Will (DC +1) negates) so that a mouth appears on it and speaks up to 25 words in response to a specified trigger within 240'</td>
     </tr><tr style="text-align:left">
-      <td>Mending (S0 Tran): R10' Repairs minor damage to an object weighing up to 1 lb</td>
+      <td>Mending (S0 Tran): R10' Repairs minor damage to an object weighing up to 1 lb (save Will negates)</td>
     </tr><tr style="text-align:left">
-      <td>Protection From Chaos (S1 Abju): Gives touched a +2 deflection bonus to Armor Class and +2 saves vs. chaotic creatures, suppresses mental control, prevents possession, and bars contact by nonlawful summoned creatures for 16 min</td>
+      <td>Protection From Chaos (S1 Abju): Wards the touched creature from attacks from chaotic creatures, mental control, and summoned creatures (save Will negates): gives a +2 deflection bonus to Armor Class and +2 saves vs. chaotic creatures, suppresses mental control, prevents possession, and bars contact by nonlawful summoned creatures for 16 min</td>
     </tr><tr style="text-align:left">
-      <td>Protection From Evil (S1 Abju): Gives touched a +2 deflection bonus to Armor Class and +2 saves vs. evil creatures, suppresses mental control, prevents possession, and bars contact by nongood summoned creatures for 16 min</td>
+      <td>Protection From Evil (S1 Abju): Wards the touched creature from attacks from evil creatures, mental control, and summoned creatures (save Will negates): gives a +2 deflection bonus to Armor Class and +2 saves vs. evil creatures, suppresses mental control, prevents possession, and bars contact by nongood summoned creatures for 16 min</td>
     </tr><tr style="text-align:left">
-      <td>Ray Of Frost (S0 Evoc): R60' Ranged touch inflicts 1d3 HP cold</td>
+      <td>Ray Of Frost (S0 Evoc): R60' Ranged touch attack inflicts 1d3 HP cold</td>
     </tr><tr style="text-align:left">
-      <td>Read Magic (S0 Divi): Allows self to read magical writing for 160 min</td>
+      <td>Read Magic (S0 Divi): Allows self to read magical writing and identify <i>Glyphs</i> and <i>Symbols</i> with a successful Spellcraft check for 160 min</td>
     </tr><tr style="text-align:left">
-      <td>Scare (S2 Necr): R65' Target with up to 6 HD becomes frightened and flees for 1d4 rd (save Will (DC +1) inflicts shaken for 1 rd)</td>
+      <td>Scare (S2 Necr): R260' Causes 5 targets in a 15' radius with up to 6 HD to become frightened and flee for 16 rd (save Will (DC +1) inflicts shaken for 1 rd)</td>
     </tr><tr style="text-align:left">
       <td>Scatterspray (S1 Tran): R60' Unsecured little items in a 1' radius scatter, inflicting 1d8 HP on creatures within 10' (save Reflex negates)</td>
     </tr><tr style="text-align:left">

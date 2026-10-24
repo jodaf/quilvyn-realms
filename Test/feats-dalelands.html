@@ -161,7 +161,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><b>Combat Notes</b>:       <table id="CombatNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Armor Class Modifiers: Armor +0; Deflection +0; Dexterity +2; Dodge +0; Natural Armor +0; Shield +0; Size +0</i></td>
+        <td><i>Armor Class Modifiers: Dexterity: +2</i></td>
       </tr><tr style="text-align:center">
         <td><i>Blooded: +2 Initiative</i></td>
       </tr><tr style="text-align:center">
@@ -217,23 +217,23 @@ var attributes = {
     <tr style="text-align:left">
       <td>Arcane Mark (S0 Univ): Inscribes a personal rune on touched, lasting a month on a creature or permanently on an object</td>
     </tr><tr style="text-align:left">
-      <td>Bull's Strength (S2 Tran): Touched gains +4 Strength for 9 min</td>
+      <td>Bull's Strength (S2 Tran): Gives touched +4 Strength (save Will negates) for 9 min</td>
     </tr><tr style="text-align:left">
-      <td>Command Undead (S2 Necr): R45' Undead target considers self as a friend (save Will negates) for 9 days, obeying commands only with successful opposed Charisma checks</td>
+      <td>Command Undead (S2 Necr): R45' Undead target considers self as a friend (save Will for intelligent undead negates) for 9 days, obeying commands only with successful opposed Charisma checks</td>
     </tr><tr style="text-align:left">
-      <td>Confusion (S4 Ench): R190' Creatures in a 15' radius randomly: 10% attack the caster; 10% act normally; 30% babble; 20% flee; 30% attack the nearest creature (save Will negates), for 9 rd</td>
+      <td>Confusion (S4 Ench): R190' Creatures in a 15' radius randomly: 10% attack the caster; 10% act normally; 30% babble; 20% flee; 30% attack the nearest creature, (save Will negates) for 9 rd</td>
     </tr><tr style="text-align:left">
       <td>Detect Magic (S0 Divi): 60' cone reveals the presence, power, and schools of magical auras for concentration up to 9 min</td>
     </tr><tr style="text-align:left">
-      <td>Disrupt Undead (S0 Necr): R45' Ranged touched on an undead target inflicts 1d6 HP positive energy</td>
+      <td>Disrupt Undead (S0 Necr): R45' Ranged touch attack on an undead target inflicts 1d6 HP positive energy</td>
     </tr><tr style="text-align:left">
-      <td>Endure Elements (S1 Abju): Touched remains comfortable between -50F and 140F for 1 day</td>
+      <td>Endure Elements (S1 Abju): Touched remains comfortable between -50F and 140F (save Will negates) for 24 hr</td>
     </tr><tr style="text-align:left">
-      <td>Expeditious Retreat (S1 Tran): Gives self +30' Speed for 9 min</td>
+      <td>Expeditious Retreat (S1 Tran): Gives self a +30 land Speed for 9 min</td>
     </tr><tr style="text-align:left">
-      <td>Gaseous Form (S3 Tran): Touched becomes insubstantial, losing its armor bonus to Armor Class, any supernatural abilities, ability to manipulate objects, and ability to cast spells with components, but gaining DR 10/magic, immunity to poison and critical hits, a 10' fly Speed, and the ability to pass through small openings, for 18 min</td>
+      <td>Gaseous Form (S3 Tran): Causes the willing touched corporeal creature to become insubstantial, losing its armor bonus to Armor Class, any supernatural abilities, ability to manipulate objects, and ability to cast spells with components, but gaining DR 10/magic, immunity to poison and critical hits, a 10' fly Speed, and the ability to pass through small openings, for 18 min</td>
     </tr><tr style="text-align:left">
-      <td>Levitate (S2 Tran): R45' Allows using a move action each rd to raise or lower an object or a willing target 20' for 9 min</td>
+      <td>Levitate (S2 Tran): R45' Allows using a move action each rd to raise or lower an unattended object or willing creature 20' each rd for 9 min</td>
     </tr><tr style="text-align:left">
       <td>Lightning Bolt (S3 Evoc): 120' line inflicts 9d6 HP electricity (save Reflex half)</td>
     </tr><tr style="text-align:left">
@@ -241,35 +241,35 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Locate Object (S2 Divi): Reveals the direction of a visualized object or kind of object found within 760' for 9 min; a sheet of lead blocks the spell</td>
     </tr><tr style="text-align:left">
-      <td>Magic Weapon (S1 Tran): Touched weapon gains +1 attacks and damage for 9 min</td>
+      <td>Magic Weapon (S1 Tran): Enhances the touched weapon to make +1 attacks and inflict +1 HP (save Will negates) for 9 min</td>
     </tr><tr style="text-align:left">
-      <td>Melf's Acid Arrow (S2 Conj): R760' Ranged touch inflicts 2d4 HP acid per rd for 4 rd</td>
+      <td>Melf's Acid Arrow (S2 Conj): R760' Ranged touch attack inflicts 2d4 HP acid per rd for 4 rd</td>
     </tr><tr style="text-align:left">
-      <td>Nondetection (S3 Abju): Touched gains SR 20 vs. divination, or self or a possession gains SR 24, for 9 hr</td>
+      <td>Nondetection (S3 Abju): Gives touched SR 20 vs. divination (save Will negates), or self or a possession SR 24, for 9 hr</td>
     </tr><tr style="text-align:left">
-      <td>Open/Close (S0 Tran): R45' Target object of up to 30 lb opens or closes (save Will negates)</td>
+      <td>Open/Close (S0 Tran): R45' Opens or closes an object weighing up to 30 lb (save Will negates)</td>
     </tr><tr style="text-align:left">
       <td>Otiluke's Resilient Sphere (S4 Evoc): R45' Creates an impassible and immobile 9'-diameter sphere that surrounds the target (save Reflex negates) for 9 min</td>
     </tr><tr style="text-align:left">
       <td>Pyrotechnics (S2 Tran): R760' Target fire shoots fireworks, blinding creatures within 120' for 1d4+1 rd (save Will negates), or emits a 20' radius of choking smoke for 9 rd, inflicting -4 Strength and Dexterity for 1d4+1 rd (save Fortitude negates)</td>
     </tr><tr style="text-align:left">
-      <td>Ray Of Frost (S0 Evoc): R45' Ranged touch inflicts 1d3 HP cold</td>
+      <td>Ray Of Frost (S0 Evoc): R45' Ranged touch attack inflicts 1d3 HP cold</td>
     </tr><tr style="text-align:left">
-      <td>Reduce Person (S1 Tran): R45' Target humanoid becomes half size (save Fortitude negates), suffering -2 Strength and gaining +2 Dexterity, +1 attacks, and a +1 size bonus to Armor Class, for 9 min</td>
+      <td>Reduce Person (S1 Tran): R45' Reduces the target humanoid to half size (save Fortitude negates), giving -2 Strength, +2 Dexterity, +1 attacks, and a +1 size bonus to Armor Class, for 9 min</td>
     </tr><tr style="text-align:left">
-      <td>Resistance (S0 Abju): Touched gains +1 saves for 1 min</td>
+      <td>Resistance (S0 Abju): Gives touched +1 saves (save Will negates) for 1 min</td>
     </tr><tr style="text-align:left">
       <td>Shocking Grasp (S1 Evoc): Melee touch attack (+3 vs. metal) inflicts 5d6 HP electricity</td>
     </tr><tr style="text-align:left">
-      <td>Shout (S4 Evoc): 30' cone inflicts 5d6 HP sonic (or 15d6 HP sonic to crystalline creatures and objects) and deafness for 2d6 rd (save Fortitude half HP only; save Reflex negates damage to held objects)</td>
+      <td>Shout (S4 Evoc): 30' cone inflicts 5d6 HP sonic (or 15d6 HP sonic to crystalline creatures and objects) and deafened for 2d6 rd (save Fortitude half HP only; save Reflex negates damage to held objects)</td>
     </tr><tr style="text-align:left">
-      <td>Slow (S3 Tran): R45' 9 creatures in a 15' radius can take no more than one action per turn, suffer -1 Armor Class, attacks, and Reflex saves, and slow to half Speed (save Will negates) for 9 rd</td>
+      <td>Slow (S3 Tran): R45' Causes 9 creatures in a 15' radius to take no more than one action per turn, suffer -1 Armor Class, attacks, and Reflex saves, and slow to half Speed (save Will negates) for 9 rd</td>
     </tr><tr style="text-align:left">
-      <td>Stinking Cloud (S3 Conj): R190' 20' radius fog lasting 9 rd obscures vision and causes nausea that prevents attacks and spellcasting for 1d4+1 rd (save Fortitude negates)</td>
+      <td>Stinking Cloud (S3 Conj): R190' Creates a 20' radius fog, lasting 9 rd, that obscures vision, giving a 20% miss chance on attacks within 5' and a 50% miss chance on more distant attacks, and causes nausea for 1d4+1 rd (save Fortitude negates) that prevents attacks and spellcasting</td>
     </tr><tr style="text-align:left">
       <td>Summon Monster III (S3 Conj): R45' Summons 1 3rd-level, 1d3 2nd-level, or 1d4+1 1st-level creatures that fight foes and obey orders for 9 rd</td>
     </tr><tr style="text-align:left">
-      <td>Tenser's Floating Disk (S1 Evoc): R45' 3'-diameter, 1" thick force disk can hold 900 lbs and follows self at a 5' distance, 3' off the ground, for 9 hr</td>
+      <td>Tenser's Floating Disk (S1 Evoc): R45' Creates a 3'-diameter, 1" thick force disk that can hold 900 lbs and follows self at a 5' distance, 3' off the ground, for 9 hr</td>
     </tr></table>
 </td>
   </tr></table>

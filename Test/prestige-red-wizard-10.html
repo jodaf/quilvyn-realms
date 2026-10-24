@@ -197,7 +197,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><b>Combat Notes</b>:       <table id="CombatNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Armor Class Modifiers: Armor +0; Deflection +0; Dexterity +3; Dodge +0; Natural Armor +0; Shield +0; Size +0</i></td>
+        <td><i>Armor Class Modifiers: Dexterity: +3</i></td>
       </tr><tr style="text-align:center">
         <td><i>Constitution Hit Points Adjustment: +15</i></td>
       </tr><tr style="text-align:center">
@@ -250,11 +250,11 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Spells</b>:<br/>    <table id="Spells" style="width:100%">
     <tr style="text-align:left">
-      <td>Acid Fog (W6 Conj): R250' 20' radius fog obscures vision, slows to 5', and inflicts -2 attacks, -2 damage, and 2d6 HP acid per rd for 15 rd</td>
+      <td>Acid Fog (W6 Conj): R250' Creates a 20' radius fog that obscures vision, slows to 5', and inflicts -2 attacks, -2 damage, and 2d6 HP acid per rd for 15 rd</td>
     </tr><tr style="text-align:left">
-      <td>Alter Self (W2 Tran): Self becomes a choice of creature within 1 size category that has up to 5 HD for 150 min; possessions can remain or meld into the form</td>
+      <td>Alter Self (W2 Tran): Transforms self into a choice of creature within 1 size category that has up to 5 HD for 150 min; possessions can remain or meld into the form</td>
     </tr><tr style="text-align:left">
-      <td>Animate Dead (W4 Necr): Touched corpses become up to 30 HD of obedient skeletons and zombies; no more than 4 HD of undead created by multiple castings can be controlled</td>
+      <td>Animate Dead (W4 Necr): Transforms touched corpses into up to 30 HD of obedient skeletons and zombies; no more than 4 HD of undead created by multiple castings can be controlled</td>
     </tr><tr style="text-align:left">
       <td>Animate Rope (W1 Tran): R250' 125' rope obeys self for 15 rd; can entangle a target within 1' of it with a successful ranged touch attack (DC 20 Escape Artist ends, and DC 23 Strength breaks the rope)</td>
     </tr><tr style="text-align:left">
@@ -266,13 +266,13 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Burning Hands (W1 Evoc): 15' cone inflicts 5d4 HP fire (save Reflex half)</td>
     </tr><tr style="text-align:left">
-      <td>Cause Fear (W1 Necr): R60' Target with up to 5 HD becomes frightened and flees for 1d4 rd (save Will inflicts shaken for 1 rd)</td>
+      <td>Cause Fear (W1 Necr): R60' Causes a target with up to 5 HD to become frightened and flee for 1d4 rd (save Will inflicts shaken for 1 rd)</td>
     </tr><tr style="text-align:left">
       <td>Contagion (W4 Necr): Touched contracts a random disease (save Fortitude negates)</td>
     </tr><tr style="text-align:left">
       <td>Dancing Lights (W0 Evoc): R250' Creates a humanoid-shaped light, 4 torch lights, or 4 glowing spheres in a 10' radius that can be moved 100' each rd for 1 min</td>
     </tr><tr style="text-align:left">
-      <td>Delayed Blast Fireball (W7 Evoc): R1000' Inflicts 15d6 HP fire (save Reflex half) in a 20' radius; can delay effects up to 5 rd</td>
+      <td>Delayed Blast Fireball (W7 Evoc): R1000' Inflicts 15d6 HP fire in a 20' radius (save Reflex half); can delay the effects up to 5 rd</td>
     </tr><tr style="text-align:left">
       <td>Demand (W8 Ench): Sends to a familiar target a 25-word message that contains a <i>Suggestion</i> (save Will (DC +1) negates); the target can send a 25-word reply</td>
     </tr><tr style="text-align:left">
@@ -280,41 +280,41 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Detect Thoughts (W2 Divi): 60' cone reveals the presence of minds and their surface thoughts (save Will presence only) for concentration up to 15 min</td>
     </tr><tr style="text-align:left">
-      <td>Dimension Door (W4 Conj): Teleports self and a touched object or 5 willing creatures 1000'</td>
+      <td>Dimension Door (W4 Conj): Teleports self, held objects (save Will negates), and 5 willing Medium creatures 1000'</td>
     </tr><tr style="text-align:left">
-      <td>Eagle's Splendor (W2 Tran): Touched gains +1d4+1 Charisma for 15 hr</td>
+      <td>Eagle's Splendor (W2 Tran): Gives touched +1d4+1 Charisma (save Will negates) for 15 hr</td>
     </tr><tr style="text-align:left">
-      <td>Enlarge Person (W1 Tran): R60' Target humanoid doubles in size, gaining +2 Strength and suffering -2 Dexterity, -1 attacks, and a -1 size penalty to Armor Class (save Fortitude negates), for 15 min</td>
+      <td>Enlarge Person (W1 Tran): R60' Target humanoid doubles in size (save Fortitude negates), gaining +2 Strength and suffering -2 Dexterity, -1 attacks, and a -1 size penalty to Armor Class, for 15 min</td>
     </tr><tr style="text-align:left">
-      <td>Fire Shield (W4 Evoc): Envelopes self in cold or hot flames that inflict 1d6+15 HP cold or fire on melee attackers and reduce heat or cold damage taken by half, or negate it entirely with a successful allowed Reflex save, for 15 rd</td>
+      <td>Fire Shield (W4 Evoc): Envelopes self in cold or hot flames that inflict 1d6+15 HP cold or fire on melee attackers (SR may negate) and either reduce heat or cold damage taken by half or negate it entirely with a successful allowed Reflex save, for 15 rd</td>
     </tr><tr style="text-align:left">
       <td>Flare (W0 Evoc): R60' Dazzles the target (save Fortitude negates) for 1 min</td>
     </tr><tr style="text-align:left">
-      <td>Greater Magic Weapon (W3 Tran): R60' Target weapon or up to 50 projectiles in a container gain +3 attacks and damage for 15 hr</td>
+      <td>Greater Magic Weapon (W3 Tran): R60' Enhances the target weapon or up to 50 projectiles in a container to make +3 attacks and inflict +3 HP (save Will negates) for 15 hr</td>
     </tr><tr style="text-align:left">
-      <td>Greater Prying Eyes (W8 Divi): 1d4+15 floating eyes (Armor Class 18, 1 HP, +16 Hide, +15 Spot, Fly 30') with True Seeing scout up to 1 mile and return to show observations within 15 hr</td>
+      <td>Greater Prying Eyes (W8 Divi): Creates 1d4+15 floating eyes (Armor Class 18, 1 hit point, +16 Hide, +15 Spot, Fly 30') with True Seeing that scout up to 1 mile and return to show observations within 15 hr</td>
     </tr><tr style="text-align:left">
       <td>Hold Monster (W5 Ench): R250' Paralyzes the target (save Will (DC +1) negates; additional saves each rd end) for 15 rd</td>
     </tr><tr style="text-align:left">
-      <td>Ice Storm (W4 Evoc): R1000' Hail in a 20'-radius, 40'-high cylinder inflicts 3d6 HP bludgeoning, 2d6 HP cold, -4 Listen, and half Speed for 15 rd</td>
+      <td>Ice Storm (W4 Evoc): R1000' Hail in a 20'-radius, 40'-high cylinder inflicts 3d6 HP bludgeoning and 2d6 HP cold for 1 rd, then -4 Listen and half Speed for 15 rd</td>
     </tr><tr style="text-align:left">
       <td>Identify (W1 Divi): Reveals the magic properties of a touched, non-artifact object</td>
     </tr><tr style="text-align:left">
-      <td>Leomund's Tiny Hut (W3 Evoc): Creates a 20'-radius sphere that provides shelter for 10 Medium creatures, resisting heat, cold, and weather, for 30 hr</td>
+      <td>Leomund's Tiny Hut (W3 Evoc): Creates a 20'-radius sphere, opaque from the outside, that provides shelter for 10 Medium creatures, resisting heat, cold, and weather, for 30 hr</td>
     </tr><tr style="text-align:left">
-      <td>Lesser Planar Binding (W5 Conj): Traps an extraplanar creature with up to 6 HD in a <i>Magic Circle</i> (save Will negates) until it performs a task (opposed Charisma allows refusal), escapes via SR, dimensional travel, or a 20 Charisma check, or 15 days pass</td>
+      <td>Lesser Planar Binding (W5 Conj): Traps an extraplanar creature with up to 6 HD in a <i>Magic Circle</i> (save Will negates) until it performs a task (opposed Charisma allows refusal), or escapes via SR, dimensional travel, or a DC 20 Charisma check</td>
     </tr><tr style="text-align:left">
       <td>Locate Object (W2 Divi): Reveals the direction of a visualized object or kind of object found within 1000' for 15 min; a sheet of lead blocks the spell</td>
     </tr><tr style="text-align:left">
-      <td>Mage Hand (W0 Tran): R60' Allows self to use move actions to move a target object up to 5 lb 15' per rd for concentration</td>
+      <td>Mage Hand (W0 Tran): R60' Allows self to use move actions to move an unattended object weighing up to 5 lb 15' per rd for concentration</td>
     </tr><tr style="text-align:left">
-      <td>Mass Bull's Strength (W6 Tran): R60' 15 targets in a 15' radius gain +4 Strength for 15 min</td>
+      <td>Mass Bull's Strength (W6 Tran): R60' 15 targets in a 15' radius gain +4 Strength (save Will negates) for 15 min</td>
     </tr><tr style="text-align:left">
       <td>Mass Hold Person (W7 Ench): R250' Paralyzes humanoid targets in a 15' radius (save Will (DC +1) negates; additional saves each rd end) for 15 rd</td>
     </tr><tr style="text-align:left">
-      <td>Mass Owl's Wisdom (W6 Tran): R60' 15 targets in a 15' radius gain +4 Wisdom for 15 min</td>
+      <td>Mass Owl's Wisdom (W6 Tran): R60' 15 targets in a 15' radius gain +4 Wisdom (save Will negates) for 15 min</td>
     </tr><tr style="text-align:left">
-      <td>Mass Suggestion (W6 Ench): R250' 15 targets in a 15' radius follow a reasonable suggestion (save Will (DC +1) negates) for 15 hr</td>
+      <td>Mass Suggestion (W6 Ench): R250' Causes 15 targets in a 15' radius to follow a reasonable suggestion (save Will (DC +1) negates) for up to 15 hr</td>
     </tr><tr style="text-align:left">
       <td>Mordenkainen's Faithful Hound (W5 Conj): R60' Creates an invisible dog that barks at Small and larger intruders who enter a 30' radius, including those invisible or ethereal, and bites those who come with 5' (magical +10 attack once per rd inflicts 2d6+3 HP piercing) for 15 hr or until triggered + 15 rd</td>
     </tr><tr style="text-align:left">
@@ -322,19 +322,19 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Move Earth (W6 Tran): R1000' Excavates 150'x150'x10' of dirt every 10 min for up to 250 min</td>
     </tr><tr style="text-align:left">
-      <td>Obscuring Mist (W1 Conj): Fog in a 20' radius obscures vision for 15 min</td>
+      <td>Obscuring Mist (W1 Conj): Creates a 20'-radius, 20'-high cylinder fog that obscures vision, giving a 20% miss chance on attacks within 5' and a 50% chance on more distant attacks, for 15 min</td>
     </tr><tr style="text-align:left">
       <td>Otiluke's Resilient Sphere (W4 Evoc): R60' Creates an impassible and immobile 15'-diameter sphere that surrounds the target (save Reflex negates) for 15 min</td>
     </tr><tr style="text-align:left">
-      <td>Permanency (W5 Univ): Makes certain spells permanent</td>
+      <td>Permanency (W5 Univ): Makes certain spells permanent, at a cost of 500-4,000 XP</td>
     </tr><tr style="text-align:left">
-      <td>Polar Ray (W8 Evoc): R60' Ranged touch inflicts 15d6 HP cold</td>
+      <td>Polar Ray (W8 Evoc): R60' Ranged touch attack inflicts 15d6 HP cold</td>
     </tr><tr style="text-align:left">
-      <td>Prying Eyes (W5 Divi): 1d4+15 floating eyes (Armor Class 18, 1 HP, +16 Hide, +15 Spot, 30' fly Speed) scout up to 1 mile and return to show observations within 15 hr</td>
+      <td>Prying Eyes (W5 Divi): Creates 1d4+15 floating eyes (Armor Class 18, 1 hit point, +16 Hide, +15 Spot, 30' fly Speed) that scout up to 1 mile and return to show observations within 15 hr</td>
     </tr><tr style="text-align:left">
-      <td>Ray Of Exhaustion (W3 Necr): R60' Ranged touch inflicts exhaustion (save Fortitude inflicts fatigued) for 15 min</td>
+      <td>Ray Of Exhaustion (W3 Necr): R60' Ranged touch attack inflicts exhaustion (save Fortitude inflicts fatigued) for 15 min</td>
     </tr><tr style="text-align:left">
-      <td>Secret Page (W3 Tran): Permanently alters the text on a touched page so that a password is required to read it</td>
+      <td>Secret Page (W3 Tran): Permanently alters the text on a touched page so that a password is required to read the original</td>
     </tr><tr style="text-align:left">
       <td>Snilloc's Snowball Swarm (W2 Evoc): R250' 10' radius inflicts 5d6 HP cold (save Reflex half)</td>
     </tr><tr style="text-align:left">
@@ -342,9 +342,9 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Summon Monster III (W3 Conj): R60' Summons 1 3rd-level, 1d3 2nd-level, or 1d4+1 1st-level creatures that fight foes and obey orders for 15 rd</td>
     </tr><tr style="text-align:left">
-      <td>Symbol Of Stunning (W7 Ench): R60' Rune stuns creatures in a 60' radius for 1d6 rd (save Will (DC +1) negates) when triggered for 150 min</td>
+      <td>Symbol Of Stunning (W7 Ench): Creates a rune that stuns creatures in a 60' radius for 1d6 rd when triggered (save Will (DC +1) negates) for 150 min</td>
     </tr><tr style="text-align:left">
-      <td>Water Breathing (W3 Tran): Allows touched creatures to breathe underwater for a total of 30 hrs</td>
+      <td>Water Breathing (W3 Tran): Allows touched creatures to breathe underwater (save Will negates) for a total of 30 hrs divided among them</td>
     </tr><tr style="text-align:left">
       <td>Whispering Wind (W2 Tran): R15 miles Allows sending a whispered 25-word message or sound to a familiar 10' area</td>
     </tr></table>

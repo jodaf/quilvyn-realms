@@ -191,7 +191,7 @@ var attributes = {
     </tr><tr style="text-align:center">
       <td><b>Combat Notes</b>:       <table id="CombatNotes" style="width:100%">
       <tr style="text-align:center">
-        <td><i>Armor Class Modifiers: Armor +7; Deflection +0; Dexterity +0; Dodge +0; Natural Armor +0; Shield +2; Size +0</i></td>
+        <td><i>Armor Class Modifiers: Armor: +7; Shield: +2</i></td>
       </tr><tr style="text-align:center">
         <td><i>Charisma Turning Adjustment: +1</i></td>
       </tr><tr style="text-align:center">
@@ -244,7 +244,7 @@ var attributes = {
   </tr><tr style="text-align:center">
     <td><b>Spells</b>:<br/>    <table id="Spells" style="width:100%">
     <tr style="text-align:left">
-      <td>Aid (Good2 Ench): Touched gains +1 attacks, +1 saves vs. fear, and 1d8+10 temporary hit points for 12 min</td>
+      <td>Aid (Good2 Ench): Gives touched +1 attacks, +1 saves vs. fear, and 1d8+10 temporary hit points for 12 min</td>
     </tr><tr style="text-align:left">
       <td>Align Weapon (C2 Tran): Touched weapon gains a choice of chaotic, evil, good, or lawful alignment (save Will negates) for 12 min</td>
     </tr><tr style="text-align:left">
@@ -260,21 +260,21 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Curse Water (C1 Necr): Changes touched 1 pint of water into unholy water (save Will negates)</td>
     </tr><tr style="text-align:left">
-      <td>Delay Poison (C2 Conj): Touched gains immunity to poison for 12 hr</td>
+      <td>Delay Poison (C2 Conj): Gives touched immunity to poison (save Fortitude negates) for 12 hr</td>
     </tr><tr style="text-align:left">
       <td>Detect Poison (C0 Divi): R55' Reveals the presence of poison in the target; a successful DC 20 Wisdom or Craft (Alchemy) check reveals the type</td>
     </tr><tr style="text-align:left">
-      <td>Dispel Magic (C3 Abju): R220' Successful d20+10 check vs. 11+caster level cancels an ongoing targeted spell, suppresses a magic item for 1d4 rd, cancels 1 spell on each creature in a 20' radius, or disrupts a foe's spell casting</td>
+      <td>Dispel Magic (C3 Abju): R220' Successful caster level check (+10 maximum) vs. 11+caster level cancels an ongoing targeted spell, suppresses a magic item for 1d4 rd, cancels 1 spell on each creature in a 20' radius, or disrupts a foe's spell casting</td>
     </tr><tr style="text-align:left">
-      <td>Entangle (Plant1 Tran): R880' 40' radius entangles creatures (save Reflex inflicts half Speed; DC 20 Strength or Escape Artist ends) for 12 min</td>
+      <td>Entangle (Plant1 Tran): R880' 40' radius entangles creatures (save Reflex inflicts half Speed; DC 20 Strength or Escape Artist breaks an entanglement) for 12 min</td>
     </tr><tr style="text-align:left">
-      <td>Enthrall (C2 Ench): R220' Captivates listeners (save Will negates) for concentration up to 1 hr</td>
+      <td>Enthrall (C2 Ench): R220' Captivates listeners (save Will negates) for concentration up to 1 hr plus 1d3 rd; attacking an enthralled creature ends the spell for all, and creatures who save can attempt a Charisma check to end it for others</td>
     </tr><tr style="text-align:left">
-      <td>Entropic Shield (C1 Abju): Ranged attacks on self suffer a 20% miss chance for 12 min</td>
+      <td>Entropic Shield (C1 Abju): Causes ranged attacks on self to suffer a 20% miss chance for 12 min</td>
     </tr><tr style="text-align:left">
-      <td>Imbue With Spell Ability (C4 Evoc): Touched with an Intelligence of at least 5, Wisdom of at least 9, and 1, 3, or 5 HD gains the ability to cast chosen 1st, 2x1st, or 2x1st+2nd level spells from self prepared abjuration, divination, or healing spells; the <i>Imbue With Spell Ability</i> spell slot cannot be recovered until these spells are cast or dismissed</td>
+      <td>Imbue With Spell Ability (C4 Evoc): Touched with Intelligence of at least 5, Wisdom of at least 9, and 1, 3, or 5 HD gains the ability to cast chosen 1st, 2x1st, or 2x1st+2nd level spells from self prepared abjuration, divination, or healing spells (save Will negates); the <i>Imbue With Spell Ability</i> spell slot cannot be recovered until these spells are cast or dismissed</td>
     </tr><tr style="text-align:left">
-      <td>Imbue With Spell Ability (Imbue With Spell Ability4 Evoc): Touched with an Intelligence of at least 5, Wisdom of at least 9, and 1, 3, or 5 HD gains the ability to cast chosen 1st, 2x1st, or 2x1st+2nd level spells from self prepared abjuration, divination, or healing spells; the <i>Imbue With Spell Ability</i> spell slot cannot be recovered until these spells are cast or dismissed</td>
+      <td>Imbue With Spell Ability (Imbue With Spell Ability4 Evoc): Touched with Intelligence of at least 5, Wisdom of at least 9, and 1, 3, or 5 HD gains the ability to cast chosen 1st, 2x1st, or 2x1st+2nd level spells from self prepared abjuration, divination, or healing spells (save Will negates); the <i>Imbue With Spell Ability</i> spell slot cannot be recovered until these spells are cast or dismissed</td>
     </tr><tr style="text-align:left">
       <td>Inflict Minor Wounds (C0 Necr): Touched suffers 1 HP (save Will negates); undead instead regain the same amount</td>
     </tr><tr style="text-align:left">
@@ -282,33 +282,33 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Locate Object (C3 Divi): Reveals the direction of a visualized object or kind of object found within 880' for 12 min; a sheet of lead blocks the spell</td>
     </tr><tr style="text-align:left">
-      <td>Magic Circle Against Evil (Good3 Abju): 10' radius from touched either gives a +2 deflection bonus to Armor Class and +2 saves vs. evil creatures, suppresses mental control, prevents possession, and bars contact and entry by nongood summoned creatures (SR negates) for 130 min or traps a nongood summoned creature (SR negates; additional tests each day end) for 312 hr</td>
+      <td>Magic Circle Against Evil (Good3 Abju): Either creates a 10' emanation from the touched creature that suppresses mental control, prevents possession, gives a +2 deflection bonus to Armor Class and +2 saves vs. evil creatures (save Will negates), and bars contact and entry by nongood summoned creatures (SR negates) for 130 min or traps a nongood summoned creature (SR negates; additional tests each day end) for 312 hr</td>
     </tr><tr style="text-align:left">
-      <td>Mass Bear's Endurance (C6 Tran): R55' 12 targets in a 15' radius gain +4 Constitution for 12 min</td>
+      <td>Mass Bear's Endurance (C6 Tran): R55' 12 targets in a 15' radius gain +4 Constitution (save Will negates) for 12 min</td>
     </tr><tr style="text-align:left">
-      <td>Mending (C0 Tran): R10' Repairs minor damage to an object weighing up to 1 lb</td>
+      <td>Mending (C0 Tran): R10' Repairs minor damage to an object weighing up to 1 lb (save Will negates)</td>
     </tr><tr style="text-align:left">
-      <td>Protection From Chaos (Transcendence1 Abju): Gives touched a +2 deflection bonus to Armor Class and +2 saves vs. chaotic creatures, suppresses mental control, prevents possession, and bars contact by nonlawful summoned creatures for 12 min</td>
+      <td>Protection From Chaos (Transcendence1 Abju): Wards the touched creature from attacks from chaotic creatures, mental control, and summoned creatures (save Will negates): gives a +2 deflection bonus to Armor Class and +2 saves vs. chaotic creatures, suppresses mental control, prevents possession, and bars contact by nonlawful summoned creatures for 12 min</td>
     </tr><tr style="text-align:left">
-      <td>Protection From Evil (Transcendence1 Abju): Gives touched a +2 deflection bonus to Armor Class and +2 saves vs. evil creatures, suppresses mental control, prevents possession, and bars contact by nongood summoned creatures for 13 min</td>
+      <td>Protection From Evil (Transcendence1 Abju): Wards the touched creature from attacks from evil creatures, mental control, and summoned creatures (save Will negates): gives a +2 deflection bonus to Armor Class and +2 saves vs. evil creatures, suppresses mental control, prevents possession, and bars contact by nongood summoned creatures for 13 min</td>
     </tr><tr style="text-align:left">
-      <td>Protection From Good (Transcendence1 Abju): Gives touched a +2 deflection bonus to Armor Class and +2 saves vs. good creatures, suppresses mental control, prevents possession, and bars contact by nonevil summoned creatures for 12 min</td>
+      <td>Protection From Good (Transcendence1 Abju): Wards the touched creature from attacks from good creatures, mental control, and summoned creatures (save Will negates): gives a +2 deflection bonus to Armor Class and +2 saves vs. good creatures, suppresses mental control, prevents possession, and bars contact by nonevil summoned creatures for 12 min</td>
     </tr><tr style="text-align:left">
-      <td>Protection From Law (C1 Abju): Gives touched a +2 deflection bonus to Armor Class and +2 saves vs. lawful creatures, suppresses mental control, prevents possession, and bars contact by nonchaotic summoned creatures for 12 min</td>
+      <td>Protection From Law (C1 Abju): Wards the touched creature from attacks from lawful creatures, mental control, and summoned creatures (save Will negates): gives a +2 deflection bonus to Armor Class and +2 saves vs. lawful creatures, suppresses mental control, prevents possession, and bars contact by nonchaotic summoned creatures for 12 min</td>
     </tr><tr style="text-align:left">
-      <td>Protection From Law (Transcendence1 Abju): Gives touched a +2 deflection bonus to Armor Class and +2 saves vs. lawful creatures, suppresses mental control, prevents possession, and bars contact by nonchaotic summoned creatures for 12 min</td>
+      <td>Protection From Law (Transcendence1 Abju): Wards the touched creature from attacks from lawful creatures, mental control, and summoned creatures (save Will negates): gives a +2 deflection bonus to Armor Class and +2 saves vs. lawful creatures, suppresses mental control, prevents possession, and bars contact by nonchaotic summoned creatures for 12 min</td>
     </tr><tr style="text-align:left">
-      <td>Repel Wood (Plant6 Tran): 60' line pushes away unanchored wood for 12 min</td>
+      <td>Repel Wood (Plant6 Tran): 60' line pushes away unanchored wooden objects and splinters fixed objects up to 3" in diameter for 12 min</td>
     </tr><tr style="text-align:left">
-      <td>Resistance (C0 Abju): Touched gains +1 saves for 1 min</td>
+      <td>Resistance (C0 Abju): Gives touched +1 saves (save Will negates) for 1 min</td>
     </tr><tr style="text-align:left">
-      <td>Restoration (C4 Conj): Dispels magical ability harm from touched and cures all temporary ability damage, restores 1 drained ability, removes fatigue or exhaustion, removes temporary negative levels, and restores 1 drained level with the minimum necessary XP</td>
+      <td>Restoration (C4 Conj): Dispels magical ability harm from touched and cures all temporary ability damage, restores 1 drained ability, removes fatigue or exhaustion, removes temporary negative levels, and restores 1 drained level with the minimum necessary XP (save Will negates)</td>
     </tr><tr style="text-align:left">
-      <td>Righteous Might (C5 Tran): Causes self and equipment to double in size, gaining a size category, +4 Strength, +2 Constitution, a +2 enhanancement bonus to natural armor, and x8 weight, and gives DR 6/evil or DR 6/good, for 12 rd</td>
+      <td>Righteous Might (C5 Tran): Causes self and equipment to double in size, gaining a size category, +4 Strength, +2 Constitution, a +2 enhancement bonus to natural armor, and x8 weight, and gives DR 6/evil or DR 6/good, for 12 rd</td>
     </tr><tr style="text-align:left">
       <td>Speak With Animals (Animal Domain1 Divi): Allows self to converse with animals for 12 min</td>
     </tr><tr style="text-align:left">
-      <td>Spiritual Weapon (C2 Evoc): R220' Creates a force weapon (+10 attacks; inflicts 1d8+4 HP force; crit same as the corresponding physical weapon) that attacks a designated foe for 12 rd; can use move actions to redirect to different targets, and the first attack on each creature is subject to SR</td>
+      <td>Spiritual Weapon (C2 Evoc): R220' Creates a force weapon (+10 attacks; inflicts 1d8+4 HP force; critical hits as the corresponding physical weapon) that attacks a designated foe for 12 rd; can use move actions to redirect to different targets; the first attack on each creature is subject to SR, and the spell ends if the attack fails to overcome it</td>
     </tr><tr style="text-align:left">
       <td>Stone Shape (C3 Tran): Reshapes 22 cubic feet of stone</td>
     </tr><tr style="text-align:left">
@@ -318,9 +318,9 @@ var attributes = {
     </tr><tr style="text-align:left">
       <td>Summon Nature's Ally IV (Animal4 Conj): R55' Summons 1 4th-level, 1d3 3rd-level, or 1d4+1 lower-level creatures that fight foes and obey orders for 12 rd</td>
     </tr><tr style="text-align:left">
-      <td>Symbol Of Fear (C6 Necr): R60' Rune panics creatures in a 60' radius for 12 rd (save Will negates) when triggered for 120 min</td>
+      <td>Symbol Of Fear (C6 Necr): Creates a rune that panics creatures in a 60' radius for 12 rd when triggered (save Will negates) for 120 min</td>
     </tr><tr style="text-align:left">
-      <td>Wall Of Thorns (Plant5 Conj): R220' Creates 120 cubic feet of thorns that inflict (25-Armor Class) HP slashing, discounting Dexterity and dodge bonuses to AC, for 120 min; moving through the thorns requires a Strength check each rd, allowing 5' of movement for each 5 points that the check exceeds 20</td>
+      <td>Wall Of Thorns (Plant5 Conj): R220' Creates 120 cubic feet of thorns that inflict (25-Armor Class) HP slashing, discounting Dexterity and dodge bonuses to Armor Class, for 120 min; moving through the thorns requires a Strength check each rd, allowing 5' of movement for each 5 points that the check exceeds 20</td>
     </tr></table>
 </td>
   </tr><tr style="text-align:center">
